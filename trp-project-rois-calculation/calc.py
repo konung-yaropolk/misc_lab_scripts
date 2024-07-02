@@ -1,9 +1,14 @@
 import pandas as pd
 import numpy as np
 
-sigmas = 5    # number of sdandard deviation as signal threshold
+# analysis params:
+SIGMAS = 5                    # number of sdandard deviation as signal threshold
+CALM_PERIOD = 10              # time in sec before trigger for baseline
+CALM_PERIOD_AFTER_TRIG = 20   # time in sec after trigger for baseline
+SKIP_AFTER_APPLICATION = 60   # time to skip in sec after application started
 
-TODO_LIST_C = [ # triggers time value in ms:
+# triggers time value in ms:
+TODO_LIST_C = [ 
 
 ['2024_04_19_C',
     {
@@ -17,6 +22,7 @@ TODO_LIST_C = [ # triggers time value in ms:
     'wout_2' : 1721035,
 
     'appl_3' : 2318684,
+    'exclude' : [],
     },],
 
 ['2024_04_23_C',
@@ -31,6 +37,7 @@ TODO_LIST_C = [ # triggers time value in ms:
     'wout_2' : 1819482,
 
     'appl_3' : 2179672,
+    'exclude' : [],
     },],
 
 ['2024_04_24_M1_C',
@@ -45,6 +52,7 @@ TODO_LIST_C = [ # triggers time value in ms:
     'wout_2' : 1223034,
 
     'appl_3' : 1521751,
+    'exclude' : [],
     },],
 
 ['2024_04_24_M2_C',
@@ -59,6 +67,7 @@ TODO_LIST_C = [ # triggers time value in ms:
     'wout_2' : 1749521,
 
     'appl_3' : 2112350,
+    'exclude' : [],
     },],
 
 ['2024_04_25_C',
@@ -87,6 +96,7 @@ TODO_LIST_C = [ # triggers time value in ms:
     'wout_2' : 1710632,
 
     'appl_3' : 2038917,
+    'exclude' : [],
     },],
 
 ['2024_05_01_C',
@@ -101,36 +111,55 @@ TODO_LIST_C = [ # triggers time value in ms:
     'wout_2' : 1861856,
 
     'appl_3' : 2184076,
+    'exclude' : [],
     },],
 
 
 ]
 
-def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3):
+def stable_baseline_creteria(*baselines):
+    return True
+
+
+def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, exclude=[]):
 
     # Define time ranges
-    start_bl_A, end_bl_A   = -10+stim_A/1000, -1+stim_A/1000
-    start_A, end_A         = -2 +stim_A/1000,  6+stim_A/1000 
+    start_bl_A, end_bl_A   = -CALM_PERIOD+stim_A/1000, -1+stim_A/1000
+    start_A, end_A         = -4 +stim_A/1000,  5 +stim_A/1000 
 
-    start_bl_C, end_bl_C   = -10+stim_C/1000, -1+stim_C/1000
-    start_C, end_C         = -3 +stim_C/1000,  6+stim_C/1000
+    start_bl_C, end_bl_C   = -CALM_PERIOD+stim_C/1000, -1+stim_C/1000
+    start_C, end_C         = -4 +stim_C/1000,  5 +stim_C/1000
 
-    start_bl_1, end_bl_1   = -10+appl_1/1000, 20+appl_1/1000
-    start_1, end_1 = +60+appl_1/1000,    wout_1/1000
+    start_bl_1, end_bl_1   = -CALM_PERIOD+appl_1/1000, CALM_PERIOD_AFTER_TRIG+appl_1/1000
+    start_1, end_1 = SKIP_AFTER_APPLICATION+appl_1/1000,    wout_1/1000
 
-    start_bl_2, end_bl_2   = -10+appl_2/1000, 20+appl_2/1000
-    start_2, end_2 = +60+appl_2/1000,    wout_2/1000
+    start_bl_2, end_bl_2   = -CALM_PERIOD+appl_2/1000, CALM_PERIOD_AFTER_TRIG+appl_2/1000
+    start_2, end_2 = SKIP_AFTER_APPLICATION+appl_2/1000,    wout_2/1000
 
-    start_bl_3, end_bl_3   = -10+appl_3/1000, 20+appl_3/1000
-    start_3, end_3 = +60+appl_3/1000, 100000
+    start_bl_3, end_bl_3   = -CALM_PERIOD+appl_3/1000, CALM_PERIOD_AFTER_TRIG+appl_3/1000
+    start_3, end_3 = SKIP_AFTER_APPLICATION+appl_3/1000, 100000
 
     # Load the data
     df = pd.read_csv(input + '.csv')
     output = pd.DataFrame()
 
-    # make zero timepoint
+    # make zero timepoint at the beginning
     time = df.columns[0]
     df[time] = df[time] - df[time].iloc[0] + (df[time].iloc[1] - df[time].iloc[0])
+
+    # for debug:
+    import matplotlib.pyplot as plt
+    fig = plt.figure()
+    a1 = fig.add_subplot(2,5,1)
+    a2 = fig.add_subplot(2,5,2)
+    a3 = fig.add_subplot(2,5,3)
+    a4 = fig.add_subplot(2,5,4)
+    a5 = fig.add_subplot(2,5,5)
+    a6 = fig.add_subplot(2,5,6)
+    a7 = fig.add_subplot(2,5,7)
+    a8 = fig.add_subplot(2,5,8)
+    a9 = fig.add_subplot(2,5,9)
+    a10 = fig.add_subplot(2,5,10)
 
     for i, column in enumerate(df.columns[1:], start=1):
 
@@ -167,19 +196,56 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3):
         peak_amplitude_2 = np.max(data_2) - baseline_2
         peak_amplitude_3 = np.max(data_3) - baseline_3
 
-        resp_A = bool(peak_amplitude_A > sigmas*std_dev_A)
-        resp_C = bool(peak_amplitude_C > sigmas*std_dev_C)
-        resp_1 = bool(peak_amplitude_1 > sigmas*std_dev_1)
-        resp_2 = bool(peak_amplitude_2 > sigmas*std_dev_2)
-        resp_3 = bool(peak_amplitude_3 > sigmas*std_dev_3)
+        stable_baseline = stable_baseline_creteria(data_bl_A, data_bl_C, data_bl_1)
+        accepted_roi = ''
 
-        #if i == 5: print(data_bl_1)
+        resp_A = bool(peak_amplitude_A > SIGMAS*std_dev_A)
+        resp_C = bool(peak_amplitude_C > SIGMAS*std_dev_C)
+        resp_1 = bool(peak_amplitude_1 > SIGMAS*std_dev_1 and peak_amplitude_1 > 0 and i not in exclude and stable_baseline)
+        resp_2 = bool(peak_amplitude_2 > SIGMAS*std_dev_2 and peak_amplitude_2 > 0 and i not in exclude and stable_baseline)
+        resp_3 = bool(peak_amplitude_3 > SIGMAS*std_dev_3 and peak_amplitude_3 > 0 and i not in exclude and stable_baseline)
+
+        # for debug:
+
+        a1.plot(data_A, color='black', alpha=.5)
+        a2.plot(data_C, color='black', alpha=.5)
+        a3.plot(data_1, color='black', alpha=.5)
+        a4.plot(data_2, color='black', alpha=.5)
+        a5.plot(data_3, color='black', alpha=.5)
+        a6.plot(data_bl_A, color='black', alpha=.5)
+        a7.plot(data_bl_C, color='black', alpha=.5)
+        a8.plot(data_bl_1, color='black', alpha=.5)
+        a9.plot(data_bl_2, color='black', alpha=.5)
+        a10.plot(data_bl_3, color='black', alpha=.5)
+        
+        bool_resp_1, bool_resp_2, bool_resp_3, ampl_1, ampl_1, ampl_1 = '','','','','',''
 
         if resp_C and not resp_A:
             # Calculate area under the curve using the trapezoidal rule
-            ampl_1 = np.max(data_1) #if resp_1 else np.nan
-            ampl_2 = np.max(data_2) #if resp_3 else np.nan
-            ampl_3 = np.max(data_3) #if resp_2 else np.nan
+
+            if stable_baseline: accepted_roi = 1           
+
+            if resp_1:
+                ampl_1 = np.max(data_1)
+                bool_resp_1 = 1
+            else:
+                ampl_1 = np.nan
+                bool_resp_1 = ''
+
+            if resp_2:
+                ampl_2 = np.max(data_2)
+                bool_resp_2 = 1
+            else:
+                ampl_2 = np.nan
+                bool_resp_2 = ''
+
+            if resp_3:
+                ampl_3 = np.max(data_3)
+                bool_resp_3 = 1
+            else:
+                ampl_3 = np.nan
+                bool_resp_3 = ''
+
 
             auc_1 = np.trapz(data_1, dx=1)
             auc_2 = np.trapz(data_2, dx=1)
@@ -188,7 +254,8 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3):
         else:
             auc_1 = auc_2 = auc_3 = ampl_1 = ampl_2 = ampl_3 = np.nan
 
-        output[i] = [
+        output[i] = [   
+                        input,
                         None,
                         std_dev_A,
                         baseline_A,
@@ -200,6 +267,12 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3):
                         None,
                         resp_A if resp_A else None,
                         resp_C if resp_C else None,
+                        None,  
+                        accepted_roi,                        
+                        None,             
+                        bool_resp_1,
+                        bool_resp_2,
+                        bool_resp_3,
                         None,
                         ampl_1,
                         ampl_2,
@@ -209,6 +282,10 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3):
                         auc_2,
                         auc_3,
                     ]
+    # for debug:
+    else:
+        plt.show()
+        plt.close(fig)
 
     return output
 
@@ -225,6 +302,7 @@ def main():
     # Add a description column
     result.insert(0, 'Trace: ',
                 [
+                    'Mice:', 
                     ' ', 
                     'SD A', 
                     'Baseline A', 
@@ -236,6 +314,12 @@ def main():
                     ' ', 
                     'A-responce', 
                     'C-responce', 
+                    ' ', 
+                    'ROI accepted*',                                         
+                    ' ', 
+                    'Binary resp. 1',
+                    'Binary resp. 2',
+                    'Binary resp. 3',
                     ' ', 
                     'Amplitude 1',
                     'Amplitude 2',
