@@ -128,14 +128,14 @@ def stable_baseline_creteria(baseline):
     amplitude = smoothed_baseline.max() - smoothed_baseline.min()
     decision = bool(amplitude < BASELINE_TRESHOLD)
     
-    if not decision:
-        plt.figure(figsize=(10, 6))
-        plt.plot(baseline, label='Original Noisy Sequence')
-        plt.plot(smoothed_baseline, label='Smoothed Sequence', linewidth=2)
-        plt.legend()
-        plt.grid(True)
-        plt.savefig('unstable_rois/{}.jpg'.format(np.random.randint(10000)))
-        plt.close()
+    # if not decision:
+    #     plt.figure(figsize=(10, 6))
+    #     plt.plot(baseline, label='Original Noisy Sequence')
+    #     plt.plot(smoothed_baseline, label='Smoothed Sequence', linewidth=2)
+    #     plt.legend()
+    #     plt.grid(True)
+    #     plt.savefig('unstable_rois_C/{}.jpg'.format(np.random.randint(10000)))
+    #     plt.close()
 
     return decision
 
@@ -185,7 +185,6 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, l
     for i, column in enumerate(df.columns[1:], start=1):
 
         data_bl_general = df.loc[(df[time] >= last_DRS+CALM_PERIOD_AFTER_TRIG) & (df[time] <= end_bl_1), column]
-
         data_bl_A = df.loc[(df[time] >= start_bl_A) & (df[time] <= end_bl_A), column]
         data_bl_C = df.loc[(df[time] >= start_bl_C) & (df[time] <= end_bl_C), column]
         data_bl_1 = df.loc[(df[time] >= start_bl_1) & (df[time] <= end_bl_1), column]
@@ -200,11 +199,13 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, l
 
 
         # Calculate standard deviation and baseline
-        std_dev_A = np.std(data_bl_A)
+        std_dev_bl_general = np.std(data_bl_general)
+        std_dev_A = np.std(data_bl_A)       
         std_dev_C = np.std(data_bl_C)
         std_dev_1 = np.std(data_bl_1)
         std_dev_2 = np.std(data_bl_2)
         std_dev_3 = np.std(data_bl_3)
+
 
         baseline_A = np.mean(data_bl_A)
         baseline_C = np.mean(data_bl_C)
@@ -224,9 +225,10 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, l
 
         resp_A = bool(peak_amplitude_A > SIGMAS*std_dev_A)
         resp_C = bool(peak_amplitude_C > SIGMAS*std_dev_C)
-        resp_1 = bool(peak_amplitude_1 > SIGMAS*std_dev_1 and peak_amplitude_1 > 0 and i and stable_baseline)
-        resp_2 = bool(peak_amplitude_2 > SIGMAS*std_dev_2 and peak_amplitude_2 > 0 and i and stable_baseline)
-        resp_3 = bool(peak_amplitude_3 > SIGMAS*std_dev_3 and peak_amplitude_3 > 0 and i and stable_baseline)
+        resp_1 = bool(peak_amplitude_1 > SIGMAS*std_dev_bl_general and peak_amplitude_1 > 0 and i and stable_baseline)
+        resp_2 = bool(peak_amplitude_2 > SIGMAS*std_dev_bl_general and peak_amplitude_2 > 0 and i and stable_baseline)
+        resp_3 = bool(peak_amplitude_3 > SIGMAS*std_dev_bl_general and peak_amplitude_3 > 0 and i and stable_baseline)
+        #print(SIGMAS*std_dev_bl_general)
 
         # for debug:
         if DEBUG:
@@ -241,7 +243,7 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, l
             a9.plot(data_bl_2, color='black', alpha=.5, linewidth=0.5)
             a10.plot(data_bl_3, color='black', alpha=.5, linewidth=0.5)
         
-        bool_resp_1, bool_resp_2, bool_resp_3, ampl_1, ampl_1, ampl_1 = '','','','','',''
+        bool_resp_1, bool_resp_2, bool_resp_3, ampl_1, ampl_1, ampl_1, intersection_1_2, intersection_2_3, intersection_1_3, intersection_1_2_3 = '','','','','','','','','',''
 
         if resp_C and not resp_A:
             # Calculate area under the curve using the trapezoidal rule
@@ -269,6 +271,10 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, l
                 ampl_3 = np.nan
                 bool_resp_3 = ''
 
+            if bool_resp_1 and bool_resp_2: intersection_1_2 = 1
+            if bool_resp_1 and bool_resp_3: intersection_1_3 = 1
+            if bool_resp_2 and bool_resp_3: intersection_2_3 = 1
+            if bool_resp_1 and bool_resp_2 and bool_resp_3: intersection_1_2_3 = 1
 
             auc_1 = np.trapz(data_1, dx=1)
             auc_2 = np.trapz(data_2, dx=1)
@@ -296,6 +302,11 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, l
                         bool_resp_1,
                         bool_resp_2,
                         bool_resp_3,
+                        None,
+                        intersection_1_2,
+                        intersection_1_3,
+                        intersection_2_3,
+                        intersection_1_2_3,                                           
                         None,
                         ampl_1,
                         ampl_2,
@@ -344,6 +355,11 @@ def main():
                     'Binary resp. 1',
                     'Binary resp. 2',
                     'Binary resp. 3',
+                    ' ',                     
+                    'intersection_1_2',
+                    'intersection_1_3',
+                    'intersection_2_3',
+                    'intersection_1_2_3',         
                     ' ', 
                     'Amplitude 1',
                     'Amplitude 2',
@@ -356,7 +372,7 @@ def main():
             )
 
     # Save results to a new CSV file
-    result.to_csv('C_summary.csv', index=False)
+    result.to_csv('summary_C.csv', index=False)
 
 
 if __name__ == '__main__':
