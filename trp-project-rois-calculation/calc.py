@@ -5,7 +5,7 @@ from scipy.ndimage import gaussian_filter1d
 
 # analysis params:
 SIGMAS = 5                    # number of sdandard deviation as signal threshold
-BASELINE_TRESHOLD = 1         # maximum amplitude of baseline deviation for ROI selection
+BASELINE_TRESHOLD = 0.5         # maximum amplitude of baseline deviation for ROI to be accepted (in dF/F0)
 
 # timings:
 CALM_PERIOD = 10              # time in sec before trigger for baseline
@@ -125,7 +125,7 @@ def stable_baseline_creteria(baseline):
     # Apply Gaussian smoothing
     sigma = SIGMAS  # Standard deviation for Gaussian kernel
     smoothed_baseline = gaussian_filter1d(baseline, sigma)
-    amplitude = np.max(smoothed_baseline) - np.min(smoothed_baseline)
+    amplitude = smoothed_baseline.max() - smoothed_baseline.min()
     decision = bool(amplitude < BASELINE_TRESHOLD)
     
     if not decision:
@@ -149,7 +149,7 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, l
     start_bl_C, end_bl_C   = -CALM_PERIOD+stim_C/1000, -1+stim_C/1000
     start_C, end_C         = -4 +stim_C/1000,  5 +stim_C/1000
 
-    if not last_DRS: last_DRS = end_C
+    last_DRS = last_DRS/1000 if last_DRS else end_C
 
     start_bl_1, end_bl_1   = -CALM_PERIOD+appl_1/1000, CALM_PERIOD_AFTER_TRIG+appl_1/1000
     start_1, end_1 = SKIP_AFTER_APPLICATION+appl_1/1000,    wout_1/1000
