@@ -7,6 +7,9 @@ CALM_PERIOD = 10              # time in sec before trigger for baseline
 CALM_PERIOD_AFTER_TRIG = 20   # time in sec after trigger for baseline
 SKIP_AFTER_APPLICATION = 60   # time to skip in sec after application started
 
+# debug mode
+DEBUG = False
+
 # triggers time value in ms:
 TODO_LIST_C = [ 
 
@@ -148,18 +151,19 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, e
     df[time] = df[time] - df[time].iloc[0] + (df[time].iloc[1] - df[time].iloc[0])
 
     # for debug:
-    import matplotlib.pyplot as plt
-    fig = plt.figure()
-    a1 = fig.add_subplot(2,5,1)
-    a2 = fig.add_subplot(2,5,2)
-    a3 = fig.add_subplot(2,5,3)
-    a4 = fig.add_subplot(2,5,4)
-    a5 = fig.add_subplot(2,5,5)
-    a6 = fig.add_subplot(2,5,6)
-    a7 = fig.add_subplot(2,5,7)
-    a8 = fig.add_subplot(2,5,8)
-    a9 = fig.add_subplot(2,5,9)
-    a10 = fig.add_subplot(2,5,10)
+    if DEBUG:
+        import matplotlib.pyplot as plt
+        fig = plt.figure()
+        a1 = fig.add_subplot(2,5,1)
+        a2 = fig.add_subplot(2,5,2)
+        a3 = fig.add_subplot(2,5,3)
+        a4 = fig.add_subplot(2,5,4)
+        a5 = fig.add_subplot(2,5,5)
+        a6 = fig.add_subplot(2,5,6)
+        a7 = fig.add_subplot(2,5,7)
+        a8 = fig.add_subplot(2,5,8)
+        a9 = fig.add_subplot(2,5,9)
+        a10 = fig.add_subplot(2,5,10)
 
     for i, column in enumerate(df.columns[1:], start=1):
 
@@ -206,17 +210,17 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, e
         resp_3 = bool(peak_amplitude_3 > SIGMAS*std_dev_3 and peak_amplitude_3 > 0 and i not in exclude and stable_baseline)
 
         # for debug:
-
-        a1.plot(data_A, color='black', alpha=.5)
-        a2.plot(data_C, color='black', alpha=.5)
-        a3.plot(data_1, color='black', alpha=.5)
-        a4.plot(data_2, color='black', alpha=.5)
-        a5.plot(data_3, color='black', alpha=.5)
-        a6.plot(data_bl_A, color='black', alpha=.5)
-        a7.plot(data_bl_C, color='black', alpha=.5)
-        a8.plot(data_bl_1, color='black', alpha=.5)
-        a9.plot(data_bl_2, color='black', alpha=.5)
-        a10.plot(data_bl_3, color='black', alpha=.5)
+        if DEBUG:
+            a1.plot(data_A, color='black', alpha=.5, linewidth=0.5)
+            a2.plot(data_C, color='black', alpha=.5, linewidth=0.5)
+            a3.plot(data_1, color='black', alpha=.5, linewidth=0.5)
+            a4.plot(data_2, color='black', alpha=.5, linewidth=0.5)
+            a5.plot(data_3, color='black', alpha=.5, linewidth=0.5)
+            a6.plot(data_bl_A, color='black', alpha=.5, linewidth=0.5)
+            a7.plot(data_bl_C, color='black', alpha=.5, linewidth=0.5)
+            a8.plot(data_bl_1, color='black', alpha=.5, linewidth=0.5)
+            a9.plot(data_bl_2, color='black', alpha=.5, linewidth=0.5)
+            a10.plot(data_bl_3, color='black', alpha=.5, linewidth=0.5)
         
         bool_resp_1, bool_resp_2, bool_resp_3, ampl_1, ampl_1, ampl_1 = '','','','','',''
 
@@ -284,8 +288,9 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, e
                     ]
     # for debug:
     else:
-        plt.show()
-        plt.close(fig)
+        if DEBUG:
+            plt.show()
+            plt.close(fig)
 
     return output
 
@@ -315,7 +320,7 @@ def main():
                     'A-responce', 
                     'C-responce', 
                     ' ', 
-                    'ROI accepted*',                                         
+                    'ROI passes BL stability creteria*',                                         
                     ' ', 
                     'Binary resp. 1',
                     'Binary resp. 2',
