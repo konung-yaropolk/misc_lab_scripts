@@ -1,8 +1,13 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+from scipy.ndimage import gaussian_filter1d
 
 # analysis params:
 SIGMAS = 5                    # number of sdandard deviation as signal threshold
+BASELINE_TRESHOLD = 1         # maximum amplitude of baseline deviation for ROI selection
+
+# timings:
 CALM_PERIOD = 10              # time in sec before trigger for baseline
 CALM_PERIOD_AFTER_TRIG = 20   # time in sec after trigger for baseline
 SKIP_AFTER_APPLICATION = 60   # time to skip in sec after application started
@@ -25,7 +30,6 @@ TODO_LIST_C = [
     'wout_2' : 1721035,
 
     'appl_3' : 2318684,
-    'exclude' : [],
     },],
 
 ['2024_04_23_C',
@@ -40,7 +44,6 @@ TODO_LIST_C = [
     'wout_2' : 1819482,
 
     'appl_3' : 2179672,
-    'exclude' : [],
     },],
 
 ['2024_04_24_M1_C',
@@ -55,7 +58,6 @@ TODO_LIST_C = [
     'wout_2' : 1223034,
 
     'appl_3' : 1521751,
-    'exclude' : [],
     },],
 
 ['2024_04_24_M2_C',
@@ -70,7 +72,6 @@ TODO_LIST_C = [
     'wout_2' : 1749521,
 
     'appl_3' : 2112350,
-    'exclude' : [],
     },],
 
 ['2024_04_25_C',
@@ -99,7 +100,7 @@ TODO_LIST_C = [
     'wout_2' : 1710632,
 
     'appl_3' : 2038917,
-    'exclude' : [],
+    'last_DRS' : 264195,
     },],
 
 ['2024_05_01_C',
@@ -114,17 +115,32 @@ TODO_LIST_C = [
     'wout_2' : 1861856,
 
     'appl_3' : 2184076,
-    'exclude' : [],
     },],
 
 
 ]
 
-def stable_baseline_creteria(*baselines):
-    return True
+def stable_baseline_creteria(baseline):
+    
+    # Apply Gaussian smoothing
+    sigma = SIGMAS  # Standard deviation for Gaussian kernel
+    smoothed_baseline = gaussian_filter1d(baseline, sigma)
+    amplitude = np.max(smoothed_baseline) - np.min(smoothed_baseline)
+    decision = bool(amplitude < BASELINE_TRESHOLD)
+    
+    if not decision:
+        plt.figure(figsize=(10, 6))
+        plt.plot(baseline, label='Original Noisy Sequence')
+        plt.plot(smoothed_baseline, label='Smoothed Sequence', linewidth=2)
+        plt.legend()
+        plt.grid(True)
+        plt.savefig('unstable_rois/{}.jpg'.format(np.random.randint(10000)))
+        plt.close()
+
+    return decision
 
 
-def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, exclude=[]):
+def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, last_DRS=None):
 
     # Define time ranges
     start_bl_A, end_bl_A   = -CALM_PERIOD+stim_A/1000, -1+stim_A/1000
@@ -132,6 +148,8 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, e
 
     start_bl_C, end_bl_C   = -CALM_PERIOD+stim_C/1000, -1+stim_C/1000
     start_C, end_C         = -4 +stim_C/1000,  5 +stim_C/1000
+
+    if not last_DRS: last_DRS = end_C
 
     start_bl_1, end_bl_1   = -CALM_PERIOD+appl_1/1000, CALM_PERIOD_AFTER_TRIG+appl_1/1000
     start_1, end_1 = SKIP_AFTER_APPLICATION+appl_1/1000,    wout_1/1000
@@ -152,20 +170,21 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, e
 
     # for debug:
     if DEBUG:
-        import matplotlib.pyplot as plt
         fig = plt.figure()
-        a1 = fig.add_subplot(2,5,1)
-        a2 = fig.add_subplot(2,5,2)
-        a3 = fig.add_subplot(2,5,3)
-        a4 = fig.add_subplot(2,5,4)
-        a5 = fig.add_subplot(2,5,5)
-        a6 = fig.add_subplot(2,5,6)
-        a7 = fig.add_subplot(2,5,7)
-        a8 = fig.add_subplot(2,5,8)
-        a9 = fig.add_subplot(2,5,9)
+        a1  = fig.add_subplot(2,5,1)
+        a2  = fig.add_subplot(2,5,2)
+        a3  = fig.add_subplot(2,5,3)
+        a4  = fig.add_subplot(2,5,4)
+        a5  = fig.add_subplot(2,5,5)
+        a6  = fig.add_subplot(2,5,6)
+        a7  = fig.add_subplot(2,5,7)
+        a8  = fig.add_subplot(2,5,8)
+        a9  = fig.add_subplot(2,5,9)
         a10 = fig.add_subplot(2,5,10)
 
     for i, column in enumerate(df.columns[1:], start=1):
+
+        data_bl_general = df.loc[(df[time] >= last_DRS+CALM_PERIOD_AFTER_TRIG) & (df[time] <= end_bl_1), column]
 
         data_bl_A = df.loc[(df[time] >= start_bl_A) & (df[time] <= end_bl_A), column]
         data_bl_C = df.loc[(df[time] >= start_bl_C) & (df[time] <= end_bl_C), column]
@@ -200,14 +219,14 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, e
         peak_amplitude_2 = np.max(data_2) - baseline_2
         peak_amplitude_3 = np.max(data_3) - baseline_3
 
-        stable_baseline = stable_baseline_creteria(data_bl_A, data_bl_C, data_bl_1)
+        stable_baseline = stable_baseline_creteria(data_bl_general)
         accepted_roi = ''
 
         resp_A = bool(peak_amplitude_A > SIGMAS*std_dev_A)
         resp_C = bool(peak_amplitude_C > SIGMAS*std_dev_C)
-        resp_1 = bool(peak_amplitude_1 > SIGMAS*std_dev_1 and peak_amplitude_1 > 0 and i not in exclude and stable_baseline)
-        resp_2 = bool(peak_amplitude_2 > SIGMAS*std_dev_2 and peak_amplitude_2 > 0 and i not in exclude and stable_baseline)
-        resp_3 = bool(peak_amplitude_3 > SIGMAS*std_dev_3 and peak_amplitude_3 > 0 and i not in exclude and stable_baseline)
+        resp_1 = bool(peak_amplitude_1 > SIGMAS*std_dev_1 and peak_amplitude_1 > 0 and i and stable_baseline)
+        resp_2 = bool(peak_amplitude_2 > SIGMAS*std_dev_2 and peak_amplitude_2 > 0 and i and stable_baseline)
+        resp_3 = bool(peak_amplitude_3 > SIGMAS*std_dev_3 and peak_amplitude_3 > 0 and i and stable_baseline)
 
         # for debug:
         if DEBUG:
