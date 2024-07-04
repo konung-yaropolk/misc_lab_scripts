@@ -12,6 +12,8 @@ CALM_PERIOD = 10              # time in sec before trigger for baseline
 CALM_PERIOD_AFTER_TRIG = 20   # time in sec after trigger for baseline
 SKIP_AFTER_APPLICATION = 60   # time to skip in sec after application started
 
+YEILD_FIBERS = True          # if False - return boutons (not considered as fibers)
+
 # debug mode
 DEBUG = False
 
@@ -30,8 +32,9 @@ TODO_LIST_C = [
     'wout_2' : 1721035,
 
     'appl_3' : 2318684,
+    'fibers' : [247,248,249,250],
     },],
-
+'''
 ['2024_04_23_C',
     {
     'stim_A' : 34551,
@@ -44,6 +47,7 @@ TODO_LIST_C = [
     'wout_2' : 1819482,
 
     'appl_3' : 2179672,
+    'fibers' : [675,676,677,678,679,680,681,682,683],
     },],
 
 ['2024_04_24_M1_C',
@@ -58,6 +62,10 @@ TODO_LIST_C = [
     'wout_2' : 1223034,
 
     'appl_3' : 1521751,
+    'fibers' : [682,683,684,685,686,687,688,689,690,691,
+                692,693,694,695,696,697,698,699,700,701,
+                702,703,704,705,706,707,708,709,710,711,
+                712,713,714,715,716,717,718,719,720,721],
     },],
 
 ['2024_04_24_M2_C',
@@ -72,6 +80,7 @@ TODO_LIST_C = [
     'wout_2' : 1749521,
 
     'appl_3' : 2112350,
+    'fibers' : [355,356,357,358,359,360,361,362,363,364,365],
     },],
 
 ['2024_04_25_C',
@@ -86,6 +95,7 @@ TODO_LIST_C = [
     'wout_2' : 2119382,
 
     'appl_3' : 2350874,
+    'fibers' : [386,387,388,389,390,391,392,393,394,395,396],
     },],
 
 ['2024_04_29_C',
@@ -100,6 +110,11 @@ TODO_LIST_C = [
     'wout_2' : 1710632,
 
     'appl_3' : 2038917,
+    'fibers' : [308,309,310,311,312,313,314,315,316,317,
+                318,319,320,321,322,323,324,325,326,327,
+                328,329,330,331,332,333,334,335,336,337,
+                338,339,340,341,342,343,344,345,346,347,
+                348,349,350,351,352,353,354],
     'last_DRS' : 264195,
     },],
 
@@ -115,18 +130,20 @@ TODO_LIST_C = [
     'wout_2' : 1861856,
 
     'appl_3' : 2184076,
+    'fibers' : [154,155,156,157,158,159,160,161,162,163,164,
+                165,166,167,168,169,170,171,172,173,174],
     },],
-
+'''
 
 ]
 
 def stable_baseline_creteria(baseline):
     
     # Apply Gaussian smoothing
-    sigma = SIGMAS  # Standard deviation for Gaussian kernel
-    smoothed_baseline = gaussian_filter1d(baseline, sigma)
+    # sigma = SIGMAS  # Standard deviation for Gaussian kernel
+    smoothed_baseline = gaussian_filter1d(baseline, 1)
     amplitude = smoothed_baseline.max() - smoothed_baseline.min()
-    decision = bool(amplitude < BASELINE_TRESHOLD)
+    decision = amplitude < BASELINE_TRESHOLD
     
     # if not decision:
     #     plt.figure(figsize=(10, 6))
@@ -140,7 +157,7 @@ def stable_baseline_creteria(baseline):
     return decision
 
 
-def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, last_DRS=None):
+def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, fibers, last_DRS=None):
 
     # Define time ranges
     start_bl_A, end_bl_A   = -CALM_PERIOD+stim_A/1000, -1+stim_A/1000
@@ -223,11 +240,11 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, l
         stable_baseline = stable_baseline_creteria(data_bl_general)
         accepted_roi = ''
 
-        resp_A = bool(peak_amplitude_A > SIGMAS*std_dev_A)
-        resp_C = bool(peak_amplitude_C > SIGMAS*std_dev_C)
-        resp_1 = bool(peak_amplitude_1 > SIGMAS*std_dev_bl_general and peak_amplitude_1 > 0 and i and stable_baseline)
-        resp_2 = bool(peak_amplitude_2 > SIGMAS*std_dev_bl_general and peak_amplitude_2 > 0 and i and stable_baseline)
-        resp_3 = bool(peak_amplitude_3 > SIGMAS*std_dev_bl_general and peak_amplitude_3 > 0 and i and stable_baseline)
+        resp_A = peak_amplitude_A > SIGMAS*std_dev_A
+        resp_C = peak_amplitude_C > SIGMAS*std_dev_C
+        resp_1 = peak_amplitude_1 > SIGMAS*std_dev_bl_general and peak_amplitude_1 > 0 and ((i in fibers) == YEILD_FIBERS) and stable_baseline
+        resp_2 = peak_amplitude_2 > SIGMAS*std_dev_bl_general and peak_amplitude_2 > 0 and ((i in fibers) == YEILD_FIBERS) and stable_baseline
+        resp_3 = peak_amplitude_3 > SIGMAS*std_dev_bl_general and peak_amplitude_3 > 0 and ((i in fibers) == YEILD_FIBERS) and stable_baseline
         #print(SIGMAS*std_dev_bl_general)
 
         # for debug:
@@ -243,9 +260,9 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, l
             a9.plot(data_bl_2, color='black', alpha=.5, linewidth=0.5)
             a10.plot(data_bl_3, color='black', alpha=.5, linewidth=0.5)
         
-        bool_resp_1, bool_resp_2, bool_resp_3, ampl_1, ampl_1, ampl_1, intersection_1_2, intersection_2_3, intersection_1_3, intersection_1_2_3 = '','','','','','','','','',''
+        bool_resp_1, bool_resp_2, bool_resp_3, ampl_1, ampl_1, ampl_1, set_1, set_2, set_3, intersection_1_2, intersection_2_3, intersection_1_3, intersection_1_2_3 = '','','','','','','','','','','','',''
 
-        if resp_C and not resp_A:
+        if resp_C and not resp_A and ((i in fibers) == YEILD_FIBERS):
             # Calculate area under the curve using the trapezoidal rule
 
             if stable_baseline: accepted_roi = 1           
@@ -271,9 +288,12 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, l
                 ampl_3 = np.nan
                 bool_resp_3 = ''
 
-            if bool_resp_1 and bool_resp_2: intersection_1_2 = 1
-            if bool_resp_1 and bool_resp_3: intersection_1_3 = 1
-            if bool_resp_2 and bool_resp_3: intersection_2_3 = 1
+            if bool_resp_1 and not bool_resp_2 and not bool_resp_3: set_1 = 1
+            if bool_resp_2 and not bool_resp_1 and not bool_resp_3: set_2 = 1
+            if bool_resp_3 and not bool_resp_2 and not bool_resp_1: set_3 = 1
+            if bool_resp_1 and bool_resp_2 and not bool_resp_3: intersection_1_2 = 1
+            if bool_resp_1 and bool_resp_3 and not bool_resp_2: intersection_1_3 = 1
+            if bool_resp_2 and bool_resp_3 and not bool_resp_1: intersection_2_3 = 1
             if bool_resp_1 and bool_resp_2 and bool_resp_3: intersection_1_2_3 = 1
 
             auc_1 = np.trapz(data_1, dx=1)
@@ -303,6 +323,9 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, l
                         bool_resp_2,
                         bool_resp_3,
                         None,
+                        set_1,
+                        set_2,
+                        set_3,
                         intersection_1_2,
                         intersection_1_3,
                         intersection_2_3,
@@ -355,7 +378,10 @@ def main():
                     'Binary resp. 1',
                     'Binary resp. 2',
                     'Binary resp. 3',
-                    ' ',                     
+                    ' ', 
+                    'set_1',
+                    'set_2',
+                    'set_3',                    
                     'intersection_1_2',
                     'intersection_1_3',
                     'intersection_2_3',
