@@ -12,10 +12,12 @@ CALM_PERIOD = 10              # time in sec before trigger for baseline
 CALM_PERIOD_AFTER_TRIG = 20   # time in sec after trigger for baseline
 SKIP_AFTER_APPLICATION = 60   # time to skip in sec after application started
 
-YEILD_FIBERS = True          # if False - return boutons (not considered as fibers)
+YEILD_FIBERS = False          # if False - return boutons (not considered as fibers)
 
 # debug mode
 DEBUG = False
+SAVE_SELECTED = True
+
 
 # triggers time value in ms:
 TODO_LIST_C = [ 
@@ -33,108 +35,7 @@ TODO_LIST_C = [
 
     'appl_3' : 2318684,
     'fibers' : [247,248,249,250],
-    },],
-'''
-['2024_04_23_C',
-    {
-    'stim_A' : 34551,
-    'stim_C' : 167665,
-
-    'appl_1' : 534279,
-    'wout_1' : 1030543,
-
-    'appl_2' : 1267778,
-    'wout_2' : 1819482,
-
-    'appl_3' : 2179672,
-    'fibers' : [675,676,677,678,679,680,681,682,683],
-    },],
-
-['2024_04_24_M1_C',
-    {
-    'stim_A' : 35449,
-    'stim_C' : 100026,
-
-    'appl_1' : 589977,
-    'wout_1' : 792621,
-
-    'appl_2' : 998471,
-    'wout_2' : 1223034,
-
-    'appl_3' : 1521751,
-    'fibers' : [682,683,684,685,686,687,688,689,690,691,
-                692,693,694,695,696,697,698,699,700,701,
-                702,703,704,705,706,707,708,709,710,711,
-                712,713,714,715,716,717,718,719,720,721],
-    },],
-
-['2024_04_24_M2_C',
-    {
-    'stim_A' : 59928,
-    'stim_C' : 155625,
-
-    'appl_1' : 669896,
-    'wout_1' : 957021,
-
-    'appl_2' : 1228097,
-    'wout_2' : 1749521,
-
-    'appl_3' : 2112350,
-    'fibers' : [355,356,357,358,359,360,361,362,363,364,365],
-    },],
-
-['2024_04_25_C',
-    {
-    'stim_A' : 53535,
-    'stim_C' : 122560,
-
-    'appl_1' : 597215,
-    'wout_1' : 1100744,
-
-    'appl_2' : 1467636,
-    'wout_2' : 2119382,
-
-    'appl_3' : 2350874,
-    'fibers' : [386,387,388,389,390,391,392,393,394,395,396],
-    },],
-
-['2024_04_29_C',
-    {
-    'stim_A' : 47824,
-    'stim_C' : 117441,
-
-    'appl_1' : 655962,
-    'wout_1' : 903924,
-
-    'appl_2' : 1248345,
-    'wout_2' : 1710632,
-
-    'appl_3' : 2038917,
-    'fibers' : [308,309,310,311,312,313,314,315,316,317,
-                318,319,320,321,322,323,324,325,326,327,
-                328,329,330,331,332,333,334,335,336,337,
-                338,339,340,341,342,343,344,345,346,347,
-                348,349,350,351,352,353,354],
-    'last_DRS' : 264195,
-    },],
-
-['2024_05_01_C',
-    {
-    'stim_A' : 84478,
-    'stim_C' : 265657,
-
-    'appl_1' : 636790,
-    'wout_1' : 944850,
-
-    'appl_2' : 1370577,
-    'wout_2' : 1861856,
-
-    'appl_3' : 2184076,
-    'fibers' : [154,155,156,157,158,159,160,161,162,163,164,
-                165,166,167,168,169,170,171,172,173,174],
-    },],
-'''
-
+    },]
 ]
 
 def stable_baseline_creteria(baseline):
@@ -180,6 +81,8 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, f
     # Load the data
     df = pd.read_csv(input + '.csv')
     output = pd.DataFrame()
+
+    accepted_roi_list = []
 
     # make zero timepoint at the beginning
     time = df.columns[0]
@@ -238,7 +141,7 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, f
         peak_amplitude_3 = np.max(data_3) - baseline_3
 
         stable_baseline = stable_baseline_creteria(data_bl_general)
-        accepted_roi = ''
+        accepted_roi = ''        
 
         resp_A = peak_amplitude_A > SIGMAS*std_dev_A
         resp_C = peak_amplitude_C > SIGMAS*std_dev_C
@@ -265,7 +168,9 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, f
         if resp_C and not resp_A and ((i in fibers) == YEILD_FIBERS):
             # Calculate area under the curve using the trapezoidal rule
 
-            if stable_baseline: accepted_roi = 1           
+            if stable_baseline: 
+                accepted_roi = 1
+                accepted_roi_list.append(i)
 
             if resp_1:
                 ampl_1 = np.max(data_1)
@@ -341,9 +246,21 @@ def process_csv(input, stim_A, stim_C, appl_1, wout_1, appl_2, wout_2, appl_3, f
                     ]
     # for debug:
     else:
+
         if DEBUG:
             plt.show()
             plt.close(fig)
+
+        if SAVE_SELECTED:
+            # Create a new DataFrame with only the first column and needed columns
+            selected_columns = [df.columns[0]] + [df.columns[i] for i in accepted_roi_list]
+            new_df = df[selected_columns]
+
+            # Write the new DataFrame to a CSV file
+            new_df.to_csv(input + '_selected_ROI.csv', index=False)
+
+            # with open(input + '_selected_ROI_list.txt', 'w') as output:
+            #     output.write(str(accepted_roi_list))
 
     return output
 
