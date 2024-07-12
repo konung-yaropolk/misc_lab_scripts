@@ -12,10 +12,25 @@ class ModalityPlotter:
         self.files = files
         
 
-    def sigmoid_normalization(self, x):
-        ''' To be used for normalization
-            color values in range of 0 to 1'''
-        return 1 / (1 + np.exp(-x))
+    def normalization(self, input, func='sigmoid'):
+        ''' Define function to normalize coordinates
+            to values in range of 0 to 1 for HSV model
+            input: np.array'''
+
+        match func:
+
+            case 'linear':
+                func = lambda x: (x - np.min(input)) / (np.max(input) - np.min(input))        
+
+            case 'sigmoid':
+                func = lambda x: 1 / (1 + np.exp(-x))
+
+            # case 'log':
+            #     log_input = np.log1p(input)
+            #     func = lambda x: (x - np.min(log_input)) / (np.max(log_input) - np.min(log_input))
+
+
+        return [func(x) for x in input]
 
 
     def read_csv_file(self, file_name):
@@ -46,27 +61,31 @@ class ModalityPlotter:
         ax.grid(False)
         ax.spines['polar'].set_visible(False)
 
-        amplitudes_list = []
-        colors_pool = []
         resultants = []
 
         for point in data:
+
+            # pass through empty lines
             if not all(x == 0 for x in point):
-                # Calculate the resultant vector
+
+                # Calculate resultant vector
                 resultants.append(np.sum([point[i] * np.exp(1j * angles[i]) for i in range(3)]))
 
-                #amplitudes_list.append(np.abs(resultant))
-                # Color measurement
-                # hue = 1/np.angle(resultant)
-                # sat = np.abs(resultant)/max(amplitudes_list)
 
+        # Color measurement in HSV format
+        hue_array = self.normalization(np.angle(resultants))
+        sat_array = np.ones_like(hue_array)
+        val_array = self.normalization(np.abs(resultants))
 
-        color_hsv = ((1, 0, 0))
-
-
-
-        for resultant in resultants:
-            ax.plot([0, np.angle(resultant)], [0, np.abs(resultant)], marker='none',  ls='-', color=mcolors.hsv_to_rgb(color_hsv), alpha=0.4)
+        for resultant, hue, sat, val in zip(resultants, hue_array, sat_array, val_array):
+            ax.plot(
+                [0, np.angle(resultant)],
+                [0, np.abs(resultant)],
+                marker='',
+                ls='-',
+                color=mcolors.hsv_to_rgb((hue, sat, val)),
+                alpha=1
+            )
 
         plt.show()
 
@@ -79,7 +98,7 @@ class ModalityPlotter:
 
 if __name__ == '__main__':
 
-    files = [
+    files = [   # drop files in the same folder:
                 'modality_C_boutons.csv',
                 'modality_C_fibers.csv',
                 'modality_A_boutons.csv',
