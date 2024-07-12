@@ -7,8 +7,10 @@ import os
 
 class CsvFile:
 
-    def __init__(self, file: str):
+
+    def __init__(self, file: str) -> None:
         self.file = file
+
 
     def parse_csv_file(self) -> list:
 
@@ -26,11 +28,11 @@ class CsvFile:
 class ModalityPlotter:
 
 
-    def __init__(self, data):
+    def __init__(self, data: list) -> None:
         self.data = data
         
 
-    def normalization(self, input, func='sigmoid'):
+    def normalization(self, input, func='sigmoid') -> list:
         ''' Define function to normalize coordinates
             to values in range of 0 to 1 for HSV model
             input: np.array'''
@@ -96,7 +98,7 @@ class ModalityPlotter:
         plt.show()
 
 
-    def plot(self):
+    def plot(self) -> None:
         self.plot_vectors(self.data)
 
 
