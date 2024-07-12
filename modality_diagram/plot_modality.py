@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
+import matplotlib.gridspec as gridspec
 import numpy as np
 import csv
 import os
@@ -41,13 +42,16 @@ class ModalityPlotter:
 
     def __init__(self, 
         data: list,
-        modalities = ['1', '2', '3'],
+        modalities = ('1', '2', '3'),
         normalization_func = 'sigmoid',
+        angles = [90, 210, 330],
         ) -> None:
 
         self.data = data
         self.modalities = modalities
         self.normalization_func = normalization_func
+        # Convert deg to rads
+        self.angles = np.deg2rad(angles)
         
 
     def normalization(self, input) -> list:
@@ -73,33 +77,21 @@ class ModalityPlotter:
         return [func(x) for x in input]
 
 
-    def draw(self) -> None:
-
-        # Convert deg to rads
-        angles = np.deg2rad([90, 210, 330])
-
-        # Create figure
-        fig = plt.figure()
-        ax = fig.add_subplot(111, polar=True)
-
-        # Set custom design
-        ax.set_yticklabels([])
-        ax.set_xticks(angles)
-        ax.set_xticklabels(self.modalities)
-        ax.grid(False)
-        ax.spines['polar'].set_visible(False)
-
+    def resultants(self, data) -> list:
+        
         resultants = []
-
-        for point in self.data:
-
+        for point in data:
             # pass through empty lines
             if not all(x == 0 for x in point):
-
                 # Calculate resultant vector
-                resultants.append(np.sum([point[i] * np.exp(1j * angles[i]) for i in range(3)]))
+                resultants.append(np.sum([point[i] * np.exp(1j * self.angles[i]) for i in range(len(point))]))
+        
+        return resultants
 
 
+    def draw_subplot(self, ax, data, modalities) -> None:
+
+        resultants = self.resultants(data)
         # Color measurement in HSV format
         hue_array = self.normalization(np.angle(resultants))
         sat_array = np.ones_like(hue_array)
@@ -114,9 +106,71 @@ class ModalityPlotter:
                 color=mcolors.hsv_to_rgb((hue, sat, val)),
                 alpha=1
             )
+            ax.set_xticklabels(modalities)
 
+
+    def initiate_subplot(self, ax) -> None:
+
+        # Set custom design
+        ax.set_yticklabels([])
+        ax.set_xticks(self.angles)        
+        ax.grid(False)
+        #ax.spines['polar'].set_visible(False)
+
+
+    def draw(self) -> None:
+
+        # Create figure
+        fig = plt.figure(figsize=(10, 10))
+
+        # Defining layout
+        gs = gridspec.GridSpec(6, 6, figure=fig)
+        ax123 = fig.add_subplot(gs[2:4, 2:4], polar=True)
+        ax12  = fig.add_subplot(gs[2, 1], polar=True)
+        ax13  = fig.add_subplot(gs[2, 4], polar=True)
+        ax23  = fig.add_subplot(gs[4, 2:4], polar=True)
+        ax1   = fig.add_subplot(gs[:2, 2:4], polar=True)
+        ax2   = fig.add_subplot(gs[3:5, :2], polar=True)   
+        ax3   = fig.add_subplot(gs[3:5, 4:6], polar=True)   
+        
+        subplots = ( 
+        # formatting accurate list, lol
+                ax1,
+            ax12,  ax13,   
+               ax123,    
+        ax2,   ax23,    ax3, 
+            )
+        
+        columns = (
+            [[row[0]] for row in self.data],
+            [[row[0], row[1]] for row in self.data],
+            [[row[0], row[2]] for row in self.data],
+            self.data,
+            [[row[1]] for row in self.data],
+            [[row[1], row[2]] for row in self.data],
+            [[row[2]] for row in self.data],
+        )
+
+
+        modalities = (
+            (self.modalities[0], None, None),
+            (self.modalities[0], self.modalities[1], None),
+            (self.modalities[0], None, self.modalities[2]),
+            self.modalities[:],
+            (None, self.modalities[1], None),
+            (None, self.modalities[1], self.modalities[2]),
+            (None, None, self.modalities[2]),
+
+
+        )
+
+        for ax, columns, modalities in zip(subplots, columns, modalities):
+            self.initiate_subplot(ax)
+            self.draw_subplot(ax, columns, modalities)
+
+
+        plt.tight_layout()
         plt.show()
-
 
 if __name__ == '__main__':
 
