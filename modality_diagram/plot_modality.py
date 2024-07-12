@@ -89,22 +89,23 @@ class ModalityPlotter:
         return resultants
 
 
-    def draw_subplot(self, ax, data, modalities) -> None:
+    def draw_subplot(self, ax, data, modalities, color) -> None:
 
         resultants = self.resultants(data)
         # Color measurement in HSV format
-        hue_array = self.normalization(np.angle(resultants))
-        sat_array = np.ones_like(hue_array)
-        val_array = self.normalization(np.abs(resultants))
+        # hue_array = self.normalization(np.angle(resultants))
+        # sat_array = np.ones_like(hue_array)
+        # val_array = self.normalization(np.abs(resultants))
 
-        for resultant, hue, sat, val in zip(resultants, hue_array, sat_array, val_array):
+        #for resultant, hue, sat, val in zip(resultants, hue_array, sat_array, val_array):
+        for resultant in resultants:
             ax.plot(
                 [0, np.angle(resultant)],
                 [0, np.abs(resultant)],
-                marker='',
-                ls='-',
-                color=mcolors.hsv_to_rgb((hue, sat, val)),
-                alpha=1
+                marker = '',
+                ls = '-',
+                color = color, #mcolors.hsv_to_rgb((hue, sat, val)),
+                alpha = 1
             )
             ax.set_xticklabels(modalities)
 
@@ -114,7 +115,7 @@ class ModalityPlotter:
         # Set custom design
         ax.set_yticklabels([])
         ax.set_xticks(self.angles)        
-        ax.grid(False)
+        #ax.grid(False)
         #ax.spines['polar'].set_visible(False)
 
 
@@ -125,12 +126,12 @@ class ModalityPlotter:
 
         # Defining layout
         gs = gridspec.GridSpec(6, 6, figure=fig)
-        ax123 = fig.add_subplot(gs[2:4, 2:4], polar=True)
+        ax1   = fig.add_subplot(gs[:2, 2:4], polar=True)
         ax12  = fig.add_subplot(gs[2, 1], polar=True)
         ax13  = fig.add_subplot(gs[2, 4], polar=True)
-        ax23  = fig.add_subplot(gs[4, 2:4], polar=True)
-        ax1   = fig.add_subplot(gs[:2, 2:4], polar=True)
-        ax2   = fig.add_subplot(gs[3:5, :2], polar=True)   
+        ax123 = fig.add_subplot(gs[2:4, 2:4], polar=True)
+        ax2   = fig.add_subplot(gs[3:5, :2], polar=True)  
+        ax23  = fig.add_subplot(gs[4, 2:4], polar=True) 
         ax3   = fig.add_subplot(gs[3:5, 4:6], polar=True)   
         
         subplots = ( 
@@ -160,13 +161,23 @@ class ModalityPlotter:
             (None, self.modalities[1], None),
             (None, self.modalities[1], self.modalities[2]),
             (None, None, self.modalities[2]),
-
-
         )
 
-        for ax, columns, modalities in zip(subplots, columns, modalities):
+        colors = (
+            'tab:green',
+            'tab:cyan',
+            'tab:olive',
+            'tab:gray',
+            'tab:blue',
+            'tab:purple',         
+            'tab:red',          
+        )
+
+
+
+        for ax, columns, modalities, color in zip(subplots, columns, modalities, colors):
             self.initiate_subplot(ax)
-            self.draw_subplot(ax, columns, modalities)
+            self.draw_subplot(ax, columns, modalities, color)
 
 
         plt.tight_layout()
@@ -175,10 +186,10 @@ class ModalityPlotter:
 if __name__ == '__main__':
 
     files = [   # drop files in the same folder:
-                'modality_C_boutons.csv',
+                #'modality_C_boutons.csv',
                 'modality_C_fibers.csv',
-                'modality_A_boutons.csv',
-                'modality_A_fibers.csv',
+                #'modality_A_boutons.csv',
+                #'modality_A_fibers.csv',
             ]
 
 
