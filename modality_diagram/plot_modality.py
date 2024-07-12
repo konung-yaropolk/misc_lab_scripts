@@ -5,11 +5,29 @@ import csv
 import os
 
 
+class CsvFile:
+
+    def __init__(self, file: str):
+        self.file = file
+
+    def parse_csv_file(self) -> list:
+
+        # Get dir where script is located
+        script_dir = os.path.dirname(os.path.realpath(__file__))
+        file_path = os.path.join(script_dir, self.file)
+
+        with open(file_path, 'r') as file:
+            reader = csv.reader(file)
+            data = [tuple(float(cell) if cell else 0 for cell in row) for row in reader]
+
+        return data
+
+
 class ModalityPlotter:
 
 
-    def __init__(self, files):
-        self.files = files
+    def __init__(self, data):
+        self.data = data
         
 
     def normalization(self, input, func='sigmoid'):
@@ -33,19 +51,7 @@ class ModalityPlotter:
         return [func(x) for x in input]
 
 
-    def read_csv_file(self, file_name):
-
-        # Get dir where script is located
-        script_dir = os.path.dirname(os.path.realpath(__file__))
-        file_path = os.path.join(script_dir, file_name)
-
-        with open(file_path, 'r') as file:
-            reader = csv.reader(file)
-            data = [tuple(float(cell) if cell else 0 for cell in row) for row in reader]
-        return data
-
-
-    def plot_vectors(self, data):
+    def plot_vectors(self, data: list) -> None:
 
         # Convert deg to rads
         angles = np.deg2rad([90, 210, 330])
@@ -91,9 +97,8 @@ class ModalityPlotter:
 
 
     def plot(self):
-        for file in files:
-            data = self.read_csv_file(file)
-            self.plot_vectors(data)
+        self.plot_vectors(self.data)
+
 
 
 if __name__ == '__main__':
@@ -105,5 +110,10 @@ if __name__ == '__main__':
                 'modality_A_fibers.csv',
             ]
 
-    plotter = ModalityPlotter(files)
-    plotter.plot()
+
+    for file in files:      
+        new_csv = CsvFile(file)
+        data = new_csv.parse_csv_file()
+
+        plotter = ModalityPlotter(data)
+        plotter.plot()
