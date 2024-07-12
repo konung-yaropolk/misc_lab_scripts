@@ -7,15 +7,21 @@ import os
 
 class ModalityPlotter:
 
+
     def __init__(self, files):
         self.files = files
+        
+
+    def sigmoid_normalization(self, x):
+        ''' To be used for normalization
+            color values in range of 0 to 1'''
+        return 1 / (1 + np.exp(-x))
 
 
     def read_csv_file(self, file_name):
 
-        # Get the directory where the Python script is located
+        # Get dir where script is located
         script_dir = os.path.dirname(os.path.realpath(__file__))
-        # Construct the full file path
         file_path = os.path.join(script_dir, file_name)
 
         with open(file_path, 'r') as file:
@@ -41,19 +47,26 @@ class ModalityPlotter:
         ax.spines['polar'].set_visible(False)
 
         amplitudes_list = []
+        colors_pool = []
+        resultants = []
 
         for point in data:
             if not all(x == 0 for x in point):
                 # Calculate the resultant vector
-                resultant = np.sum([point[i] * np.exp(1j * angles[i]) for i in range(3)])
-                amplitudes_list.append(np.abs(resultant))
+                resultants.append(np.sum([point[i] * np.exp(1j * angles[i]) for i in range(3)]))
 
+                #amplitudes_list.append(np.abs(resultant))
                 # Color measurement
-                hue = 1/np.angle(resultant)
-                sat = np.abs(resultant)/max(amplitudes_list)
-                color_hsv = ((1, 0, 0))
+                # hue = 1/np.angle(resultant)
+                # sat = np.abs(resultant)/max(amplitudes_list)
 
-                ax.plot([0, np.angle(resultant)], [0, np.abs(resultant)], marker='none',  ls='-', color=mcolors.hsv_to_rgb(color_hsv), alpha=0.4)
+
+        color_hsv = ((1, 0, 0))
+
+
+
+        for resultant in resultants:
+            ax.plot([0, np.angle(resultant)], [0, np.abs(resultant)], marker='none',  ls='-', color=mcolors.hsv_to_rgb(color_hsv), alpha=0.4)
 
         plt.show()
 
