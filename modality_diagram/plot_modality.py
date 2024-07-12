@@ -6,7 +6,11 @@ import os
 
 
 class CsvFile:
-
+    '''
+        The input CSV file must be comma delimited and aligned on three columns.
+        Each column represents one modality. Empty cells are counted as 0.
+        Each row containing at least one value will be represented as a point.
+    '''
 
     def __init__(self, file: str) -> None:
         self.file = file
@@ -26,18 +30,34 @@ class CsvFile:
 
 
 class ModalityPlotter:
+    '''
+        Input fotmat:
+
+        data: list of points, each point should be represented as a 
+              list or touple containing three floats, one per modality.
+    
+    '''
 
 
-    def __init__(self, data: list) -> None:
+    def __init__(self, 
+        data: list,
+        modalities = ['1', '2', '3'],
+        normalization_func = 'sigmoid',
+        ) -> None:
+
         self.data = data
+        self.modalities = modalities
+        self.normalization_func = normalization_func
         
 
-    def normalization(self, input, func='sigmoid') -> list:
-        ''' Define function to normalize coordinates
-            to values in range of 0 to 1 for HSV model
-            input: np.array'''
+    def normalization(self, input) -> list:
+        ''' 
+            Define function to normalize coordinates
+            to values in range of 0 to 1 for HSV color model.
+            input: np.array
+        '''
 
-        match func:
+        match self.normalization_func:
 
             case 'linear':
                 func = lambda x: (x - np.min(input)) / (np.max(input) - np.min(input))        
@@ -53,7 +73,7 @@ class ModalityPlotter:
         return [func(x) for x in input]
 
 
-    def plot_vectors(self, data: list) -> None:
+    def draw(self) -> None:
 
         # Convert deg to rads
         angles = np.deg2rad([90, 210, 330])
@@ -65,13 +85,13 @@ class ModalityPlotter:
         # Set custom design
         ax.set_yticklabels([])
         ax.set_xticks(angles)
-        ax.set_xticklabels(['ASP', 'CIM', 'Caps'])
+        ax.set_xticklabels(self.modalities)
         ax.grid(False)
         ax.spines['polar'].set_visible(False)
 
         resultants = []
 
-        for point in data:
+        for point in self.data:
 
             # pass through empty lines
             if not all(x == 0 for x in point):
@@ -98,11 +118,6 @@ class ModalityPlotter:
         plt.show()
 
 
-    def plot(self) -> None:
-        self.plot_vectors(self.data)
-
-
-
 if __name__ == '__main__':
 
     files = [   # drop files in the same folder:
@@ -117,5 +132,5 @@ if __name__ == '__main__':
         new_csv = CsvFile(file)
         data = new_csv.parse_csv_file()
 
-        plotter = ModalityPlotter(data)
-        plotter.plot()
+        plot = ModalityPlotter(data, modalities=['ASP', 'CIM', 'Caps'],)
+        plot.draw()
