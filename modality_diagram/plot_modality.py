@@ -116,7 +116,7 @@ class ModalityPlotter:
         # Set custom design
         ax.set_yticklabels([])
         ax.set_xticks(self.angles)        
-        ax.grid(False)
+        #ax.grid(False)
         #ax.spines['polar'].set_visible(False)
         ax.patch.set_facecolor('none')
 
@@ -131,17 +131,7 @@ class ModalityPlotter:
             ax.patch.set_facecolor('none')
             ax.set_xticks([])
             ax.set_yticks([])
-
-            h_coord = (i-1) % 14 + 1
-            v_coord = (i-1) // 14 + 1
-
-            ax.text(0.5,
-                    0.5,
-                    '({},{})'.format(v_coord, h_coord),
-                    horizontalalignment='center',
-                    verticalalignment='center',
-                    transform=ax.transAxes)            
-
+  
             for spine in ax.spines.values():
                 spine.set_edgecolor('black')
 
@@ -154,14 +144,14 @@ class ModalityPlotter:
 
 
         # Defining layout
-        gs = gridspec.GridSpec(14, 14, figure=fig)
-        ax1   = fig.add_subplot(gs[1:6, 5:9], polar=True)
-        ax12  = fig.add_subplot(gs[5:7, 2:5], polar=True)
-        ax13  = fig.add_subplot(gs[5:7, 9:12], polar=True)
-        ax123 = fig.add_subplot(gs[4:12, 3:11], polar=True)
-        ax2   = fig.add_subplot(gs[8:12, 1:5], polar=True)  
-        ax23  = fig.add_subplot(gs[11:13, 5:9], polar=True) 
-        ax3   = fig.add_subplot(gs[8:12, 9:13], polar=True)
+        gs = gridspec.GridSpec(28, 28, figure=fig)
+        ax1   = fig.add_subplot(gs[0:10, 9:19], polar=True)
+        ax12  = fig.add_subplot(gs[8:14, 2:10], polar=True)
+        ax13  = fig.add_subplot(gs[8:14, 18:26], polar=True)
+        ax123 = fig.add_subplot(gs[7:23, 6:22], polar=True)
+        ax2   = fig.add_subplot(gs[16:26, 0:10], polar=True)
+        ax23  = fig.add_subplot(gs[22:30, 10:18], polar=True)
+        ax3   = fig.add_subplot(gs[16:26, 18:28], polar=True)
         
         subplots = ( 
         # formatting accurate list, lol
@@ -210,7 +200,7 @@ class ModalityPlotter:
 
         # Draw coordinate grid on the top of figure
         # to make easier subplots alignment on devtime
-        self.debug_grid(fig, 14, 14)       
+        self.debug_grid(fig, 28, 28)       
 
         plt.subplots_adjust(wspace=0.0, hspace=0.0)
         plt.tight_layout()
@@ -220,8 +210,8 @@ if __name__ == '__main__':
 
 
     files = [   # drop files in the same folder:
-                #'modality_C_boutons.csv',
-                'modality_C_fibers.csv',
+                'modality_C_boutons.csv',
+                #'modality_C_fibers.csv',
                 #'modality_A_boutons.csv',
                 #'modality_A_fibers.csv',
             ]
