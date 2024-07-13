@@ -42,25 +42,31 @@ class ModalityPlotter:
     def __init__(self,
                  data: list,
                  modalities=('1', '2', '3'),
-                 normalization_func='sigmoid',
                  angles=[90, 210, 330],
+                 marker='',
+                 ls='-',
+                 linewidth=0.5,
+                 alpha=0.8,
                  colors=(
-            'tab:green',
-            'tab:cyan',
-            'tab:olive',
-            'tab:gray',
-            'tab:blue',
-            'tab:purple',
-            'tab:red',),
-        alpha=1,
-    ) -> None:
+                     'tab:green',
+                     'tab:cyan',
+                     'tab:olive',
+                     'black',
+                     'tab:blue',
+                     'tab:purple',
+                     'tab:red',),
+                 normalization_func='sigmoid',
+                 ) -> None:
 
         self.data = data
         self.modalities = modalities
-        self.normalization_func = normalization_func
         self.angles = np.deg2rad(angles)
-        self.colors = colors
+        self.marker = marker
+        self.ls = ls
+        self.linewidth = linewidth
         self.alpha = alpha
+        self.colors = colors
+        self.normalization_func = normalization_func
 
     def normalization(self, input) -> list:
         ''' 
@@ -112,6 +118,7 @@ class ModalityPlotter:
                 [0, np.abs(resultant)],
                 marker='',
                 ls='-',
+                linewidth=self.linewidth,
                 color=color,  # mcolors.hsv_to_rgb((hue, sat, val)),
                 alpha=self.alpha)
             ax.set_xticklabels(modalities)
@@ -119,7 +126,7 @@ class ModalityPlotter:
         # Plot the circle
         r = 1
         theta = np.linspace(0, 2*np.pi, 100)
-        ax.plot(theta, [r]*len(theta), color='k')
+        ax.plot(theta, [r]*len(theta), color='black', linewidth=1)
 
     def initiate_subplot(self, ax) -> None:
 
