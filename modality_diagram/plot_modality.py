@@ -144,14 +144,14 @@ class ModalityPlotter:
 
 
         # Defining layout
-        gs = gridspec.GridSpec(28, 28, figure=fig)
-        ax1   = fig.add_subplot(gs[0:10, 9:19], polar=True)
-        ax12  = fig.add_subplot(gs[8:14, 2:10], polar=True)
-        ax13  = fig.add_subplot(gs[8:14, 18:26], polar=True)
-        ax123 = fig.add_subplot(gs[7:23, 6:22], polar=True)
-        ax2   = fig.add_subplot(gs[16:26, 0:10], polar=True)
-        ax23  = fig.add_subplot(gs[22:30, 10:18], polar=True)
-        ax3   = fig.add_subplot(gs[16:26, 18:28], polar=True)
+        gs = gridspec.GridSpec(56, 56, figure=fig)
+        ax1   = fig.add_subplot(gs[0:20, 18:38], polar=True)
+        ax12  = fig.add_subplot(gs[16:28, 4:20], polar=True)
+        ax13  = fig.add_subplot(gs[16:28, 36:52], polar=True)
+        ax123 = fig.add_subplot(gs[15:47, 12:44], polar=True)
+        ax2   = fig.add_subplot(gs[31:51, 0:20], polar=True)
+        ax23  = fig.add_subplot(gs[44:60, 20:36], polar=True)
+        ax3   = fig.add_subplot(gs[31:51, 36:56], polar=True)
         
         subplots = ( 
         # formatting accurate list, lol
@@ -197,10 +197,9 @@ class ModalityPlotter:
             self.initiate_subplot(ax)
             self.draw_subplot(ax, columns, modalities, color)
 
-
         # Draw coordinate grid on the top of figure
         # to make easier subplots alignment on devtime
-        self.debug_grid(fig, 28, 28)       
+        # self.debug_grid(fig, 28, 28)       
 
         plt.subplots_adjust(wspace=0.0, hspace=0.0)
         plt.tight_layout()
@@ -210,9 +209,9 @@ if __name__ == '__main__':
 
 
     files = [   # drop files in the same folder:
-                'modality_C_boutons.csv',
+                #'modality_C_boutons.csv',
                 #'modality_C_fibers.csv',
-                #'modality_A_boutons.csv',
+                'modality_A_boutons.csv',
                 #'modality_A_fibers.csv',
             ]
 
