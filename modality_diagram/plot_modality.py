@@ -115,11 +115,9 @@ class ModalityPlotter:
 
         # for resultant, hue, sat, val in zip(resultants, hue_array, sat_array, val_array):
         for resultant, row in zip(resultants, data):
-            if resultant:
-                for mode in plot_pattern:
-                    if mode and row:
-                        pass
+            binarized_row = [bool(i) for i in row]
 
+            if resultant and (binarized_row == plot_pattern):
                 ax.plot(
                     [0, np.angle(resultant)],
                     [0, np.abs(resultant)],
@@ -173,7 +171,7 @@ class ModalityPlotter:
         ax13 = fig.add_subplot(gs[16:28, 38:54], polar=True)
         ax123 = fig.add_subplot(gs[17:49, 12:44], polar=True)
         ax2 = fig.add_subplot(gs[34:54, 0:20], polar=True)
-        ax23 = fig.add_subplot(gs[50:64, 22:34], polar=True)
+        ax23 = fig.add_subplot(gs[50:62, 22:34], polar=True)
         ax3 = fig.add_subplot(gs[34:54, 36:56], polar=True)
 
         subplots = (
@@ -195,13 +193,13 @@ class ModalityPlotter:
         # )
 
         plot_patterns = (
-            (True, False, False),
-            (True, True, False),
-            (True, False, True),
-            (True, True, True),
-            (False, True, False),
-            (False, True, True),
-            (False, False, True),
+            [True, False, False],
+            [True, True, False],
+            [True, False, True],
+            [True, True, True],
+            [False, True, False],
+            [False, True, True],
+            [False, False, True],
         )
 
         modalities = (
