@@ -24,10 +24,12 @@ class CsvFile:
 
         with open(file_path, 'r') as file:
             reader = csv.reader(file)
-            data = [tuple(float(cell) if cell else 0 for cell in row)
+            data = [tuple(float(cell) if cell else 0 for cell in row[:3])
                     for row in reader]
+            binarization = [tuple(int(cell) if cell else 0 for cell in row[3:6])
+                            for row in reader]
 
-        return data
+        return data  # , binarization
 
 
 class ModalityPlotter:
@@ -41,6 +43,7 @@ class ModalityPlotter:
 
     def __init__(self,
                  data: list,
+                 binarization: list,
                  modalities=('1', '2', '3'),
                  angles=[90, 210, 330],
                  marker='',
@@ -59,6 +62,8 @@ class ModalityPlotter:
                  ) -> None:
 
         self.data = data
+        print(self.data)
+        self.binarization = binarization
         self.modalities = modalities
         self.angles = np.deg2rad(angles)
         self.marker = marker
@@ -239,5 +244,6 @@ if __name__ == '__main__':
         new_csv = CsvFile(file)
         data = new_csv.parse_csv_file()
 
-        plot = ModalityPlotter(data, modalities=['ASP', 'CIM', 'Caps'],)
+        plot = ModalityPlotter(data, [], modalities=[
+                               'ASP', 'CIM', 'Caps'],)
         plot.draw()
