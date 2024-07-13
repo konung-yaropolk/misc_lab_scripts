@@ -94,17 +94,19 @@ class ModalityPlotter:
 
         resultants = []
         for point in data:
-            # pass through empty lines
+            # ignore empty lines
             if not all(x == 0 for x in point):
                 # Calculate resultant vector
                 resultants.append(
                     np.sum([point[i] * np.exp(1j * self.angles[i]) for i in range(len(point))]))
+            else:
+                resultants.append((0))
 
         return resultants
 
-    def draw_subplot(self, ax, data, modalities, color) -> None:
+    def draw_subplot(self, ax, plot_pattern, modalities, color) -> None:
 
-        resultants = self.resultants(data)
+        resultants = self.resultants(self.data)
 
         # Color measurement in HSV format
         # hue_array = self.normalization(np.angle(resultants))
@@ -112,18 +114,23 @@ class ModalityPlotter:
         # val_array = self.normalization(np.abs(resultants))
 
         # for resultant, hue, sat, val in zip(resultants, hue_array, sat_array, val_array):
-        for resultant in resultants:
-            ax.plot(
-                [0, np.angle(resultant)],
-                [0, np.abs(resultant)],
-                marker='',
-                ls='-',
-                linewidth=self.linewidth,
-                color=color,  # mcolors.hsv_to_rgb((hue, sat, val)),
-                alpha=self.alpha)
-            ax.set_xticklabels(modalities)
+        for resultant, row in zip(resultants, data):
+            if resultant:
+                for mode in plot_pattern:
+                    if mode and row:
+                        pass
 
-        # Plot the circle
+                ax.plot(
+                    [0, np.angle(resultant)],
+                    [0, np.abs(resultant)],
+                    marker='',
+                    ls='-',
+                    linewidth=self.linewidth,
+                    color=color,  # mcolors.hsv_to_rgb((hue, sat, val)),
+                    alpha=self.alpha)
+                ax.set_xticklabels(modalities)
+
+        # Plot the single-unit circle
         r = 1
         theta = np.linspace(0, 2*np.pi, 100)
         ax.plot(theta, [r]*len(theta), color='black', linewidth=1)
@@ -177,14 +184,24 @@ class ModalityPlotter:
             ax2,   ax23,    ax3,
         )
 
-        columns = (
-            [[row[0]] for row in self.data],
-            [[row[0], row[1]] for row in self.data],
-            [[row[0], row[2]] for row in self.data],
-            self.data,
-            [[row[1]] for row in self.data],
-            [[row[1], row[2]] for row in self.data],
-            [[row[2]] for row in self.data],
+        # columns = (
+        #     [[row[0]] for row in self.data],
+        #     [[row[0], row[1]] for row in self.data],
+        #     [[row[0], row[2]] for row in self.data],
+        #     self.data,
+        #     [[row[1]] for row in self.data],
+        #     [[row[1], row[2]] for row in self.data],
+        #     [[row[2]] for row in self.data],
+        # )
+
+        plot_patterns = (
+            (True, False, False),
+            (True, True, False),
+            (True, False, True),
+            (True, True, True),
+            (False, True, False),
+            (False, True, True),
+            (False, False, True),
         )
 
         modalities = (
@@ -197,9 +214,10 @@ class ModalityPlotter:
             (None, None, self.modalities[2]),
         )
 
-        for ax, columns, modalities, color in zip(subplots, columns, modalities, self.colors):
+        for ax, plot_pattern, modalities, color in zip(subplots, plot_patterns, modalities, self.colors):
             self.initiate_subplot(ax)
-            self.draw_subplot(ax, columns, modalities, color)
+
+            self.draw_subplot(ax, plot_pattern, modalities, color)
 
         # Draw coordinate grid on the top of figure
         # to make easier subplots alignment on devtime
