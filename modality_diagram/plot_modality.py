@@ -16,7 +16,6 @@ class CsvFile:
     def __init__(self, file: str) -> None:
         self.file = file
 
-
     def parse_csv_file(self) -> list:
 
         # Get dir where script is located
@@ -25,7 +24,8 @@ class CsvFile:
 
         with open(file_path, 'r') as file:
             reader = csv.reader(file)
-            data = [tuple(float(cell) if cell else 0 for cell in row) for row in reader]
+            data = [tuple(float(cell) if cell else 0 for cell in row)
+                    for row in reader]
 
         return data
 
@@ -36,23 +36,31 @@ class ModalityPlotter:
 
         data: list of points, each point should be represented as a 
               list or touple containing three floats, one per modality.
-    
+
     '''
 
-
-    def __init__(self, 
-        data: list,
-        modalities = ('1', '2', '3'),
-        normalization_func = 'sigmoid',
-        angles = [90, 210, 330],
-        ) -> None:
+    def __init__(self,
+                 data: list,
+                 modalities=('1', '2', '3'),
+                 normalization_func='sigmoid',
+                 angles=[90, 210, 330],
+                 colors=(
+            'tab:green',
+            'tab:cyan',
+            'tab:olive',
+            'tab:gray',
+            'tab:blue',
+            'tab:purple',
+            'tab:red',),
+        alpha=1,
+    ) -> None:
 
         self.data = data
         self.modalities = modalities
         self.normalization_func = normalization_func
-        # Convert deg to rads
         self.angles = np.deg2rad(angles)
-        
+        self.colors = colors
+        self.alpha = alpha
 
     def normalization(self, input) -> list:
         ''' 
@@ -64,30 +72,29 @@ class ModalityPlotter:
         match self.normalization_func:
 
             case 'linear':
-                func = lambda x: (x - np.min(input)) / (np.max(input) - np.min(input))        
+                def func(x): return (x - np.min(input)) / \
+                    (np.max(input) - np.min(input))
 
             case 'sigmoid':
-                func = lambda x: 1 / (1 + np.exp(-x))
+                def func(x): return 1 / (1 + np.exp(-x))
 
             # case 'log':
             #     log_input = np.log1p(input)
             #     func = lambda x: (x - np.min(log_input)) / (np.max(log_input) - np.min(log_input))
 
-
         return [func(x) for x in input]
 
-
     def resultants(self, data) -> list:
-        
+
         resultants = []
         for point in data:
             # pass through empty lines
             if not all(x == 0 for x in point):
                 # Calculate resultant vector
-                resultants.append(np.sum([point[i] * np.exp(1j * self.angles[i]) for i in range(len(point))]))
-        
-        return resultants
+                resultants.append(
+                    np.sum([point[i] * np.exp(1j * self.angles[i]) for i in range(len(point))]))
 
+        return resultants
 
     def draw_subplot(self, ax, data, modalities, color) -> None:
 
@@ -98,26 +105,29 @@ class ModalityPlotter:
         # sat_array = np.ones_like(hue_array)
         # val_array = self.normalization(np.abs(resultants))
 
-        #for resultant, hue, sat, val in zip(resultants, hue_array, sat_array, val_array):
+        # for resultant, hue, sat, val in zip(resultants, hue_array, sat_array, val_array):
         for resultant in resultants:
             ax.plot(
                 [0, np.angle(resultant)],
                 [0, np.abs(resultant)],
-                marker = '',
-                ls = '-',
-                color = color, #mcolors.hsv_to_rgb((hue, sat, val)),
-                alpha = 1
-            )
+                marker='',
+                ls='-',
+                color=color,  # mcolors.hsv_to_rgb((hue, sat, val)),
+                alpha=self.alpha)
             ax.set_xticklabels(modalities)
 
+        # Plot the circle
+        r = 1
+        theta = np.linspace(0, 2*np.pi, 100)
+        ax.plot(theta, [r]*len(theta), color='k')
 
     def initiate_subplot(self, ax) -> None:
 
         # Set custom design
         ax.set_yticklabels([])
-        ax.set_xticks(self.angles)        
-        #ax.grid(False)
-        #ax.spines['polar'].set_visible(False)
+        ax.set_xticks(self.angles)
+        ax.grid(False)
+        ax.spines['polar'].set_visible(False)
         ax.patch.set_facecolor('none')
 
     # Draw coordinate grid on the top of figure
@@ -131,36 +141,35 @@ class ModalityPlotter:
             ax.patch.set_facecolor('none')
             ax.set_xticks([])
             ax.set_yticks([])
-  
+
             for spine in ax.spines.values():
                 spine.set_edgecolor('black')
 
-
     # Main drawing method
+
     def draw(self) -> None:
 
         # Create figure
         fig = plt.figure(figsize=(10, 10))
 
-
         # Defining layout
-        gs = gridspec.GridSpec(56, 56, figure=fig)
-        ax1   = fig.add_subplot(gs[0:20, 18:38], polar=True)
-        ax12  = fig.add_subplot(gs[16:28, 4:20], polar=True)
-        ax13  = fig.add_subplot(gs[16:28, 36:52], polar=True)
-        ax123 = fig.add_subplot(gs[15:47, 12:44], polar=True)
-        ax2   = fig.add_subplot(gs[31:51, 0:20], polar=True)
-        ax23  = fig.add_subplot(gs[44:60, 20:36], polar=True)
-        ax3   = fig.add_subplot(gs[31:51, 36:56], polar=True)
-        
-        subplots = ( 
-        # formatting accurate list, lol
-                ax1,
-            ax12,  ax13,   
-               ax123,    
-        ax2,   ax23,    ax3, 
-            )
-        
+        gs = gridspec.GridSpec(64, 56, figure=fig)
+        ax1 = fig.add_subplot(gs[0:20, 18:38], polar=True)
+        ax12 = fig.add_subplot(gs[16:28, 2:18], polar=True)
+        ax13 = fig.add_subplot(gs[16:28, 38:54], polar=True)
+        ax123 = fig.add_subplot(gs[17:49, 12:44], polar=True)
+        ax2 = fig.add_subplot(gs[34:54, 0:20], polar=True)
+        ax23 = fig.add_subplot(gs[50:64, 22:34], polar=True)
+        ax3 = fig.add_subplot(gs[34:54, 36:56], polar=True)
+
+        subplots = (
+            # formatting accurate list, lol
+            ax1,
+            ax12,  ax13,
+            ax123,
+            ax2,   ax23,    ax3,
+        )
+
         columns = (
             [[row[0]] for row in self.data],
             [[row[0], row[1]] for row in self.data],
@@ -171,52 +180,39 @@ class ModalityPlotter:
             [[row[2]] for row in self.data],
         )
 
-
         modalities = (
             (self.modalities[0], None, None),
             (self.modalities[0], self.modalities[1], None),
             (self.modalities[0], None, self.modalities[2]),
-            self.modalities[:],
+            (None, None, None),  # self.modalities[:],
             (None, self.modalities[1], None),
             (None, self.modalities[1], self.modalities[2]),
             (None, None, self.modalities[2]),
         )
 
-        colors = (
-            'tab:green',
-            'tab:cyan',
-            'tab:olive',
-            'tab:gray',
-            'tab:blue',
-            'tab:purple',         
-            'tab:red',          
-        )
-
-
-        for ax, columns, modalities, color in zip(subplots, columns, modalities, colors):
+        for ax, columns, modalities, color in zip(subplots, columns, modalities, self.colors):
             self.initiate_subplot(ax)
             self.draw_subplot(ax, columns, modalities, color)
 
         # Draw coordinate grid on the top of figure
         # to make easier subplots alignment on devtime
-        # self.debug_grid(fig, 28, 28)       
+        # self.debug_grid(fig, 28, 28)
 
         plt.subplots_adjust(wspace=0.0, hspace=0.0)
         plt.tight_layout()
         plt.show()
 
+
 if __name__ == '__main__':
 
-
     files = [   # drop files in the same folder:
-                #'modality_C_boutons.csv',
-                #'modality_C_fibers.csv',
-                'modality_A_boutons.csv',
-                #'modality_A_fibers.csv',
-            ]
+                'modality_C_boutons.csv',
+                # 'modality_C_fibers.csv',
+                # 'modality_A_boutons.csv',
+                # 'modality_A_fibers.csv',
+    ]
 
-
-    for file in files:      
+    for file in files:
         new_csv = CsvFile(file)
         data = new_csv.parse_csv_file()
 
