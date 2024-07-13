@@ -120,22 +120,48 @@ class ModalityPlotter:
         #ax.spines['polar'].set_visible(False)
         ax.patch.set_facecolor('none')
 
+    # Draw coordinate grid on the top of figure
+    # to make easier subplots alignment on devtime
+    def debug_grid(self, fig, y, x) -> None:
 
+        for i in range(1, y*x+1):
+            ax = fig.add_subplot(y, x, i)
+
+            # Set the facecolor of the axes
+            ax.patch.set_facecolor('none')
+            ax.set_xticks([])
+            ax.set_yticks([])
+
+            h_coord = (i-1) % 14 + 1
+            v_coord = (i-1) // 14 + 1
+
+            ax.text(0.5,
+                    0.5,
+                    '({},{})'.format(v_coord, h_coord),
+                    horizontalalignment='center',
+                    verticalalignment='center',
+                    transform=ax.transAxes)            
+
+            for spine in ax.spines.values():
+                spine.set_edgecolor('black')
+
+
+    # Main drawing method
     def draw(self) -> None:
 
         # Create figure
         fig = plt.figure(figsize=(10, 10))
-        plt.subplots_adjust(wspace=0.0, hspace=0.0)
+
 
         # Defining layout
         gs = gridspec.GridSpec(14, 14, figure=fig)
-        ax1   = fig.add_subplot(gs[1:5, 5:9], polar=True)
-        ax12  = fig.add_subplot(gs[5:7, 3:5], polar=True)
-        ax13  = fig.add_subplot(gs[5:7, 9:11], polar=True)
-        ax123 = fig.add_subplot(gs[3:11, 3:11], polar=True)
-        ax2   = fig.add_subplot(gs[7:11, 1:5], polar=True)  
-        ax23  = fig.add_subplot(gs[9:11, 5:9], polar=True) 
-        ax3   = fig.add_subplot(gs[7:11, 9:13], polar=True)   
+        ax1   = fig.add_subplot(gs[1:6, 5:9], polar=True)
+        ax12  = fig.add_subplot(gs[5:7, 2:5], polar=True)
+        ax13  = fig.add_subplot(gs[5:7, 9:12], polar=True)
+        ax123 = fig.add_subplot(gs[4:12, 3:11], polar=True)
+        ax2   = fig.add_subplot(gs[8:12, 1:5], polar=True)  
+        ax23  = fig.add_subplot(gs[11:13, 5:9], polar=True) 
+        ax3   = fig.add_subplot(gs[8:12, 9:13], polar=True)
         
         subplots = ( 
         # formatting accurate list, lol
@@ -181,26 +207,17 @@ class ModalityPlotter:
             self.initiate_subplot(ax)
             self.draw_subplot(ax, columns, modalities, color)
 
-        # Create 14x14 subplots
-        for i in range(1, 197):
-            ax = fig.add_subplot(14, 14, i)
 
-            # Set the facecolor of the axes
-            ax.patch.set_facecolor('none')
+        # Draw coordinate grid on the top of figure
+        # to make easier subplots alignment on devtime
+        self.debug_grid(fig, 14, 14)       
 
-            # Hide the x and y axis labels
-            ax.set_xticks([])
-            ax.set_yticks([])
-
-            # Add a border around the subplot
-            for spine in ax.spines.values():
-                spine.set_edgecolor('black')
         plt.subplots_adjust(wspace=0.0, hspace=0.0)
-
         plt.tight_layout()
         plt.show()
 
 if __name__ == '__main__':
+
 
     files = [   # drop files in the same folder:
                 #'modality_C_boutons.csv',
