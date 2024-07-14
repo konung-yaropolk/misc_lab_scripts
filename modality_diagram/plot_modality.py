@@ -215,16 +215,6 @@ class ModalityPlotter:
             ax1, ax2, ax3, ax12, ax13, ax23, ax123,
         )
 
-        # columns = (
-        #     [[row[0]] for row in self.data],
-        #     [[row[0], row[1]] for row in self.data],
-        #     [[row[0], row[2]] for row in self.data],
-        #     self.data,
-        #     [[row[1]] for row in self.data],
-        #     [[row[1], row[2]] for row in self.data],
-        #     [[row[2]] for row in self.data],
-        # )
-
         plot_patterns = (
 
             (True, False, False),
@@ -265,9 +255,9 @@ if __name__ == '__main__':
 
     files = [   # drop files in the same folder:
         'modality_C_boutons.csv',
-        'modality_C_fibers.csv',
-        'modality_A_boutons.csv',
-        'modality_A_fibers.csv',
+        # 'modality_C_fibers.csv',
+        # 'modality_A_boutons.csv',
+        # 'modality_A_fibers.csv',
     ]
 
     for file in files:
@@ -277,10 +267,10 @@ if __name__ == '__main__':
                                binarization,
                                modalities=['ASP', 'CIM', 'Caps'],
                                angles=[90, 210, 330],
-                               marker='',
-                               linestyle='-',
+                               marker='.',
+                               linestyle='',
                                linewidth=0.5,
-                               alpha=0.8,
+                               alpha=0.3,
                                colors=(
                                    'tab:green',
                                    'tab:blue',
