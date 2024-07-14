@@ -49,7 +49,7 @@ class ModalityPlotter:
                  modalities=('1', '2', '3'),
                  angles=[90, 210, 330],
                  marker='',
-                 ls='-',
+                 linestyle='-',
                  linewidth=0.5,
                  alpha=0.8,
                  colors=(
@@ -68,7 +68,7 @@ class ModalityPlotter:
         self.modalities = modalities
         self.angles = np.deg2rad(angles)
         self.marker = marker
-        self.ls = ls
+        self.linestyle = linestyle
         self.linewidth = linewidth
         self.alpha = alpha
         self.colors = colors
@@ -126,19 +126,37 @@ class ModalityPlotter:
 
                 match bin_row:
 
-                    case (True, False, False): color = self.colors[0]
-                    case (False, True, False): color = self.colors[1]
-                    case (False, False, True): color = self.colors[2]
-                    case (True, True, False): color = self.colors[3]
-                    case (True, False, True): color = self.colors[4]
-                    case (False, True, True): color = self.colors[5]
-                    case (True, True, True): color = self.colors[6]
+                    case (True, False, False):
+                        color = self.colors[0]
+                        zorder = 1
+                    case (False, True, False):
+                        color = self.colors[1]
+                        zorder = 1
+                    case (False, False, True):
+                        color = self.colors[2]
+                        zorder = 1
+                    case (True, True, False):
+                        color = self.colors[3]
+                        zorder = 2
+                    case (True, False, True):
+                        color = self.colors[4]
+                        zorder = 2
+                    case (False, True, True):
+                        color = self.colors[5]
+                        zorder = 2
+                    case (True, True, True):
+                        color = self.colors[6]
+                        zorder = 3
+                    case _:
+                        color = (0, 0, 0, 0)
+                        zorder = 0
 
                 ax.plot(
                     [0, np.angle(resultant)],
                     [0, np.abs(resultant)],
-                    marker='',
-                    ls='-',
+                    zorder=zorder,
+                    marker=self.marker,
+                    linestyle=self.linestyle,
                     linewidth=self.linewidth,
                     color=color,  # mcolors.hsv_to_rgb((hue, sat, val)),
                     alpha=self.alpha)
@@ -147,7 +165,8 @@ class ModalityPlotter:
         # Plot the single-unit circle
         r = 1
         theta = np.linspace(0, 2*np.pi, 100)
-        ax.plot(theta, [r]*len(theta), color='black', linewidth=1)
+        ax.plot(theta, [r]*len(theta), color='black',
+                linestyle=':', linewidth=1)
 
     def initiate_subplot(self, ax) -> None:
 
@@ -189,7 +208,7 @@ class ModalityPlotter:
         ax12 = fig.add_subplot(gs[16:28, 2:18], polar=True)
         ax13 = fig.add_subplot(gs[16:28, 38:54], polar=True)
         ax23 = fig.add_subplot(gs[50:62, 22:34], polar=True)
-        ax123 = fig.add_subplot(gs[17:49, 12:44], polar=True)
+        ax123 = fig.add_subplot(gs[0:56, 0:56], polar=True)
 
         subplots = (
             # formatting accurate list, lol
@@ -245,15 +264,29 @@ class ModalityPlotter:
 if __name__ == '__main__':
 
     files = [   # drop files in the same folder:
-                'modality_C_boutons.csv',
-                # 'modality_C_fibers.csv',
-                # 'modality_A_boutons.csv',
-                # 'modality_A_fibers.csv',
+        'modality_C_boutons.csv',
+        'modality_C_fibers.csv',
+        'modality_A_boutons.csv',
+        'modality_A_fibers.csv',
     ]
 
     for file in files:
         new_csv = CsvFile(file)
         data, binarization = new_csv.parse_csv_file()
-        plot = ModalityPlotter(data, binarization, modalities=[
-                               'ASP', 'CIM', 'Caps'],)
+        plot = ModalityPlotter(data,
+                               binarization,
+                               modalities=['ASP', 'CIM', 'Caps'],
+                               angles=[90, 210, 330],
+                               marker='',
+                               linestyle='-',
+                               linewidth=0.5,
+                               alpha=0.8,
+                               colors=(
+                                   'tab:green',
+                                   'tab:blue',
+                                   'tab:red',
+                                   'tab:cyan',
+                                   'tab:olive',
+                                   'tab:purple',
+                                   'black'),)
         plot.draw()
