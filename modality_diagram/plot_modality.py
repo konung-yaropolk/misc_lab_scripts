@@ -48,6 +48,8 @@ class ModalityPlotter:
                  binarization: list,
                  modalities=('1', '2', '3'),
                  angles=[90, 210, 330],
+                 labels=True,
+                 scalecircle=1,
                  marker='',
                  linestyle='-',
                  linewidth=0.5,
@@ -68,6 +70,8 @@ class ModalityPlotter:
         self.binarization = binarization
         self.modalities = modalities
         self.angles = np.deg2rad(angles)
+        self.labels = labels
+        self.scalecircle = scalecircle
         self.marker = marker
         self.linestyle = linestyle
         self.linewidth = linewidth
@@ -183,10 +187,15 @@ class ModalityPlotter:
                     linewidth=self.linewidth,
                     color=color,  # mcolors.hsv_to_rgb((hue, sat, val)),
                     alpha=self.alpha)
-                ax.set_xticklabels(modalities)
+                if self.labels:
+                    ax.set_xticklabels(modalities)
 
+        if self.scalecircle:
+            self.draw_scalecircle(ax)
+
+    def draw_scalecircle(self, ax):
         # Plot the single-unit circle
-        r = 1
+        r = self.scalecircle
         theta = np.linspace(0, 2*np.pi, 100)
         ax.plot(theta, [r]*len(theta), color='black',
                 linestyle=':', linewidth=1)
@@ -195,7 +204,7 @@ class ModalityPlotter:
 
         # Set custom design
         ax.set_yticklabels([])
-        ax.set_xticks(self.angles)
+        ax.set_xticks(self.anglesif if self.labels else [])
         ax.grid(False)
         ax.spines['polar'].set_visible(False)
         ax.patch.set_facecolor('none')
@@ -272,11 +281,13 @@ if __name__ == '__main__':
                                binarization,
                                modalities=['ASP', 'CIM', 'Caps'],
                                angles=[90, 210, 330],
+                               labels=False,
+                               scalecircle=0.3,
                                marker='',
                                linestyle='-',
                                linewidth=0.7,
                                alpha=0.5,
-                               same_scale=True,
+                               same_scale=False,
                                colors=(
                                    'tab:green',
                                    'navy',
