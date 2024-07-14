@@ -54,12 +54,12 @@ class ModalityPlotter:
                  alpha=0.8,
                  colors=(
                      'tab:green',
+                     'tab:blue',
+                     'tab:red',
                      'tab:cyan',
                      'tab:olive',
-                     'black',
-                     'tab:blue',
                      'tab:purple',
-                     'tab:red',),
+                     'black'),
                  normalization_func='sigmoid',
                  ) -> None:
 
@@ -127,12 +127,12 @@ class ModalityPlotter:
                 match bin_row:
 
                     case (True, False, False): color = self.colors[0]
-                    case (True, True, False): color = self.colors[1]
-                    case (True, False, True): color = self.colors[2]
-                    case (True, True, True): color = self.colors[3]
-                    case (False, True, False): color = self.colors[4]
+                    case (False, True, False): color = self.colors[1]
+                    case (False, False, True): color = self.colors[2]
+                    case (True, True, False): color = self.colors[3]
+                    case (True, False, True): color = self.colors[4]
                     case (False, True, True): color = self.colors[5]
-                    case (False, False, True): color = self.colors[6]
+                    case (True, True, True): color = self.colors[6]
 
                 ax.plot(
                     [0, np.angle(resultant)],
@@ -184,19 +184,16 @@ class ModalityPlotter:
         # Defining layout
         gs = gridspec.GridSpec(64, 56, figure=fig)
         ax1 = fig.add_subplot(gs[0:20, 18:38], polar=True)
+        ax2 = fig.add_subplot(gs[34:54, 0:20], polar=True)
+        ax3 = fig.add_subplot(gs[34:54, 36:56], polar=True)
         ax12 = fig.add_subplot(gs[16:28, 2:18], polar=True)
         ax13 = fig.add_subplot(gs[16:28, 38:54], polar=True)
-        ax123 = fig.add_subplot(gs[17:49, 12:44], polar=True)
-        ax2 = fig.add_subplot(gs[34:54, 0:20], polar=True)
         ax23 = fig.add_subplot(gs[50:62, 22:34], polar=True)
-        ax3 = fig.add_subplot(gs[34:54, 36:56], polar=True)
+        ax123 = fig.add_subplot(gs[17:49, 12:44], polar=True)
 
         subplots = (
             # formatting accurate list, lol
-            ax1,
-            ax12,  ax13,
-            ax123,
-            ax2,   ax23,    ax3,
+            ax1, ax2, ax3, ax12, ax13, ax23, ax123,
         )
 
         # columns = (
@@ -210,26 +207,28 @@ class ModalityPlotter:
         # )
 
         plot_patterns = (
+
             (True, False, False),
+            (False, True, False),
+            (False, False, True),
             (True, True, False),
             (True, False, True),
-            (True, True, True),
-            (False, True, False),
             (False, True, True),
-            (False, False, True),
+            (True, True, True),
         )
 
         modalities = (
+
             (self.modalities[0], None, None),
+            (None, self.modalities[1], None),
+            (None, None, self.modalities[2]),
             (self.modalities[0], self.modalities[1], None),
             (self.modalities[0], None, self.modalities[2]),
-            (None, None, None),  # self.modalities[:],
-            (None, self.modalities[1], None),
             (None, self.modalities[1], self.modalities[2]),
-            (None, None, self.modalities[2]),
+            (None, None, None),  # self.modalities[:],
         )
 
-        for ax, plot_pattern, modalities, color in zip(subplots, plot_patterns, modalities, self.colors):
+        for ax, plot_pattern, modalities in zip(subplots, plot_patterns, modalities):
             self.initiate_subplot(ax)
 
             self.draw_subplot(ax, plot_pattern, modalities)
