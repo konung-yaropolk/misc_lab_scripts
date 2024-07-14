@@ -122,7 +122,7 @@ class ModalityPlotter:
         # for resultant, hue, sat, val in zip(resultants, hue_array, sat_array, val_array):
         for resultant, data_row, bin_row in zip(resultants, self.data, self.binarization):
 
-            if resultant and (bin_row == plot_pattern):
+            if resultant and (bin_row == plot_pattern) or plot_pattern == 'plot all':
 
                 match bin_row:
 
@@ -214,7 +214,7 @@ class ModalityPlotter:
             (True, True, False),
             (True, False, True),
             (False, True, True),
-            (True, True, True),
+            'plot all',
         )
 
         modalities = (
