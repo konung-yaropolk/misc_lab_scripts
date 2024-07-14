@@ -96,7 +96,7 @@ class ModalityPlotter:
 
         return [func(x) for x in input]
 
-    def resultants(self, data) -> list:
+    def VectorAddition(self, data) -> list:
 
         resultants = []
         for point in data:
@@ -112,7 +112,7 @@ class ModalityPlotter:
 
     def draw_subplot(self, ax, plot_pattern, modalities) -> None:
 
-        resultants = self.resultants(self.data)
+        resultants = self.VectorAddition(self.data)
 
         # Color measurement in HSV format
         # hue_array = self.normalization(np.angle(resultants))
@@ -267,16 +267,16 @@ if __name__ == '__main__':
                                binarization,
                                modalities=['ASP', 'CIM', 'Caps'],
                                angles=[90, 210, 330],
-                               marker='.',
-                               linestyle='',
-                               linewidth=0.5,
-                               alpha=0.3,
+                               marker='',
+                               linestyle='-',
+                               linewidth=0.7,
+                               alpha=0.5,
                                colors=(
                                    'tab:green',
-                                   'tab:blue',
+                                   'navy',
                                    'tab:red',
                                    'tab:cyan',
-                                   'tab:olive',
+                                   'darkorange',
                                    'tab:purple',
                                    'black'),)
         plot.draw()
