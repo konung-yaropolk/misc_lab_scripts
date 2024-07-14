@@ -52,6 +52,7 @@ class ModalityPlotter:
                  linestyle='-',
                  linewidth=0.5,
                  alpha=0.8,
+                 same_scale=False,
                  colors=(
                      'tab:green',
                      'tab:blue',
@@ -71,8 +72,30 @@ class ModalityPlotter:
         self.linestyle = linestyle
         self.linewidth = linewidth
         self.alpha = alpha
+        self.same_scale = same_scale
         self.colors = colors
         self.normalization_func = normalization_func
+        self.plot_patterns = (
+            (True, False, False),
+            (False, True, False),
+            (False, False, True),
+            (True, True, False),
+            (True, False, True),
+            (False, True, True),
+            'plot all',
+        )
+        self.modalities = (
+            (self.modalities[0], None, None),
+            (None, self.modalities[1], None),
+            (None, None, self.modalities[2]),
+            (self.modalities[0], self.modalities[1], None),
+            (self.modalities[0], None, self.modalities[2]),
+            (None, self.modalities[1], self.modalities[2]),
+            (None, None, None),  # self.modalities[:],
+        )
+
+        # Prepare figure:
+        self.draw()
 
     def normalization(self, input) -> list:
         '''
@@ -209,38 +232,16 @@ class ModalityPlotter:
         ax13 = fig.add_subplot(gs[16:28, 38:54], polar=True)
         ax23 = fig.add_subplot(gs[50:62, 22:34], polar=True)
         ax123 = fig.add_subplot(gs[0:56, 0:56], polar=True)
+        subplots = (ax1, ax2, ax3, ax12, ax13, ax23, ax123)
 
-        subplots = (
-            # formatting accurate list, lol
-            ax1, ax2, ax3, ax12, ax13, ax23, ax123,
-        )
-
-        plot_patterns = (
-
-            (True, False, False),
-            (False, True, False),
-            (False, False, True),
-            (True, True, False),
-            (True, False, True),
-            (False, True, True),
-            'plot all',
-        )
-
-        modalities = (
-
-            (self.modalities[0], None, None),
-            (None, self.modalities[1], None),
-            (None, None, self.modalities[2]),
-            (self.modalities[0], self.modalities[1], None),
-            (self.modalities[0], None, self.modalities[2]),
-            (None, self.modalities[1], self.modalities[2]),
-            (None, None, None),  # self.modalities[:],
-        )
-
-        for ax, plot_pattern, modalities in zip(subplots, plot_patterns, modalities):
+        for ax, plot_pattern, modalities in zip(subplots, self.plot_patterns, self.modalities):
             self.initiate_subplot(ax)
-
             self.draw_subplot(ax, plot_pattern, modalities)
+
+        if self.same_scale:
+            rlim = ax123.get_xlim()
+            for ax in subplots:
+                ax.set_rlim(rlim)
 
         # Draw coordinate grid on the top of figure
         # to make easier subplots alignment on devtime
@@ -248,7 +249,11 @@ class ModalityPlotter:
 
         plt.subplots_adjust(wspace=0.0, hspace=0.0)
         plt.tight_layout()
+
+    def show(self):
         plt.show()
+
+    # def save(self, path):
 
 
 if __name__ == '__main__':
@@ -271,6 +276,7 @@ if __name__ == '__main__':
                                linestyle='-',
                                linewidth=0.7,
                                alpha=0.5,
+                               same_scale=False,
                                colors=(
                                    'tab:green',
                                    'navy',
@@ -278,5 +284,5 @@ if __name__ == '__main__':
                                    'tab:cyan',
                                    'darkorange',
                                    'tab:purple',
-                                   'black'),)
-        plot.draw()
+                                   'black'))
+        plot.show()
