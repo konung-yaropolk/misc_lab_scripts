@@ -24,19 +24,21 @@ class CsvFile:
 
         with open(file_path, 'r') as file:
             reader = csv.reader(file)
-            data = [tuple(float(cell) if cell else 0 for cell in row[:3])
-                    for row in reader]
-            binarization = [tuple(int(cell) if cell else 0 for cell in row[3:6])
-                            for row in reader]
+            data, binarization = [], []
+            for row in reader:
+                data.append(
+                    tuple(float(cell) if cell else 0 for cell in row[:3]))
+                binarization.append(
+                    tuple(True if cell else False for cell in row[3:6]))
 
-        return data  # , binarization
+        return data, binarization
 
 
 class ModalityPlotter:
     '''
         Input fotmat:
 
-        data: list of points, each point should be represented as a 
+        data: list of points, each point should be represented as a
               list or touple containing three floats, one per modality.
 
     '''
@@ -62,7 +64,6 @@ class ModalityPlotter:
                  ) -> None:
 
         self.data = data
-        print(self.data)
         self.binarization = binarization
         self.modalities = modalities
         self.angles = np.deg2rad(angles)
@@ -74,7 +75,7 @@ class ModalityPlotter:
         self.normalization_func = normalization_func
 
     def normalization(self, input) -> list:
-        ''' 
+        '''
             Define function to normalize coordinates
             to values in range of 0 to 1 for HSV color model.
             input: np.array
@@ -109,7 +110,7 @@ class ModalityPlotter:
 
         return resultants
 
-    def draw_subplot(self, ax, plot_pattern, modalities, color) -> None:
+    def draw_subplot(self, ax, plot_pattern, modalities) -> None:
 
         resultants = self.resultants(self.data)
 
@@ -119,10 +120,20 @@ class ModalityPlotter:
         # val_array = self.normalization(np.abs(resultants))
 
         # for resultant, hue, sat, val in zip(resultants, hue_array, sat_array, val_array):
-        for resultant, row in zip(resultants, data):
-            binarized_row = [bool(i) for i in row]
+        for resultant, data_row, bin_row in zip(resultants, self.data, self.binarization):
 
-            if resultant and (binarized_row == plot_pattern):
+            if resultant and (bin_row == plot_pattern):
+
+                match bin_row:
+
+                    case (True, False, False): color = self.colors[0]
+                    case (True, True, False): color = self.colors[1]
+                    case (True, False, True): color = self.colors[2]
+                    case (True, True, True): color = self.colors[3]
+                    case (False, True, False): color = self.colors[4]
+                    case (False, True, True): color = self.colors[5]
+                    case (False, False, True): color = self.colors[6]
+
                 ax.plot(
                     [0, np.angle(resultant)],
                     [0, np.abs(resultant)],
@@ -152,6 +163,7 @@ class ModalityPlotter:
     def debug_grid(self, fig, y, x) -> None:
 
         for i in range(1, y*x+1):
+
             ax = fig.add_subplot(y, x, i)
 
             # Set the facecolor of the axes
@@ -198,13 +210,13 @@ class ModalityPlotter:
         # )
 
         plot_patterns = (
-            [True, False, False],
-            [True, True, False],
-            [True, False, True],
-            [True, True, True],
-            [False, True, False],
-            [False, True, True],
-            [False, False, True],
+            (True, False, False),
+            (True, True, False),
+            (True, False, True),
+            (True, True, True),
+            (False, True, False),
+            (False, True, True),
+            (False, False, True),
         )
 
         modalities = (
@@ -220,7 +232,7 @@ class ModalityPlotter:
         for ax, plot_pattern, modalities, color in zip(subplots, plot_patterns, modalities, self.colors):
             self.initiate_subplot(ax)
 
-            self.draw_subplot(ax, plot_pattern, modalities, color)
+            self.draw_subplot(ax, plot_pattern, modalities)
 
         # Draw coordinate grid on the top of figure
         # to make easier subplots alignment on devtime
@@ -242,8 +254,7 @@ if __name__ == '__main__':
 
     for file in files:
         new_csv = CsvFile(file)
-        data = new_csv.parse_csv_file()
-
-        plot = ModalityPlotter(data, [], modalities=[
+        data, binarization = new_csv.parse_csv_file()
+        plot = ModalityPlotter(data, binarization, modalities=[
                                'ASP', 'CIM', 'Caps'],)
         plot.draw()
