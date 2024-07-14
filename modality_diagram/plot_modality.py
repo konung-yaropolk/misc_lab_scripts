@@ -224,28 +224,28 @@ class ModalityPlotter:
         fig = plt.figure(figsize=(10, 10))
 
         # Defining layout
-        gs = gridspec.GridSpec(64, 56, figure=fig)
-        ax1 = fig.add_subplot(gs[0:20, 18:38], polar=True)
-        ax2 = fig.add_subplot(gs[34:54, 0:20], polar=True)
-        ax3 = fig.add_subplot(gs[34:54, 36:56], polar=True)
-        ax12 = fig.add_subplot(gs[16:28, 2:18], polar=True)
-        ax13 = fig.add_subplot(gs[16:28, 38:54], polar=True)
-        ax23 = fig.add_subplot(gs[50:62, 22:34], polar=True)
-        ax123 = fig.add_subplot(gs[0:56, 0:56], polar=True)
-        subplots = (ax1, ax2, ax3, ax12, ax13, ax23, ax123)
+        gs = gridspec.GridSpec(20, 20, figure=fig)
+        ax1 = fig.add_subplot(gs[1:11, 5:15], polar=True)
+        ax2 = fig.add_subplot(gs[7:17, 1:11], polar=True)
+        ax3 = fig.add_subplot(gs[7:17, 9:19], polar=True)
+        ax12 = fig.add_subplot(gs[4:14, 3:13], polar=True)
+        ax13 = fig.add_subplot(gs[4:14, 7:17], polar=True)
+        ax23 = fig.add_subplot(gs[7:17, 5:15], polar=True)
+        ax0 = fig.add_subplot(gs[5:15, 5:15], polar=True)
+        subplots = (ax1, ax2, ax3, ax12, ax13, ax23, ax0)
 
         for ax, plot_pattern, modalities in zip(subplots, self.plot_patterns, self.modalities):
             self.initiate_subplot(ax)
             self.draw_subplot(ax, plot_pattern, modalities)
 
         if self.same_scale:
-            rlim = ax123.get_xlim()
+            rlim = ax0.get_xlim()
             for ax in subplots:
                 ax.set_rlim(rlim)
 
         # Draw coordinate grid on the top of figure
         # to make easier subplots alignment on devtime
-        # self.debug_grid(fig, 28, 28)
+        # self.debug_grid(fig, 20, 20)
 
         plt.subplots_adjust(wspace=0.0, hspace=0.0)
         plt.tight_layout()
@@ -276,7 +276,7 @@ if __name__ == '__main__':
                                linestyle='-',
                                linewidth=0.7,
                                alpha=0.5,
-                               same_scale=False,
+                               same_scale=True,
                                colors=(
                                    'tab:green',
                                    'navy',
