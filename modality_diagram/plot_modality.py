@@ -79,14 +79,14 @@ class ModalityPlotter:
         self.same_scale = same_scale
         self.colors = colors
         self.normalization_func = normalization_func
-        self.plot_patterns = (
+        self.modality_patterns = (
             (True, False, False),
             (False, True, False),
             (False, False, True),
             (True, True, False),
             (True, False, True),
             (False, True, True),
-            'plot all',
+            (True, True, True),
         )
         self.modalities = (
             (self.modalities[0], None, None),
@@ -137,61 +137,11 @@ class ModalityPlotter:
 
         return resultants
 
-    def draw_subplot(self, ax, plot_pattern, modalities) -> None:
-
-        resultants = self.VectorAddition(self.data)
-
-        # Color measurement in HSV format
-        # hue_array = self.normalization(np.angle(resultants))
-        # sat_array = np.ones_like(hue_array)
-        # val_array = self.normalization(np.abs(resultants))
-
-        # for resultant, hue, sat, val in zip(resultants, hue_array, sat_array, val_array):
-        for resultant, data_row, bin_row in zip(resultants, self.data, self.binarization):
-
-            if resultant and (bin_row == plot_pattern) or plot_pattern == 'plot all':
-
-                match bin_row:
-
-                    case (True, False, False):
-                        color = self.colors[0]
-                        zorder = 1
-                    case (False, True, False):
-                        color = self.colors[1]
-                        zorder = 1
-                    case (False, False, True):
-                        color = self.colors[2]
-                        zorder = 1
-                    case (True, True, False):
-                        color = self.colors[3]
-                        zorder = 2
-                    case (True, False, True):
-                        color = self.colors[4]
-                        zorder = 2
-                    case (False, True, True):
-                        color = self.colors[5]
-                        zorder = 2
-                    case (True, True, True):
-                        color = self.colors[6]
-                        zorder = 3
-                    case _:
-                        color = (0, 0, 0, 0)
-                        zorder = 0
-
-                ax.plot(
-                    [0, np.angle(resultant)],
-                    [0, np.abs(resultant)],
-                    zorder=zorder,
-                    marker=self.marker,
-                    linestyle=self.linestyle,
-                    linewidth=self.linewidth,
-                    color=color,  # mcolors.hsv_to_rgb((hue, sat, val)),
-                    alpha=self.alpha)
-                if self.labels:
-                    ax.set_xticklabels(modalities)
-
-        if self.scalecircle:
-            self.draw_scalecircle(ax)
+    def find_match(self, sample, list):
+        for i, item in enumerate(list):
+            if item == sample:
+                return i
+        return 0
 
     def draw_scalecircle(self, ax):
         # Plot the single-unit circle
@@ -225,8 +175,43 @@ class ModalityPlotter:
             for spine in ax.spines.values():
                 spine.set_edgecolor('black')
 
-    # Main drawing method
+    def draw_subplot(self, ax, modality_pattern, modalities) -> None:
 
+        resultants = self.VectorAddition(self.data)
+
+        # for future sets calculation
+        set1, set2, set3, set12, set13, set23, set123, set0 = [0] * 8
+
+        # Color measurement in HSV format
+        # hue_array = self.normalization(np.angle(resultants))
+        # sat_array = np.ones_like(hue_array)
+        # val_array = self.normalization(np.abs(resultants))
+
+        for resultant, data_row, bin_row in zip(resultants, self.data, self.binarization):
+
+            if resultant and (bin_row == modality_pattern) or modality_pattern == (True, True, True):
+                # defining the modality of responce to apply color and z-order
+                modality_pattern_number = self.find_match(
+                    bin_row, self.modality_patterns)
+                color = self.colors[modality_pattern_number]
+                zorder = modality_pattern_number
+
+                ax.plot(
+                    [0, np.angle(resultant)],
+                    [0, np.abs(resultant)],
+                    zorder=zorder,
+                    marker=self.marker,
+                    linestyle=self.linestyle,
+                    linewidth=self.linewidth,
+                    color=color,  # mcolors.hsv_to_rgb((hue, sat, val)),
+                    alpha=self.alpha)
+                if self.labels:
+                    ax.set_xticklabels(modalities)
+
+        if self.scalecircle:
+            self.draw_scalecircle(ax)
+
+    # Main drawing method
     def draw(self) -> None:
 
         # Create figure
@@ -243,9 +228,9 @@ class ModalityPlotter:
         ax0 = fig.add_subplot(gs[5:15, 5:15], polar=True)
         subplots = (ax1, ax2, ax3, ax12, ax13, ax23, ax0)
 
-        for ax, plot_pattern, modalities in zip(subplots, self.plot_patterns, self.modalities):
+        for ax, modality_pattern, modalities in zip(subplots, self.modality_patterns, self.modalities):
             self.initiate_subplot(ax)
-            self.draw_subplot(ax, plot_pattern, modalities)
+            self.draw_subplot(ax, modality_pattern, modalities)
 
         if self.same_scale:
             rlim = ax0.get_xlim()
