@@ -99,7 +99,7 @@ class ModalityPlotter:
         )
 
         # Prepare figure:
-        self.draw()
+        self.make_fig()
 
     def normalization(self, input) -> list:
         '''
@@ -137,13 +137,13 @@ class ModalityPlotter:
 
         return resultants
 
-    def find_match(self, sample, list):
+    def find_match_modality(self, sample, list) -> int:
         for i, item in enumerate(list):
             if item == sample:
                 return i
         return 0
 
-    def draw_scalecircle(self, ax):
+    def draw_scalecircle(self, ax) -> None:
         # Plot the single-unit circle
         r = self.scalecircle
         theta = np.linspace(0, 2*np.pi, 100)
@@ -180,19 +180,21 @@ class ModalityPlotter:
         resultants = self.VectorAddition(self.data)
 
         # for future sets calculation
-        set1, set2, set3, set12, set13, set23, set123, set0 = [0] * 8
+        sets_counter = [0] * 8
 
-        # Color measurement in HSV format
+        # Color measurement in HSV format (temporarry abandoned future)
         # hue_array = self.normalization(np.angle(resultants))
         # sat_array = np.ones_like(hue_array)
         # val_array = self.normalization(np.abs(resultants))
+        # color = mcolors.hsv_to_rgb((hue, sat, val))
 
         for resultant, data_row, bin_row in zip(resultants, self.data, self.binarization):
 
             if resultant and (bin_row == modality_pattern) or modality_pattern == (True, True, True):
                 # defining the modality of responce to apply color and z-order
-                modality_pattern_number = self.find_match(
+                modality_pattern_number = self.find_match_modality(
                     bin_row, self.modality_patterns)
+                sets_counter[modality_pattern_number] += 1
                 color = self.colors[modality_pattern_number]
                 zorder = modality_pattern_number
 
@@ -203,7 +205,7 @@ class ModalityPlotter:
                     marker=self.marker,
                     linestyle=self.linestyle,
                     linewidth=self.linewidth,
-                    color=color,  # mcolors.hsv_to_rgb((hue, sat, val)),
+                    color=color,
                     alpha=self.alpha)
                 if self.labels:
                     ax.set_xticklabels(modalities)
@@ -211,8 +213,9 @@ class ModalityPlotter:
         if self.scalecircle:
             self.draw_scalecircle(ax)
 
-    # Main drawing method
-    def draw(self) -> None:
+    # Make figure layout,
+    # starting point of plotting
+    def make_fig(self) -> None:
 
         # Create figure
         fig = plt.figure(figsize=(10, 10))
