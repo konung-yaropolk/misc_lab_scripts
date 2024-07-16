@@ -148,7 +148,7 @@ class ModalityPlotter:
         r = self.scalecircle
         theta = np.linspace(0, 2*np.pi, 100)
         ax.plot(theta, [r]*len(theta), color='black',
-                linestyle=':', linewidth=1)
+                linestyle=':', linewidth=1, zorder=10)
 
     def initiate_subplot(self, ax) -> None:
 
