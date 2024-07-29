@@ -3,6 +3,8 @@ import matplotlib.colors as mcolors
 import matplotlib.gridspec as gridspec
 import numpy as np
 
+DEBUG = False
+
 
 class ModalityPlot:
     '''
@@ -65,7 +67,7 @@ class ModalityPlot:
             (self.modalities[0], self.modalities[1], None),
             (self.modalities[0], None, self.modalities[2]),
             (None, self.modalities[1], self.modalities[2]),
-            (None, None, None),  # self.modalities[:],
+            (None, None, None),
         )
 
         # check input:
@@ -105,8 +107,10 @@ class ModalityPlot:
 
         resultants = []
         for point in data:
+
             # ignore empty lines
             if not all(x == 0 for x in point):
+
                 # Calculate resultant vector
                 resultants.append(
                     np.sum([point[i] * np.exp(1j * self.angles[i]) for i in range(len(point))]))
@@ -122,6 +126,7 @@ class ModalityPlot:
         return 0
 
     def draw_scalecircle(self, ax) -> None:
+
         # Plot the single-unit circle
         r = self.scalecircle
         theta = np.linspace(0, 2*np.pi, 100)
@@ -132,9 +137,10 @@ class ModalityPlot:
 
         # Set custom design
         ax.set_yticklabels([])
-        ax.set_xticks(self.anglesif if self.labels else [])
+        ax.set_xticks(self.angles if self.labels else [])
         ax.grid(False)
-        ax.spines['polar'].set_visible(False)
+        ax.spines['polar'].set_visible(
+            False) if not DEBUG else ax.spines['polar'].set_visible(True)
         ax.patch.set_facecolor('none')
 
     # Draw coordinate grid on the top of figure
@@ -220,7 +226,8 @@ class ModalityPlot:
 
         # Draw coordinate grid on the top of figure
         # to make easier subplots alignment on devtime
-        # self.debug_grid(fig, 20, 20)
+        if DEBUG:
+            self.debug_grid(fig, 20, 20)
 
         plt.subplots_adjust(wspace=0.0, hspace=0.0)
         plt.tight_layout()

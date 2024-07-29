@@ -9,16 +9,12 @@ class CsvFile:
         Each row containing at least one value will be represented as a point.
     '''
 
-    def __init__(self, file: str) -> None:
-        self.file = file
+    def __init__(self, file_path: str) -> None:
+        self.file_path = file_path
 
     def parse_csv_file(self) -> list:
 
-        # Get dir where script is located
-        script_dir = os.path.dirname(os.path.realpath(__file__))
-        file_path = os.path.join(script_dir, self.file)
-
-        with open(file_path, 'r') as file:
+        with open(self.file_path, 'r') as file:
             reader = csv.reader(file)
             data, binarization = [], []
             for row in reader:
@@ -28,3 +24,7 @@ class CsvFile:
                     tuple(True if cell else False for cell in row[3:6]))
 
         return data, binarization
+
+
+if __name__ == '__main__':
+    print('\nThis script can be used as an imported module only\n')
