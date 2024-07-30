@@ -3,6 +3,7 @@ import matplotlib.colors as mcolors
 import matplotlib.gridspec as gridspec
 import numpy as np
 
+# Only use for plot layout adjustment
 DEBUG = False
 
 

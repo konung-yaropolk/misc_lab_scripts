@@ -6,24 +6,24 @@ if __name__ == '__main__':
 
     files = [   # drop files in the same folder:
         'modality_C_boutons.csv',
-        # 'modality_C_fibers.csv',
-        # 'modality_A_boutons.csv',
-        # 'modality_A_fibers.csv',
+        'modality_C_fibers.csv',
+        'modality_A_boutons.csv',
+        'modality_A_fibers.csv',
     ]
 
     for file in files:
 
-        # Get dir where script is located
+        # Get full path of input files
         script_dir = os.path.dirname(os.path.realpath(__file__))
         file_path = os.path.join(script_dir, file)
 
-        new_csv = csv.CsvFile(file)
+        new_csv = csv.CsvFile(file_path)
         data, binarization = new_csv.parse_csv_file()
         plot = plt.ModalityPlot(data,
                                 binarization,
                                 modalities=['ASP', 'CIM', 'Caps'],
                                 angles=[90, 210, 330],
-                                labels=True,
+                                labels=False,
                                 scalecircle=0.3,
                                 marker='',
                                 linestyle='-',
