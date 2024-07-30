@@ -2,7 +2,7 @@
 
 Simple tool to make extended scientific diagrams
 
-##### To install package run the command inside the project folder:
+##### To install package run the command inside the project dir:
 ``pip install .``
 
 ##### How to use:
