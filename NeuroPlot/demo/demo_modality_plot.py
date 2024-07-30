@@ -1,8 +1,6 @@
 #!/usr/bin/env python
-
 import NeuroPlot.parse_csv as csv
 import NeuroPlot.modality_plot as plt
-
 import os
 
 if __name__ == '__main__':
@@ -29,22 +27,25 @@ if __name__ == '__main__':
         plot = plt.ModalityPlot(data,
                                 binarization,
                                 modalities=[
-                                    'ASP', 'CIM', 'Caps'],
+                                    'Set 1', 'Set 2', 'Set 3'],
                                 angles=[90, 210, 330],
                                 labels=False,
-                                scalecircle=0.3,
-                                marker='',
+                                scalecircle=0.3,   # Scale circle radius
+                                marker='',         # vector endpoints marker
                                 linestyle='-',
                                 linewidth=0.7,
                                 alpha=0.5,
-                                same_scale=False,
+                                same_scale=False,  # Draw all the subplots in the same scale
+                                figsize=(10, 10),
+                                title='Modality Diagram Example',
                                 colors=(
-                                    'tab:green',
-                                    'navy',
-                                    'tab:red',
-                                    'tab:cyan',
-                                    'darkorange',
-                                    'tab:purple',
-                                    'black'))
+                                    'tab:green',   # Set 1 color
+                                    'navy',        # Set 2 color
+                                    'tab:red',     # Set 3 color
+                                    'tab:cyan',    # Sets 1 & 2 intersection color
+                                    'darkorange',  # Sets 1 & 3 intersection color
+                                    'tab:purple',  # Sets 2 & 3 intersection color
+                                    'black'),      # All sets   intersection color
+                                )
 
         plot.show()

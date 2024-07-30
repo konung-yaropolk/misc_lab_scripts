@@ -29,6 +29,8 @@ class ModalityPlot:
                  linewidth=0.5,
                  alpha=0.8,
                  same_scale=False,
+                 figsize=(10, 10),
+                 title='',
                  colors=(
                      'tab:green',
                      'tab:blue',
@@ -51,6 +53,8 @@ class ModalityPlot:
         self.linewidth = linewidth
         self.alpha = alpha
         self.same_scale = same_scale
+        self.figsize = figsize
+        self.title = title
         self.colors = colors
         self.normalization_func = normalization_func
         self.modality_patterns = (
@@ -204,7 +208,7 @@ class ModalityPlot:
     def make_fig(self) -> None:
 
         # Create figure
-        fig = plt.figure(figsize=(10, 10))
+        fig = plt.figure(figsize=self.figsize)
 
         # Defining layout
         gs = gridspec.GridSpec(20, 20, figure=fig)
@@ -233,6 +237,7 @@ class ModalityPlot:
 
         plt.subplots_adjust(wspace=0.0, hspace=0.0)
         plt.tight_layout()
+        plt.suptitle(self.title)
 
     def show(self):
         plt.show()
