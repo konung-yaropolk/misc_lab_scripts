@@ -1,7 +1,8 @@
+#!/usr/bin/env python
 import csv
 
 
-class CsvFile:
+class LoadCsv:
     '''
         The input CSV file must be comma delimited and aligned on three columns.
         Each column represents one modality. Empty cells are counted as 0.
@@ -11,7 +12,7 @@ class CsvFile:
     def __init__(self, file_path: str) -> None:
         self.file_path = file_path
 
-    def parse_csv_file(self) -> list:
+    def ParseCsv(self) -> list:
 
         with open(self.file_path, 'r') as file:
             reader = csv.reader(file)

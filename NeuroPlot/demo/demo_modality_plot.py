@@ -1,14 +1,18 @@
-import plotter.modality_plot as plt
-import plotter.parse_csv as csv
+#!/usr/bin/env python
+
+import NeuroPlot.parse_csv as csv
+import NeuroPlot.modality_plot as plt
+
 import os
 
 if __name__ == '__main__':
 
-    files = [   # drop files in the same folder:
-        'modality_C_boutons.csv',
-        'modality_C_fibers.csv',
-        'modality_A_boutons.csv',
-        'modality_A_fibers.csv',
+    # input files in the demo folder:
+    files = [
+        'demo_data\modality_C_boutons.csv',
+        # 'demo_data\modality_C_fibers.csv',
+        # 'demo_data\modality_A_boutons.csv',
+        # 'demo_data\modality_A_fibers.csv',
     ]
 
     for file in files:
@@ -17,11 +21,15 @@ if __name__ == '__main__':
         script_dir = os.path.dirname(os.path.realpath(__file__))
         file_path = os.path.join(script_dir, file)
 
-        new_csv = csv.CsvFile(file_path)
-        data, binarization = new_csv.parse_csv_file()
+        # Parse data from csv file
+        new_csv = csv.LoadCsv(file_path)
+        data, binarization = new_csv.ParseCsv()
+
+        # Make figure:
         plot = plt.ModalityPlot(data,
                                 binarization,
-                                modalities=['ASP', 'CIM', 'Caps'],
+                                modalities=[
+                                    'ASP', 'CIM', 'Caps'],
                                 angles=[90, 210, 330],
                                 labels=False,
                                 scalecircle=0.3,
@@ -38,4 +46,5 @@ if __name__ == '__main__':
                                     'darkorange',
                                     'tab:purple',
                                     'black'))
+
         plot.show()

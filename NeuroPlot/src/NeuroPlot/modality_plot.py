@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import matplotlib.gridspec as gridspec
@@ -104,7 +105,7 @@ class ModalityPlot:
 
         return [func(x) for x in input]
 
-    def VectorAddition(self, data) -> list:
+    def vector_addition(self, data) -> list:
 
         resultants = []
         for point in data:
@@ -162,7 +163,7 @@ class ModalityPlot:
 
     def draw_subplot(self, ax, modality_pattern, modalities) -> None:
 
-        resultants = self.VectorAddition(self.data)
+        resultants = self.vector_addition(self.data)
 
         # for future sets calculation
         sets_counter = [0] * 8
@@ -236,7 +237,8 @@ class ModalityPlot:
     def show(self):
         plt.show()
 
-    # def save(self, path):
+    def save(self, filename, type='svg', transparent=False):
+        plt.savefig('{}.{}'.format(filename, type), transparent=transparent)
 
 
 if __name__ == '__main__':
