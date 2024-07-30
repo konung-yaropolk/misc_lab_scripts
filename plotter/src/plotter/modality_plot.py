@@ -2,39 +2,12 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import matplotlib.gridspec as gridspec
 import numpy as np
-import csv
-import os
+
+# Only use for plot layout adjustment
+DEBUG = False
 
 
-class CsvFile:
-    '''
-        The input CSV file must be comma delimited and aligned on three columns.
-        Each column represents one modality. Empty cells are counted as 0.
-        Each row containing at least one value will be represented as a point.
-    '''
-
-    def __init__(self, file: str) -> None:
-        self.file = file
-
-    def parse_csv_file(self) -> list:
-
-        # Get dir where script is located
-        script_dir = os.path.dirname(os.path.realpath(__file__))
-        file_path = os.path.join(script_dir, self.file)
-
-        with open(file_path, 'r') as file:
-            reader = csv.reader(file)
-            data, binarization = [], []
-            for row in reader:
-                data.append(
-                    tuple(float(cell) if cell else 0 for cell in row[:3]))
-                binarization.append(
-                    tuple(True if cell else False for cell in row[3:6]))
-
-        return data, binarization
-
-
-class ModalityPlotter:
+class ModalityPlot:
     '''
         Input fotmat:
 
@@ -46,7 +19,7 @@ class ModalityPlotter:
     def __init__(self,
                  data: list,
                  binarization: list,
-                 modalities=('1', '2', '3'),
+                 modalities=('A', 'B', 'C'),
                  angles=[90, 210, 330],
                  labels=True,
                  scalecircle=1,
@@ -95,8 +68,16 @@ class ModalityPlotter:
             (self.modalities[0], self.modalities[1], None),
             (self.modalities[0], None, self.modalities[2]),
             (None, self.modalities[1], self.modalities[2]),
-            (None, None, None),  # self.modalities[:],
+            (None, None, None),
         )
+
+        # check input:
+        assert self.data, 'data array must not be empty'
+        assert self.binarization, 'binarization array must not be empty'
+        assert len(self.data) == len(
+            self.binarization), 'data and binarization arrays must have exact length'
+        assert len(self.data[0]) == len(self.binarization[0]
+                                        ) == 3, 'data and binarization arrays must have three columns each'
 
         # Prepare figure:
         self.make_fig()
@@ -127,8 +108,10 @@ class ModalityPlotter:
 
         resultants = []
         for point in data:
+
             # ignore empty lines
             if not all(x == 0 for x in point):
+
                 # Calculate resultant vector
                 resultants.append(
                     np.sum([point[i] * np.exp(1j * self.angles[i]) for i in range(len(point))]))
@@ -144,6 +127,7 @@ class ModalityPlotter:
         return 0
 
     def draw_scalecircle(self, ax) -> None:
+
         # Plot the single-unit circle
         r = self.scalecircle
         theta = np.linspace(0, 2*np.pi, 100)
@@ -154,9 +138,10 @@ class ModalityPlotter:
 
         # Set custom design
         ax.set_yticklabels([])
-        ax.set_xticks(self.anglesif if self.labels else [])
+        ax.set_xticks(self.angles if self.labels else [])
         ax.grid(False)
-        ax.spines['polar'].set_visible(False)
+        ax.spines['polar'].set_visible(
+            False) if not DEBUG else ax.spines['polar'].set_visible(True)
         ax.patch.set_facecolor('none')
 
     # Draw coordinate grid on the top of figure
@@ -242,7 +227,8 @@ class ModalityPlotter:
 
         # Draw coordinate grid on the top of figure
         # to make easier subplots alignment on devtime
-        # self.debug_grid(fig, 20, 20)
+        if DEBUG:
+            self.debug_grid(fig, 20, 20)
 
         plt.subplots_adjust(wspace=0.0, hspace=0.0)
         plt.tight_layout()
@@ -254,34 +240,4 @@ class ModalityPlotter:
 
 
 if __name__ == '__main__':
-
-    files = [   # drop files in the same folder:
-        'modality_C_boutons.csv',
-        # 'modality_C_fibers.csv',
-        # 'modality_A_boutons.csv',
-        # 'modality_A_fibers.csv',
-    ]
-
-    for file in files:
-        new_csv = CsvFile(file)
-        data, binarization = new_csv.parse_csv_file()
-        plot = ModalityPlotter(data,
-                               binarization,
-                               modalities=['ASP', 'CIM', 'Caps'],
-                               angles=[90, 210, 330],
-                               labels=False,
-                               scalecircle=0.3,
-                               marker='',
-                               linestyle='-',
-                               linewidth=0.7,
-                               alpha=0.5,
-                               same_scale=False,
-                               colors=(
-                                   'tab:green',
-                                   'navy',
-                                   'tab:red',
-                                   'tab:cyan',
-                                   'darkorange',
-                                   'tab:purple',
-                                   'black'))
-        plot.show()
+    print('\nThis script can be used as an imported module only\n')
