@@ -7,10 +7,7 @@ if __name__ == '__main__':
 
     # input files in the demo folder:
     files = [
-        'demo_data\modality_C_boutons.csv',
-        # 'demo_data\modality_C_fibers.csv',
-        # 'demo_data\modality_A_boutons.csv',
-        # 'demo_data\modality_A_fibers.csv',
+        'demo_data\\modality_data.csv',
     ]
 
     for file in files:
