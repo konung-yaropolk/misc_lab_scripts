@@ -76,9 +76,10 @@ class Derivatives(Movie):
     def calculate_single_response(self):
 
         start_frame = int((self.start / 1000) // self.sampling_interval)
-        end_frame = int(((self.start / 1000) + self.response_duration)
-                        // self.sampling_interval)
-        self.result = self.process_tiff_stack(start_frame, end_frame)
+        stop_frame = int(((self.start / 1000) + self.response_duration)
+                         // self.sampling_interval)
+
+        self.result = self.process_tiff_stack(start_frame, stop_frame)
 
         return self.result
 
