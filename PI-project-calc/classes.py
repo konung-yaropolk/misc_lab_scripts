@@ -103,4 +103,4 @@ file_path = 'sample.tif'
 
 der = Derivatives(file_path, 22003, 246.167)
 der.calculate_single_response()
-der.save('sample_derivative.tif')
+der.save(file_path + '_DERIVATIVES.tif')
