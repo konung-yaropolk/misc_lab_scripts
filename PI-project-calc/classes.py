@@ -96,10 +96,9 @@ class Derivatives(Movie):
         #     def __init__(self, ):
 
         #         super()__init__()
-        # Example usage
 
 
-file_path = 'sample.tif'
+file_path = 'Field_6_registered.tif'
 
 der = Derivatives(file_path, 22003, 246.167)
 der.calculate_single_response()
