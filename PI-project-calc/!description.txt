@@ -1,0 +1,169 @@
+2024_04_19
+Mouse
+Female
+DOB: 10-26-2023
+25 weeks old
+Pirt GCamp3 
+
+Virus injected by Alex: 
+pAAV.Syn.NES-jRGECO1a.WPRE.SV40 (AAV1)
+
+cage 7536 
+ear punch: see photo
+
+
+
+Stimulation:   L3 left
+Stim pipette: 1.5mm OD
+
+
+Field of view: left L3 dorsal root entry zone
+
+mode: galvano if not indicated another
+starting condition: aCSF only cycling perfusion
+
+
+
+
+
+
+
+	DRS pattern #1:
+
+		A-stim means: 50us +100uA
+		C-stim means: 1ms  -150uA
+		100ms Lag betwin A and C stim when they appears simultaneously in the step
+
+		Each step:  10s
+		Each epoch: 6 steps = 60s
+		Epoch count: 10
+
+		Epoch by steps layout:
+		  _ _ _ _ _ _ 
+		A|x| |x| |x| |
+		C| |x| | |x| |
+
+		
+		Stimulators settings (two A-M systems 2100):
+
+	        	A-stim: delay     0; burst_width 601s; pulse_duration 0.05ms; interpulse_period 20s
+	        	C-stim: delay 10.1s; burst_width 601s; pulse_duration 1   ms; interpulse_period 30s
+
+
+
+
+
+	DRS pattern #2:
+
+		A-stim means: 50us +100uA
+		C-stim means: 1ms  -150uA
+		100ms Lag betwin A and C stim when they appears simultaneously in the step
+
+		Each step:  10s
+		Each epoch: 2 steps = 20s
+		Epoch count: 10
+
+		Epoch by steps layout:
+		  _ _ 
+		A|x| |
+		C|x|x|
+
+		
+		Stimulators settings (two A-M systems 2100):
+
+	        	A-stim: delay     0; burst_width 201s; pulse_duration 0.05ms; interpulse_period 20s
+	        	C-stim: delay  0.1s; burst_width 201s; pulse_duration 1   ms; interpulse_period 10s
+
+
+
+
+
+
+Files content:
+
+
+
+Presynaptic Inhibition project:
+
+
+Field_1: 	        # resonant scan
+
+
+	DRS   A 10Hz 0.6s
+	DRS   C 10Hz 0.6s
+	DRS pattern #1, Epoch count: 10
+
+
+Field_1_galvano: 	# galvano scan	      
+	DRS pattern #1, Epoch count: 5
+
+
+Field_2: 	        # resonant scan
+	DRS pattern #1, Epoch count: 7
+
+
+Field_3: 	        # resonant scan
+	DRS pattern #2, Epoch count: 10
+
+
+Field_4: 	        # resonant scan
+	DRS pattern #2, Epoch count: 10
+
+
+Field_5: 	        # resonant scan
+	DRS pattern #2, Epoch count: 5
+
+
+Field_6: 	        # resonant scan
+	DRS pattern #2, Epoch count: 10
+
+
+
+
+
+
+
+
+
+
+
+TRP project:
+
+Field 7_0001:
+
+
+	DRS   A 10Hz 0.6s
+	DRS A+C 10Hz 0.6s
+	DRS   C 10Hz 0.6s
+
+
+	Drug Application trig: changed to ASP 7663           50uM tube (no recyculation)   # Big responce
+	Wash out
+
+	Drug Application trig: changed to CIM 0216           50uM tube (no recyculation)   # Big responce
+	Wash out
+
+	Drug Application: added Capsaicin(100nM) directly into the tube   # Big responce
+
+
+
+
+
+
+
+
+
+
+	Drugs disolving:
+
+ASP 7663     apply at 50 uM for 5 min (50 mM stock in DMSO) - disolve 1k times
+CIM 0216     apply at 50 uM for 5 min (50 mM stock in DMSO) - disolve 1k times
+BTD          apply at 50 uM for 5 min (50 mM stock in DMSO) - disolve 1k times
+
+Capsaicin    apply at 100nM for 5 min (1mM   stock)         - disolve 10k times
+
+
+
+
+
+	Summary: there wasn't postsynaptic fluorescense
