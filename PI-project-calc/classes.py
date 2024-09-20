@@ -24,11 +24,13 @@ class Derivatives(Movie):
 
     def __init__(self,
                  file_path,
-                 start,
-                 response_duration=2,
+                 start,                # in ms
+                 movie_duration,       # in s
+                 response_duration=2,  # in s: expected response duration
                  ):
         super().__init__(file_path,
                          start,
+                         movie_duration,
                          response_duration,
                          )
         self.result = None
@@ -55,7 +57,7 @@ class Derivatives(Movie):
     def process_tiff_stack(self, start, end):
 
         assert end - start >= 2, '!!! Error: {} - Too small interval to differentiate between frames {} and {}. '.format(
-            file_path, start, end)
+            self.file_path, start, end)
         assert start > 0, '!!! Error: Set the correct timing'
         assert end < self.n_frames, '!!! Error: Timing is out of movie duration'
 
@@ -96,10 +98,3 @@ class Derivatives(Movie):
         #     def __init__(self, ):
 
         #         super()__init__()
-
-
-file_path = 'Field_6_registered.tif'
-
-der = Derivatives(file_path, 22003, 246.167)
-der.calculate_single_response()
-der.save(file_path + '_DERIVATIVES.tif')
