@@ -7,9 +7,11 @@ TO_DO_LIST = [
     ['F:\Lab Work Files\scripts\misc_lab_scripts\PI-project-calc\Field_6_registered.tif',
      {
          'start': 22003,    # in ms
-         'movie_duration': 246.167
-         #  'epoch duration': 60,  # in s
-         #  'n_epochs': 10,
+         'movie_duration': 246.167,
+         'step_duration': 10,  # in s
+         'n_epochs': 10,
+         'drs_pattern': [[1, 0],
+                         [1, 1]]
 
      }
      ],

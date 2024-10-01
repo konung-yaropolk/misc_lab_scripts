@@ -27,12 +27,20 @@ class Derivatives(Movie):
                  start,                # in ms
                  movie_duration,       # in s
                  response_duration=2,  # in s: expected response duration
+                 drs_pattern=[],
+                 step_duration=None,
+                 n_epochs=None,
                  ):
         super().__init__(file_path,
                          start,
                          movie_duration,
                          response_duration,
                          )
+
+        self.drs_pattern = drs_pattern
+        self.step_duration = step_duration
+        self.n_steps = len(self.drs_pattern[0])
+        self.n_epochs = n_epochs
         self.result = None
         self.n_frames = None
 
@@ -43,7 +51,7 @@ class Derivatives(Movie):
         self.n_frames = len(self.img)
         self.sampling_interval = self.movie_duration / self.n_frames
 
-        print('Movie duration: {} \nn frames: {} \nSampling interval: {}'.format(
+        print('\nMovie duration: {} \nn frames: {} \nSampling interval: {}'.format(
             self.movie_duration, self.n_frames, self.sampling_interval))
 
     def compute_gaussian_derivatives(self, image_stack, start, end, sigma):
@@ -83,7 +91,45 @@ class Derivatives(Movie):
 
         self.result = self.process_tiff_stack(start_frame, stop_frame)
 
-        return self.result
+        # return self.result
+
+    def calculate_sequence_responses(self, count, interval, delay):
+
+        sequence_stack = [
+            self.process_tiff_stack(
+                int(((self.start / 1000) + (i*interval) + delay) //
+                    self.sampling_interval),
+                int(((self.start / 1000) + (i*interval) + delay + self.response_duration) //
+                    self.sampling_interval)
+            ) for i in range(count)
+        ]
+
+        self.result = np.average(sequence_stack, axis=0)
+
+        # return self.result
+
+    def calc_sequence(self, i, filename_ending):
+        # der = self.Derivatives(item[0], **item[1])
+        self.calculate_sequence_responses(
+            self.n_epochs,
+            self.step_duration * self.n_steps,
+            self.step_duration * i)
+        self.save(self.file_path + filename_ending)
+
+    def process_secuence(self,):
+
+        for i, [A, C] in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
+            match [A, C]:
+                case [1, 1]:
+                    print('\nSequence A+C:')
+                    self.calc_sequence(i, '_DERIVATIVES_A+C.tif')
+                case [1, 0]:
+                    print('\nSequence A:')
+                    self.calc_sequence(i, '_DERIVATIVES_A.tif')
+                case [0, 1]:
+                    print('\nSequence C:')
+                    self.calc_sequence(i, '_DERIVATIVES_C.tif')
+                case [0, 0]: pass
 
     def save(self, output_path):
 
