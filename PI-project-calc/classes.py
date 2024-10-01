@@ -1,8 +1,15 @@
 from PIL import Image
 import numpy as np
+import settings as s
 # import tifffile as tiff
 from scipy.ndimage import gaussian_filter
 from skimage import io
+
+
+# Defaults:
+RESP_DURATION = s.RESP_DURATION    # in s
+STEP_DURATION = s.STEP_DURATION    # in s
+N_EPOCHS = s.N_EPOCHS
 
 
 class Movie():
@@ -11,7 +18,7 @@ class Movie():
                  file_path,
                  start,                # in ms
                  movie_duration,       # in s
-                 response_duration=2,  # in s: expected response duration
+                 response_duration=RESP_DURATION,  # in s: expected response duration
                  ):
 
         self.movie_duration = movie_duration
@@ -26,10 +33,10 @@ class Derivatives(Movie):
                  file_path,
                  start,                # in ms
                  movie_duration,       # in s
-                 response_duration=2,  # in s: expected response duration
-                 drs_pattern=[],
-                 step_duration=None,
-                 n_epochs=None,
+                 response_duration=RESP_DURATION,  # in s: expected response duration
+                 drs_pattern=[[None], [None]],
+                 step_duration=STEP_DURATION,
+                 n_epochs=N_EPOCHS,
                  ):
         super().__init__(file_path,
                          start,
@@ -83,17 +90,17 @@ class Derivatives(Movie):
 
         return output_derivative
 
-    def calculate_single_response(self):
+    # def calculate_single_response(self):
 
-        start_frame = int((self.start / 1000) // self.sampling_interval)
-        stop_frame = int(((self.start / 1000) + self.response_duration)
-                         // self.sampling_interval)
+    #     start_frame = int((self.start / 1000) // self.sampling_interval)
+    #     stop_frame = int(((self.start / 1000) + self.response_duration)
+    #                      // self.sampling_interval)
 
-        self.result = self.process_tiff_stack(start_frame, stop_frame)
+    #     self.result = self.process_tiff_stack(start_frame, stop_frame)
 
-        # return self.result
+    #     # return self.result
 
-    def calculate_sequence_responses(self, count, interval, delay):
+    def average_sequence_responses(self, count, interval, delay):
 
         sequence_stack = [
             self.process_tiff_stack(
@@ -110,7 +117,7 @@ class Derivatives(Movie):
 
     def calc_sequence(self, i, filename_ending):
         # der = self.Derivatives(item[0], **item[1])
-        self.calculate_sequence_responses(
+        self.average_sequence_responses(
             self.n_epochs,
             self.step_duration * self.n_steps,
             self.step_duration * i)
@@ -130,6 +137,7 @@ class Derivatives(Movie):
                     print('\nSequence C:')
                     self.calc_sequence(i, '_DERIVATIVES_C.tif')
                 case [0, 0]: pass
+                case [None, None]: self.calc_sequence(i, '_DERIVATIVES.tif')
 
     def save(self, output_path):
 
