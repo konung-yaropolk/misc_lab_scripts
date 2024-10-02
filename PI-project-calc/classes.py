@@ -7,6 +7,7 @@ from skimage import io
 
 
 # Defaults:
+PATH_PREFIX = s.PATH_PREFIX
 RESP_DURATION = s.RESP_DURATION    # in s
 STEP_DURATION = s.STEP_DURATION    # in s
 N_EPOCHS = s.N_EPOCHS
@@ -19,12 +20,14 @@ class Movie():
                  start,                # in ms
                  movie_duration,       # in s
                  response_duration=RESP_DURATION,  # in s: expected response duration
+                 filename_suffix='',
                  ):
 
         self.movie_duration = movie_duration
-        self.file_path = file_path
+        self.file_path = PATH_PREFIX + file_path
         self.start = start
         self.response_duration = response_duration
+        self.filename_suffix = filename_suffix
 
 
 class Derivatives(Movie):
@@ -34,6 +37,7 @@ class Derivatives(Movie):
                  start,                # in ms
                  movie_duration,       # in s
                  response_duration=RESP_DURATION,  # in s: expected response duration
+                 filename_suffix='',
                  drs_pattern=[[None], [None]],
                  step_duration=STEP_DURATION,
                  n_epochs=N_EPOCHS,
@@ -42,6 +46,7 @@ class Derivatives(Movie):
                          start,
                          movie_duration,
                          response_duration,
+                         filename_suffix,
                          )
 
         self.drs_pattern = drs_pattern
@@ -52,14 +57,14 @@ class Derivatives(Movie):
         self.n_frames = None
 
         # Open the TIFF image stack
-        self.img = io.imread(file_path)
+        self.img = io.imread(self.file_path)
         # img = Image.open(file_path)
         # img = tiff.imread(file_path)  # Image.open(file_path)
         self.n_frames = len(self.img)
         self.sampling_interval = self.movie_duration / self.n_frames
 
-        print('\nMovie duration: {} \nn frames: {} \nSampling interval: {}'.format(
-            self.movie_duration, self.n_frames, self.sampling_interval))
+        print('\nFile: {} \nMovie duration: {} \nn frames: {} \nSampling interval: {}'.format(
+            self.file_path, self.movie_duration, self.n_frames, self.sampling_interval))
 
     def compute_gaussian_derivatives(self, image_stack, start, end, sigma):
 
@@ -137,7 +142,8 @@ class Derivatives(Movie):
                     print('\nSequence C:')
                     self.calc_sequence(i, '_DERIVATIVES_C.tif')
                 case [0, 0]: pass
-                case [None, None]: self.calc_sequence(i, '_DERIVATIVES.tif')
+                case [None, None]: self.calc_sequence(
+                    i, '_DERIVATIVES_' + self.filename_suffix + '.tif')
 
     def save(self, output_path):
 
