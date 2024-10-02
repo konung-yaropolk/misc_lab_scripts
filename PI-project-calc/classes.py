@@ -134,13 +134,16 @@ class Derivatives(Movie):
             match [A, C]:
                 case [1, 1]:
                     print('\nSequence A+C:')
-                    self.calc_sequence(i, '_DERIVATIVES_A+C.tif')
+                    self.calc_sequence(
+                        i, '_DERIVATIVES_A+C' + self.filename_suffix + '.tif')
                 case [1, 0]:
                     print('\nSequence A:')
-                    self.calc_sequence(i, '_DERIVATIVES_A.tif')
+                    self.calc_sequence(i, '_DERIVATIVES_A' +
+                                       self.filename_suffix + '.tif')
                 case [0, 1]:
                     print('\nSequence C:')
-                    self.calc_sequence(i, '_DERIVATIVES_C.tif')
+                    self.calc_sequence(i, '_DERIVATIVES_C' +
+                                       self.filename_suffix + '.tif')
                 case [0, 0]: pass
                 case [None, None]: self.calc_sequence(
                     i, '_DERIVATIVES_' + self.filename_suffix + '.tif')
