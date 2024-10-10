@@ -3,7 +3,7 @@
 
 # Defaults:
 PATH_PREFIX = 'F:/Lab Work Files/2-photon/'
-RESP_DURATION = 2   # in s
+RESP_DURATION = 1   # in s
 STEP_DURATION = 10  # in s
 N_EPOCHS = 1
 
@@ -299,15 +299,15 @@ TO_DO_LIST = [
     #                      [1, 1]]  # C-stim
     #  }
     #  ],
-    # ['GCamp3+jRgeco_injection + DRS + Caps/2024_10_08_M3/Field_15_registered.tif',
-    #  {
-    #      'start': 24278,              # in ms
-    #      'movie_duration': 249.833,   # in s
-    #      'n_epochs': 10,
-    #      'drs_pattern': [[1, 0],  # A-stim
-    #                      [1, 1]]  # C-stim
-    #  }
-    #  ],
+    ['GCamp3+jRgeco_injection + DRS + Caps/2024_10_08_M3/Field_15_registered.tif',
+     {
+         'start': 24278,              # in ms
+         'movie_duration': 249.833,   # in s
+         'n_epochs': 10,
+         'drs_pattern': [[1, 0],  # A-stim
+                         [1, 1]]  # C-stim
+     }
+     ],
 
 
 
@@ -317,3 +317,5 @@ TO_DO_LIST = [
 if __name__ == '__main__':
     import main
     main.main()
+
+# %%
