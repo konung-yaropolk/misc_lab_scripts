@@ -3,13 +3,16 @@
 
 # Defaults:
 PATH_PREFIX = 'F:/Lab Work Files/2-photon/'
+INPUT_NAME_SUFFIX = '_registered.tif'
+
 RESP_DURATION = 1   # in s
 STEP_DURATION = 10  # in s
 N_EPOCHS = 1
 
+
 RED_NAME_ENDING = '_registered.tif_DERIVATIVES_A+C.tif'
 GRN_NAME_ENDING = '_registered.tif_DERIVATIVES_C.tif'
-BLE_NAME_ENDING = ''
+BLE_NAME_ENDING = '_registered.tif_DERIVATIVES_A+C.tif'
 
 OUTPUT_NAME_ENDING = '_DERIVATIVES_C-green_A+C-red.tif'
 
@@ -19,8 +22,6 @@ TO_DO_LIST = [
 
     # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_04_19/Field_1_galvano_registered.tif',
     #  {
-    #      'start': 30434,              # in ms
-    #      'movie_duration': 335.638,   # in s
     #      'n_epochs': 5,
     #      'drs_pattern': [[1, 0, 1, 0, 1, 0],  # A-stim
     #                      [0, 1, 0, 0, 1, 0]]  # C-stim
@@ -29,8 +30,6 @@ TO_DO_LIST = [
 
     # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_04_19/Field_2_0001_registered.tif',
     #  {
-    #      'start': 30110,              # in ms
-    #      'movie_duration': 448.167,   # in s
     #      'n_epochs': 7,
     #      'drs_pattern': [[1, 0, 1, 0, 1, 0],  # A-stim
     #                      [0, 1, 0, 0, 1, 0]]  # C-stim
@@ -39,8 +38,6 @@ TO_DO_LIST = [
 
     # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_04_19/Field_3_registered.tif',
     #  {
-    #      'start': 21978,              # in ms
-    #      'movie_duration': 236.167,   # in s
     #      'n_epochs': 10,
     #      'drs_pattern': [[1, 0],  # A-stim
     #                      [1, 1]]  # C-stim
@@ -49,8 +46,6 @@ TO_DO_LIST = [
 
     # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_04_19/Field_4_registered.tif',
     #  {
-    #      'start': 21842,              # in ms
-    #      'movie_duration': 249.833,   # in s
     #      'n_epochs': 10,
     #      'drs_pattern': [[1, 0],  # A-stim
     #                      [1, 1]]  # C-stim
@@ -59,8 +54,6 @@ TO_DO_LIST = [
 
     # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_04_19/Field_5_registered.tif',
     #  {
-    #      'start': 28361,              # in ms
-    #      'movie_duration': 158.500,   # in s
     #      'n_epochs': 5,
     #      'drs_pattern': [[1, 0],  # A-stim
     #                      [1, 1]]  # C-stim
@@ -69,8 +62,6 @@ TO_DO_LIST = [
 
     # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_04_19/Field_6_registered.tif',
     #  {
-    #      'start': 22003,              # in ms
-    #      'movie_duration': 246.167,   # in s
     #      'n_epochs': 10,
     #      'drs_pattern': [[1, 0],  # A-stim
     #                      [1, 1]]  # C-stim
@@ -79,241 +70,532 @@ TO_DO_LIST = [
 
 
 
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_2_0001_registered.tif',
-     {
-         'start': 20939,              # in ms
-         'movie_duration': 633.167,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # A-stim
-                         [0, 1, 0, 1, 0, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_3_registered.tif',
-     {
-         'start': 20574,              # in ms
-         'movie_duration': 231.167,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_4_registered.tif',
-     {
-         'start': 20653,              # in ms
-         'movie_duration': 228.833,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_5_registered.tif',
-     {
-         'start': 20780,              # in ms
-         'movie_duration': 269.667,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_6_registered.tif',
-     {
-         'start': 20804,              # in ms
-         'movie_duration': 236.000,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_7_registered.tif',
-     {
-         'start': 20626,              # in ms
-         'movie_duration': 248.333,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_8_registered.tif',
-     {
-         'start': 20920,              # in ms
-         'movie_duration': 225.667,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_9_registered.tif',
-     {
-         'start': 20839,              # in ms
-         'movie_duration': 248.333,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_10_registered.tif',
-     {
-         'start': 20989,              # in ms
-         'movie_duration': 254.833,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_11_registered.tif',
-     {
-         'start': 20783,              # in ms
-         'movie_duration': 245.000,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_12_registered.tif',
-     {
-         'start': 20914,              # in ms
-         'movie_duration': 245.500,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_13_registered.tif',
-     {
-         'start': 23072,              # in ms
-         'movie_duration': 257.000,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_2_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # A-stim
+    #                      [0, 1, 0, 1, 0, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_3_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_4_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_5_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_6_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_7_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_8_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_9_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_10_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_11_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_12_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M2/Field_13_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
 
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_2_registered.tif',
-     {
-         'start': 20946,              # in ms
-         'movie_duration': 244.833,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_3_registered.tif',
-     {
-         'start': 20796,              # in ms
-         'movie_duration': 250.000,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_4_registered.tif',
-     {
-         'start': 20824,              # in ms
-         'movie_duration': 249.833,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_5_registered.tif',
-     {
-         'start': 20546,              # in ms
-         'movie_duration': 249.833,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_6_registered.tif',
-     {
-         'start': 20468,              # in ms
-         'movie_duration': 249.833,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_7_registered.tif',
-     {
-         'start': 20828,              # in ms
-         'movie_duration': 249.833,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_8_registered.tif',
-     {
-         'start': 20708,              # in ms
-         'movie_duration': 249.833,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_9_registered.tif',
-     {
-         'start': 20923,              # in ms
-         'movie_duration': 249.833,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_10_registered.tif',
-     {
-         'start': 20346,              # in ms
-         'movie_duration': 249.833,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_11_registered.tif',
-     {
-         'start': 20637,              # in ms
-         'movie_duration': 249.833,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_12_registered.tif',
-     {
-         'start': 20984,              # in ms
-         'movie_duration': 249.833,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_13_registered.tif',
-     {
-         'start': 20702,              # in ms
-         'movie_duration': 249.833,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_14_registered.tif',
-     {
-         'start': 31338,              # in ms
-         'movie_duration': 249.833,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_15_registered.tif',
-     {
-         'start': 24278,              # in ms
-         'movie_duration': 249.833,   # in s
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_3_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_4_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_5_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_6_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_7_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_8_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_9_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_10_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_11_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_12_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_13_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_14_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_08_M3/Field_15_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+
+
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_10/Field_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_10/Field_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_10/Field_3_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_10/Field_4_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_10/Field_5_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_10/Field_6_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_10/Field_7_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_10/Field_8_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_10/Field_9_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_10/Field_10_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_10/Field_11_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_10/Field_12_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_10/Field_13_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_10/Field_14_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_10/Field_14_2_registered.tif',
+    #  {
+    #      'n_epochs': 30,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_10/Field_14_3_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_10/Field_15_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_10/Field_16_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_10/Field_17_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_10/Field_18_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+
+
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_4_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_7_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_9_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_9_4_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_9_5_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_9_6_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_9_7_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_9_8_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_9_9_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_9_10_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_10_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_10_2_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_10_3_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_10_4_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_10_5_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_10_6_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_10_7_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_10_8_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_10_9_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_11_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_12_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_13_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_14_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_15_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_15_2_registered.tif',
+    #  {
+    #      'n_epochs': 30,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_15_3_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3 + Bicuculine/2024_10_11/Field_16_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+
 
 
 

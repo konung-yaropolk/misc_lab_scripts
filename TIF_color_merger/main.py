@@ -11,12 +11,12 @@ class TifColorMerger():
                  red_name_ending,
                  green_name_ending,
                  blue_name_ending,
-                 OUTPUT_NAME_ENDING):
+                 output_name_ending):
         self.dir = dir
         self.red_name_ending = red_name_ending
         self.green_name_ending = green_name_ending
         self.blue_name_ending = blue_name_ending
-        self.OUTPUT_NAME_ENDING = OUTPUT_NAME_ENDING
+        self.output_name_ending = output_name_ending
 
     def __create_two_channel_image(self, red_channel_path, green_channel_path, blue_channel_path, output_path):
         channels = []
@@ -44,6 +44,17 @@ class TifColorMerger():
                          imagej=True, metadata={'axes': 'CYX',
                                                 'mode': 'composite'})
 
+        # Save the image as a PNG file
+        for i in range(3-len(channels)):
+            channels.append(np.zeros_like(channels[0]))
+
+        channels = np.array(channels)
+        rgb_array_normalized = np.stack(((channel-channels.min()) / (channels.max()-channels.min())
+                                         for channel in channels), axis=-1)
+        rgb_image = Image.fromarray(
+            (rgb_array_normalized*255).astype('uint8'), 'RGB')
+        rgb_image.save(output_path[:-3] + 'png')
+
     def process_directory(self):
         for root, _, files in os.walk(self.dir):
             red_files = [f for f in files if f.endswith(self.red_name_ending)]
@@ -64,18 +75,18 @@ class TifColorMerger():
                     blue_path = os.path.join(
                         root, matching_blue_file) if self.blue_name_ending else None
                     output_path = os.path.join(
-                        root, base_name + self.OUTPUT_NAME_ENDING)
+                        root, base_name + self.output_name_ending)
 
                     self.__create_two_channel_image(
                         red_path, green_path, blue_path, output_path)
-                    print(f"Created two-channel image: {output_path}")
+                    print(f"Created hyperstack image: {output_path}")
 
 
-DIR = '\path\to\file'
+DIR = 'misc_lab_scripts\\TIF_color_merger'
 
 RED_NAME_ENDING = '_red.tif'
 GRN_NAME_ENDING = '_grn.tif'
-BLE_NAME_ENDING = '_blue.tif'
+BLE_NAME_ENDING = '_blu.tif'
 
 OUTPUT_NAME_ENDING = '_hyperstack.tif'
 
