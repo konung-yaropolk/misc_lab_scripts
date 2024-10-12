@@ -13,6 +13,15 @@ def main():
             print(e)
             pass
 
+    # Example usage
+    creator = c.TifColorMerger(s.PATH_PREFIX,
+                               s.RED_NAME_ENDING,
+                               s.GRN_NAME_ENDING,
+                               s.BLE_NAME_ENDING,
+                               s.OUTPUT_NAME_ENDING)
+
+    creator.process_directory()
+
 
 if __name__ == '__main__':
     main()
