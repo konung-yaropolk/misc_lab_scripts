@@ -8,10 +8,17 @@ def main():
 
         try:
             Parser = c.MetadataParser()
-            duration, start = Parser.Parse(
+            movie_duration, start = Parser.Parse(
                 s.PATH_PREFIX + item[0][:-len(s.INPUT_NAME_SUFFIX)])
 
-            der = c.Derivatives(item[0], start, duration, **item[1])
+            # if item[1]['start']:
+            #     start = float(item[1]['start'])
+            #     del item[1]['start']
+            print(' ')
+            der = c.Derivatives(item[0],
+                                start,
+                                movie_duration,
+                                **item[1])
             der.process_secuence()
 
         except Exception as e:

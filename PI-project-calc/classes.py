@@ -210,8 +210,8 @@ class TifColorMerger():
             channels.append(np.zeros_like(channels[0]))
 
         channels = np.array(channels)
-        rgb_array_normalized = np.stack(((channel-channels.min()) / (channels.max()-channels.min())
-                                         for channel in channels), axis=-1)
+        rgb_array_normalized = np.stack([(channel-channels.min()) / (channels.max()-channels.min())
+                                         for channel in channels], axis=-1)
         rgb_image = Image.fromarray(
             (rgb_array_normalized*255).astype('uint8'), 'RGB')
         rgb_image.save(output_path[:-3] + 'png')
