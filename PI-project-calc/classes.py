@@ -201,9 +201,12 @@ class TifColorMerger():
         multi_channel_array = np.stack(channels, axis=0)
 
         # Save the two-channel image in ImageJ format
-        tifffile.imwrite(output_path, multi_channel_array,
-                         imagej=True, metadata={'axes': 'CYX',
-                                                'mode': 'composite'})
+        try:
+            tifffile.imwrite(output_path, multi_channel_array,
+                             imagej=True, metadata={'axes': 'CYX',
+                                                    'mode': 'composite'})
+        except PermissionError as e:
+            print('PermissionError:', e)
 
         # Save the image as a PNG file
         for i in range(3-len(channels)):
@@ -214,7 +217,10 @@ class TifColorMerger():
                                          for channel in channels], axis=-1)
         rgb_image = Image.fromarray(
             (rgb_array_normalized*255).astype('uint8'), 'RGB')
-        rgb_image.save(output_path[:-3] + 'png')
+        try:
+            rgb_image.save(output_path[:-3] + 'png')
+        except PermissionError as e:
+            print('PermissionError:', e)
 
     def process_directory(self):
         for root, _, files in os.walk(self.dir):

@@ -25,13 +25,18 @@ def main():
             print(e)
             pass
 
-    merger = c.TifColorMerger(s.PATH_PREFIX,
-                              s.RED_NAME_ENDING,
-                              s.GRN_NAME_ENDING,
-                              s.BLE_NAME_ENDING,
-                              s.OUTPUT_NAME_ENDING)
+    if s.RUN_HYPERSTACK_COMPOSITOR:
 
-    merger.process_directory()
+        print(
+            '\n\nHyperstack Compositor started in the directory: {s.PATH_PREFIX}\n'.format())
+
+        merger = c.TifColorMerger(s.PATH_PREFIX,
+                                  s.RED_NAME_ENDING,
+                                  s.GRN_NAME_ENDING,
+                                  s.BLE_NAME_ENDING,
+                                  s.OUTPUT_NAME_ENDING)
+
+        merger.process_directory()
 
 
 if __name__ == '__main__':
