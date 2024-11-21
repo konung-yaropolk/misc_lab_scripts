@@ -11,7 +11,7 @@ N_EPOCHS = 1
 
 
 # merge all single channel images into hyperstack in the PATH_PREFIX directory:
-RUN_HYPERSTACK_COMPOSITOR = True
+RUN_HYPERSTACK_COMPOSITOR = False
 
 RED_NAME_ENDING = '_registered.tif_DERIVATIVES_A+C.tif'
 GRN_NAME_ENDING = '_registered.tif_DERIVATIVES_C.tif'
@@ -856,6 +856,14 @@ TO_DO_LIST = [
     #  }
     #  ],
 
+    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_7_PI_0001_ch2_registered.tif',
+     {
+         'n_epochs': 1,
+         'trig_number': 1,     # number of trigger, starting from 1
+         'drs_pattern': [[0],  # A-stim
+                         [1]]  # C-stim
+     }
+     ],
 
 
 

@@ -8,7 +8,7 @@ def main():
 
         try:
             Parser = c.MetadataParser()
-            movie_duration, start = Parser.Parse(
+            movie_duration, events = Parser.Parse(
                 s.PATH_PREFIX + item[0][:-len(s.INPUT_NAME_SUFFIX)])
 
             # if item[1]['start']:
@@ -16,7 +16,8 @@ def main():
             #     del item[1]['start']
             print(' ')
             der = c.Derivatives(item[0],
-                                start,
+                                events[item[1]['trig_number'] -
+                                       1 if item[1]['trig_number'] else 0],
                                 movie_duration,
                                 **item[1])
             der.process_secuence()
@@ -28,7 +29,7 @@ def main():
     if s.RUN_HYPERSTACK_COMPOSITOR:
 
         print(
-            '\n\nHyperstack Compositor started in the directory: {s.PATH_PREFIX}\n'.format())
+            '\n\nHyperstack Compositor started in the directory: {}\n'.format(s.PATH_PREFIX))
 
         merger = c.TifColorMerger(s.PATH_PREFIX,
                                   s.RED_NAME_ENDING,

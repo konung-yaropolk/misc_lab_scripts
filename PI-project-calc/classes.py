@@ -43,6 +43,7 @@ class Derivatives(Movie):
                  drs_pattern=[[None], [None]],
                  step_duration=STEP_DURATION,
                  n_epochs=N_EPOCHS,
+                 **misc,
                  ):
         super().__init__(file_path,
                          start,
@@ -274,4 +275,4 @@ class MetadataParser():
                 (float(strings[i+2][15:-6])/1000) for i, line in enumerate(strings) if trigger in line
             ]
 
-        return t_duration, *events
+        return t_duration, events
