@@ -66,8 +66,8 @@ class Derivatives(Movie):
         self.n_frames = len(self.img)
         self.sampling_interval = self.movie_duration / self.n_frames
 
-        print('\nFile: {} \nMovie duration: {} \nn frames: {} \nSampling interval: {}'.format(
-            self.file_path, self.movie_duration, self.n_frames, self.sampling_interval))
+        print('\nFile: {} \nMovie duration: {} \nn frames: {} \nSampling interval, s: {} \nTrigger time, s: {}'.format(
+            self.file_path, self.movie_duration, self.n_frames, self.sampling_interval, self.start))
 
     def compute_gaussian_derivatives(self, image_stack, start, end, sigma):
 
