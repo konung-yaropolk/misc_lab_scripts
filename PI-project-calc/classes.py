@@ -155,7 +155,8 @@ class Derivatives(Movie):
 
         output = Image.fromarray(self.result)
         output.save(output_path, save_all=True,
-                    compression="tiff_deflate")
+                    compression="tiff_deflate",
+                    tiffinfo={})
 
         # def calculate_sequence_response(self, ):
 
@@ -205,7 +206,7 @@ class TifColorMerger():
         try:
             tifffile.imwrite(output_path, multi_channel_array,
                              imagej=True, metadata={'axes': 'CYX',
-                                                    'mode': 'composite'})
+                                                    'mode': 'composite', })
         except PermissionError as e:
             print('PermissionError:', e)
 

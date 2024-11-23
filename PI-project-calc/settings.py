@@ -3,7 +3,7 @@
 
 # Defaults:
 PATH_PREFIX = 'F:/Lab Work Files/2-photon/'
-INPUT_NAME_SUFFIX = '_chx_registered.tif'
+INPUT_NAME_SUFFIX = '_registered_registered_registered.tif'
 
 RESP_DURATION = 5   # in s
 STEP_DURATION = 10  # in s
@@ -905,15 +905,31 @@ TO_DO_LIST = [
 
 
 
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_16/Field_1_trp_activators_application_ch1_registered_registered_registered.tif',
+    #  {
+    #      'n_epochs': 1,
+    #      'trig_number': 16,     # number of trigger, starting from 1
+    #      'drs_pattern': [[0],  # A-stim
+    #                      [1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_16/Field_1_trp_activators_application_ch1_registered_registered_registered.tif',
+    #  {
+    #      'n_epochs': 1,
+    #      'trig_number': 3,     # number of trigger, starting from 1
+    #      'drs_pattern': [[0],  # A-stim
+    #                      [1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_16/Field_1_trp_activators_application_ch2_registered_registered_registered.tif',
+    #  {
+    #      'n_epochs': 1,
+    #      'trig_number': 3,     # number of trigger, starting from 1
+    #      'drs_pattern': [[0],  # A-stim
+    #                      [1]]  # C-stim
+    #  }
+    #  ],
 
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_17_M1/Field_1_trp_activators_application_ch1_registered_registered.tif',
-     {
-         'n_epochs': 1,
-         'trig_number': 2,     # number of trigger, starting from 1
-         'drs_pattern': [[0],  # A-stim
-                         [1]]  # C-stim
-     }
-     ],
     # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_17_M1/Field_1_trp_activators_application_ch2_registered_registered.tif',
     #  {
     #      'n_epochs': 1,
