@@ -2,7 +2,7 @@
 # Settings block:
 
 # Defaults:
-PATH_PREFIX = 'C:/Users/Yaroslav/coding/misc_lab_scripts/PI-project-calc' #'F:/Lab Work Files/2-photon/'
+PATH_PREFIX = 'sample/' #'F:/Lab Work Files/2-photon/'
 INPUT_NAME_SUFFIX = '_registered.tif'
 
 RESP_DURATION = 5   # in s
