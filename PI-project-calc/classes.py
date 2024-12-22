@@ -181,7 +181,6 @@ class Movie(Init, DerivativesCalc):
 
 
 
-
 class TifColorMerger():
 
     def __init__(self,

@@ -13,6 +13,10 @@ N_EPOCHS = 1
 # merge all single channel images into hyperstack in the PATH_PREFIX directory:
 RUN_HYPERSTACK_COMPOSITOR = False
 
+# process all csv files with traces in the PATH_PREFIX directory:
+RUN_TRACES_CALCULATION = False
+
+
 RED_NAME_ENDING = '_registered.tif_DERIVATIVES_A+C.tif'
 GRN_NAME_ENDING = '_registered.tif_DERIVATIVES_C.tif'
 BLE_NAME_ENDING = '_registered.tif_DERIVATIVES_A+C.tif'
