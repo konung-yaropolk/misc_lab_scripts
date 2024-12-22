@@ -14,24 +14,7 @@ STEP_DURATION = s.STEP_DURATION    # in s
 N_EPOCHS = s.N_EPOCHS
 
 
-class Movie():
-
-    def __init__(self,
-                 file_path,
-                 start,                # in ms
-                 movie_duration,       # in s
-                 response_duration=RESP_DURATION,  # in s: expected response duration
-                 filename_suffix='',
-                 ):
-
-        self.movie_duration = movie_duration
-        self.file_path = PATH_PREFIX + file_path
-        self.start = start
-        self.response_duration = response_duration
-        self.filename_suffix = filename_suffix
-
-
-class Derivatives(Movie):
+class Init():
 
     def __init__(self,
                  file_path,
@@ -44,29 +27,22 @@ class Derivatives(Movie):
                  n_epochs=N_EPOCHS,
                  **misc,
                  ):
-        super().__init__(file_path,
-                         start,
-                         movie_duration,
-                         response_duration,
-                         filename_suffix,
-                         )
 
+        self.movie_duration = movie_duration
+        self.file_path = PATH_PREFIX + file_path
+        self.start = start
+        self.response_duration = response_duration
+        self.filename_suffix = filename_suffix
         self.drs_pattern = drs_pattern
         self.step_duration = step_duration
         self.n_steps = len(self.drs_pattern[0])
         self.n_epochs = n_epochs
-        self.result = None
-        self.n_frames = None
 
-        # Open the TIFF image stack
-        self.img = tifffile.imread(self.file_path)
-        # img = Image.open(file_path)
-        # img = tiff.imread(file_path)  # Image.open(file_path)
-        self.n_frames = len(self.img)
-        self.sampling_interval = self.movie_duration / self.n_frames
 
-        print('\nFile: {} \nMovie duration: {} \nn frames: {} \nSampling interval, s: {} \nTrigger time, s: {}'.format(
-            self.file_path, self.movie_duration, self.n_frames, self.sampling_interval, self.start))
+# class TracesCalc():
+
+
+class DerivativesCalc():
 
     def compute_gaussian_derivatives(self, image_stack, start, end, sigma):
 
@@ -164,6 +140,46 @@ class Derivatives(Movie):
         #     def __init__(self, ):
 
         #         super()__init__()
+
+
+class Movie(Init, DerivativesCalc):
+
+    def __init__(self,
+                 file_path,
+                 start,                # in ms
+                 movie_duration,       # in s
+                 response_duration=RESP_DURATION,  # in s: expected response duration
+                 filename_suffix='',
+                 drs_pattern=[[None], [None]],
+                 step_duration=STEP_DURATION,
+                 n_epochs=N_EPOCHS,
+                 **misc,
+                 ):
+        super().__init__(file_path,
+                         start,
+                         movie_duration,
+                         response_duration,
+                         filename_suffix,
+                         drs_pattern,
+                         step_duration,
+                         n_epochs,
+                         **misc,
+                         )
+
+        self.result = None
+        self.n_frames = None
+
+        # Open the TIFF image stack
+        self.img = tifffile.imread(self.file_path)
+        # img = Image.open(file_path)
+        # img = tiff.imread(file_path)  # Image.open(file_path)
+        self.n_frames = len(self.img)
+        self.sampling_interval = self.movie_duration / self.n_frames
+
+        print('\nFile: {} \nMovie duration: {} \nn frames: {} \nSampling interval, s: {} \nTrigger time, s: {}'.format(
+            self.file_path, self.movie_duration, self.n_frames, self.sampling_interval, self.start))
+
+
 
 
 class TifColorMerger():

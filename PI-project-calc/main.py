@@ -15,12 +15,14 @@ def main():
             #     start = float(item[1]['start'])
             #     del item[1]['start']
             print(' ')
-            der = c.Derivatives(item[0],
+            der = c.Movie(item[0],
                                 events[item[1]['trig_number'] -
                                        1 if 'trig_number' in item[1] else 0],
                                 movie_duration,
-                                **item[1])
+                                **item[1])            
             der.process_secuence()
+
+
 
         except Exception as e:
             print(e)
