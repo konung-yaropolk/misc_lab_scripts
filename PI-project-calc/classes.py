@@ -5,7 +5,6 @@ import tifffile
 import os
 import re
 from scipy.ndimage import gaussian_filter
-from skimage import io
 
 
 # Defaults:
@@ -60,7 +59,7 @@ class Derivatives(Movie):
         self.n_frames = None
 
         # Open the TIFF image stack
-        self.img = io.imread(self.file_path)
+        self.img = tifffile.imread(self.file_path)
         # img = Image.open(file_path)
         # img = tiff.imread(file_path)  # Image.open(file_path)
         self.n_frames = len(self.img)

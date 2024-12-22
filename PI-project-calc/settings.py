@@ -2,8 +2,8 @@
 # Settings block:
 
 # Defaults:
-PATH_PREFIX = 'F:/Lab Work Files/2-photon/'
-INPUT_NAME_SUFFIX = '_registered_registered_registered.tif'
+PATH_PREFIX = 'C:/Users/Yaroslav/coding/misc_lab_scripts/PI-project-calc' #'F:/Lab Work Files/2-photon/'
+INPUT_NAME_SUFFIX = '_registered.tif'
 
 RESP_DURATION = 5   # in s
 STEP_DURATION = 10  # in s
@@ -21,6 +21,15 @@ OUTPUT_NAME_ENDING = '_DERIVATIVES_C-green_A+C-magenta.tif'
 
 
 TO_DO_LIST = [
+
+    ['Field_6_registered.tif',
+     {
+         'n_epochs': 10,
+         'drs_pattern': [[1, 0],  # A-stim
+                         [1, 1]]  # C-stim
+     }
+    ],
+
 
 
     # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_04_19/Field_1_galvano_registered.tif',
