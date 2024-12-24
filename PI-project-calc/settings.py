@@ -2,31 +2,18 @@
 # Settings block:
 
 # Defaults for Derivatives Calculation:
-PATH_PREFIX = 'sample/'  # 'F:/Lab Work Files/2-photon/'
+RUN_DERIVATIVES_CALCULATION = True
+WORKING_DIR = 'sample\\'  # 'F: / Lab Work Files/2-photon/'
 INPUT_NAME_SUFFIX = '_registered.tif'
 
-RESP_DURATION = 5   # in s
-STEP_DURATION = 10  # in s
+RESP_DURATION = 5   # in sec, expected response duration
+STEP_DURATION = 10  # in sec
 N_EPOCHS = 1
 
 
-# Defaults for Derivatives Calculation:
-
-# process all csv files with traces in the PATH_PREFIX directory:
-RUN_TRACES_CALCULATION = False
-
-RELATIVE_VALUES = True
-MEAN_COL_ORDER = 2
-COLS_PER_ROI = 4
-
-TIME_BEFORE_TRIG = 10
-BASELINE_DURATON = 10
-
-
 # Defaults for Hyperstack Compositor:
-
-# merge all single channel images into hyperstack in the PATH_PREFIX directory:
-RUN_HYPERSTACK_COMPOSITOR = False
+# merge all single channel images into hyperstack in the WORKING_DIR directory:
+RUN_HYPERSTACK_COMPOSITOR = True
 
 RED_NAME_ENDING = '_registered.tif_DERIVATIVES_A+C.tif'
 GRN_NAME_ENDING = '_registered.tif_DERIVATIVES_C.tif'
@@ -34,6 +21,28 @@ BLE_NAME_ENDING = '_registered.tif_DERIVATIVES_A+C.tif'
 
 OUTPUT_NAME_ENDING = '_DERIVATIVES_C-green_A+C-magenta.tif'
 
+
+# Defaults for Derivatives Calculation:
+# process all csv files with traces in the WORKING_DIR directory:
+RUN_TRACES_CALCULATION = True
+
+RELATIVE_VALUES = True
+MEAN_COL_ORDER = 2
+COLS_PER_ROI = 4
+
+TIME_BEFORE_TRIG = 10
+BASELINE_DURATON = 10
+TIME_AFTER_TRIG = None
+
+
+# TO_DO_LIST - acceptable individual parameters:
+# 'drs_pattern'       : [[1, 0, 1, 0, 1, 0],  # A-stim
+#                        [0, 1, 0, 0, 1, 0]]  # C-stim
+# 'response_duration' : float in sec, expected response duration
+# 'filename_suffix'   : str
+# 'step_duration'     : float in sec
+# 'n_epochs'          : int
+# 'trig_number'       : int
 
 TO_DO_LIST = [
 
@@ -1057,5 +1066,5 @@ TO_DO_LIST = [
 
 
 if __name__ == '__main__':
-    import main
-    main.main()
+    import classes
+    classes.main()
