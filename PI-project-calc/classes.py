@@ -4,6 +4,7 @@ import settings as s
 import tifffile
 import os
 import re
+import csv
 from scipy.ndimage import gaussian_filter
 
 
@@ -12,6 +13,14 @@ PATH_PREFIX = s.PATH_PREFIX
 RESP_DURATION = s.RESP_DURATION    # in s
 STEP_DURATION = s.STEP_DURATION    # in s
 N_EPOCHS = s.N_EPOCHS
+
+
+RELATIVE_VALUES = s.RELATIVE_VALUES
+MEAN_COL_ORDER = s.MEAN_COL_ORDER
+COLS_PER_ROI = s.COLS_PER_ROI
+TIME_BEFORE_TRIG = s.TIME_BEFORE_TRIG
+BASELINE_DURATON = s.BASELINE_DURATON
+TIME_AFTER_TRIG = STEP_DURATION * N_EPOCHS
 
 
 class Init():
@@ -39,7 +48,160 @@ class Init():
         self.n_epochs = n_epochs
 
 
-# class TracesCalc():
+class TracesCalc():
+
+    def file_finder(self, path, pattern, nonrecursive=False):
+        files_list = []  # To store the paths of .txt files
+
+        # Walk through the directory and its subdirectories
+        for root, _, files in os.walk(path):
+            for filename in files:
+                if re.search(pattern, filename):
+                    files_list.append(
+                        [root if root[-1] == '/' else root + '/', filename[:-4]])
+
+            if nonrecursive:
+                break
+
+        return files_list
+
+    def file_lister(self, path, pattern, nonrecursive=False):
+        files = []
+
+        if os.path.isdir(path):
+            files.extend(
+                self.file_finder(
+                    path,
+                    pattern,
+                    nonrecursive
+                )
+            )
+        else:
+            print("!!!    Fail: invalid path        ", path)
+
+        return files
+
+    def csv_write(self, csv_output, path, file):
+
+        os.makedirs(path + file + '_events/', exist_ok=True)
+        with open(
+                '{}{}responses/{}_timeline.csv'.format(
+                    path,
+                    file,
+                    file,
+                ),
+                'w') as f:
+
+            writer = csv.writer(f, delimiter=',',
+                                lineterminator='\r',)
+            for row in csv_output:
+                writer.writerow(row)
+
+    def find_time_index(self, content, time):
+        content = (float(i)-time for i in list(zip(*content))[0])
+        diffs = [abs(i) for i in content]
+        index = diffs.index(min(diffs))
+
+        return index
+
+    def data_normalize(self, content, start, zero):
+        content_normalized = []
+
+        for column in content:
+            baseline = column[start:zero]
+            baseline_sum = sum((float(cell) for cell in baseline))
+            baseline_len = len(baseline)
+            mean = baseline_sum/baseline_len if baseline_len and baseline else 0
+
+            column_normalized = [(float(cell)-mean) /
+                                 mean if mean else 0 for cell in column]                 # dF/F0
+            # column_normalized = [float(cell)/mean if mean else 1 for cell in column]   # dF/F
+
+            content_normalized.append(column_normalized)
+
+        return content_normalized
+
+    def csv_cutter(self, content, time):
+        timeline_zero = (float(i)-time for i in list(zip(*content))[0])
+
+        start = self.find_time_index(
+            content, time - TIME_BEFORE_TRIG) if TIME_BEFORE_TRIG else None
+
+        start_bl = self.find_time_index(
+            content, time - BASELINE_DURATON) if BASELINE_DURATON else start
+
+        zero = self.find_time_index(content, time)
+
+        end = self.find_time_index(
+            content, time + TIME_AFTER_TRIG) if TIME_AFTER_TRIG else None
+
+        content = list(zip(*content))[1:]
+        content[:0] = [timeline_zero]
+
+        if RELATIVE_VALUES:
+            content[1:] = self.data_normalize(content[1:], start_bl, zero)
+
+        csv_output = list(zip(*content))[start:end]
+
+        return csv_output
+
+    def csv_transform(self,
+                      content_raw,
+                      t_resolution,
+                      mean_col=MEAN_COL_ORDER,  # order of "Mean" col in measurments
+                      n_cols=COLS_PER_ROI,      # n of measurments for each ROI
+                      ):
+        first_col = (str(i*t_resolution) for i in range(len(content_raw)))
+        content = list(zip(*content_raw))[mean_col::n_cols]
+        content[:0] = [first_col]
+        content = list(zip(*content))[1:]
+
+        return content
+
+    def csv_read(self, patch, file):
+
+        with open(patch + file + '.csv', 'r') as file:
+            reader = csv.reader(file, delimiter=',')
+            content_raw = tuple(reader)
+
+        return content_raw
+
+    def csv_process(self, path, file, metadata, t_resolution):
+        csv_list = []
+        csv_list.extend(
+            self.file_lister(
+                path,
+                r'^' + re.escape(file) + r'.*\.csv$',
+                nonrecursive=True
+            )
+        )
+
+        # adding all trace overview file starting from almost 0 time point
+        # metadata.insert(0,['ALL_TRACE', 5])
+
+        if csv_list:
+
+            for csv_path, csv_file in csv_list:
+                content_raw = self.csv_read(csv_path, csv_file)
+                content = self.csv_transform(content_raw, t_resolution)
+
+                for i, event in enumerate(metadata):
+                    csv_output = self.csv_cutter(content, *event)
+                    try:
+                        self.csv_write(csv_output, csv_path, csv_file)
+                    except PermissionError:
+                        print('       File actually opened:')
+                        continue
+
+            result = '***    Done: {} csv files for      {}{}'.format(
+                len(csv_list), path, file)
+
+        else:
+            result = '---    Skip: no csv files for     {}{}'.format(
+                path, file)
+
+        csv_list = None
+        return result
 
 
 class DerivativesCalc():
@@ -106,7 +268,7 @@ class DerivativesCalc():
             self.step_duration * i)
         self.save(self.file_path + filename_ending)
 
-    def process_secuence(self,):
+    def derivatives_calculate(self,):
 
         for i, [A, C] in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
             match [A, C]:
@@ -142,7 +304,7 @@ class DerivativesCalc():
         #         super()__init__()
 
 
-class Movie(Init, DerivativesCalc):
+class Movie(Init, DerivativesCalc, TracesCalc):
 
     def __init__(self,
                  file_path,
@@ -178,7 +340,6 @@ class Movie(Init, DerivativesCalc):
 
         print('\nFile: {} \nMovie duration: {} \nn frames: {} \nSampling interval, s: {} \nTrigger time, s: {}'.format(
             self.file_path, self.movie_duration, self.n_frames, self.sampling_interval, self.start))
-
 
 
 class TifColorMerger():

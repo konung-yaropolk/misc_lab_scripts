@@ -15,14 +15,12 @@ def main():
             #     start = float(item[1]['start'])
             #     del item[1]['start']
             print(' ')
-            der = c.Movie(item[0],
-                                events[item[1]['trig_number'] -
-                                       1 if 'trig_number' in item[1] else 0],
-                                movie_duration,
-                                **item[1])            
-            der.process_secuence()
-
-
+            movie = c.Movie(item[0],
+                            events[item[1]['trig_number'] -
+                                   1 if 'trig_number' in item[1] else 0],
+                            movie_duration,
+                            **item[1])
+            movie.derivatives_calculate()
 
         except Exception as e:
             print(e)
@@ -40,6 +38,10 @@ def main():
                                   s.OUTPUT_NAME_ENDING)
 
         merger.process_directory()
+
+    if s.RUN_TRACES_CALCULATION:
+
+        pass
 
 
 if __name__ == '__main__':

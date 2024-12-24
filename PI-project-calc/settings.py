@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # Settings block:
 
-# Defaults:
-PATH_PREFIX = 'sample/' #'F:/Lab Work Files/2-photon/'
+# Defaults for Derivatives Calculation:
+PATH_PREFIX = 'sample/'  # 'F:/Lab Work Files/2-photon/'
 INPUT_NAME_SUFFIX = '_registered.tif'
 
 RESP_DURATION = 5   # in s
@@ -10,12 +10,23 @@ STEP_DURATION = 10  # in s
 N_EPOCHS = 1
 
 
-# merge all single channel images into hyperstack in the PATH_PREFIX directory:
-RUN_HYPERSTACK_COMPOSITOR = False
+# Defaults for Derivatives Calculation:
 
 # process all csv files with traces in the PATH_PREFIX directory:
 RUN_TRACES_CALCULATION = False
 
+RELATIVE_VALUES = True
+MEAN_COL_ORDER = 2
+COLS_PER_ROI = 4
+
+TIME_BEFORE_TRIG = 10
+BASELINE_DURATON = 10
+
+
+# Defaults for Hyperstack Compositor:
+
+# merge all single channel images into hyperstack in the PATH_PREFIX directory:
+RUN_HYPERSTACK_COMPOSITOR = False
 
 RED_NAME_ENDING = '_registered.tif_DERIVATIVES_A+C.tif'
 GRN_NAME_ENDING = '_registered.tif_DERIVATIVES_C.tif'
@@ -32,7 +43,7 @@ TO_DO_LIST = [
          'drs_pattern': [[1, 0],  # A-stim
                          [1, 1]]  # C-stim
      }
-    ],
+     ],
 
 
 
