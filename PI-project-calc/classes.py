@@ -34,7 +34,7 @@ class TracesCalc():
                  relative_values=RELATIVE_VALUES,
                  mean_col_order=MEAN_COL_ORDER,
                  cols_per_roi=COLS_PER_ROI,
-
+                 trig_number=0,
                  ):
 
         self.file_path = file_path
@@ -47,6 +47,16 @@ class TracesCalc():
         self.relative_values = relative_values
         self.mean_col_order = mean_col_order
         self.cols_per_roi = cols_per_roi
+
+        self.trig_number = trig_number
+
+        Parser = MetadataParser()
+        self.events, self.sampling_interval, self.movie_duration = Parser.Parse(
+            self.path, self.file_nosuffix)
+
+        self.event = self.events[trig_number]
+        self.event_name = self.events[trig_number][0]
+        self.start = self.events[trig_number][1]
 
     def file_finder(self, pattern, nonrecursive=False):
         files_list = []  # To store the paths of .txt files
@@ -78,13 +88,14 @@ class TracesCalc():
 
         return files
 
-    def csv_write(self, csv_output, csv_path, csv_file):
+    def csv_write(self, csv_output, csv_path, csv_file, filename_suffix='_traces'):
 
         os.makedirs(csv_path + csv_file + '_traces/', exist_ok=True)
         with open(
-                '{0}{1}_traces/{1}_timeline.csv'.format(
+                '{0}{1}_traces/{1}{2}.csv'.format(
                     csv_path,
                     csv_file,
+                    filename_suffix,
                 ),
                 'w') as f:
 
@@ -456,6 +467,7 @@ class TifColorMerger():
 class MetadataParser():
 
     def Parse(self, path, file):
+
         with open('{}/{}.txt'.format(path, file), 'r') as file:
 
             trigger = '"[Event '
