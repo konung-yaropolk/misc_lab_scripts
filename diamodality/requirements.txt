@@ -1,0 +1,4 @@
+numpy
+matplotlib
+DiaModality>=0.2.6
+scsv>=0.1.4

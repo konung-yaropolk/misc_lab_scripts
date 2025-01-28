@@ -1,0 +1,4 @@
+roifile
+shapely
+svgwrite
+pillow
