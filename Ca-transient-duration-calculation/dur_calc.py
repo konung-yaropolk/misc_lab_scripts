@@ -3,6 +3,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from math import e
 
+# Duration measured between two timepoints when response crossed threshold of 1/e
+# of it’s maximum amplitude which is 37% of the peak amplitude
+
+
 sd_treshold = 5
 trip_treshold = 1/e  # % of amplitude
 plot = True
