@@ -305,12 +305,13 @@ class DerivativesCalc():
                 case [None, None]: self.calc_sequence(i, '_auto_DERIVATIVES.tif')
 
         merger = TifColorMerger(self.path,
-                                ac_name_ending,
-                                c_name_ending,
-                                ac_name_ending,
-                                '_auto_DERIVATIVES_C-green_A+C-magenta.tif')
+                                self.file + ac_name_ending,
+                                self.file + c_name_ending,
+                                self.file + ac_name_ending,
+                                self.file + '_auto_DERIVATIVES_C-green_A+C-magenta.tif')
 
         merger.process_directory()
+        del merger
 
         
 
@@ -389,7 +390,7 @@ class Movie(DerivativesCalc, TracesCalc):
     def __calculate_suffix_and_nosuffix(self, file_full_path):
         # Get the directory from the given file's full path
 
-        file_full_path = os.path.abspath(os.path.normpath(file_full_path))
+        file_full_path = os.path.abspath(os.path.normpath(os.path.splitext(file_full_path)[0]))
 
         dir_path = os.path.dirname(file_full_path)
         # Get the given file's name
@@ -407,7 +408,7 @@ class Movie(DerivativesCalc, TracesCalc):
         file_nosuffix = os.path.basename(file_nosuffix_with_path)
         
         # Determine the suffix from the given file
-        filename_suffix = file_full_path[len(file_nosuffix_with_path):]
+        filename_suffix = os.path.basename(file_full_path[len(file_nosuffix_with_path):])
 
         return filename_suffix, file_nosuffix
 

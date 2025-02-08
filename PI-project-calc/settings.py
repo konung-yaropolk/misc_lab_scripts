@@ -44,7 +44,7 @@ TO_DO_LIST = [
 
 
 
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_04_19/Field_1_galvano_registered.tif',
+    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_04_19/Field_1_galvano.tif',
      {
          'n_epochs': 5,
          'drs_pattern': [[1, 0, 1, 0, 1, 0],  # A-stim
@@ -89,14 +89,14 @@ TO_DO_LIST = [
 
 
 
-    ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M2/Field_2_0001_registered.tif',
+    ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M2/Field_2_0001.tif',
      {
          'n_epochs': 10,
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # A-stim
                          [0, 1, 0, 1, 0, 1]]  # C-stim
      }
      ],
-    ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M2/Field_3_registered.tif',
+    ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M2/Field_3.tif',
      {
          'n_epochs': 10,
          'drs_pattern': [[1, 0],  # A-stim
