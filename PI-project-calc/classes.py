@@ -1,12 +1,12 @@
-from PIL import Image
-import numpy as np
-import settings as s
-import tifffile
 import os
 import re
 import csv
+import numpy as np
+import matplotlib.pyplot as plt
+import tifffile
+from PIL import Image
 from scipy.ndimage import gaussian_filter
-
+import settings as s
 
 # Defaults:
 WORKING_DIR = s.WORKING_DIR
@@ -351,9 +351,7 @@ class Movie(DerivativesCalc, TracesCalc):
         self.file_path = WORKING_DIR + file_path
         self.path = os.path.split(self.file_path)[0]
         self.file = os.path.split(self.file_path)[1]
-
         self.filename_suffix, self.file_nosuffix = self.__calculate_suffix_and_nosuffix(self.file_path)
-        print(self.filename_suffix, self.file_nosuffix)
 
         self.response_duration = response_duration
         self.drs_pattern = drs_pattern
@@ -390,15 +388,19 @@ class Movie(DerivativesCalc, TracesCalc):
 
     def __calculate_suffix_and_nosuffix(self, file_full_path):
         # Get the directory from the given file's full path
+
+        file_full_path = os.path.abspath(os.path.normpath(file_full_path))
+
         dir_path = os.path.dirname(file_full_path)
         # Get the given file's name
         given_file = os.path.basename(file_full_path)
         
         # List all .txt files in the directory
-        txt_files = [os.path.join(dir_path, f) for f in os.listdir(dir_path) if f.endswith('.txt')]
-        
+        txt_files = [os.path.abspath(os.path.normpath(os.path.join(dir_path, f))) for f in os.listdir(dir_path) if f.endswith('.txt')]
+
         # Find the longest common prefix among the given file and txt files
         common_prefixes = [os.path.commonprefix([file_full_path, txt_file]) for txt_file in txt_files]
+
         file_nosuffix_with_path = max(common_prefixes, key=len).rstrip('_')
         
         # Remove the directory path from the common prefix
@@ -411,14 +413,9 @@ class Movie(DerivativesCalc, TracesCalc):
 
 
 
-class TifColorMerger():
+class TifColorMerger:
 
-    def __init__(self,
-                 dir,
-                 red_name_ending,
-                 green_name_ending,
-                 blue_name_ending,
-                 output_name_ending):
+    def __init__(self, dir, red_name_ending, green_name_ending, blue_name_ending, output_name_ending):
         self.dir = dir
         self.red_name_ending = red_name_ending
         self.green_name_ending = green_name_ending
@@ -430,12 +427,12 @@ class TifColorMerger():
 
         if red_channel_path:
             red_channel = Image.open(red_channel_path)
-            red_array = np.array(red_channel)
+            red_array = np.array(red_channel).astype(np.float32)
             channels.append(red_array)
 
         if green_channel_path:
             green_channel = Image.open(green_channel_path)
-            green_array = np.array(green_channel)
+            green_array = np.array(green_channel).astype(np.float32)
             channels.append(green_array)
 
         if blue_channel_path:
@@ -443,56 +440,61 @@ class TifColorMerger():
             blue_array = np.array(blue_channel)
             channels.append(blue_array)
 
-        # Stack the arrays along the third axis to create a two-channel image
+        # Stack the arrays along the first axis to create a multi-channel image
         multi_channel_array = np.stack(channels, axis=0)
 
-        # Save the two-channel image in ImageJ format
+        # Calculate the ratio image if red and green channels are available
+        if len(channels) >= 2:
+            ratio_image = channels[1] / channels[0]
+            ratio_image = np.clip(ratio_image, 1, np.max(ratio_image))
+
+            # Save the ratio image as a heatmap in PNG format using matplotlib
+            output_heatmap_path = output_path[:-4] + '_heatmap.png'
+            plt.figure(figsize=(ratio_image.shape[1]/100, ratio_image.shape[0]/100), dpi=100)
+            plt.imshow(ratio_image, cmap='viridis')
+            plt.colorbar(label='C to A+C responses ratio', orientation='vertical')
+            plt.axis('off')
+            plt.gca().set_facecolor('black')
+            plt.savefig(output_heatmap_path, bbox_inches='tight', pad_inches=0)
+            plt.close()
+
+        # Save the multi-channel image in ImageJ format
         try:
-            tifffile.imwrite(output_path, multi_channel_array,
-                             imagej=True, metadata={'axes': 'CYX',
-                                                    'mode': 'composite', })
+            tifffile.imwrite(output_path, multi_channel_array, imagej=True, metadata={'axes': 'CYX'})
         except PermissionError as e:
             print('PermissionError:', e)
 
         # Save the image as a PNG file
-        for i in range(3-len(channels)):
+        for i in range(3 - len(channels)):
             channels.append(np.zeros_like(channels[0]))
 
         channels = np.array(channels)
-        rgb_array_normalized = np.stack([(channel-channels.min()) / (channels.max()-channels.min())
-                                         for channel in channels], axis=-1)
-        rgb_image = Image.fromarray(
-            (rgb_array_normalized*255).astype('uint8'), 'RGB')
+        rgb_array_normalized = np.stack([(channel - channels.min()) / (channels.max() - channels.min()) for channel in channels], axis=-1)
+        rgb_image = Image.fromarray((rgb_array_normalized * 255).astype('uint8'), 'RGB')
         try:
-            rgb_image.save(output_path[:-3] + 'png')
+            rgb_image.save(output_path[:-4] + '.png')
         except PermissionError as e:
             print('PermissionError:', e)
 
     def process_directory(self):
         for root, _, files in os.walk(self.dir):
             red_files = [f for f in files if f.endswith(self.red_name_ending)]
-            green_files = [f for f in files if f.endswith(
-                self.green_name_ending)]
+            green_files = [f for f in files if f.endswith(self.green_name_ending)]
 
             for red_file in red_files:
-                # Remove ending
                 base_name = red_file[:-len(self.red_name_ending)]
                 matching_green_file = base_name + self.green_name_ending
                 matching_blue_file = base_name + self.blue_name_ending
 
                 if matching_green_file in green_files:
-                    red_path = os.path.join(
-                        root, red_file) if self.red_name_ending else None
-                    green_path = os.path.join(
-                        root, matching_green_file) if self.green_name_ending else None
-                    blue_path = os.path.join(
-                        root, matching_blue_file) if self.blue_name_ending else None
-                    output_path = os.path.join(
-                        root, base_name + self.output_name_ending)
+                    red_path = os.path.join(root, red_file) if self.red_name_ending else None
+                    green_path = os.path.join(root, matching_green_file) if self.green_name_ending else None
+                    blue_path = os.path.join(root, matching_blue_file) if self.blue_name_ending else None
+                    output_path = os.path.join(root, base_name + self.output_name_ending)
 
-                    self.__create_two_channel_image(
-                        red_path, green_path, blue_path, output_path)
+                    self.__create_two_channel_image(red_path, green_path, blue_path, output_path)
                     print(f"Created hyperstack image: {output_path}")
+
 
 
 class MetadataParser():
