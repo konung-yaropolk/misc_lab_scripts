@@ -10,7 +10,7 @@ from scipy.ndimage import gaussian_filter
 
 # Defaults:
 WORKING_DIR = s.WORKING_DIR
-INPUT_NAME_SUFFIX = s.INPUT_NAME_SUFFIX
+
 RESP_DURATION = s.RESP_DURATION    # in s
 STEP_DURATION = s.STEP_DURATION    # in s
 N_EPOCHS = s.N_EPOCHS
@@ -291,19 +291,28 @@ class DerivativesCalc():
             match [A, C]:
                 case [1, 1]:
                     print('\nSequence A+C:')
-                    self.calc_sequence(
-                        i, '_DERIVATIVES_A+C' + self.filename_suffix + '.tif')
+                    ac_name_ending = '_auto_DERIVATIVES_A+C.tif'
+                    self.calc_sequence(i, ac_name_ending)
                 case [1, 0]:
                     print('\nSequence A:')
-                    self.calc_sequence(i, '_DERIVATIVES_A' +
-                                       self.filename_suffix + '.tif')
+                    a_name_ending = '_auto_DERIVATIVES_A.tif'
+                    self.calc_sequence(i, a_name_ending)
                 case [0, 1]:
                     print('\nSequence C:')
-                    self.calc_sequence(i, '_DERIVATIVES_C' +
-                                       self.filename_suffix + '.tif')
+                    c_name_ending = '_auto_DERIVATIVES_C.tif'
+                    self.calc_sequence(i, c_name_ending)
                 case [0, 0]: pass
-                case [None, None]: self.calc_sequence(
-                    i, '_DERIVATIVES_' + self.filename_suffix + '.tif')
+                case [None, None]: self.calc_sequence(i, '_auto_DERIVATIVES.tif')
+
+        merger = TifColorMerger(self.path,
+                                ac_name_ending,
+                                c_name_ending,
+                                ac_name_ending,
+                                '_auto_DERIVATIVES_C-green_A+C-magenta.tif')
+
+        merger.process_directory()
+
+        
 
     def save(self, output_path):
 
@@ -321,12 +330,12 @@ class DerivativesCalc():
         #         super()__init__()
 
 
+
 class Movie(DerivativesCalc, TracesCalc):
 
     def __init__(self,
                  file_path,
                  response_duration=RESP_DURATION,
-                 filename_suffix=INPUT_NAME_SUFFIX,
                  drs_pattern=[[None], [None]],
                  step_duration=STEP_DURATION,
                  n_epochs=N_EPOCHS,
@@ -337,14 +346,15 @@ class Movie(DerivativesCalc, TracesCalc):
                  relative_values=RELATIVE_VALUES,
                  mean_col_order=MEAN_COL_ORDER,
                  cols_per_roi=COLS_PER_ROI,
-                 **misc,
-                 ):
+                 **misc):
 
         self.file_path = WORKING_DIR + file_path
         self.path = os.path.split(self.file_path)[0]
         self.file = os.path.split(self.file_path)[1]
-        self.filename_suffix = filename_suffix
-        self.file_nosuffix = self.file[:-len(self.filename_suffix)]
+
+        self.filename_suffix, self.file_nosuffix = self.__calculate_suffix_and_nosuffix(self.file_path)
+        print(self.filename_suffix, self.file_nosuffix)
+
         self.response_duration = response_duration
         self.drs_pattern = drs_pattern
         self.step_duration = step_duration
@@ -374,10 +384,31 @@ class Movie(DerivativesCalc, TracesCalc):
         self.img = tifffile.imread(self.file_path)
         self.n_frames = len(self.img)
 
-        # self.sampling_interval = self.movie_duration / self.n_frames
-
         print('\nFile: {} \nMovie duration: {} \nn frames: {} \nSampling interval, s: {} \nTrigger time, s: {}'.format(
             self.file_path, self.movie_duration, self.n_frames, self.sampling_interval, self.start))
+
+
+    def __calculate_suffix_and_nosuffix(self, file_full_path):
+        # Get the directory from the given file's full path
+        dir_path = os.path.dirname(file_full_path)
+        # Get the given file's name
+        given_file = os.path.basename(file_full_path)
+        
+        # List all .txt files in the directory
+        txt_files = [os.path.join(dir_path, f) for f in os.listdir(dir_path) if f.endswith('.txt')]
+        
+        # Find the longest common prefix among the given file and txt files
+        common_prefixes = [os.path.commonprefix([file_full_path, txt_file]) for txt_file in txt_files]
+        file_nosuffix_with_path = max(common_prefixes, key=len).rstrip('_')
+        
+        # Remove the directory path from the common prefix
+        file_nosuffix = os.path.basename(file_nosuffix_with_path)
+        
+        # Determine the suffix from the given file
+        filename_suffix = file_full_path[len(file_nosuffix_with_path):]
+
+        return filename_suffix, file_nosuffix
+
 
 
 class TifColorMerger():
@@ -504,18 +535,6 @@ def main():
     if s.RUN_TRACES_CALCULATION:
         movie.csv_process()
         pass
-
-    if s.RUN_HYPERSTACK_COMPOSITOR:
-        print(
-            '\n\nHyperstack Compositor started in the directory: {}\n'.format(s.WORKING_DIR))
-
-        merger = TifColorMerger(s.WORKING_DIR,
-                                s.RED_NAME_ENDING,
-                                s.GRN_NAME_ENDING,
-                                s.BLE_NAME_ENDING,
-                                s.OUTPUT_NAME_ENDING)
-
-        merger.process_directory()
 
 
 if __name__ == '__main__':
