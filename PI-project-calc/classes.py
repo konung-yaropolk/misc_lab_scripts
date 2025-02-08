@@ -283,32 +283,33 @@ class DerivativesCalc():
             self.n_epochs,
             self.step_duration * self.n_steps,
             self.step_duration * i)
-        self.save(self.file_path + filename_ending)
+        self.save(self.file_path + self.save_file_suffix + filename_ending)
 
     def derivatives_calculate(self,):
+
+        ac_name_ending = '_auto_DERIVATIVES_A+C.tif'
+        a_name_ending = '_auto_DERIVATIVES_A.tif'
+        c_name_ending = '_auto_DERIVATIVES_C.tif'
 
         for i, [A, C] in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
             match [A, C]:
                 case [1, 1]:
                     print('\nSequence A+C:')
-                    ac_name_ending = '_auto_DERIVATIVES_A+C.tif'
                     self.calc_sequence(i, ac_name_ending)
                 case [1, 0]:
                     print('\nSequence A:')
-                    a_name_ending = '_auto_DERIVATIVES_A.tif'
                     self.calc_sequence(i, a_name_ending)
                 case [0, 1]:
                     print('\nSequence C:')
-                    c_name_ending = '_auto_DERIVATIVES_C.tif'
                     self.calc_sequence(i, c_name_ending)
                 case [0, 0]: pass
                 case [None, None]: self.calc_sequence(i, '_auto_DERIVATIVES.tif')
 
         merger = TifColorMerger(self.path,
-                                self.file + ac_name_ending,
-                                self.file + c_name_ending,
-                                self.file + ac_name_ending,
-                                self.file + '_auto_DERIVATIVES_C-green_A+C-magenta.tif')
+                                self.file + self.save_file_suffix + ac_name_ending,
+                                self.file + self.save_file_suffix + c_name_ending,
+                                self.file + self.save_file_suffix + ac_name_ending,
+                                self.file + self.save_file_suffix +  '_auto_DERIVATIVES_C-green_A+C-magenta.tif')
 
         merger.process_directory()
         del merger
@@ -336,6 +337,7 @@ class Movie(DerivativesCalc, TracesCalc):
 
     def __init__(self,
                  file_path,
+                 save_file_suffix = '',
                  response_duration=RESP_DURATION,
                  drs_pattern=[[None], [None]],
                  step_duration=STEP_DURATION,
@@ -353,6 +355,7 @@ class Movie(DerivativesCalc, TracesCalc):
         self.path = os.path.split(self.file_path)[0]
         self.file = os.path.split(self.file_path)[1]
         self.filename_suffix, self.file_nosuffix = self.__calculate_suffix_and_nosuffix(self.file_path)
+        self.save_file_suffix = save_file_suffix
 
         self.response_duration = response_duration
         self.drs_pattern = drs_pattern
@@ -450,7 +453,7 @@ class TifColorMerger:
             ratio_image = np.clip(ratio_image, 1, np.max(ratio_image))
 
             # Save the ratio image as a heatmap in PNG format using matplotlib
-            output_heatmap_path = output_path[:-4] + '_heatmap.png'
+            output_heatmap_path = output_path[:-4] + self.save_file_suffix + '_heatmap.png'
             plt.figure(figsize=(ratio_image.shape[1]/100, ratio_image.shape[0]/100), dpi=100)
             plt.imshow(ratio_image, cmap='viridis')
             plt.colorbar(label='C to A+C responses ratio', orientation='vertical')
@@ -494,7 +497,7 @@ class TifColorMerger:
                     output_path = os.path.join(root, base_name + self.output_name_ending)
 
                     self.__create_two_channel_image(red_path, green_path, blue_path, output_path)
-                    print(f"Created hyperstack image: {output_path}")
+                    print("\nCreated hyperstack image: {}".format(output_path))
 
 
 
