@@ -5,7 +5,7 @@
 RUN_DERIVATIVES_CALCULATION = True
 WORKING_DIR = 'D:/Lab Work Files/2-photon/'  # 'D:\Lab Work Files\'
 
-RESP_DURATION = 5   # in sec, expected response duration
+RESP_DURATION = 2   # in sec, expected response duration
 STEP_DURATION = 10  # in sec
 N_EPOCHS = 1
 
@@ -26,19 +26,18 @@ TIME_AFTER_TRIG = None
 
 # Допилить
 # Старт не с первой эпохи
-# опция сохранить под другим именем или с суфиксом
-
-
 
 
 # TO_DO_LIST - acceptable individual parameters:
 # 'drs_pattern'       : [[1, 0, 1, 0, 1, 0],  # A-stim
 #                        [0, 1, 0, 0, 1, 0]]  # C-stim
 # 'response_duration' : float in sec, expected response duration
-# 'save_file_suffix'  : str
+# 'output_suffix'     : str
 # 'step_duration'     : float in sec
-# 'n_epochs'          : int
-# 'trig_number'       : int
+# 'n_epochs'          : int > 0
+# 'start_from_epoch'  : int > 0
+# 'trig_number'       : int > 0
+
 
 TO_DO_LIST = [
 
@@ -49,7 +48,15 @@ TO_DO_LIST = [
     #                      [1, 1]]  # C-stim
     #  }
     #  ],
-
+    # ['Field_3_PI_0001_ch2_registered.tif',
+    #  {
+    #      'output_suffix': "_JNSKJFBKF_",
+    #      'start_from_epoch': 8,
+    #      'n_epochs': 3,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
 
 
     # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_04_19/Field_1_galvano.tif',
@@ -606,456 +613,541 @@ TO_DO_LIST = [
     #  ],
     # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_15_registered.tif',
     #  {
+    #      'output_suffix': '_a-stim-single',
     #      'start': 220.504,
     #      'n_epochs': 2,
     #      'drs_pattern': [[1],  # A-stim
     #                      [0]]  # C-stim
     #  }
     #  ],
-    ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_15_2_registered.tif',
+    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_15_2_registered.tif',
+    #  {
+    #      'n_epochs': 30,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_15_3_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_16_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+
+
+
+    # ['Presynaptic inhibition Pirt GCamp3/2025_02_06/Field_3.tif',
+    #  {
+    #      'n_epochs': 4,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3/2025_02_06/Field_4.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3/2025_02_06/Field_5.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+
+
+    # ['Presynaptic inhibition Pirt GCamp3/2025_02_07/Field_2_DRS_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3/2025_02_07/Field_3_DRS.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3/2025_02_07/Field_4_DRS_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3/2025_02_07/Field_5_DRS_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    ['Presynaptic inhibition Pirt GCamp3/2025_02_07/Field_6_DRS+CNQX+AP5_0001_registered.tif',
      {
          'n_epochs': 30,
          'drs_pattern': [[1, 0],  # A-stim
                          [1, 1]]  # C-stim
      }
      ],
-    ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_15_3_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_16_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-
-
-
-
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_1_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_2_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_3_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_4_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_5_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_6_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_7_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_8_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_9_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_10_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_12_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_13_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_14_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-
-
-
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_4_PI_0002_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_5_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_6_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_7_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-
-
-
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_1_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_2_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_3_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_4_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_5_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_6_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_7_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_8_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_9_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_10_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_12_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_13_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_14_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
 
 
 
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_4_PI_0002_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_5_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_6_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_7_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_16/Field_1_trp_activators_application_ch1_registered_registered_registered.tif',
-     {
-         'n_epochs': 1,
-         'trig_number': 16,     # number of trigger, starting from 1
-         'drs_pattern': [[0],  # A-stim
-                         [1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_16/Field_1_trp_activators_application_ch1_registered_registered_registered.tif',
-     {
-         'n_epochs': 1,
-         'trig_number': 3,     # number of trigger, starting from 1
-         'drs_pattern': [[0],  # A-stim
-                         [1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_16/Field_1_trp_activators_application_ch2_registered_registered_registered.tif',
-     {
-         'n_epochs': 1,
-         'trig_number': 3,     # number of trigger, starting from 1
-         'drs_pattern': [[0],  # A-stim
-                         [1]]  # C-stim
-     }
-     ],
-
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_17_M1/Field_1_trp_activators_application_ch2_registered_registered.tif',
-     {
-         'n_epochs': 1,
-         'trig_number': 2,     # number of trigger, starting from 1
-         'drs_pattern': [[0],  # A-stim
-                         [1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_17_M1/Field_1_trp_activators_application_ch1_registered_registered.tif',
-     {
-         'n_epochs': 1,
-         'trig_number': 19,    # number of trigger, starting from 1
-         'drs_pattern': [[0],  # A-stim
-                         [1]]  # C-stim
-     }
-     ],
-
-
-
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_17_M2/Field_1_trp_activators_application_ch1_registered.tif',
-     {
-         'n_epochs': 1,
-         'trig_number': 2,     # number of trigger, starting from 1
-         'drs_pattern': [[0],  # A-stim
-                         [1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_17_M2/Field_1_trp_activators_application_ch2_registered.tif',
-     {
-         'n_epochs': 1,
-         'trig_number': 2,     # number of trigger, starting from 1
-         'drs_pattern': [[0],  # A-stim
-                         [1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_17_M2/Field_1_DRS_ch1_registered.tif',
-     {
-         'n_epochs': 1,
-         'trig_number': 2,     # number of trigger, starting from 1
-         'drs_pattern': [[0],  # A-stim
-                         [1]]  # C-stim
-     }
-     ],
-
-
-
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_11_trp_activators_application_0001_ch1_registered.tif',
-     {
-         'n_epochs': 1,
-         'trig_number': 2,     # number of trigger, starting from 1
-         'drs_pattern': [[0],  # A-stim
-                         [1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_11_trp_activators_application_0001_ch2_registered.tif',
-     {
-         'n_epochs': 1,
-         'trig_number': 2,     # number of trigger, starting from 1
-         'drs_pattern': [[0],  # A-stim
-                         [1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_11_DRS_0001_ch1_registered.tif',
-     {
-         'n_epochs': 1,
-         'trig_number': 2,     # number of trigger, starting from 1
-         'drs_pattern': [[0],  # A-stim
-                         [1]]  # C-stim
-     }
-     ],
-
-
-
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_8_trp_activators_application_0001_ch1_registered.tif',
-     {
-         'n_epochs': 1,
-         'trig_number': 2,     # number of trigger, starting from 1
-         'drs_pattern': [[0],  # A-stim
-                         [1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_8_trp_activators_application_0001_ch2_registered.tif',
-     {
-         'n_epochs': 1,
-         'trig_number': 2,     # number of trigger, starting from 1
-         'drs_pattern': [[0],  # A-stim
-                         [1]]  # C-stim
-     }
-     ],
-    ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_9_DRS_0001_ch1_registered.tif',
-     {
-         'n_epochs': 1,
-         'trig_number': 2,     # number of trigger, starting from 1
-         'drs_pattern': [[0],  # A-stim
-                         [1]]  # C-stim
-     }
-     ],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_1_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_2_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_3_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_4_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_5_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_6_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_7_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_8_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_9_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_10_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_12_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_13_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_14_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+
+
+
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_4_PI_0002_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_5_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_6_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_7_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+
+
+
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_1_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_2_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_3_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_4_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_5_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_6_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_7_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_8_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_9_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_10_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_12_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_13_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_14_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+
+
+
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_4_PI_0002_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_5_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_6_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_7_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_16/Field_1_trp_activators_application_ch1_registered_registered_registered.tif',
+    #  {
+    #      'n_epochs': 1,
+    #      'trig_number': 16,     # number of trigger, starting from 1
+    #      'drs_pattern': [[0],  # A-stim
+    #                      [1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_16/Field_1_trp_activators_application_ch1_registered_registered_registered.tif',
+    #  {
+    #      'n_epochs': 1,
+    #      'trig_number': 3,     # number of trigger, starting from 1
+    #      'drs_pattern': [[0],  # A-stim
+    #                      [1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_16/Field_1_trp_activators_application_ch2_registered_registered_registered.tif',
+    #  {
+    #      'n_epochs': 1,
+    #      'trig_number': 3,     # number of trigger, starting from 1
+    #      'drs_pattern': [[0],  # A-stim
+    #                      [1]]  # C-stim
+    #  }
+    #  ],
+
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_17_M1/Field_1_trp_activators_application_ch2_registered_registered.tif',
+    #  {
+    #      'n_epochs': 1,
+    #      'trig_number': 2,     # number of trigger, starting from 1
+    #      'drs_pattern': [[0],  # A-stim
+    #                      [1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_17_M1/Field_1_trp_activators_application_ch1_registered_registered.tif',
+    #  {
+    #      'n_epochs': 1,
+    #      'trig_number': 19,    # number of trigger, starting from 1
+    #      'drs_pattern': [[0],  # A-stim
+    #                      [1]]  # C-stim
+    #  }
+    #  ],
+
+
+
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_17_M2/Field_1_trp_activators_application_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 1,
+    #      'trig_number': 2,     # number of trigger, starting from 1
+    #      'drs_pattern': [[0],  # A-stim
+    #                      [1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_17_M2/Field_1_trp_activators_application_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 1,
+    #      'trig_number': 2,     # number of trigger, starting from 1
+    #      'drs_pattern': [[0],  # A-stim
+    #                      [1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_17_M2/Field_1_DRS_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 1,
+    #      'trig_number': 2,     # number of trigger, starting from 1
+    #      'drs_pattern': [[0],  # A-stim
+    #                      [1]]  # C-stim
+    #  }
+    #  ],
+
+
+
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_11_trp_activators_application_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 1,
+    #      'trig_number': 2,     # number of trigger, starting from 1
+    #      'drs_pattern': [[0],  # A-stim
+    #                      [1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_11_trp_activators_application_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 1,
+    #      'trig_number': 2,     # number of trigger, starting from 1
+    #      'drs_pattern': [[0],  # A-stim
+    #                      [1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_11_DRS_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 1,
+    #      'trig_number': 2,     # number of trigger, starting from 1
+    #      'drs_pattern': [[0],  # A-stim
+    #                      [1]]  # C-stim
+    #  }
+    #  ],
+
+
+
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_8_trp_activators_application_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 1,
+    #      'trig_number': 2,     # number of trigger, starting from 1
+    #      'drs_pattern': [[0],  # A-stim
+    #                      [1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_8_trp_activators_application_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 1,
+    #      'trig_number': 2,     # number of trigger, starting from 1
+    #      'drs_pattern': [[0],  # A-stim
+    #                      [1]]  # C-stim
+    #  }
+    #  ],
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_9_DRS_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 1,
+    #      'trig_number': 2,     # number of trigger, starting from 1
+    #      'drs_pattern': [[0],  # A-stim
+    #                      [1]]  # C-stim
+    #  }
+    #  ],
 
 
 ]

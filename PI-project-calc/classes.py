@@ -34,7 +34,7 @@ class TracesCalc():
                  relative_values=RELATIVE_VALUES,
                  mean_col_order=MEAN_COL_ORDER,
                  cols_per_roi=COLS_PER_ROI,
-                 trig_number=0,
+                 trig_number=1,
                  ):
 
         self.file_path = file_path
@@ -262,7 +262,7 @@ class DerivativesCalc():
 
     #     # return self.result
 
-    def average_sequence_responses(self, count, interval, delay):
+    def average_sequence_responses(self, count, interval, delay, start=0):
 
         sequence_stack = [
             self.process_tiff_stack(
@@ -272,24 +272,24 @@ class DerivativesCalc():
                     self.sampling_interval)
             ) for i in range(count)
         ]
-
-        self.result = np.average(sequence_stack, axis=0)
+        print(f'\nTaken {count-start} epochs: {start + 1} to {count}')
+        self.result = np.average(sequence_stack[start:], axis=0)
 
         # return self.result
 
     def calc_sequence(self, i, filename_ending):
-        # der = self.Derivatives(item[0], **item[1])
         self.average_sequence_responses(
-            self.n_epochs,
+            self.n_epochs + self.start_from_epoch-1,
             self.step_duration * self.n_steps,
-            self.step_duration * i)
-        self.save(self.file_path + self.save_file_suffix + filename_ending)
+            self.step_duration * i,
+            start=self.start_from_epoch-1)
+        self.save(self.file_path + self.output_suffix + filename_ending)
 
     def derivatives_calculate(self,):
 
         ac_name_ending = '_auto_DERIVATIVES_A+C.tif'
-        a_name_ending = '_auto_DERIVATIVES_A.tif'
-        c_name_ending = '_auto_DERIVATIVES_C.tif'
+        a_name_ending  = '_auto_DERIVATIVES_A.tif'
+        c_name_ending  = '_auto_DERIVATIVES_C.tif'
 
         for i, [A, C] in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
             match [A, C]:
@@ -306,10 +306,11 @@ class DerivativesCalc():
                 case [None, None]: self.calc_sequence(i, '_auto_DERIVATIVES.tif')
 
         merger = TifColorMerger(self.path,
-                                self.file + self.save_file_suffix + ac_name_ending,
-                                self.file + self.save_file_suffix + c_name_ending,
-                                self.file + self.save_file_suffix + ac_name_ending,
-                                self.file + self.save_file_suffix +  '_auto_DERIVATIVES_C-green_A+C-magenta.tif')
+                                self.file + self.output_suffix + ac_name_ending,
+                                self.file + self.output_suffix + c_name_ending,
+                                self.file + self.output_suffix + ac_name_ending,
+                                self.file + self.output_suffix +  '_auto_DERIVATIVES_C-green_A+C-magenta.tif',
+                                self.output_suffix)
 
         merger.process_directory()
         del merger
@@ -337,12 +338,13 @@ class Movie(DerivativesCalc, TracesCalc):
 
     def __init__(self,
                  file_path,
-                 save_file_suffix = '',
+                 output_suffix = '',
                  response_duration=RESP_DURATION,
                  drs_pattern=[[None], [None]],
                  step_duration=STEP_DURATION,
                  n_epochs=N_EPOCHS,
-                 trig_number=0,
+                 start_from_epoch=1,
+                 trig_number=1,
                  time_before_trig=TIME_BEFORE_TRIG,
                  time_after_trig=TIME_AFTER_TRIG,
                  baseline_duraton=BASELINE_DURATON,
@@ -355,14 +357,15 @@ class Movie(DerivativesCalc, TracesCalc):
         self.path = os.path.split(self.file_path)[0]
         self.file = os.path.split(self.file_path)[1]
         self.filename_suffix, self.file_nosuffix = self.__calculate_suffix_and_nosuffix(self.file_path)
-        self.save_file_suffix = save_file_suffix
+        self.output_suffix = output_suffix
 
         self.response_duration = response_duration
         self.drs_pattern = drs_pattern
         self.step_duration = step_duration
         self.n_steps = len(self.drs_pattern[0])
         self.n_epochs = n_epochs
-        self.trig_number = trig_number
+        self.start_from_epoch = start_from_epoch
+        self.trig_number = trig_number-1
 
         self.time_before_trig = time_before_trig
         self.time_after_trig = time_after_trig
@@ -378,9 +381,9 @@ class Movie(DerivativesCalc, TracesCalc):
         self.events, self.sampling_interval, self.movie_duration = Parser.Parse(
             self.path, self.file_nosuffix)
 
-        self.event = self.events[trig_number]
-        self.event_name = self.events[trig_number][0]
-        self.start = self.events[trig_number][1]
+        self.event = self.events[self.trig_number]
+        self.event_name = self.events[self.trig_number][0]
+        self.start = self.events[self.trig_number][1]
 
         # Open the TIFF image stack
         self.img = tifffile.imread(self.file_path)
@@ -419,12 +422,13 @@ class Movie(DerivativesCalc, TracesCalc):
 
 class TifColorMerger:
 
-    def __init__(self, dir, red_name_ending, green_name_ending, blue_name_ending, output_name_ending):
+    def __init__(self, dir, red_name_ending, green_name_ending, blue_name_ending, output_name_ending, output_suffix):
         self.dir = dir
         self.red_name_ending = red_name_ending
         self.green_name_ending = green_name_ending
         self.blue_name_ending = blue_name_ending
         self.output_name_ending = output_name_ending
+        self.output_suffix = output_suffix 
 
     def __create_two_channel_image(self, red_channel_path, green_channel_path, blue_channel_path, output_path):
         channels = []
@@ -453,9 +457,10 @@ class TifColorMerger:
             ratio_image = np.clip(ratio_image, 1, np.max(ratio_image))
 
             # Save the ratio image as a heatmap in PNG format using matplotlib
-            output_heatmap_path = output_path[:-4] + self.save_file_suffix + '_heatmap.png'
-            plt.figure(figsize=(ratio_image.shape[1]/100, ratio_image.shape[0]/100), dpi=100)
-            plt.imshow(ratio_image, cmap='viridis')
+            output_heatmap_path = output_path[:-4] + self.output_suffix + '_heatmap.png'
+            enlarged_shape = (int(ratio_image.shape[1] * 1.0), int(ratio_image.shape[0] * 1.0))
+            plt.figure(figsize=(enlarged_shape[0] / 100, enlarged_shape[1] / 100), dpi=165)
+            plt.imshow(ratio_image, cmap='inferno', interpolation='bicubic')
             plt.colorbar(label='C to A+C responses ratio', orientation='vertical')
             plt.axis('off')
             plt.gca().set_facecolor('black')
