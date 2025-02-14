@@ -288,8 +288,8 @@ class DerivativesCalc():
     def derivatives_calculate(self,):
 
         ac_name_ending = '_auto_DERIVATIVES_A+C.tif'
-        a_name_ending  = '_auto_DERIVATIVES_A.tif'
-        c_name_ending  = '_auto_DERIVATIVES_C.tif'
+        a_name_ending = '_auto_DERIVATIVES_A.tif'
+        c_name_ending = '_auto_DERIVATIVES_C.tif'
 
         for i, [A, C] in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
             match [A, C]:
@@ -303,19 +303,18 @@ class DerivativesCalc():
                     print('\nSequence C:')
                     self.calc_sequence(i, c_name_ending)
                 case [0, 0]: pass
-                case [None, None]: self.calc_sequence(i, '_auto_DERIVATIVES.tif')
+                case [None, None]: self.calc_sequence(
+                    i, '_auto_DERIVATIVES.tif')
 
         merger = TifColorMerger(self.path,
                                 self.file + self.output_suffix + ac_name_ending,
                                 self.file + self.output_suffix + c_name_ending,
                                 self.file + self.output_suffix + ac_name_ending,
-                                self.file + self.output_suffix +  '_auto_DERIVATIVES_C-green_A+C-magenta.tif',
+                                self.file + self.output_suffix + '_auto_DERIVATIVES_C-green_A+C-magenta.tif',
                                 self.output_suffix)
 
         merger.process_directory()
         del merger
-
-        
 
     def save(self, output_path):
 
@@ -333,12 +332,11 @@ class DerivativesCalc():
         #         super()__init__()
 
 
-
 class Movie(DerivativesCalc, TracesCalc):
 
     def __init__(self,
                  file_path,
-                 output_suffix = '',
+                 output_suffix='',
                  response_duration=RESP_DURATION,
                  drs_pattern=[[None], [None]],
                  step_duration=STEP_DURATION,
@@ -356,7 +354,8 @@ class Movie(DerivativesCalc, TracesCalc):
         self.file_path = WORKING_DIR + file_path
         self.path = os.path.split(self.file_path)[0]
         self.file = os.path.split(self.file_path)[1]
-        self.filename_suffix, self.file_nosuffix = self.__calculate_suffix_and_nosuffix(self.file_path)
+        self.filename_suffix, self.file_nosuffix = self.__calculate_suffix_and_nosuffix(
+            self.file_path)
         self.output_suffix = output_suffix
 
         self.response_duration = response_duration
@@ -392,32 +391,34 @@ class Movie(DerivativesCalc, TracesCalc):
         print('\nFile: {} \nMovie duration: {} \nn frames: {} \nSampling interval, s: {} \nTrigger time, s: {}'.format(
             self.file_path, self.movie_duration, self.n_frames, self.sampling_interval, self.start))
 
-
     def __calculate_suffix_and_nosuffix(self, file_full_path):
         # Get the directory from the given file's full path
 
-        file_full_path = os.path.abspath(os.path.normpath(os.path.splitext(file_full_path)[0]))
+        file_full_path = os.path.abspath(
+            os.path.normpath(os.path.splitext(file_full_path)[0]))
 
         dir_path = os.path.dirname(file_full_path)
         # Get the given file's name
         given_file = os.path.basename(file_full_path)
-        
+
         # List all .txt files in the directory
-        txt_files = [os.path.abspath(os.path.normpath(os.path.join(dir_path, f))) for f in os.listdir(dir_path) if f.endswith('.txt')]
+        txt_files = [os.path.abspath(os.path.normpath(os.path.join(
+            dir_path, f))) for f in os.listdir(dir_path) if f.endswith('.txt')]
 
         # Find the longest common prefix among the given file and txt files
-        common_prefixes = [os.path.commonprefix([file_full_path, txt_file]) for txt_file in txt_files]
+        common_prefixes = [os.path.commonprefix(
+            [file_full_path, txt_file]) for txt_file in txt_files]
 
         file_nosuffix_with_path = max(common_prefixes, key=len).rstrip('_')
-        
+
         # Remove the directory path from the common prefix
         file_nosuffix = os.path.basename(file_nosuffix_with_path)
-        
+
         # Determine the suffix from the given file
-        filename_suffix = os.path.basename(file_full_path[len(file_nosuffix_with_path):])
+        filename_suffix = os.path.basename(
+            file_full_path[len(file_nosuffix_with_path):])
 
         return filename_suffix, file_nosuffix
-
 
 
 class TifColorMerger:
@@ -428,7 +429,7 @@ class TifColorMerger:
         self.green_name_ending = green_name_ending
         self.blue_name_ending = blue_name_ending
         self.output_name_ending = output_name_ending
-        self.output_suffix = output_suffix 
+        self.output_suffix = output_suffix
 
     def __create_two_channel_image(self, red_channel_path, green_channel_path, blue_channel_path, output_path):
         channels = []
@@ -454,22 +455,32 @@ class TifColorMerger:
         # Calculate the ratio image if red and green channels are available
         if len(channels) >= 2:
             ratio_image = channels[1] / channels[0]
-            ratio_image = np.clip(ratio_image, 1, np.max(ratio_image))
+            ratio_image = np.clip(ratio_image, 1, np.max(ratio_image)*0.73)
 
             # Save the ratio image as a heatmap in PNG format using matplotlib
-            output_heatmap_path = output_path[:-4] + self.output_suffix + '_heatmap.png'
-            enlarged_shape = (int(ratio_image.shape[1] * 1.0), int(ratio_image.shape[0] * 1.0))
-            plt.figure(figsize=(enlarged_shape[0] / 100, enlarged_shape[1] / 100), dpi=165)
-            plt.imshow(ratio_image, cmap='inferno', interpolation='bicubic')
-            plt.colorbar(label='C to A+C responses ratio', orientation='vertical')
-            plt.axis('off')
-            plt.gca().set_facecolor('black')
+            output_heatmap_path = output_path[:-4] + \
+                self.output_suffix + '_heatmap.png'
+            enlarged_shape = (
+                int(ratio_image.shape[1] * 1.0), int(ratio_image.shape[0] * 1.0))
+            fig, ax = plt.subplots(
+                figsize=(enlarged_shape[0] / 100, enlarged_shape[1] / 100), dpi=165)
+
+            ax.imshow(ratio_image, cmap='inferno',
+                      interpolation='bicubic', extent=[0, 1, 0, 1])
+            ax.set_position([0.02, 0.02, 0.98, 0.98])
+            ax.axis('off')
+            fig.patch.set_facecolor('white')
+            cbar = plt.colorbar(ax.imshow(
+                ratio_image, cmap='inferno', interpolation='bicubic', extent=[0, 1, 0, 1]), ax=ax)
+            cbar.set_label('C to A+C responses ratio',
+                           rotation=90, labelpad=5)
             plt.savefig(output_heatmap_path, bbox_inches='tight', pad_inches=0)
             plt.close()
 
         # Save the multi-channel image in ImageJ format
         try:
-            tifffile.imwrite(output_path, multi_channel_array, imagej=True, metadata={'axes': 'CYX'})
+            tifffile.imwrite(output_path, multi_channel_array,
+                             imagej=True, metadata={'axes': 'CYX'})
         except PermissionError as e:
             print('PermissionError:', e)
 
@@ -478,8 +489,10 @@ class TifColorMerger:
             channels.append(np.zeros_like(channels[0]))
 
         channels = np.array(channels)
-        rgb_array_normalized = np.stack([(channel - channels.min()) / (channels.max() - channels.min()) for channel in channels], axis=-1)
-        rgb_image = Image.fromarray((rgb_array_normalized * 255).astype('uint8'), 'RGB')
+        rgb_array_normalized = np.stack(
+            [(channel - channels.min()) / (channels.max() - channels.min()) for channel in channels], axis=-1)
+        rgb_image = Image.fromarray(
+            (rgb_array_normalized * 255).astype('uint8'), 'RGB')
         try:
             rgb_image.save(output_path[:-4] + '.png')
         except PermissionError as e:
@@ -488,7 +501,8 @@ class TifColorMerger:
     def process_directory(self):
         for root, _, files in os.walk(self.dir):
             red_files = [f for f in files if f.endswith(self.red_name_ending)]
-            green_files = [f for f in files if f.endswith(self.green_name_ending)]
+            green_files = [f for f in files if f.endswith(
+                self.green_name_ending)]
 
             for red_file in red_files:
                 base_name = red_file[:-len(self.red_name_ending)]
@@ -496,14 +510,18 @@ class TifColorMerger:
                 matching_blue_file = base_name + self.blue_name_ending
 
                 if matching_green_file in green_files:
-                    red_path = os.path.join(root, red_file) if self.red_name_ending else None
-                    green_path = os.path.join(root, matching_green_file) if self.green_name_ending else None
-                    blue_path = os.path.join(root, matching_blue_file) if self.blue_name_ending else None
-                    output_path = os.path.join(root, base_name + self.output_name_ending)
+                    red_path = os.path.join(
+                        root, red_file) if self.red_name_ending else None
+                    green_path = os.path.join(
+                        root, matching_green_file) if self.green_name_ending else None
+                    blue_path = os.path.join(
+                        root, matching_blue_file) if self.blue_name_ending else None
+                    output_path = os.path.join(
+                        root, base_name + self.output_name_ending)
 
-                    self.__create_two_channel_image(red_path, green_path, blue_path, output_path)
+                    self.__create_two_channel_image(
+                        red_path, green_path, blue_path, output_path)
                     print("\nCreated hyperstack image: {}".format(output_path))
-
 
 
 class MetadataParser():

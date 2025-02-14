@@ -3,7 +3,7 @@
 
 # Defaults for Derivatives Calculation:
 RUN_DERIVATIVES_CALCULATION = True
-WORKING_DIR = 'D:/Lab Work Files/2-photon/'  # 'D:\Lab Work Files\'
+WORKING_DIR = 'sample/'  # 'F:/Lab Work Files/2-photon/'  # 'D:\Lab Work Files\'
 
 RESP_DURATION = 2   # in sec, expected response duration
 STEP_DURATION = 10  # in sec
@@ -21,11 +21,6 @@ COLS_PER_ROI = 4
 TIME_BEFORE_TRIG = 10
 BASELINE_DURATON = 10
 TIME_AFTER_TRIG = None
-
-
-
-# Допилить
-# Старт не с первой эпохи
 
 
 # TO_DO_LIST - acceptable individual parameters:
@@ -57,6 +52,24 @@ TO_DO_LIST = [
     #                      [1, 1]]  # C-stim
     #  }
     #  ],
+    ['Field_12_registered.tif',
+     {
+         'n_epochs': 10,
+         'drs_pattern': [[1, 0],  # A-stim
+                         [1, 1]]  # C-stim
+     }
+     ],
+
+
+
+
+
+
+
+
+
+
+
 
 
     # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_04_19/Field_1_galvano.tif',
@@ -65,42 +78,42 @@ TO_DO_LIST = [
     #      'drs_pattern': [[1, 0, 1, 0, 1, 0],  # A-stim
     #                      [0, 1, 0, 0, 1, 0]]  # C-stim
     #  }
-    # ],
+    #  ],
     # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_04_19/Field_2_0001_registered.tif',
     #  {
     #      'n_epochs': 7,
     #      'drs_pattern': [[1, 0, 1, 0, 1, 0],  # A-stim
     #                      [0, 1, 0, 0, 1, 0]]  # C-stim
     #  }
-    # ],
+    #  ],
     # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_04_19/Field_3_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'drs_pattern': [[1, 0],  # A-stim
     #                      [1, 1]]  # C-stim
     #  }
-    # ],
+    #  ],
     # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_04_19/Field_4_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'drs_pattern': [[1, 0],  # A-stim
     #                      [1, 1]]  # C-stim
     #  }
-    # ],
+    #  ],
     # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_04_19/Field_5_registered.tif',
     #  {
     #      'n_epochs': 5,
     #      'drs_pattern': [[1, 0],  # A-stim
     #                      [1, 1]]  # C-stim
     #  }
-    # ],
+    #  ],
     # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_04_19/Field_6_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'drs_pattern': [[1, 0],  # A-stim
     #                      [1, 1]]  # C-stim
     #  }
-    # ],
+    #  ],
 
 
 
@@ -674,13 +687,6 @@ TO_DO_LIST = [
     #                      [1, 1]]  # C-stim
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2025_02_07/Field_3_DRS.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'drs_pattern': [[1, 0],  # A-stim
-    #                      [1, 1]]  # C-stim
-    #  }
-    #  ],
     # ['Presynaptic inhibition Pirt GCamp3/2025_02_07/Field_4_DRS_registered.tif',
     #  {
     #      'n_epochs': 10,
@@ -695,20 +701,25 @@ TO_DO_LIST = [
     #                      [1, 1]]  # C-stim
     #  }
     #  ],
-    ['Presynaptic inhibition Pirt GCamp3/2025_02_07/Field_6_DRS+CNQX+AP5_0001_registered.tif',
-     {
-         'n_epochs': 30,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
 
-
-
-
-
-
-
+    # ['Presynaptic inhibition Pirt GCamp3/2025_02_07/Field_6_DRS+CNQX+AP5_0001_registered.tif',
+    #  {
+    #      'output_suffix': '_Ctrl_',
+    #      'n_epochs': 10,
+    #      'start_from_epoch': 0,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
+    # ['Presynaptic inhibition Pirt GCamp3/2025_02_07/Field_6_DRS+CNQX+AP5_0001_registered.tif',
+    #  {
+    #      'output_suffix': '_CNQX_20uM_AP5_100uM_',
+    #      'n_epochs': 10,
+    #      'start_from_epoch': 20,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
 
 
 
