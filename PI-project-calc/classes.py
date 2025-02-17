@@ -24,6 +24,23 @@ BASELINE_DURATON = s.BASELINE_DURATON
 TIME_AFTER_TRIG = s.TIME_AFTER_TRIG
 
 
+
+class Helpers():
+
+    def save_tiff(self, output_path, data, metadata={}):
+
+        # output = Image.fromarray(data)
+        # output.save(output_path, save_all=True,
+        #             compression="tiff_deflate",
+        #             tiffinfo=metadata)
+
+        # does not work for some reasons:
+        img = data.astype(np.float32)  #if data.ndim == 3 else np.array([data]).astype(np.float32) 
+        tifffile.imwrite(output_path, img,
+                             imagej=True, compression='deflate', metadata=metadata)
+
+
+
 class TracesCalc():
 
     def __init__(self,
@@ -221,7 +238,7 @@ class TracesCalc():
         return result
 
 
-class DerivativesCalc():
+class DerivativesCalc(Helpers):
 
     def compute_gaussian_derivatives(self, image_stack, start, end, sigma):
 
@@ -283,7 +300,14 @@ class DerivativesCalc():
             self.step_duration * self.n_steps,
             self.step_duration * i,
             start=self.start_from_epoch-1)
-        self.save(self.file_path + self.output_suffix + filename_ending)
+
+        metadata = {
+                'axes': 'YX',
+                'min': 0,
+                'max': np.max(self.result),
+            }
+
+        self.save_tiff(self.file_path + self.output_suffix + filename_ending, self.result, metadata=metadata)
 
     def derivatives_calculate(self,):
 
@@ -315,21 +339,6 @@ class DerivativesCalc():
 
         merger.process_directory()
         del merger
-
-    def save(self, output_path):
-
-        output = Image.fromarray(self.result)
-        output.save(output_path, save_all=True,
-                    compression="tiff_deflate",
-                    tiffinfo={})
-
-        # def calculate_sequence_response(self, ):
-
-        # class Fluorescence(Movie):
-
-        #     def __init__(self, ):
-
-        #         super()__init__()
 
 
 class Movie(DerivativesCalc, TracesCalc):
@@ -421,7 +430,7 @@ class Movie(DerivativesCalc, TracesCalc):
         return filename_suffix, file_nosuffix
 
 
-class TifColorMerger:
+class TifColorMerger(Helpers):
 
     def __init__(self, dir, red_name_ending, green_name_ending, blue_name_ending, output_name_ending, output_suffix):
         self.dir = dir
@@ -451,13 +460,53 @@ class TifColorMerger:
 
         # Stack the arrays along the first axis to create a multi-channel image
         multi_channel_array = np.stack(channels, axis=0)
+    
+        # Save the multi-channel image in ImageJ format
+        try:
+            self.save_tiff(output_path, multi_channel_array, metadata={'axes': 'CYX', 'mode': 'composite'})
+        except PermissionError as e:
+            print('PermissionError:', e)
 
+        # Save the image as a PNG file
+        for i in range(3 - len(channels)):
+            channels.append(np.zeros_like(channels[0]))
+
+        channels = np.array(channels)
+        rgb_array_normalized = np.stack(
+            [(channel - channels.min()) / (channels.max() - channels.min()) for channel in channels], axis=-1)
+        rgb_image = Image.fromarray(
+            (rgb_array_normalized * 255).astype('uint8'), 'RGB')
+        try:
+            rgb_image.save(output_path[:-4] + '.png')
+        except PermissionError as e:
+            print('PermissionError:', e)
+
+
+        # Crerating Heatmap
         # Calculate the ratio image if red and green channels are available
         if len(channels) >= 2:
-            ratio_image = channels[1] / channels[0]
-            ratio_image = np.clip(ratio_image, 1, np.max(ratio_image)*0.73)
+            ratio_image = np.divide(channels[1], channels[0], out=np.zeros_like(channels[0]), where=channels[0]!=0)
+            ratio_image = np.clip(ratio_image, 0, np.max(ratio_image))
+
+            # Save the ratio image as a single-frame TIFF file with inferno LUT metadata
+            output_heatmap_path = output_path[:-4] + self.output_suffix + '_heatmap.tif'
+
+            metadata = {
+                'axes': 'YX',
+                'min': 1,
+                'max': 4, # np.max(ratio_image) * 0.73
+            }
+
+            try:
+                #tifffile.imwrite(output_heatmap_path, ratio_image.astype(np.float32), imagej=True, metadata=metadata)
+                self.save_tiff(output_heatmap_path, ratio_image, metadata=metadata)
+                print(f"Created heatmap image: {output_heatmap_path}")
+
+            except PermissionError as e:
+                print('PermissionError:', e)
 
             # Save the ratio image as a heatmap in PNG format using matplotlib
+            ratio_image = np.clip(ratio_image, 1, 4)
             output_heatmap_path = output_path[:-4] + \
                 self.output_suffix + '_heatmap.png'
             enlarged_shape = (
@@ -477,26 +526,7 @@ class TifColorMerger:
             plt.savefig(output_heatmap_path, bbox_inches='tight', pad_inches=0)
             plt.close()
 
-        # Save the multi-channel image in ImageJ format
-        try:
-            tifffile.imwrite(output_path, multi_channel_array,
-                             imagej=True, metadata={'axes': 'CYX'})
-        except PermissionError as e:
-            print('PermissionError:', e)
 
-        # Save the image as a PNG file
-        for i in range(3 - len(channels)):
-            channels.append(np.zeros_like(channels[0]))
-
-        channels = np.array(channels)
-        rgb_array_normalized = np.stack(
-            [(channel - channels.min()) / (channels.max() - channels.min()) for channel in channels], axis=-1)
-        rgb_image = Image.fromarray(
-            (rgb_array_normalized * 255).astype('uint8'), 'RGB')
-        try:
-            rgb_image.save(output_path[:-4] + '.png')
-        except PermissionError as e:
-            print('PermissionError:', e)
 
     def process_directory(self):
         for root, _, files in os.walk(self.dir):
@@ -546,6 +576,7 @@ class MetadataParser():
             ]
 
         return events, t_resolution, t_duration
+
 
 
 def main():
