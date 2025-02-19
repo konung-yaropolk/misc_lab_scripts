@@ -191,29 +191,62 @@ class TracesCalc():
 
         return content_raw
 
-    def average_sequence_responses(self, count, interval, delay, start=0):
+    def calculate_ampl_auc(self, matrix, start_bl, end_bl, start, end):
+        # Extract time vector and data traces
+        x = matrix[:, 0]
+        traces = matrix[:, 1:]
 
-        sequence_stack = [
-            self.process_tiff_stack(
+        # Indices for baseline and signal periods
+        bl_indices = np.where((x >= start_bl) & (x <= end_bl))[0]
+        sig_indices = np.where((x >= start) & (x <= end))[0]
+
+        # Lists to store peak amplitudes and AUCs for each trace
+        ampl_list = []
+        auc_list = []
+
+        for trace in traces.T:
+            # Calculate baseline
+            baseline = np.mean(trace[bl_indices])
+            # Baseline correction
+            corrected_trace = trace - baseline
+            # Peak amplitude in signal period
+            ampl = np.max(corrected_trace[sig_indices])
+            ampl_list.append(ampl)
+            # AUC in signal period
+            auc = np.trapz(corrected_trace[sig_indices], x[sig_indices])
+            auc_list.append(auc)
+
+        # Calculate mean amplitude and AUC across all traces
+        ampl_mean = np.mean(ampl_list)
+        auc_mean = np.mean(auc_list)
+
+        # Return as list of two floats
+        # return [ampl_mean, auc_mean]
+        return ampl_list
+
+    def process_sequence_responses(self, count, interval, delay, start=0):
+        # list by timewindows of lists of ampl by roi
+        result = [
+            self.calculate_ampl_auc(
                 int((self.start + (i*interval) + delay) //
                     self.sampling_interval),
                 int((self.start + (i*interval) + delay + self.response_duration) //
                     self.sampling_interval)
             ) for i in range(count)
         ]
-        self.result = np.average(sequence_stack[start:], axis=0)
 
+        # self.result = np.average(sequence_stack[start:], axis=0)
         # return self.result
 
     def calc_sequence(self, i, filename_ending):
-        self.average_sequence_responses(
+        self.process_sequence_responses(
             self.n_epochs + self.start_from_epoch-1,
             self.step_duration * self.n_steps,
             self.step_duration * i,
             start=self.start_from_epoch-1)
 
-        self.save_tiff(self.file_path + self.output_suffix +
-                       filename_ending, self.result, metadata=metadata)
+        # self.save_tiff(self.file_path + self.output_suffix +
+        #                filename_ending, self.result, metadata=metadata)
 
     def derivatives_calculate(self,):
 
