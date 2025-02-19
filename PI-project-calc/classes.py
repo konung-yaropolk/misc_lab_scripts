@@ -24,7 +24,6 @@ BASELINE_DURATON = s.BASELINE_DURATON
 TIME_AFTER_TRIG = s.TIME_AFTER_TRIG
 
 
-
 class Helpers():
 
     def save_tiff(self, output_path, data, metadata={}):
@@ -35,10 +34,10 @@ class Helpers():
         #             tiffinfo=metadata)
 
         # does not work for some reasons:
-        img = data.astype(np.float32)  #if data.ndim == 3 else np.array([data]).astype(np.float32) 
+        # if data.ndim == 3 else np.array([data]).astype(np.float32)
+        img = data.astype(np.float32)
         tifffile.imwrite(output_path, img,
-                             imagej=True, compression='deflate', metadata=metadata)
-
+                         imagej=True, compression='deflate', metadata=metadata)
 
 
 class TracesCalc():
@@ -192,7 +191,49 @@ class TracesCalc():
 
         return content_raw
 
-    def csv_process(self):
+    def average_sequence_responses(self, count, interval, delay, start=0):
+
+        sequence_stack = [
+            self.process_tiff_stack(
+                int((self.start + (i*interval) + delay) //
+                    self.sampling_interval),
+                int((self.start + (i*interval) + delay + self.response_duration) //
+                    self.sampling_interval)
+            ) for i in range(count)
+        ]
+        self.result = np.average(sequence_stack[start:], axis=0)
+
+        # return self.result
+
+    def calc_sequence(self, i, filename_ending):
+        self.average_sequence_responses(
+            self.n_epochs + self.start_from_epoch-1,
+            self.step_duration * self.n_steps,
+            self.step_duration * i,
+            start=self.start_from_epoch-1)
+
+        self.save_tiff(self.file_path + self.output_suffix +
+                       filename_ending, self.result, metadata=metadata)
+
+    def derivatives_calculate(self,):
+
+        ac_name_ending = '_RESPONSES_A+C.csv'
+        a_name_ending = '_RESPONSES_A.csv'
+        c_name_ending = '_RESPONSES_C.csv'
+
+        for i, [A, C] in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
+            match [A, C]:
+                case [1, 1]:
+                    self.calc_sequence(i, ac_name_ending)
+                case [1, 0]:
+                    self.calc_sequence(i, a_name_ending)
+                case [0, 1]:
+                    self.calc_sequence(i, c_name_ending)
+                case [0, 0]: pass
+                case [None, None]: self.calc_sequence(
+                    i, '_RESPONSES.csv')
+
+    def csv_process(self, detailed_stats=True):
         csv_list = []
         csv_list.extend(
             self.file_lister(
@@ -225,6 +266,9 @@ class TracesCalc():
                 except PermissionError:
                     print('       File actually opened:')
                     continue
+
+                if detailed_stats:
+                    print(csv_output)
 
             result = '***    Done: {} csv files for      {}'.format(
                 len(csv_list), self.file_path)
@@ -302,12 +346,13 @@ class DerivativesCalc(Helpers):
             start=self.start_from_epoch-1)
 
         metadata = {
-                'axes': 'YX',
-                'min': 0,
-                'max': np.max(self.result),
-            }
+            'axes': 'YX',
+            'min': 0,
+            'max': np.max(self.result),
+        }
 
-        self.save_tiff(self.file_path + self.output_suffix + filename_ending, self.result, metadata=metadata)
+        self.save_tiff(self.file_path + self.output_suffix +
+                       filename_ending, self.result, metadata=metadata)
 
     def derivatives_calculate(self,):
 
@@ -460,10 +505,11 @@ class TifColorMerger(Helpers):
 
         # Stack the arrays along the first axis to create a multi-channel image
         multi_channel_array = np.stack(channels, axis=0)
-    
+
         # Save the multi-channel image in ImageJ format
         try:
-            self.save_tiff(output_path, multi_channel_array, metadata={'axes': 'CYX', 'mode': 'composite'})
+            self.save_tiff(output_path, multi_channel_array, metadata={
+                           'axes': 'CYX', 'mode': 'composite'})
         except PermissionError as e:
             print('PermissionError:', e)
 
@@ -481,25 +527,27 @@ class TifColorMerger(Helpers):
         except PermissionError as e:
             print('PermissionError:', e)
 
-
         # Crerating Heatmap
         # Calculate the ratio image if red and green channels are available
         if len(channels) >= 2:
-            ratio_image = np.divide(channels[1], channels[0], out=np.zeros_like(channels[0]), where=channels[0]!=0)
+            ratio_image = np.divide(channels[1], channels[0], out=np.zeros_like(
+                channels[0]), where=channels[0] != 0)
             ratio_image = np.clip(ratio_image, 0, np.max(ratio_image))
 
             # Save the ratio image as a single-frame TIFF file with inferno LUT metadata
-            output_heatmap_path = output_path[:-4] + self.output_suffix + '_heatmap.tif'
+            output_heatmap_path = output_path[:-4] + \
+                self.output_suffix + '_heatmap.tif'
 
             metadata = {
                 'axes': 'YX',
                 'min': 1,
-                'max': 4, # np.max(ratio_image) * 0.73
+                'max': 4,  # np.max(ratio_image) * 0.73
             }
 
             try:
-                #tifffile.imwrite(output_heatmap_path, ratio_image.astype(np.float32), imagej=True, metadata=metadata)
-                self.save_tiff(output_heatmap_path, ratio_image, metadata=metadata)
+                # tifffile.imwrite(output_heatmap_path, ratio_image.astype(np.float32), imagej=True, metadata=metadata)
+                self.save_tiff(output_heatmap_path,
+                               ratio_image, metadata=metadata)
                 print(f"Created heatmap image: {output_heatmap_path}")
 
             except PermissionError as e:
@@ -525,8 +573,6 @@ class TifColorMerger(Helpers):
                            rotation=90, labelpad=5)
             plt.savefig(output_heatmap_path, bbox_inches='tight', pad_inches=0)
             plt.close()
-
-
 
     def process_directory(self):
         for root, _, files in os.walk(self.dir):
@@ -578,23 +624,23 @@ class MetadataParser():
         return events, t_resolution, t_duration
 
 
-
 def main():
 
     for item in s.TO_DO_LIST:
 
-        # try:
         print(' ')
         movie = Movie(item[0], **item[1])
-        movie.derivatives_calculate()
 
-        # except Exception as e:
-        #     print(e)
-        #     pass
+        if s.RUN_DERIVATIVES_CALCULATION:
+            # try:
+            movie.derivatives_calculate()
+            # except Exception as e:
+            #     print(e)
+            #     pass
 
-    if s.RUN_TRACES_CALCULATION:
-        movie.csv_process()
-        pass
+        if s.RUN_TRACES_CALCULATION:
+            movie.csv_process()
+            pass
 
 
 if __name__ == '__main__':
