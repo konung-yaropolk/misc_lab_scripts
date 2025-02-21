@@ -2,7 +2,7 @@
 # Settings block:
 
 # Defaults for Derivatives Calculation:
-RUN_DERIVATIVES_CALCULATION = True
+RUN_DERIVATIVES_CALCULATION = False
 WORKING_DIR = 'sample/'  # 'F:/Lab Work Files/2-photon/'
 
 RESP_DURATION = 2   # in sec, expected response duration

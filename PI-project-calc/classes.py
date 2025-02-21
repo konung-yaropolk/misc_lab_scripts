@@ -4,6 +4,7 @@ import csv
 import numpy as np
 import matplotlib.pyplot as plt
 import tifffile
+import AutoStatLib
 from PIL import Image
 from scipy.ndimage import gaussian_filter
 import settings as s
@@ -38,6 +39,130 @@ class Helpers():
         img = data.astype(np.float32)
         tifffile.imwrite(output_path, img,
                          imagej=True, compression='deflate', metadata=metadata)
+
+    def transpose(self, matrix):
+        rows = len(matrix)
+        cols = max(len(row) for row in matrix)
+
+        transposed = [[None] * rows for _ in range(cols)]
+
+        for i in range(rows):
+            for j in range(len(matrix[i])):
+                transposed[j][i] = matrix[i][j]
+
+        return transposed
+
+    def transpose_autoballance(self, data):
+        # Determine the maximum length of any row
+        max_len = max(len(row) for row in data)
+        # Fill shorter rows with None to make all rows equal in length
+        balanced_data = tuple(
+            list(row) + [None] * (max_len - len(row)) for row in data)
+        # Transpose the matrix
+        data_t = tuple(tuple(balanced_data[j][i] for j in range(
+            len(balanced_data))) for i in range(max_len))
+        return data_t
+
+
+class Plot(Helpers):
+
+    # def __init__():
+    #     pass
+
+    def barplot(self, data_samples, p=1, stars='ns', sd=0, mean=0, median=0, testname='', n=0, dependent=False):
+
+        n_bars = len(data_samples)
+        fig, ax = plt.subplots(figsize=(0.5 + 0.9*n_bars, 4))
+        linewidth = 2
+
+        # generate endless repeating colormap
+        num_colors = 9
+        cmap = plt.get_cmap('Set1')
+        cmap_fill = plt.get_cmap('Pastel1')
+        colors = [cmap(i / num_colors)
+                  for i in range(num_colors)]
+        colors_fill = [cmap_fill(i / num_colors)
+                       for i in range(num_colors)]
+        colors.insert(0, 'k')
+        colors_fill.insert(0, '#AAAAAA')
+
+        # save the dots x positions to connect them with lines later
+        spread_pool = []
+        for i, data in enumerate(data_samples):
+            x = i + 1  # Bar position
+            # Bars:
+            ax.bar(x,
+                   mean[i],
+                   yerr=sd[i],
+                   width=.75,
+                   capsize=8,
+                   ecolor='r',
+                   edgecolor=colors[i % len(colors)],
+                   facecolor=colors_fill[i % len(colors_fill)],
+                   fill=True,
+                   linewidth=linewidth,
+                   zorder=1)
+            # Data points:
+            # Adjust random horizontal spread range
+            spread = np.random.uniform(-.10, .10, size=len(data))
+            spread_pool.append(tuple(i+x for i in spread))
+            ax.plot(x,
+                    median[i],
+                    marker='x',
+                    markerfacecolor='#00000000',
+                    markeredgecolor='r',
+                    markersize=10,
+                    markeredgewidth=1)
+            ax.plot(x,
+                    mean[i],
+                    marker='_',
+                    markerfacecolor='#00000000',
+                    markeredgecolor='r',
+                    markersize=16,
+                    markeredgewidth=1)
+
+        spread_pool_t = self.transpose_autoballance(spread_pool)
+        for i, data in enumerate(self.transpose_autoballance(data_samples)):
+            # Connect scatter points with lines
+            ax.plot(spread_pool_t[i], data, color='k', alpha=0.5,
+                    marker='o', linewidth=1, linestyle='-' if dependent else '', zorder=1)
+
+        # Significance bar and stars
+        y_range = max([max(data) for data in data_samples])
+        x1, x2 = 1, n_bars
+        y, h, col = 1.05 * y_range, .05 * y_range, 'k'
+        ax.plot([x1, x1, x2, x2], [y, y + h, y + h, y], lw=linewidth, c=col)
+        ax.text((x1 + x2) * .5,
+                y + h,
+                '{}\n{}'.format(p, stars),
+                ha='center',
+                va='bottom',
+                color=col,
+                fontweight='bold')
+
+        # Add subtitle
+        fig.text(0.95, 0.0, '{}\nn={}'.format(testname, str(n)[1:-1] if not dependent else str(n[0])),
+                 ha='right', va='bottom', fontsize=8, fontweight='bold')
+
+        # Remove borders
+        for spine in ax.spines.values():
+            spine.set_visible(False)
+        ax.spines['left'].set_visible(True)
+        ax.xaxis.set_visible(False)
+
+        # Adjust width of axis
+        for tick in ax.get_yticklabels():
+            tick.set_fontweight('bold')
+        ax.tick_params(width=linewidth)
+        ax.yaxis.set_tick_params(labelsize=12)
+        ax.spines['left'].set_linewidth(linewidth)
+        ax.tick_params(axis='both', which='both',
+                       length=linewidth*2, width=linewidth)
+
+        plt.tight_layout()
+        # plt.show()
+
+        return plt
 
 
 class TracesCalc():
@@ -191,10 +316,13 @@ class TracesCalc():
 
         return content_raw
 
-    def calculate_ampl_auc(self, matrix, start_bl, end_bl, start, end):
+    def calculate_ampl_auc(self, start_bl, end_bl, start, end):
+
+        matrix = np.array(self.transpose(self.csv_matrix))
+
         # Extract time vector and data traces
-        x = matrix[:, 0]
-        traces = matrix[:, 1:]
+        x = matrix[0]
+        traces = matrix[1:]
 
         # Indices for baseline and signal periods
         bl_indices = np.where((x >= start_bl) & (x <= end_bl))[0]
@@ -203,8 +331,9 @@ class TracesCalc():
         # Lists to store peak amplitudes and AUCs for each trace
         ampl_list = []
         auc_list = []
+        raw_line_list = [x[sig_indices]-start]
 
-        for trace in traces.T:
+        for trace in traces:
             # Calculate baseline
             baseline = np.mean(trace[bl_indices])
             # Baseline correction
@@ -216,39 +345,45 @@ class TracesCalc():
             auc = np.trapz(corrected_trace[sig_indices], x[sig_indices])
             auc_list.append(auc)
 
+            raw_line_list.append(corrected_trace[sig_indices])
+
         # Calculate mean amplitude and AUC across all traces
-        ampl_mean = np.mean(ampl_list)
-        auc_mean = np.mean(auc_list)
+        ampl_mean_of_rois = np.mean(ampl_list)
+        auc_mean_of_rois = np.mean(auc_list)
 
-        # Return as list of two floats
-        # return [ampl_mean, auc_mean]
-        return ampl_list
+        return ampl_mean_of_rois, ampl_list, raw_line_list
 
-    def process_sequence_responses(self, count, interval, delay, start=0):
-        # list by timewindows of lists of ampl by roi
-        result = [
-            self.calculate_ampl_auc(
-                int((self.start + (i*interval) + delay) //
-                    self.sampling_interval),
-                int((self.start + (i*interval) + delay + self.response_duration) //
-                    self.sampling_interval)
-            ) for i in range(count)
+    def calc_traces_sequence(self, i, filename_ending):
+
+        count = self.n_epochs + self.start_from_epoch-1
+        interval = self.step_duration * self.n_steps
+        delay = self.step_duration * i
+        start = self.start_from_epoch-1
+
+        ampl_mean_of_rois_by_epoch, ampl_list_each_by_roi, raw_line_list = [
+
+            [
+                self.calculate_ampl_auc(
+                    (i*interval) + delay - self.step_duration/4,
+                    (i*interval) + delay,
+                    (i*interval) + delay,
+                    (i*interval) + delay + self.step_duration/2
+                )[j] for i in range(count)
+            ] for j in range(3)
+
         ]
 
-        # self.result = np.average(sequence_stack[start:], axis=0)
-        # return self.result
+        ampl_list_each_by_epoch = self.transpose(ampl_list_each_by_roi)
+        ampl_mean_of_epochs_by_rois = [np.mean(epoch)
+                                       for epoch in ampl_list_each_by_epoch]
 
-    def calc_sequence(self, i, filename_ending):
-        self.process_sequence_responses(
-            self.n_epochs + self.start_from_epoch-1,
-            self.step_duration * self.n_steps,
-            self.step_duration * i,
-            start=self.start_from_epoch-1)
+        # result_transposed = self.transpose(result)
 
         # self.save_tiff(self.file_path + self.output_suffix +
         #                filename_ending, self.result, metadata=metadata)
+        return ampl_mean_of_rois_by_epoch, ampl_mean_of_epochs_by_rois, ampl_list_each_by_roi, ampl_list_each_by_epoch, raw_line_list
 
-    def derivatives_calculate(self,):
+    def detailed_stats(self, csv_path, csv_file):
 
         ac_name_ending = '_RESPONSES_A+C.csv'
         a_name_ending = '_RESPONSES_A.csv'
@@ -257,14 +392,102 @@ class TracesCalc():
         for i, [A, C] in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
             match [A, C]:
                 case [1, 1]:
-                    self.calc_sequence(i, ac_name_ending)
+                    ac_ampl_mean_of_rois_by_epoch, ac_ampl_mean_of_epochs_by_rois, ac_ampl_list_each_by_roi, ac_ampl_list_each_by_epoch, ac_raw_line_list = self.calc_traces_sequence(
+                        i, ac_name_ending)
                 case [1, 0]:
-                    self.calc_sequence(i, a_name_ending)
+                    a_ampl_mean_of_rois_by_epoch,  a_ampl_mean_of_epochs_by_rois,  a_ampl_list_each_by_roi,  a_ampl_list_each_by_epoch,  a_raw_line_list = self.calc_traces_sequence(
+                        i, a_name_ending)
                 case [0, 1]:
-                    self.calc_sequence(i, c_name_ending)
+                    c_ampl_mean_of_rois_by_epoch,  c_ampl_mean_of_epochs_by_rois,  c_ampl_list_each_by_roi,  c_ampl_list_each_by_epoch,  c_raw_line_list = self.calc_traces_sequence(
+                        i, c_name_ending)
                 case [0, 0]: pass
-                case [None, None]: self.calc_sequence(
-                    i, '_RESPONSES.csv')
+                case [None, None]: pass
+                # responses_each_by_roi, responses_each_by_epoch = self.calc_traces_sequence(
+                # i, '_RESPONSES.csv')
+
+        self.plot_ac_c_roi_stats(ac_ampl_mean_of_epochs_by_rois,
+                                 c_ampl_mean_of_epochs_by_rois,
+                                 '{0}{1}_traces/{1}_by_rois_AC_C_ampl.png'.format(
+                                     csv_path, csv_file[:]),
+                                 dependent=True)
+
+        for i in range(len(ac_ampl_list_each_by_epoch)):
+            self.plot_ac_c_roi_stats(ac_ampl_list_each_by_epoch[i],
+                                     c_ampl_list_each_by_epoch[i],
+                                     '{0}{1}_traces/{1}_roi{2}_AC_C_ampl.png'.format(
+                                         csv_path, csv_file[:], i+1))
+
+        self.plot_stacked_traces(self.transpose(self.csv_matrix),
+                                 '{0}{1}_traces/{1}_traces_stacked_by_rois.png'.format(
+                                     csv_path, csv_file[:]))
+
+        # for i in range(len(ac_raw_line_list)):
+        #     self.plot_traces(ac_raw_line_list[i],
+        #                      c_raw_line_list[i],
+        #                      '{0}{1}_traces/{1}_epoch{2}_AC_C_traces.png'.format(csv_path, csv_file[:], i+1))
+
+    def plot_ac_c_roi_stats(self, group1, group2, path, dependent=False):
+
+        data = [group1, group2]
+
+        # set the parameters:
+        paired = True   # is groups dependend or not
+        tails = 2        # two-tailed or one-tailed result
+        popmean = 0        # population mean - only for single-sample tests needed
+
+        # initiate the analysis
+        analysis = AutoStatLib.StatisticalAnalysis(
+            data, paired=paired, tails=tails, popmean=0, verbose=False)
+
+        analysis.RunMannWhitney()
+        results = analysis.GetResult()
+
+        plot = Plot()
+
+        plt = plot.barplot(data,
+                           p=results['p-value'],
+                           stars=results['Stars_Printed'],
+                           sd=results['Groups_SD'],
+                           mean=results['Groups_Mean'],
+                           median=results['Groups_Median'],
+                           testname=results['Test_Name'],
+                           n=results['Groups_N'],
+                           dependent=dependent,
+                           )
+
+        plt.savefig(path)
+        plt.close()
+
+    def plot_traces(self, array1, array2, path):
+        plt.figure()
+
+        # Plot lines from the first array in black
+        x = array1[0]
+        for y in array1[1:]:
+            plt.plot(x, y, 'k-')  # 'k-' stands for black line
+
+        # Plot lines from the second array in red
+        x = array2[0]
+        for y in array2[1:]:
+            plt.plot(x, y, 'r-')  # 'r-' stands for red line
+
+        # Save the plot as plot.png
+        plt.savefig(path)
+        plt.close()
+
+    def plot_stacked_traces(self, array, path, shift=0.5):
+        plt.figure(figsize=(10, 10))  # Set figure size to 15x15 inches
+
+        x = array[0]
+
+        for i, y in enumerate(array[1:]):
+            shifted_y = [val + i * shift for val in y]
+            # 'k-' stands for black line, linewidth=0.5 for thinner line, alpha=0.5 for transparency
+            plt.plot(x, shifted_y, 'k-', linewidth=0.7, alpha=0.5)
+
+        # Save the plot as plot.png
+        plt.savefig(path)
+        plt.close()
 
     def csv_process(self, detailed_stats=True):
         csv_list = []
@@ -293,15 +516,15 @@ class TracesCalc():
                 #         print('       File actually opened:')
                 #         continue
 
-                csv_output = self.csv_cutter(content)
+                self.csv_matrix = self.csv_cutter(content)
                 try:
-                    self.csv_write(csv_output, csv_path, csv_file)
+                    self.csv_write(self.csv_matrix, csv_path, csv_file)
                 except PermissionError:
                     print('       File actually opened:')
                     continue
 
                 if detailed_stats:
-                    print(csv_output)
+                    self.detailed_stats(csv_path, csv_file)
 
             result = '***    Done: {} csv files for      {}'.format(
                 len(csv_list), self.file_path)
@@ -674,6 +897,8 @@ def main():
         if s.RUN_TRACES_CALCULATION:
             movie.csv_process()
             pass
+
+        del movie
 
 
 if __name__ == '__main__':
