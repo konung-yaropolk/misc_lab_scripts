@@ -3,7 +3,8 @@
 
 # Defaults for Derivatives Calculation:
 RUN_DERIVATIVES_CALCULATION = False
-WORKING_DIR = 'sample/'  # 'F:/Lab Work Files/2-photon/'
+WORKING_DIR = 'F:/Lab Work Files/2-photon/'
+# WORKING_DIR = 'sample/'
 
 RESP_DURATION = 2   # in sec, expected response duration
 STEP_DURATION = 10  # in sec
@@ -36,33 +37,22 @@ TIME_AFTER_TRIG = None
 
 TO_DO_LIST = [
 
-    ['Field_3_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
     # ['Field_3_PI_0001_ch2_registered.tif',
-    #  {
-    #      'output_suffix': "_JNSKJFBKF_",
-    #      'start_from_epoch': 8,
-    #      'n_epochs': 3,
-    #      'drs_pattern': [[1, 0],  # A-stim
-    #                      [1, 1]]  # C-stim
-    #  }
-    #  ],
-    # ['Field_12_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'drs_pattern': [[1, 0],  # A-stim
     #                      [1, 1]]  # C-stim
     #  }
     #  ],
-
-
-
-
+    # ['Field_3_PI_0001_ch2_registered.tif',
+    #  {
+    #      'output_suffix': "_JNSKJFBKF_",
+    #      'start_from_epoch': 7,
+    #      'n_epochs': 4,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
 
 
 
@@ -377,7 +367,7 @@ TO_DO_LIST = [
     # #  {
     # #      'output_suffix': '_WholeMovie_',
     # #      'n_epochs': 28,
-    # #      'start_from_epoch': 0,
+    # #      'start_from_epoch': 1,
     # #      'drs_pattern': [[1, 0],  # A-stim
     # #                      [1, 1]]  # C-stim
     # #  }
@@ -386,7 +376,7 @@ TO_DO_LIST = [
     #  {
     #      'output_suffix': '_Ctrl_',
     #      'n_epochs': 7,
-    #      'start_from_epoch': 0,
+    #      'start_from_epoch': 1,
     #      'drs_pattern': [[1, 0],  # A-stim
     #                      [1, 1]]  # C-stim
     #  }
@@ -629,7 +619,7 @@ TO_DO_LIST = [
     # #  {
     # #      'output_suffix': '_WholeMovie_',
     # #      'n_epochs': 30,
-    # #      'start_from_epoch': 0,
+    # #      'start_from_epoch': 1,
     # #      'drs_pattern': [[1, 0],  # A-stim
     # #                      [1, 1]]  # C-stim
     # #  }
@@ -638,7 +628,7 @@ TO_DO_LIST = [
     #  {
     #      'output_suffix': '_Ctrl_',
     #      'n_epochs': 10,
-    #      'start_from_epoch': 0,
+    #      'start_from_epoch': 1,
     #      'drs_pattern': [[1, 0],  # A-stim
     #                      [1, 1]]  # C-stim
     #  }
@@ -759,7 +749,7 @@ TO_DO_LIST = [
     # #  {
     # #      'output_suffix': '_WholeMovie_',
     # #      'n_epochs': 45,
-    # #      'start_from_epoch': 0,
+    # #      'start_from_epoch': 1,
     # #      'drs_pattern': [[1, 0],  # A-stim
     # #                      [1, 1]]  # C-stim
     # #  }
@@ -768,7 +758,7 @@ TO_DO_LIST = [
     #  {
     #      'output_suffix': '_Ctrl_',
     #      'n_epochs': 10,
-    #      'start_from_epoch': 0,
+    #      'start_from_epoch': 1,
     #      'drs_pattern': [[1, 0],  # A-stim
     #                      [1, 1]]  # C-stim
     #  }
@@ -835,7 +825,7 @@ TO_DO_LIST = [
     # #  {
     # #      'output_suffix': '_WholeMovie_',
     # #      'n_epochs': 30,
-    # #      'start_from_epoch': 0,
+    # #      'start_from_epoch': 1,
     # #      'drs_pattern': [[1, 0],  # A-stim
     # #                      [1, 1]]  # C-stim
     # #  }
@@ -844,7 +834,7 @@ TO_DO_LIST = [
     #  {
     #      'output_suffix': '_Ctrl_',
     #      'n_epochs': 10,
-    #      'start_from_epoch': 0,
+    #      'start_from_epoch': 1,
     #      'drs_pattern': [[1, 0],  # A-stim
     #                      [1, 1]]  # C-stim
     #  }

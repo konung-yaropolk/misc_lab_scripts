@@ -229,16 +229,25 @@ class TracesCalc():
 
         return files
 
-    def csv_write(self, csv_output, csv_path, csv_file, filename_suffix='_traces'):
+    def csv_write(self, csv_output, csv_path, csv_file, filename_suffix, subdir=False):
 
-        os.makedirs(csv_path + csv_file + '_traces/', exist_ok=True)
-        with open(
-                '{0}{1}_traces/{1}{2}.csv'.format(
-                    csv_path,
-                    csv_file,
-                    filename_suffix,
-                ),
-                'w') as f:
+        if subdir:
+            os.makedirs(csv_path + csv_file +
+                        filename_suffix + '/', exist_ok=True)
+            path = '{0}{1}{2}/{2}.csv'.format(
+                csv_path,
+                csv_file,
+                filename_suffix,
+            )
+
+        else:
+            path = '{0}/{2}.csv'.format(
+                csv_path,
+                csv_file,
+                filename_suffix,
+            )
+
+        with open(path, 'w') as f:
 
             writer = csv.writer(f, delimiter=',',
                                 lineterminator='\r',)
@@ -327,11 +336,12 @@ class TracesCalc():
         # Indices for baseline and signal periods
         bl_indices = np.where((x >= start_bl) & (x <= end_bl))[0]
         sig_indices = np.where((x >= start) & (x <= end))[0]
+        whole_step_indices = np.where((x >= start_bl) & (x <= end))[0]
 
         # Lists to store peak amplitudes and AUCs for each trace
         ampl_list = []
         auc_list = []
-        raw_line_list = [x[sig_indices]-start]
+        raw_line_list = [x[whole_step_indices]-start]
 
         for trace in traces:
             # Calculate baseline
@@ -345,7 +355,7 @@ class TracesCalc():
             auc = np.trapz(corrected_trace[sig_indices], x[sig_indices])
             auc_list.append(auc)
 
-            raw_line_list.append(corrected_trace[sig_indices])
+            raw_line_list.append(corrected_trace[whole_step_indices])
 
         # Calculate mean amplitude and AUC across all traces
         ampl_mean_of_rois = np.mean(ampl_list)
@@ -368,7 +378,7 @@ class TracesCalc():
                     (i*interval) + delay,
                     (i*interval) + delay,
                     (i*interval) + delay + self.step_duration/2
-                )[j] for i in range(count)
+                )[j] for i in range(start, count)
             ] for j in range(3)
 
         ]
@@ -404,27 +414,31 @@ class TracesCalc():
                 case [None, None]: pass
                 # responses_each_by_roi, responses_each_by_epoch = self.calc_traces_sequence(
                 # i, '_RESPONSES.csv')
+        print(csv_path, csv_file)
+        self.csv_write(self.transpose([ac_ampl_mean_of_epochs_by_rois,
+                       c_ampl_mean_of_epochs_by_rois]),
+                       csv_path+csv_file, csv_file, '_by_rois_AC_C_ampl_auto_')
 
         self.plot_ac_c_roi_stats(ac_ampl_mean_of_epochs_by_rois,
                                  c_ampl_mean_of_epochs_by_rois,
-                                 '{0}{1}_traces/{1}_by_rois_AC_C_ampl.png'.format(
+                                 '{0}{1}/_by_rois_AC_C_ampl_auto_.png'.format(
                                      csv_path, csv_file[:]),
                                  dependent=True)
 
         for i in range(len(ac_ampl_list_each_by_epoch)):
             self.plot_ac_c_roi_stats(ac_ampl_list_each_by_epoch[i],
                                      c_ampl_list_each_by_epoch[i],
-                                     '{0}{1}_traces/{1}_roi{2}_AC_C_ampl.png'.format(
+                                     '{0}{1}/_roi{2}_AC_C_ampl_auto_.png'.format(
                                          csv_path, csv_file[:], i+1))
 
         self.plot_stacked_traces(self.transpose(self.csv_matrix),
-                                 '{0}{1}_traces/{1}_traces_stacked_by_rois.png'.format(
-                                     csv_path, csv_file[:]))
+                                 '{0}{1}/_full_traces_stacked_by_rois_auto_.svg'.format(
+                                     csv_path, csv_file[:]), shift=np.amax(c_ampl_list_each_by_roi))
 
-        # for i in range(len(ac_raw_line_list)):
-        #     self.plot_traces(ac_raw_line_list[i],
-        #                      c_raw_line_list[i],
-        #                      '{0}{1}_traces/{1}_epoch{2}_AC_C_traces.png'.format(csv_path, csv_file[:], i+1))
+        for i in range(len(ac_raw_line_list)):
+            self.plot_traces(ac_raw_line_list[i],
+                             c_raw_line_list[i],
+                             '{0}{1}/_epoch{2}_AC_C_traces_auto_.png'.format(csv_path, csv_file[:], i+self.start_from_epoch))
 
     def plot_ac_c_roi_stats(self, group1, group2, path, dependent=False):
 
@@ -475,7 +489,7 @@ class TracesCalc():
         plt.savefig(path)
         plt.close()
 
-    def plot_stacked_traces(self, array, path, shift=0.5):
+    def plot_stacked_traces(self, array, path, shift=1.2):
         plt.figure(figsize=(10, 10))  # Set figure size to 15x15 inches
 
         x = array[0]
@@ -485,8 +499,18 @@ class TracesCalc():
             # 'k-' stands for black line, linewidth=0.5 for thinner line, alpha=0.5 for transparency
             plt.plot(x, shifted_y, 'k-', linewidth=0.7, alpha=0.5)
 
+        # Set y-tick labels divided by shift, starting from 1, and rounded to integers
+        ax = plt.gca()
+        # y_ticks = ax.get_yticks()
+        # ax.set_yticks(y_ticks)
+        # ax.set_yticklabels([f'{int(round(y / shift + 1))}' for y in y_ticks])
+
+        # Remove y-axis ticks
+        ax.set_yticks([])
+
         # Save the plot as plot.png
-        plt.savefig(path)
+        plt.tight_layout()
+        plt.savefig(path, transparent=True)
         plt.close()
 
     def csv_process(self, detailed_stats=True):
@@ -518,13 +542,15 @@ class TracesCalc():
 
                 self.csv_matrix = self.csv_cutter(content)
                 try:
-                    self.csv_write(self.csv_matrix, csv_path, csv_file)
+                    self.csv_write(self.csv_matrix, csv_path,
+                                   csv_file, self.output_suffix + '_full_traces_auto_', subdir=True)
                 except PermissionError:
                     print('       File actually opened:')
                     continue
 
                 if detailed_stats:
-                    self.detailed_stats(csv_path, csv_file)
+                    self.detailed_stats(
+                        csv_path, csv_file + self.output_suffix + '_full_traces_auto_')
 
             result = '***    Done: {} csv files for      {}'.format(
                 len(csv_list), self.file_path)
@@ -612,6 +638,10 @@ class DerivativesCalc(Helpers):
 
     def derivatives_calculate(self,):
 
+        # Open the TIFF image stack
+        self.img = tifffile.imread(self.file_path)
+        self.n_frames = len(self.img)
+
         ac_name_ending = '_auto_DERIVATIVES_A+C.tif'
         a_name_ending = '_auto_DERIVATIVES_A.tif'
         c_name_ending = '_auto_DERIVATIVES_C.tif'
@@ -673,7 +703,7 @@ class Movie(DerivativesCalc, TracesCalc):
         self.step_duration = step_duration
         self.n_steps = len(self.drs_pattern[0])
         self.n_epochs = n_epochs
-        self.start_from_epoch = start_from_epoch
+        self.start_from_epoch = start_from_epoch if start_from_epoch != 0 else 1
         self.trig_number = trig_number-1
 
         self.time_before_trig = time_before_trig
@@ -687,16 +717,12 @@ class Movie(DerivativesCalc, TracesCalc):
         self.n_frames = None
 
         Parser = MetadataParser()
-        self.events, self.sampling_interval, self.movie_duration = Parser.Parse(
+        self.events, self.sampling_interval, self.movie_duration, self.n_frames = Parser.Parse(
             self.path, self.file_nosuffix)
 
         self.event = self.events[self.trig_number]
         self.event_name = self.events[self.trig_number][0]
         self.start = self.events[self.trig_number][1]
-
-        # Open the TIFF image stack
-        self.img = tifffile.imread(self.file_path)
-        self.n_frames = len(self.img)
 
         print('\nFile: {} \nMovie duration: {} \nn frames: {} \nSampling interval, s: {} \nTrigger time, s: {}'.format(
             self.file_path, self.movie_duration, self.n_frames, self.sampling_interval, self.start))
@@ -877,7 +903,7 @@ class MetadataParser():
                 (strings[i+1][18:-2], float(strings[i+2][15:-6])/1000) for i, line in enumerate(strings) if trigger in line
             ]
 
-        return events, t_resolution, t_duration
+        return events, t_resolution, t_duration, n_slides
 
 
 def main():
