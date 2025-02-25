@@ -414,31 +414,65 @@ class TracesCalc():
                 case [None, None]: pass
                 # responses_each_by_roi, responses_each_by_epoch = self.calc_traces_sequence(
                 # i, '_RESPONSES.csv')
-        print(csv_path, csv_file)
-        self.csv_write(self.transpose([ac_ampl_mean_of_epochs_by_rois,
-                       c_ampl_mean_of_epochs_by_rois]),
-                       csv_path+csv_file, csv_file, '_by_rois_AC_C_ampl_auto_')
 
+        ampl_c_to_ac_ratio_mean_of_epochs_by_rois = np.array(c_ampl_mean_of_epochs_by_rois) / \
+            np.array(ac_ampl_mean_of_epochs_by_rois)
+
+        ampl_c_to_ac_ratio_rois_by_epoch = np.array(c_ampl_list_each_by_epoch) / \
+            np.array(ac_ampl_list_each_by_epoch)
+
+        self.plot_c_to_ac_ratio_rois_by_epoch(
+            ampl_c_to_ac_ratio_rois_by_epoch, '{0}{1}/_rois_by_epoch_retio_c_to_ac_ratio_auto_.png'.format(
+                csv_path, csv_file))
+
+        # csv file of AC and C amplitudes by rois epochs average
+        self.csv_write(self.transpose([ac_ampl_mean_of_epochs_by_rois,
+                       c_ampl_mean_of_epochs_by_rois, ampl_c_to_ac_ratio_mean_of_epochs_by_rois]),
+                       csv_path+csv_file, csv_file, '_by_rois_mean_of_epochs_AC_C_ampl_auto_')
+
+        # # csv file of C/A+C amplitudes ratio by rois epochs average
+        # self.csv_write(self.transpose([ampl_c_to_ac_ratio_mean_of_epochs_by_rois]),
+        #                csv_path+csv_file, csv_file, '_by_rois_mean_of_epochs_C_to_AC_ratio_auto_')
+
+        # plot_ac_c_roi_stats for all rois
         self.plot_ac_c_roi_stats(ac_ampl_mean_of_epochs_by_rois,
                                  c_ampl_mean_of_epochs_by_rois,
                                  '{0}{1}/_by_rois_AC_C_ampl_auto_.png'.format(
-                                     csv_path, csv_file[:]),
+                                     csv_path, csv_file),
                                  dependent=True)
 
+        # plot_ac_c_roi_stats for each roi during timeline
         for i in range(len(ac_ampl_list_each_by_epoch)):
             self.plot_ac_c_roi_stats(ac_ampl_list_each_by_epoch[i],
                                      c_ampl_list_each_by_epoch[i],
                                      '{0}{1}/_roi{2}_AC_C_ampl_auto_.png'.format(
-                                         csv_path, csv_file[:], i+1))
+                                         csv_path, csv_file, i+1))
 
+        # plot_stacked_traces
         self.plot_stacked_traces(self.transpose(self.csv_matrix),
                                  '{0}{1}/_full_traces_stacked_by_rois_auto_.svg'.format(
-                                     csv_path, csv_file[:]), shift=np.amax(c_ampl_list_each_by_roi))
+                                     csv_path, csv_file), shift=np.amax(c_ampl_list_each_by_roi))
 
-        for i in range(len(ac_raw_line_list)):
-            self.plot_traces(ac_raw_line_list[i],
-                             c_raw_line_list[i],
-                             '{0}{1}/_epoch{2}_AC_C_traces_auto_.png'.format(csv_path, csv_file[:], i+self.start_from_epoch))
+        # plot_traces_by_rois
+        # for i in range(len(ac_raw_line_list)):
+        #     self.plot_traces_by_rois(ac_raw_line_list[i],
+        #                              c_raw_line_list[i],
+        #                              '{0}{1}/_epoch{2}_AC_C_traces_auto_.png'.format(csv_path, csv_file[:], i+self.start_from_epoch))
+
+    def plot_c_to_ac_ratio_rois_by_epoch(self, array, path):
+
+        # Create the plot
+        plt.figure(figsize=(15, 10))  # Set the figure size to 10x15 inches
+        x = list(range(1, len(array[0])+1))
+
+        for roi in array:
+            plt.plot(x, roi, marker='o', linestyle='-',
+                     color='k')
+
+        plt.title('C / A+C resp amplitude ratio')
+        plt.xlabel('epoch')
+        plt.ylabel('ROIs')
+        plt.savefig(path)
 
     def plot_ac_c_roi_stats(self, group1, group2, path, dependent=False):
 
@@ -472,32 +506,30 @@ class TracesCalc():
         plt.savefig(path)
         plt.close()
 
-    def plot_traces(self, array1, array2, path):
+    def plot_traces_by_rois(self, array1, array2, path):
         plt.figure()
 
         # Plot lines from the first array in black
         x = array1[0]
         for y in array1[1:]:
-            plt.plot(x, y, 'k-')  # 'k-' stands for black line
+            plt.plot(x, y, 'k-', alpha=.5)
 
         # Plot lines from the second array in red
         x = array2[0]
         for y in array2[1:]:
-            plt.plot(x, y, 'r-')  # 'r-' stands for red line
+            plt.plot(x, y, 'r-', alpha=.5)
 
-        # Save the plot as plot.png
         plt.savefig(path)
         plt.close()
 
     def plot_stacked_traces(self, array, path, shift=1.2):
-        plt.figure(figsize=(10, 10))  # Set figure size to 15x15 inches
+        plt.figure(figsize=(10, 10))
 
         x = array[0]
 
         for i, y in enumerate(array[1:]):
             shifted_y = [val + i * shift for val in y]
-            # 'k-' stands for black line, linewidth=0.5 for thinner line, alpha=0.5 for transparency
-            plt.plot(x, shifted_y, 'k-', linewidth=0.7, alpha=0.5)
+            plt.plot(x, shifted_y, 'k-', linewidth=0.7, alpha=1)
 
         # Set y-tick labels divided by shift, starting from 1, and rounded to integers
         ax = plt.gca()
