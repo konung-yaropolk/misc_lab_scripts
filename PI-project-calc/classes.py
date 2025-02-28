@@ -8,6 +8,7 @@ import AutoStatLib
 from PIL import Image
 from scipy.ndimage import gaussian_filter
 import settings as s
+from statplots import BarStatPlot
 
 # Defaults:
 WORKING_DIR = s.WORKING_DIR
@@ -62,107 +63,6 @@ class Helpers():
         data_t = tuple(tuple(balanced_data[j][i] for j in range(
             len(balanced_data))) for i in range(max_len))
         return data_t
-
-
-class Plot(Helpers):
-
-    # def __init__():
-    #     pass
-
-    def barplot(self, data_samples, p=1, stars='ns', sd=0, mean=0, median=0, testname='', n=0, dependent=False):
-
-        n_bars = len(data_samples)
-        fig, ax = plt.subplots(figsize=(0.5 + 0.9*n_bars, 4))
-        linewidth = 2
-
-        # generate endless repeating colormap
-        num_colors = 9
-        cmap = plt.get_cmap('Set1')
-        cmap_fill = plt.get_cmap('Pastel1')
-        colors = [cmap(i / num_colors)
-                  for i in range(num_colors)]
-        colors_fill = [cmap_fill(i / num_colors)
-                       for i in range(num_colors)]
-        colors.insert(0, 'k')
-        colors_fill.insert(0, '#AAAAAA')
-
-        # save the dots x positions to connect them with lines later
-        spread_pool = []
-        for i, data in enumerate(data_samples):
-            x = i + 1  # Bar position
-            # Bars:
-            ax.bar(x,
-                   mean[i],
-                   yerr=sd[i],
-                   width=.75,
-                   capsize=8,
-                   ecolor='r',
-                   edgecolor=colors[i % len(colors)],
-                   facecolor=colors_fill[i % len(colors_fill)],
-                   fill=True,
-                   linewidth=linewidth,
-                   zorder=1)
-            # Data points:
-            # Adjust random horizontal spread range
-            spread = np.random.uniform(-.10, .10, size=len(data))
-            spread_pool.append(tuple(i+x for i in spread))
-            ax.plot(x,
-                    median[i],
-                    marker='x',
-                    markerfacecolor='#00000000',
-                    markeredgecolor='r',
-                    markersize=10,
-                    markeredgewidth=1)
-            ax.plot(x,
-                    mean[i],
-                    marker='_',
-                    markerfacecolor='#00000000',
-                    markeredgecolor='r',
-                    markersize=16,
-                    markeredgewidth=1)
-
-        spread_pool_t = self.transpose_autoballance(spread_pool)
-        for i, data in enumerate(self.transpose_autoballance(data_samples)):
-            # Connect scatter points with lines
-            ax.plot(spread_pool_t[i], data, color='k', alpha=0.5,
-                    marker='o', linewidth=1, linestyle='-' if dependent else '', zorder=1)
-
-        # Significance bar and stars
-        y_range = max([max(data) for data in data_samples])
-        x1, x2 = 1, n_bars
-        y, h, col = 1.05 * y_range, .05 * y_range, 'k'
-        ax.plot([x1, x1, x2, x2], [y, y + h, y + h, y], lw=linewidth, c=col)
-        ax.text((x1 + x2) * .5,
-                y + h,
-                '{}\n{}'.format(p, stars),
-                ha='center',
-                va='bottom',
-                color=col,
-                fontweight='bold')
-
-        # Add subtitle
-        fig.text(0.95, 0.0, '{}\nn={}'.format(testname, str(n)[1:-1] if not dependent else str(n[0])),
-                 ha='right', va='bottom', fontsize=8, fontweight='bold')
-
-        # Remove borders
-        for spine in ax.spines.values():
-            spine.set_visible(False)
-        ax.spines['left'].set_visible(True)
-        ax.xaxis.set_visible(False)
-
-        # Adjust width of axis
-        for tick in ax.get_yticklabels():
-            tick.set_fontweight('bold')
-        ax.tick_params(width=linewidth)
-        ax.yaxis.set_tick_params(labelsize=12)
-        ax.spines['left'].set_linewidth(linewidth)
-        ax.tick_params(axis='both', which='both',
-                       length=linewidth*2, width=linewidth)
-
-        plt.tight_layout()
-        # plt.show()
-
-        return plt
 
 
 class TracesCalc():
@@ -422,12 +322,12 @@ class TracesCalc():
             np.array(ac_ampl_list_each_by_epoch)
 
         self.plot_c_to_ac_ratio_rois_by_epoch(
-            ampl_c_to_ac_ratio_rois_by_epoch, '{0}{1}/_rois_by_epoch_retio_c_to_ac_ratio_auto_.png'.format(
+            1/ampl_c_to_ac_ratio_rois_by_epoch, '{0}{1}/_rois_by_epoch_retio_c_to_ac_ratio_auto_.png'.format(
                 csv_path, csv_file))
 
         # csv file of AC and C amplitudes by rois epochs average
         self.csv_write(self.transpose([ac_ampl_mean_of_epochs_by_rois,
-                       c_ampl_mean_of_epochs_by_rois, ampl_c_to_ac_ratio_mean_of_epochs_by_rois]),
+                       c_ampl_mean_of_epochs_by_rois, 1/ampl_c_to_ac_ratio_mean_of_epochs_by_rois]),
                        csv_path+csv_file, csv_file, '_by_rois_mean_of_epochs_AC_C_ampl_auto_')
 
         # # csv file of C/A+C amplitudes ratio by rois epochs average
@@ -439,14 +339,18 @@ class TracesCalc():
                                  c_ampl_mean_of_epochs_by_rois,
                                  '{0}{1}/_by_rois_AC_C_ampl_auto_.png'.format(
                                      csv_path, csv_file),
-                                 dependent=True)
+                                 dependent=True,
+                                 y_label='dF/F0',
+                                 x_manual_tick_labels=['A+C', 'C'],)
 
         # plot_ac_c_roi_stats for each roi during timeline
         for i in range(len(ac_ampl_list_each_by_epoch)):
             self.plot_ac_c_roi_stats(ac_ampl_list_each_by_epoch[i],
                                      c_ampl_list_each_by_epoch[i],
                                      '{0}{1}/_roi{2}_AC_C_ampl_auto_.png'.format(
-                                         csv_path, csv_file, i+1))
+                                         csv_path, csv_file, i+1),
+                                     y_label=f'dF/F0        ROI {i+1}',
+                                     x_manual_tick_labels=['A+C', 'C'],)
 
         # plot_stacked_traces
         self.plot_stacked_traces(self.transpose(self.csv_matrix),
@@ -469,12 +373,12 @@ class TracesCalc():
             plt.plot(x, roi, marker='o', linestyle='-',
                      color='k')
 
-        plt.title('C / A+C resp amplitude ratio')
+        plt.title('C to A+C resp amplitude ratio by time')
         plt.xlabel('epoch')
-        plt.ylabel('ROIs')
+        plt.ylabel('C to A+C resp amplitude ratio')
         plt.savefig(path)
 
-    def plot_ac_c_roi_stats(self, group1, group2, path, dependent=False):
+    def plot_ac_c_roi_stats(self, group1, group2, path, dependent=False, y_label='', x_manual_tick_labels=[]):
 
         data = [group1, group2]
 
@@ -487,12 +391,10 @@ class TracesCalc():
         analysis = AutoStatLib.StatisticalAnalysis(
             data, paired=paired, tails=tails, popmean=0, verbose=False)
 
-        analysis.RunMannWhitney()
+        analysis.RunWilcoxon()
         results = analysis.GetResult()
 
-        plot = Plot()
-
-        plt = plot.barplot(data,
+        plot = BarStatPlot(data,
                            p=results['p-value'],
                            stars=results['Stars_Printed'],
                            sd=results['Groups_SD'],
@@ -501,10 +403,11 @@ class TracesCalc():
                            testname=results['Test_Name'],
                            n=results['Groups_N'],
                            dependent=dependent,
+                           y_label=y_label,
+                           x_manual_tick_labels=x_manual_tick_labels,
                            )
-
-        plt.savefig(path)
-        plt.close()
+        plot.plot()
+        plot.save(path)
 
     def plot_traces_by_rois(self, array1, array2, path):
         plt.figure()
@@ -540,9 +443,24 @@ class TracesCalc():
         # Remove y-axis ticks
         ax.set_yticks([])
 
+        ax.errorbar(-15, 0.5,
+                    yerr=0.5,
+                    fmt='none',
+                    capsize=4,
+                    ecolor='k',
+                    linewidth=2,
+                    zorder=3)
+
+        plt.text(-15, -0.5, '1 dF/F0',  horizontalalignment='center',
+                 verticalalignment='top')
+
+        for i, y in enumerate(array[1:]):
+            plt.text(-20, (i*shift)+0.8, f'{i+1}', horizontalalignment='center',
+                     verticalalignment='top')
+
         # Save the plot as plot.png
         plt.tight_layout()
-        plt.savefig(path, transparent=True)
+        plt.savefig(path, transparent=False)
         plt.close()
 
     def csv_process(self, detailed_stats=True):
