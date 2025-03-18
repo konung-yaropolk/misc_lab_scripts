@@ -353,7 +353,8 @@ class TracesCalc():
                                      x_manual_tick_labels=['A+C', 'C'],)
 
         # plot_stacked_traces
-        self.plot_stacked_traces(self.transpose(self.csv_matrix),
+
+        self.plot_stacked_traces(self.transpose(self.csv_matrix)[:],
                                  '{0}{1}/_full_traces_stacked_by_rois_auto_.svg'.format(
                                      csv_path, csv_file), shift=np.amax(c_ampl_list_each_by_roi))
 
@@ -395,7 +396,7 @@ class TracesCalc():
         results = analysis.GetResult()
 
         plot = BarStatPlot(data,
-                           p=results['p-value'],
+                           p=results['p-value_exact'],
                            stars=results['Stars_Printed'],
                            sd=results['Groups_SD'],
                            mean=results['Groups_Mean'],

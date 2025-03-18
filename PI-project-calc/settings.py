@@ -645,13 +645,13 @@ TO_DO_LIST = [
 
 
 
-    ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_15_3_registered.tif',
-     {
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # A-stim
-                         [1, 1]]  # C-stim
-     }
-     ],
+    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_15_3_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
     # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_16_registered.tif',
     #  {
     #      'n_epochs': 10,
@@ -1453,6 +1453,14 @@ TO_DO_LIST = [
     #                      [1, 1]]  # C-stim
     #  }
     #  ],
+
+    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_10_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # A-stim
+    #                      [1, 1]]  # C-stim
+    #  }
+    #  ],
     # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_10_PI_0001_ch2_registered.tif',
     #  {
     #      'n_epochs': 10,
@@ -1460,6 +1468,7 @@ TO_DO_LIST = [
     #                      [1, 1]]  # C-stim
     #  }
     #  ],
+
     # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_12_PI_0001_ch2_registered.tif',
     #  {
     #      'n_epochs': 10,
