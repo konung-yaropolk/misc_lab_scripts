@@ -6,7 +6,7 @@ OUTPUT_CSV = 'summary_rundown_ctrl1.csv'
 
 # analysis params:
 SIGMAS = 5                    # number of sdandard deviation as signal threshold
-BASELINE_TRESHOLD = 0.5         # maximum amplitude of baseline deviation for ROI to be accepted (in dF/F0)
+BASELINE_TRESHOLD = 0.5       # maximum amplitude of baseline deviation for ROI to be accepted (in dF/F0)
 
 # timings:
 CALM_PERIOD = 10              # time in sec before trigger for baseline
