@@ -28,6 +28,10 @@ BASELINE_DURATON = s.BASELINE_DURATON
 TIME_AFTER_TRIG = s.TIME_AFTER_TRIG
 
 
+CALCULATIONS_SUBFOLDER_NAME = '_CALCULATIONS_auto_'
+DERIVATIVES_SUBFOLDER_NAME = '_DERIVATIVES_auto_'
+
+
 class Helpers():
 
     def save_tiff(self, output_path, data, metadata={}):
@@ -499,14 +503,14 @@ class TracesCalc():
                 self.csv_matrix = self.csv_cutter(content)
                 try:
                     self.csv_write(self.csv_matrix, csv_path,
-                                   csv_file, self.output_suffix + '_full_traces_auto_', subdir=True)
+                                   csv_file, self.output_suffix + CALCULATIONS_SUBFOLDER_NAME, subdir=True)
                 except PermissionError:
                     print('       File actually opened:')
                     continue
 
                 if detailed_stats:
                     self.detailed_stats(
-                        csv_path, csv_file + self.output_suffix + '_full_traces_auto_')
+                        csv_path, csv_file + self.output_suffix + CALCULATIONS_SUBFOLDER_NAME)
 
             result = '***    Done: {} csv files for      {}'.format(
                 len(csv_list), self.file_path)
@@ -577,6 +581,7 @@ class DerivativesCalc(Helpers):
         # return self.result
 
     def calc_sequence(self, i, filename_ending):
+
         self.average_sequence_responses(
             self.n_epochs + self.start_from_epoch-1,
             self.step_duration * self.n_steps,
@@ -589,10 +594,13 @@ class DerivativesCalc(Helpers):
             'max': np.max(self.result),
         }
 
-        self.save_tiff(self.file_path + self.output_suffix +
-                       filename_ending, self.result, metadata=metadata)
+        self.save_tiff(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME,  self.output_suffix +
+                       filename_ending), self.result, metadata=metadata)
 
     def derivatives_calculate(self,):
+
+        os.makedirs(self.file_path +
+                    DERIVATIVES_SUBFOLDER_NAME + '/', exist_ok=True)
 
         # Open the TIFF image stack
         self.img = tifffile.imread(self.file_path)
@@ -619,10 +627,10 @@ class DerivativesCalc(Helpers):
                     i, '_auto_DERIVATIVES.tif')
 
         merger = TifColorMerger(self.path,
-                                self.file + self.output_suffix + n1n2_name_ending,
-                                self.file + self.output_suffix + n2_name_ending,
-                                self.file + self.output_suffix + n1n2_name_ending,
-                                self.file + self.output_suffix + '_auto_DERIVATIVES_{1}-green_{0}+{1}-magenta.tif'.format(
+                                n1n2_name_ending,
+                                n2_name_ending,
+                                n1n2_name_ending,
+                                '_auto_DERIVATIVES_{1}-green_{0}+{1}-magenta.tif'.format(
                                     self.stim_1_name, self.stim_2_name),
                                 self.output_suffix)
 
