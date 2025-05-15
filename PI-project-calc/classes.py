@@ -626,16 +626,27 @@ class DerivativesCalc(Helpers):
                 case [None, None]: self.calc_sequence(
                     i, '_auto_DERIVATIVES.tif')
 
-        merger = TifColorMerger(self.path,
-                                n1n2_name_ending,
-                                n2_name_ending,
-                                n1n2_name_ending,
-                                '_auto_DERIVATIVES_{1}-green_{0}+{1}-magenta.tif'.format(
-                                    self.stim_1_name, self.stim_2_name),
-                                self.output_suffix)
+        merger_n1n2_n2 = TifColorMerger(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME),
+                                        n1n2_name_ending,
+                                        n2_name_ending,
+                                        n1n2_name_ending,
+                                        '_auto_DERIVATIVES_{1}-green_{0}+{1}-magenta.tif'.format(
+            self.stim_1_name, self.stim_2_name),
+            self.output_suffix)
 
-        merger.process_directory()
-        del merger
+        merger_n1n2_n2.process_directory(heatmap=True, png=True, tif=True)
+        del merger_n1n2_n2
+
+        merger_n1_n2 = TifColorMerger(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME),
+                                      n2_name_ending,
+                                      n1_name_ending,
+                                      n1_name_ending,
+                                      '_auto_DERIVATIVES_stims_overlap_{1}-red_{0}-cyan.tif'.format(
+            self.stim_1_name, self.stim_2_name),
+            self.output_suffix)
+
+        merger_n1_n2.process_directory(heatmap=False, png=True, tif=False)
+        del merger_n1_n2
 
 
 class Movie(DerivativesCalc, TracesCalc):
@@ -738,7 +749,7 @@ class TifColorMerger(Helpers):
         self.output_name_ending = output_name_ending
         self.output_suffix = output_suffix
 
-    def __create_two_channel_image(self, red_channel_path, green_channel_path, blue_channel_path, output_path):
+    def __create_two_channel_image(self, red_channel_path, green_channel_path, blue_channel_path, output_path, heatmap=True, png=True, tif=True):
         channels = []
 
         if red_channel_path:
@@ -760,26 +771,33 @@ class TifColorMerger(Helpers):
         multi_channel_array = np.stack(channels, axis=0)
 
         # Save the multi-channel image in ImageJ format
-        try:
-            self.save_tiff(output_path, multi_channel_array, metadata={
-                           'axes': 'CYX', 'mode': 'composite'})
-        except PermissionError as e:
-            print('PermissionError:', e)
+        if tif:
+            try:
+                self.save_tiff(output_path, multi_channel_array, metadata={
+                    'axes': 'CYX', 'mode': 'composite'})
+            except PermissionError as e:
+                print('PermissionError:', e)
 
         # Save the image as a PNG file
-        for i in range(3 - len(channels)):
-            channels.append(np.zeros_like(channels[0]))
+        if png:
+            for i in range(3 - len(channels)):
+                channels.append(np.zeros_like(channels[0]))
 
-        channels = np.array(channels)
-        rgb_array_normalized = np.stack(
-            [(channel - channels.min()) / (channels.max() - channels.min()) for channel in channels], axis=-1)
-        rgb_image = Image.fromarray(
-            (rgb_array_normalized * 255).astype('uint8'), 'RGB')
-        try:
-            rgb_image.save(output_path[:-4] + '.png')
-        except PermissionError as e:
-            print('PermissionError:', e)
+            channels = np.array(channels)
+            rgb_array_normalized = np.stack(
+                [(channel - channels.min()) / (channels.max() - channels.min()) for channel in channels], axis=-1)
+            rgb_image = Image.fromarray(
+                (rgb_array_normalized * 255).astype('uint8'), 'RGB')
+            try:
+                rgb_image.save(output_path[:-4] + '.png')
+            except PermissionError as e:
+                print('PermissionError:', e)
 
+        # make heatmap and save as a PNG file
+        if heatmap:
+            self.__create_heatmap(channels, output_path)
+
+    def __create_heatmap(self, channels, output_path):
         # Crerating Heatmap
         # Calculate the ratio image if red and green channels are available
         if len(channels) >= 2:
@@ -827,7 +845,7 @@ class TifColorMerger(Helpers):
             plt.savefig(output_heatmap_path, bbox_inches='tight', pad_inches=0)
             plt.close()
 
-    def process_directory(self):
+    def process_directory(self, heatmap=True, png=True, tif=True):
         for root, _, files in os.walk(self.dir):
             red_files = [f for f in files if f.endswith(self.red_name_ending)]
             green_files = [f for f in files if f.endswith(
@@ -849,7 +867,7 @@ class TifColorMerger(Helpers):
                         root, base_name + self.output_name_ending)
 
                     self.__create_two_channel_image(
-                        red_path, green_path, blue_path, output_path)
+                        red_path, green_path, blue_path, output_path, heatmap=heatmap, png=png, tif=tif)
                     print("\nCreated hyperstack image: {}".format(output_path))
 
 
