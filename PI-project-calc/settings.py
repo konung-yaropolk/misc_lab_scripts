@@ -9,7 +9,7 @@ WORKING_DIR = 'F:/Lab Work Files/2-photon/'
 STIM_1_NAME = '#1'
 STIM_2_NAME = '#2'
 
-RESP_DURATION = 1   # in sec, expected response duration
+RESP_DURATION = 4  # in sec, expected response duration
 STEP_DURATION = 10  # in sec
 N_EPOCHS = 1
 
@@ -1903,31 +1903,6 @@ TO_DO_LIST = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_7_PI_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2117,208 +2092,6 @@ TO_DO_LIST = [
 
 
 
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_1_1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'L4-A',
-         'stim_2_name': 'L5-C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_1_2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'L5-A',
-         'stim_2_name': 'L4-C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_1_3_0001_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'L5-C',
-         'stim_2_name': 'L4-C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_1_4_0001_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'L4-C',
-         'stim_2_name': 'L5-C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_2_1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'L4-A',
-         'stim_2_name': 'L5-C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_2_2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'L5-A',
-         'stim_2_name': 'L4-C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_3_1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'L5-A',
-         'stim_2_name': 'L4-C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_3_2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'L4-A',
-         'stim_2_name': 'L5-C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_3_3_0001_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'L4-C',
-         'stim_2_name': 'L5-C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_3_4_0001_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'L5-C',
-         'stim_2_name': 'L4-C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_3_5_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'L5-A',
-         'stim_2_name': 'L5-C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_1_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'L5-A',
-         'stim_2_name': 'L4-A+C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_1_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'L5-A',
-         'stim_2_name': 'L4-A+C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_2_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'L4-A',
-         'stim_2_name': 'L5-A+C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_2_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'L4-A',
-         'stim_2_name': 'L5-A+C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_3_0001_ch1_registered.tif',
-     {
-         'n_epochs': 5,
-         'stim_1_name': 'L4-C',
-         'stim_2_name': 'L5-A+C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_3_0001_ch2_registered.tif',
-     {
-         'n_epochs': 5,
-         'stim_1_name': 'L4-C',
-         'stim_2_name': 'L5-A+C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_4_0001_ch1_registered.tif',
-     {
-         'n_epochs': 5,
-         'stim_1_name': 'L5-C',
-         'stim_2_name': 'L4-A+C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_4_0001_ch2_registered.tif',
-     {
-         'n_epochs': 5,
-         'stim_1_name': 'L5-C',
-         'stim_2_name': 'L4-A+C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_5_1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'L5-A',
-         'stim_2_name': 'L4-C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_5_2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'L4-A',
-         'stim_2_name': 'L5-C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_6_Bradikinin_application_0001_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'L5-A',
-         'stim_2_name': 'L5-C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
 
 
 
@@ -2336,6 +2109,1640 @@ TO_DO_LIST = [
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_1_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_1_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_1_3_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_1_4_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_2_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_2_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_3_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_3_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_3_3_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_3_4_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_3_5_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_1_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_1_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_2_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_2_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_3_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_3_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_4_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_4_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_5_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_5_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_6_Bradikinin_application_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch1.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_14/Field_1_1_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_14/Field_2_1_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_14/Field_2_2_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_14/Field_1_1_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_14/Field_2_1_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_14/Field_2_2_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_14/Field_3_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_1_1_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_1_1_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_1_2_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_1_2_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_1_3_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 3,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_1_3_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 3,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_1_3_1_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_1_3_1_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_1_4_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_1_4_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_2_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_2_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_2_3_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_2_4_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_1_1_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_1_2_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_1_3_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_1_4_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_1_1_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_1_2_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_1_3_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_1_4_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_2_1_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_2_2_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_2_3_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_2_1_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_2_2_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_2_3_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_3_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_3_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_4_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_4_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_5_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_5_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_6_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_6_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_1_1_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_1_2_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_1_3_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_1_4_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_1_1_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_1_2_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_1_3_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_1_4_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_2_1_0001_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_2_1_0002_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_2_1_0001_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_2_1_0002_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_3_1_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_3_2_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_3_1_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_3_2_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_4_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_4_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_4_3_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_4_4_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_5_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_5_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_5_3_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_5_4_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_6_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_6_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_7_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_8_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_8_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_8_3_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_8_4_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_9_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_9_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_9_3_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_9_4_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_9_5_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_10_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_10_2_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_10_3_Bradikinin_application_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_1_1_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_1_2_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_1_3_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_1_4_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_1_1_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_1_2_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_1_3_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_1_4_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_2_1_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_2_2_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_2_3_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_2_4_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_2_1_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_2_2_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_2_3_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_2_4_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-A+C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_3_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_3_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_3_3_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_3_4_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_4_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_4_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_4_3_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_4_4_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_5_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_5_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_6_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_6_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_7_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L4-A',
+    #      'stim_2_name': 'L5-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_7_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'L5-A',
+    #      'stim_2_name': 'L4-C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # #  # Dynorphin applications:
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch2.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': 'control',
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch2.tif',
+    #  {
+    #      'trig_number': 8,
+    #      'output_suffix': 'Dynorphin_1uM',
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch1.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': 'control',
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch1.tif',
+    #  {
+    #      'trig_number': 8,
+    #      'output_suffix': 'Dynorphin_1uM',
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch2.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': 'control',
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch2.tif',
+    #  {
+    #      'trig_number': 7,
+    #      'output_suffix': 'Dynorphin_1uM',
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch1.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': 'control',
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch1.tif',
+    #  {
+    #      'trig_number': 7,
+    #      'output_suffix': 'Dynorphin_1uM',
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': 'control',
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2.tif',
+    #  {
+    #      'trig_number': 7,
+    #      'output_suffix': 'Dynorphin_1uM',
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch1.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': 'control',
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch1.tif',
+    #  {
+    #      'trig_number': 7,
+    #      'output_suffix': 'Dynorphin_1uM',
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_11_Dynorphin_application_ch2.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': 'control',
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_11_Dynorphin_application_ch2.tif',
+    #  {
+    #      'trig_number': 5,
+    #      'output_suffix': 'Dynorphin_1uM',
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_11_Dynorphin_application_ch1.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': 'control',
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_11_Dynorphin_application_ch1.tif',
+    #  {
+    #      'trig_number': 5,
+    #      'output_suffix': 'Dynorphin_1uM',
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+
+
+
+    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2.tif',
+     {
+         'trig_number': 3,
+         'output_suffix': '2s_10hz_control',
+         'n_epochs': 1,
+         'stim_1_name': 'A',
+         'stim_2_name': 'C',
+         'drs_pattern': [[0],  # stim#1
+                         [1]]  # stim#2
+     }
+     ],
+    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2.tif',
+     {
+         'trig_number': 10,
+         'output_suffix': '2s_10hz_Dynorphin_1uM',
+         'n_epochs': 1,
+         'stim_1_name': 'A',
+         'stim_2_name': 'C',
+         'drs_pattern': [[0],  # stim#1
+                         [1]]  # stim#2
+     }
+     ],
 
 
 

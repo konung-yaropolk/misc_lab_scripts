@@ -95,7 +95,7 @@ class TracesCalc():
         self.mean_col_order = mean_col_order
         self.cols_per_roi = cols_per_roi
 
-        self.trig_number = trig_number
+        self.trig_number = trig_number-1
 
         Parser = MetadataParser()
         self.events, self.sampling_interval, self.movie_duration = Parser.Parse(
@@ -395,11 +395,10 @@ class TracesCalc():
         # set the parameters:
         paired = True   # is groups dependend or not
         tails = 2        # two-tailed or one-tailed result
-        popmean = 0        # population mean - only for single-sample tests needed
 
         # initiate the analysis
         analysis = AutoStatLib.StatisticalAnalysis(
-            data, paired=paired, tails=tails, popmean=0, verbose=False)
+            data, paired=paired, tails=tails, verbose=False)
 
         analysis.RunWilcoxon()
         results = analysis.GetResult()
@@ -594,13 +593,15 @@ class DerivativesCalc(Helpers):
             'max': np.max(self.result),
         }
 
-        self.save_tiff(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME,  self.output_suffix +
+        self.save_tiff(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME + self.output_suffix,  self.output_suffix +
                        filename_ending), self.result, metadata=metadata)
 
     def derivatives_calculate(self,):
 
         os.makedirs(self.file_path +
-                    DERIVATIVES_SUBFOLDER_NAME + '/', exist_ok=True)
+                    DERIVATIVES_SUBFOLDER_NAME +
+                    self.output_suffix + '/',
+                    exist_ok=True)
 
         # Open the TIFF image stack
         self.img = tifffile.imread(self.file_path)
@@ -626,7 +627,7 @@ class DerivativesCalc(Helpers):
                 case [None, None]: self.calc_sequence(
                     i, '_auto_DERIVATIVES.tif')
 
-        merger_n1n2_n2 = TifColorMerger(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME),
+        merger_n1n2_n2 = TifColorMerger(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME + self.output_suffix),
                                         n1n2_name_ending,
                                         n2_name_ending,
                                         n1n2_name_ending,
@@ -637,7 +638,7 @@ class DerivativesCalc(Helpers):
         merger_n1n2_n2.process_directory(heatmap=True, png=True, tif=True)
         del merger_n1n2_n2
 
-        merger_n1_n2 = TifColorMerger(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME),
+        merger_n1_n2 = TifColorMerger(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME + self.output_suffix),
                                       n2_name_ending,
                                       n1_name_ending,
                                       n1_name_ending,
