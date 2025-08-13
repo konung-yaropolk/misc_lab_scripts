@@ -20,6 +20,9 @@ N_EPOCHS = s.N_EPOCHS
 STIM_1_NAME = s.STIM_1_NAME
 STIM_2_NAME = s.STIM_2_NAME
 
+RUN_DERIVATIVES_CALCULATION = s.RUN_DERIVATIVES_CALCULATION
+RUN_TRACES_CALCULATION = s.RUN_TRACES_CALCULATION
+
 RELATIVE_VALUES = s.RELATIVE_VALUES
 MEAN_COL_ORDER = s.MEAN_COL_ORDER
 COLS_PER_ROI = s.COLS_PER_ROI
@@ -898,8 +901,10 @@ class MetadataParser():
 def main(
 
     working_dir=s.WORKING_DIR,
-
     to_do_list=s.TO_DO_LIST,
+
+    run_derivatives_calculation=s.RUN_DERIVATIVES_CALCULATION,
+    run_traces_calculation=s.RUN_TRACES_CALCULATION,
 
     resp_duration=s.RESP_DURATION,    # in s
     step_duration=s.STEP_DURATION,    # in s
@@ -921,6 +926,9 @@ def main(
     global WORKING_DIR
     global TO_DO_LIST
 
+    global RUN_DERIVATIVES_CALCULATION
+    global RUN_TRACES_CALCULATION
+
     global RESP_DURATION
     global STEP_DURATION
     global N_EPOCHS
@@ -937,6 +945,9 @@ def main(
 
     WORKING_DIR = working_dir
     TO_DO_LIST = to_do_list
+
+    RUN_DERIVATIVES_CALCULATION = run_derivatives_calculation
+    RUN_TRACES_CALCULATION = run_traces_calculation
 
     RESP_DURATION = resp_duration
     STEP_DURATION = step_duration
@@ -957,14 +968,14 @@ def main(
         print(' ')
         movie = Movie(item[0], **item[1])
 
-        if s.RUN_DERIVATIVES_CALCULATION:
+        if RUN_DERIVATIVES_CALCULATION:
             # try:
             movie.derivatives_calculate()
             # except Exception as e:
             #     print(e)
             #     pass
 
-        if s.RUN_TRACES_CALCULATION:
+        if RUN_TRACES_CALCULATION:
             movie.csv_process()
             pass
 

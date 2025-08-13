@@ -479,11 +479,13 @@ if __name__ == '__main__':
     import classes
     classes.main(WORKING_DIR,
                  TO_DO_LIST,
+                 RUN_DERIVATIVES_CALCULATION,
                  RESP_DURATION,
                  STEP_DURATION,
                  N_EPOCHS,
                  STIM_1_NAME,
                  STIM_2_NAME,
+                 RUN_TRACES_CALCULATION,
                  RELATIVE_VALUES,
                  MEAN_COL_ORDER,
                  COLS_PER_ROI,
