@@ -22,10 +22,10 @@ List below directories containing data (tiff + txt), then simple run the script.
 
 # input parameters:
 
-TIME_BEFORE_TRIG = 10
+TIME_BEFORE_TRIG = 0
 # start trace from this timepoint (s. before trigger), 0 - full trace
 
-TIME_AFTER_TRIG = 30
+TIME_AFTER_TRIG = 0
 # finish trace at this timepoint   (s. after trigger), 0 - full trace
 
 BASELINE_DURATON = 10
@@ -43,8 +43,20 @@ COLS_PER_ROI = 4  # default 4
 
 DIRECTORIES = [
 
-    # 'D:/Lab/2P-data/',
-
+    # r'C:\Users\yandrianov\Desktop\New folder'
+    # 'F:\\Lab Work Files\\2-photon\\TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps\\',
+    # '/run/media/lol/Yarik Data/Lab Work Files/2-photon/TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_07_23_M1/',
+    # 'F:/Lab Work Files/2-photon/Pirt_GCamp3 x MCU-KO + DRS + Caps/',
+    # 'F:/Lab Work Files/2-photon/Microglia + C5a/',
+    # 'F:\\Lab Work Files\\2-photon\\Pirt GCamp3 x Thy1 RGeco SNI or SHAM + DRS  + PMX205 + Bicuculine\\'
+    # 'F:/Lab Work Files/2-photon/Pirt GCamp3 x Thy1 RGeco + DRS + C5a',
+    # 'F:/Lab Work Files/2-photon/Pirt GCamp3 x Thy1 RGeco + DRS + Bicuculine/',
+    # 'D:/Lab Work Files/2-photon/TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_04_29/',
+    # 'C:/Users/yandrianov/Desktop/2024_07_22/',
+    # 'D:/Lab Work Files/2-photon/PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/'
+    # 'F:/Lab Work Files/2-photon/HSD2-brainstem-slices/2025_07_23/'
+    # 'F:/Lab Work Files/2-photon/PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/'
+    'f:/Lab Work Files/2-photon/Thy1-RGeco control/'
 
 ]
 
