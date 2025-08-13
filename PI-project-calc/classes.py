@@ -504,14 +504,14 @@ class TracesCalc():
                 self.csv_matrix = self.csv_cutter(content)
                 try:
                     self.csv_write(self.csv_matrix, csv_path,
-                                   csv_file, self.output_suffix + CALCULATIONS_SUBFOLDER_NAME, subdir=True)
+                                   csv_file,  CALCULATIONS_SUBFOLDER_NAME + self.output_suffix, subdir=True)
                 except PermissionError:
                     print('       File actually opened:')
                     continue
 
                 if detailed_stats:
                     self.detailed_stats(
-                        csv_path, csv_file + self.output_suffix + CALCULATIONS_SUBFOLDER_NAME)
+                        csv_path, csv_file + CALCULATIONS_SUBFOLDER_NAME + self.output_suffix)
 
             result = '***    Done: {} csv files for      {}'.format(
                 len(csv_list), self.file_path)
