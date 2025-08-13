@@ -2,7 +2,7 @@
 # Settings block:
 
 # Defaults for Derivatives Calculation:
-RUN_DERIVATIVES_CALCULATION = False
+RUN_DERIVATIVES_CALCULATION = True
 WORKING_DIR = 'F:/Lab Work Files/2-photon/'
 # WORKING_DIR = 'sample/'
 
