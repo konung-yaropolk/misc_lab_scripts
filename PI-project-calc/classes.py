@@ -27,7 +27,6 @@ TIME_BEFORE_TRIG = s.TIME_BEFORE_TRIG
 BASELINE_DURATON = s.BASELINE_DURATON
 TIME_AFTER_TRIG = s.TIME_AFTER_TRIG
 
-
 CALCULATIONS_SUBFOLDER_NAME = '_CALCULATIONS_auto_'
 DERIVATIVES_SUBFOLDER_NAME = '_DERIVATIVES_auto_'
 
@@ -896,9 +895,64 @@ class MetadataParser():
         return events, t_resolution, t_duration, n_slides
 
 
-def main():
+def main(
 
-    for item in s.TO_DO_LIST:
+    working_dir=s.WORKING_DIR,
+
+    to_do_list=s.TO_DO_LIST,
+
+    resp_duration=s.RESP_DURATION,    # in s
+    step_duration=s.STEP_DURATION,    # in s
+    n_epochs=s.N_EPOCHS,
+
+
+    stim_1_name=s.STIM_1_NAME,
+    stim_2_name=s.STIM_2_NAME,
+
+    relative_values=s.RELATIVE_VALUES,
+    mean_col_order=s.MEAN_COL_ORDER,
+    cols_per_roi=s.COLS_PER_ROI,
+    time_before_trig=s.TIME_BEFORE_TRIG,
+    baseline_duraton=s.BASELINE_DURATON,
+    time_after_trig=s.TIME_AFTER_TRIG,
+
+):
+
+    global WORKING_DIR
+    global TO_DO_LIST
+
+    global RESP_DURATION
+    global STEP_DURATION
+    global N_EPOCHS
+
+    global STIM_1_NAME
+    global STIM_2_NAME
+
+    global RELATIVE_VALUES
+    global MEAN_COL_ORDER
+    global COLS_PER_ROI
+    global TIME_BEFORE_TRIG
+    global BASELINE_DURATON
+    global TIME_AFTER_TRIG
+
+    WORKING_DIR = working_dir
+    TO_DO_LIST = to_do_list
+
+    RESP_DURATION = resp_duration
+    STEP_DURATION = step_duration
+    N_EPOCHS = n_epochs
+
+    STIM_1_NAME = stim_1_name
+    STIM_2_NAME = stim_2_name
+
+    RELATIVE_VALUES = relative_values
+    MEAN_COL_ORDER = mean_col_order
+    COLS_PER_ROI = cols_per_roi
+    TIME_BEFORE_TRIG = time_before_trig
+    BASELINE_DURATON = baseline_duraton
+    TIME_AFTER_TRIG = time_after_trig
+
+    for item in TO_DO_LIST:
 
         print(' ')
         movie = Movie(item[0], **item[1])
