@@ -365,7 +365,11 @@ class TracesCalc():
         matrix = self.transpose(self.csv_matrix[:int(((self.n_epochs+1) * self.step_duration * self.n_steps) / self.sampling_interval)])[:]
         self.plot_stacked_traces(matrix[0],
                                  matrix[1:],
+<<<<<<< HEAD
                                 '{0}{1}/_full_traces_stacked_by_rois_auto_.png'.format(
+=======
+                                '{0}{1}/_full_traces_stacked_by_rois_auto_.svg'.format(
+>>>>>>> 7a0b091c1742feb65ba706d9f103e7aecfa2fa10
                                     csv_path, csv_file), shift=np.amax(n2_ampl_list_each_by_roi))
 
         # plot_stacked_traces by groups

@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 AutoStatLib
+=======
+AutoStatLib
+>>>>>>> 7a0b091c1742feb65ba706d9f103e7aecfa2fa10
 tiffile
