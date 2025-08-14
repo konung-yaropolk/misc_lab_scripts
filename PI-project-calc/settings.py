@@ -2,21 +2,21 @@
 # Settings block:
 
 # Defaults for Derivatives Calculation:
-RUN_DERIVATIVES_CALCULATION = True
+RUN_DERIVATIVES_CALCULATION = False
 WORKING_DIR = 'F:/Lab Work Files/2-photon/'
 # WORKING_DIR = 'sample/'
 
 STIM_1_NAME = '#1'
 STIM_2_NAME = '#2'
 
-RESP_DURATION = 4  # in sec, expected response duration
+RESP_DURATION = 2   # in sec, expected response duration
 STEP_DURATION = 10  # in sec
 N_EPOCHS = 1
 
 
 # Defaults for Derivatives Calculation:
 # process all csv files with traces in the WORKING_DIR directory:
-RUN_TRACES_CALCULATION = False
+RUN_TRACES_CALCULATION = True
 
 RELATIVE_VALUES = True
 MEAN_COL_ORDER = 2

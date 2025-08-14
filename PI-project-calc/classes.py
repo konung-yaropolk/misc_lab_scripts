@@ -361,11 +361,21 @@ class TracesCalc():
                 x_manual_tick_labels=['{}+{}'.format(
                     self.stim_1_name, self.stim_2_name), self.stim_2_name],)
 
-        # plot_stacked_traces
+        # plot_stacked_traces all togather
+        matrix = self.transpose(self.csv_matrix[:int(((self.n_epochs+1) * self.step_duration * self.n_steps) / self.sampling_interval)])[:]
+        self.plot_stacked_traces(matrix[0],
+                                 matrix[1:],
+                                '{0}{1}/_full_traces_stacked_by_rois_auto_.png'.format(
+                                    csv_path, csv_file), shift=np.amax(n2_ampl_list_each_by_roi))
 
-        self.plot_stacked_traces(self.transpose(self.csv_matrix)[:],
-                                 '{0}{1}/_full_traces_stacked_by_rois_auto_.svg'.format(
-                                     csv_path, csv_file), shift=np.amax(n2_ampl_list_each_by_roi))
+        # plot_stacked_traces by groups
+        chunk_size = 50
+        matrix = self.transpose(self.csv_matrix[:int(((self.n_epochs+1) * self.step_duration * self.n_steps) / self.sampling_interval)])
+        for pos in range(1, len(self.csv_matrix[0]), chunk_size):           
+            self.plot_stacked_traces(matrix[0], 
+                                     matrix[pos:pos+chunk_size],
+                                    '{0}{1}/_full_traces_stacked_by_rois_{2}-{3}_auto_.svg'.format(
+                                        csv_path, csv_file, pos, pos+chunk_size), shift=np.amax(n2_ampl_list_each_by_roi))
 
         # plot_traces_by_rois
         # for i in range(len(n1n2_raw_line_list)):
@@ -436,10 +446,8 @@ class TracesCalc():
         plt.savefig(path)
         plt.close()
 
-    def plot_stacked_traces(self, array, path, shift=1.2):
+    def plot_stacked_traces(self, x, array, path, shift=1.2):
         plt.figure(figsize=(10, 10))
-
-        x = array[0]
 
         for i, y in enumerate(array[1:]):
             shifted_y = [val + i * shift for val in y]
@@ -454,7 +462,7 @@ class TracesCalc():
         # Remove y-axis ticks
         ax.set_yticks([])
 
-        ax.errorbar(-15, 0.5,
+        ax.errorbar(-15, -0.5,
                     yerr=0.5,
                     fmt='none',
                     capsize=4,
@@ -462,7 +470,7 @@ class TracesCalc():
                     linewidth=2,
                     zorder=3)
 
-        plt.text(-15, -0.5, '1 dF/F0',  horizontalalignment='center',
+        plt.text(-15, -1.5, '1 dF/F0',  horizontalalignment='center',
                  verticalalignment='top')
 
         for i, y in enumerate(array[1:]):
@@ -963,9 +971,12 @@ def main(
     BASELINE_DURATON = baseline_duraton
     TIME_AFTER_TRIG = time_after_trig
 
+
+    print(RESP_DURATION)
+
     for item in TO_DO_LIST:
 
-        print(' ')
+        print(' ')                       
         movie = Movie(item[0], **item[1])
 
         if RUN_DERIVATIVES_CALCULATION:

@@ -2,14 +2,14 @@
 # Settings block:
 
 # Defaults for Derivatives Calculation:
-RUN_DERIVATIVES_CALCULATION = True
+RUN_DERIVATIVES_CALCULATION = False
 WORKING_DIR = 'F:/Lab Work Files/2-photon/'
 # WORKING_DIR = 'sample/'
 
 STIM_1_NAME = '#1'
 STIM_2_NAME = '#2'
 
-RESP_DURATION = 2  # in sec, expected response duration
+RESP_DURATION = 2   # in sec, expected response duration
 STEP_DURATION = 10  # in sec
 N_EPOCHS = 1
 
@@ -46,31 +46,7 @@ TO_DO_LIST = [
     # #  # Dynorphin applications:
 
 
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch2_registered.tif',
-     {
-         'trig_number': 1,
-         'output_suffix': 'control',
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch2_registered.tif',
-     {
-         'trig_number': 8,
-         'output_suffix': 'Dynorphin_1uM',
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch1.tif',
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch2_registered.tif',
     #  {
     #      'trig_number': 1,
     #      'output_suffix': 'control',
@@ -81,7 +57,7 @@ TO_DO_LIST = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch1.tif',
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch2_registered.tif',
     #  {
     #      'trig_number': 8,
     #      'output_suffix': 'Dynorphin_1uM',
@@ -96,52 +72,31 @@ TO_DO_LIST = [
 
 
 
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch2.tif',
-    #  {
-    #      'trig_number': 1,
-    #      'output_suffix': 'control',
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch2.tif',
-    #  {
-    #      'trig_number': 7,
-    #      'output_suffix': 'Dynorphin_1uM',
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
 
 
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch1.tif',
-    #  {
-    #      'trig_number': 1,
-    #      'output_suffix': 'control',
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch1.tif',
-    #  {
-    #      'trig_number': 7,
-    #      'output_suffix': 'Dynorphin_1uM',
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
+
+    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_11_Dynorphin_application_ch2_registered.tif',
+     {
+         'trig_number': 1,
+         'output_suffix': 'control',
+         'n_epochs': 10,
+         'stim_1_name': 'A',
+         'stim_2_name': 'C',
+         'drs_pattern': [[1, 0],  # stim#1
+                         [1, 1]]  # stim#2
+     }
+     ],
+    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_11_Dynorphin_application_ch2_registered.tif',
+     {
+         'trig_number': 5,
+         'output_suffix': 'Dynorphin_1uM',
+         'n_epochs': 10,
+         'stim_1_name': 'A',
+         'stim_2_name': 'C',
+         'drs_pattern': [[1, 0],  # stim#1
+                         [1, 1]]  # stim#2
+     }
+     ],
 
 
 
@@ -150,52 +105,16 @@ TO_DO_LIST = [
 
 
 
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_11_Dynorphin_application_ch2.tif',
-    #  {
-    #      'trig_number': 1,
-    #      'output_suffix': 'control',
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_11_Dynorphin_application_ch2.tif',
-    #  {
-    #      'trig_number': 5,
-    #      'output_suffix': 'Dynorphin_1uM',
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
 
 
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_11_Dynorphin_application_ch1.tif',
-    #  {
-    #      'trig_number': 1,
-    #      'output_suffix': 'control',
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_11_Dynorphin_application_ch1.tif',
-    #  {
-    #      'trig_number': 5,
-    #      'output_suffix': 'Dynorphin_1uM',
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
+
+
+
+
+
+
+
+
 
 
 
@@ -355,7 +274,7 @@ TO_DO_LIST = [
 
 
 
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_11_Dynorphin_application_ch1_registered.tif',
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_11_Dynorphin_application_ch2_registered.tif',
     #  {
     #      'trig_number': 3,
     #      'output_suffix': '_2s_10hz_control',
@@ -366,7 +285,7 @@ TO_DO_LIST = [
     #                      [1]]  # stim#2
     #  }
     #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_11_Dynorphin_application_ch1_registered.tif',
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_11_Dynorphin_application_ch2_registered.tif',
     #  {
     #      'trig_number': 9,
     #      'output_suffix': '_2s_10hz_Dynorphin_1uM',
@@ -410,60 +329,6 @@ TO_DO_LIST = [
 
 
 
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch1_registered.tif',
-    #  {
-    #      'trig_number': 3,
-    #      'output_suffix': '_2s_10hz_control',
-    #      'n_epochs': 1,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[0],  # stim#1
-    #                      [1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch1_registered.tif',
-    #  {
-    #      'trig_number': 7,
-    #      'output_suffix': '_2s_10hz_Dynorphin_1uM',
-    #      'n_epochs': 1,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[0],  # stim#1
-    #                      [1]]  # stim#2
-    #  }
-    #  ],
-
-
-
-
-
-
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch1_registered.tif',
-    #  {
-    #      'trig_number': 3,
-    #      'output_suffix': '_2s_10hz_control',
-    #      'n_epochs': 1,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[0],  # stim#1
-    #                      [1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch1_registered.tif',
-    #  {
-    #      'trig_number': 6,
-    #      'output_suffix': '_2s_10hz_Dynorphin_1uM',
-    #      'n_epochs': 1,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[0],  # stim#1
-    #                      [1]]  # stim#2
-    #  }
-    #  ],
-
-
-
 
 
 
@@ -477,18 +342,24 @@ TO_DO_LIST = [
 
 if __name__ == '__main__':
     import classes
-    classes.main(WORKING_DIR,
-                 TO_DO_LIST,
-                 RUN_DERIVATIVES_CALCULATION,
-                 RESP_DURATION,
-                 STEP_DURATION,
-                 N_EPOCHS,
-                 STIM_1_NAME,
-                 STIM_2_NAME,
-                 RUN_TRACES_CALCULATION,
-                 RELATIVE_VALUES,
-                 MEAN_COL_ORDER,
-                 COLS_PER_ROI,
-                 TIME_BEFORE_TRIG,
-                 BASELINE_DURATON,
-                 TIME_AFTER_TRIG)
+    classes.main(
+        working_dir=WORKING_DIR,
+        to_do_list=TO_DO_LIST,
+
+        run_derivatives_calculation=RUN_DERIVATIVES_CALCULATION,
+        run_traces_calculation=RUN_TRACES_CALCULATION,
+
+        resp_duration=RESP_DURATION,   
+        step_duration=STEP_DURATION,   
+        n_epochs=N_EPOCHS,
+
+        stim_1_name=STIM_1_NAME,
+        stim_2_name=STIM_2_NAME,
+
+        relative_values=RELATIVE_VALUES,
+        mean_col_order=MEAN_COL_ORDER,
+        cols_per_roi=COLS_PER_ROI,
+        time_before_trig=TIME_BEFORE_TRIG,
+        baseline_duraton=BASELINE_DURATON,
+        time_after_trig=TIME_AFTER_TRIG,
+    )

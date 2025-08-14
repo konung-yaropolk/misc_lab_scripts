@@ -129,18 +129,24 @@ TO_DO_LIST = [
 
 if __name__ == '__main__':
     import classes
-    classes.main(WORKING_DIR,
-                 TO_DO_LIST,
-                 RUN_DERIVATIVES_CALCULATION,
-                 RESP_DURATION,
-                 STEP_DURATION,
-                 N_EPOCHS,
-                 STIM_1_NAME,
-                 STIM_2_NAME,
-                 RUN_TRACES_CALCULATION,
-                 RELATIVE_VALUES,
-                 MEAN_COL_ORDER,
-                 COLS_PER_ROI,
-                 TIME_BEFORE_TRIG,
-                 BASELINE_DURATON,
-                 TIME_AFTER_TRIG)
+    classes.main(
+        working_dir=WORKING_DIR,
+        to_do_list=TO_DO_LIST,
+
+        run_derivatives_calculation=RUN_DERIVATIVES_CALCULATION,
+        run_traces_calculation=RUN_TRACES_CALCULATION,
+
+        resp_duration=RESP_DURATION,   
+        step_duration=STEP_DURATION,   
+        n_epochs=N_EPOCHS,
+
+        stim_1_name=STIM_1_NAME,
+        stim_2_name=STIM_2_NAME,
+
+        relative_values=RELATIVE_VALUES,
+        mean_col_order=MEAN_COL_ORDER,
+        cols_per_roi=COLS_PER_ROI,
+        time_before_trig=TIME_BEFORE_TRIG,
+        baseline_duraton=BASELINE_DURATON,
+        time_after_trig=TIME_AFTER_TRIG,
+    )

@@ -38,8 +38,8 @@ MINIMAL_AREA = 0
 # output parameters:
 RELATIVE_VALUES = True   # dF/F0 output format
 CSV_DELIMITER = ','      # delimiter to be used when saving .csv
-MEAN_COL_ORDER = 2  # default 2
-COLS_PER_ROI = 4  # default 4
+MEAN_COL_ORDER = 2       # default 2
+COLS_PER_ROI = 4         # default 4
 
 DIRECTORIES = [
 
