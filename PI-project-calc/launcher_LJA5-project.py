@@ -16,7 +16,7 @@ N_EPOCHS = 1
 
 # Defaults for Derivatives Calculation:
 # process all csv files with traces in the WORKING_DIR directory:
-RUN_TRACES_CALCULATION = False
+RUN_TRACES_CALCULATION = True
 
 RELATIVE_VALUES = True
 MEAN_COL_ORDER = 2
@@ -72,31 +72,53 @@ TO_DO_LIST = [
 
 
 
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch2_registered',
-     {
-         'trig_number': 1,
-         'output_suffix': 'control',
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch2_registered',
-     {
-         'trig_number': 7,
-         'output_suffix': 'Dynorphin_1uM',
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': 'control',
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 7,
+    #      'output_suffix': 'Dynorphin_1uM',
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
 
 
 
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': 'control',
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 7,
+    #      'output_suffix': 'Dynorphin_1uM',
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
 
 
 
