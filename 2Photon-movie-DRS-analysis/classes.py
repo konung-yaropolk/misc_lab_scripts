@@ -261,12 +261,15 @@ class TracesCalc():
                 case [1, 1]:
                     n1n2_ampl_mean_of_rois_by_epoch, n1n2_ampl_mean_of_epochs_by_rois, n1n2_ampl_list_each_by_roi, n1n2_ampl_list_each_by_epoch, n1n2_bin_list_each_by_epoch, n1n2_raw_line_list = self.calc_traces_sequence(
                         i)
+                    self.n1n2_delay = i*self.step_duration
                 case [1, 0]:
                     n1_ampl_mean_of_rois_by_epoch,  n1_ampl_mean_of_epochs_by_rois,  n1_ampl_list_each_by_roi,  n1_ampl_list_each_by_epoch, n1_bin_list_each_by_epoch, n1_raw_line_list = self.calc_traces_sequence(
                         i)
+                    self.n1_delay = i*self.step_duration
                 case [0, 1]:
                     n2_ampl_mean_of_rois_by_epoch,  n2_ampl_mean_of_epochs_by_rois,  n2_ampl_list_each_by_roi, n2_ampl_list_each_by_epoch, n2_bin_list_each_by_epoch, n2_raw_line_list = self.calc_traces_sequence(
                         i)
+                    self.n2_delay = i*self.step_duration
                 case [0, 0]: pass
                 case [None, None]: pass
                 # responses_each_by_roi, responses_each_by_epoch = self.calc_traces_sequence(i)
@@ -337,8 +340,6 @@ class TracesCalc():
 
         # vertically shifted traces plots:
         global LAST_VERTICAL_SHIFT
-        print(LAST_VERTICAL_SHIFT, 'fff')
-        print(self.vertical_shift, 'eee')
 
         if self.use_last_vertical_shift == True:
             self.vertical_shift = LAST_VERTICAL_SHIFT
@@ -454,10 +455,7 @@ class TracesCalc():
             vertical_shifted_y = [val + i * vertical_shift for val in y]
             plt.plot(x, vertical_shifted_y, color, linewidth=0.7, alpha=1)
 
-            bin_dots = [j + i * vertical_shift for j,
-                        event in enumerate(bin[i])]
-
-            plt.plot([j*20+10 if bin[i][j] else None for j, dot in enumerate(bin[i])],
+            plt.plot([j*self.step_duration*self.n_steps + self.n2_delay if bin[i][j] else None for j, dot in enumerate(bin[i])],
                      [i*vertical_shift]*len((bin[i])), 'rx')
 
         # Set y-tick labels divided by vertical_shift, starting from 1, and rounded to integers
