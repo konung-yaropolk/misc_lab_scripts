@@ -498,7 +498,7 @@ class TracesCalc():
 
         for i, y in enumerate(array[1:]):
             plt.text(-20, (i*shift), f'{i+1}', horizontalalignment='center',
-                     verticalalignment='top')
+                     verticalalignment='bottom')
 
         # Save the plot as plot.png
         plt.tight_layout()
