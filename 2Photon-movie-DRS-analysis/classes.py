@@ -384,7 +384,8 @@ class TracesCalc():
             self.plot_stacked_traces(matrix[0],
                                      matrix[pos:pos+chunk_size],
                                      n2_bin_list_each_by_epoch[pos:pos+chunk_size],
-                                     n2_bin_summary_by_rois,
+                                     n2_bin_summary_by_rois[pos:pos +
+                                                            chunk_size],
                                      '{0}{1}/_full_traces_stacked_by_rois_{2}-{3}_auto_.png'.format(
                 csv_path, csv_file, pos, pos+chunk_size), shift=np.amax(n2_ampl_list_each_by_roi))
 
