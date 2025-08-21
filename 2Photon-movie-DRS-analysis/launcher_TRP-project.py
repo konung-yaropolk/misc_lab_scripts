@@ -28,7 +28,8 @@ baseline_duraton = 10
 time_after_trig = None
 
 
-# to_do_list - acceptable individual parameters:
+# Params explanation:
+#
 # 'drs_pattern'       : [[1, 0, 1, 0, 1, 0],  # stim#1
 #                        [0, 1, 0, 0, 1, 0]]  # stim#2
 # 'resp_duration'     : float in sec, expected response duration
