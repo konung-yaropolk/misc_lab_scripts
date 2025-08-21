@@ -65,7 +65,7 @@ class TracesCalc():
                  mean_col_order,
                  cols_per_roi,
                  trig_number,
-                 sigmas_trashold,
+                 sigmas_treshold,
                  ):
 
         self.file_path = file_path
@@ -80,6 +80,8 @@ class TracesCalc():
         self.cols_per_roi = cols_per_roi
 
         self.trig_number = trig_number-1
+
+        self.sigmas_treshold = sigmas_treshold
 
         Parser = MetadataParser()
         self.events, self.sampling_interval, self.movie_duration = Parser.Parse(
@@ -250,7 +252,8 @@ class TracesCalc():
         # Calculate mean amplitude and AUC across all traces
         ampl_mean_of_rois = np.mean(ampl_list)
         auc_mean_of_rois = np.mean(auc_list)
-        bin_list = []
+        bin_list = [bool(ampl > self.sigmas_treshold * np.std(traces[i][bl_indices]))
+                    for i, ampl in enumerate(ampl_list)]
 
         return ampl_mean_of_rois, ampl_list, bin_list, raw_line_list
 
@@ -275,44 +278,71 @@ class TracesCalc():
         ]
 
         ampl_list_each_by_epoch = self.transpose(ampl_list_each_by_roi)
+        bin_list_each_by_epoch = self.transpose(bin_list_each_by_roi)
         ampl_mean_of_epochs_by_rois = [np.mean(epoch)
                                        for epoch in ampl_list_each_by_epoch]
 
-        return ampl_mean_of_rois_by_epoch, ampl_mean_of_epochs_by_rois, ampl_list_each_by_roi, ampl_list_each_by_epoch, raw_line_list
+        return ampl_mean_of_rois_by_epoch, ampl_mean_of_epochs_by_rois, ampl_list_each_by_roi, ampl_list_each_by_epoch, bin_list_each_by_epoch, raw_line_list
 
     def detailed_stats(self, csv_path, csv_file):
 
         for i, [n1, n2] in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
             match [n1, n2]:
                 case [1, 1]:
-                    n1n2_ampl_mean_of_rois_by_epoch, n1n2_ampl_mean_of_epochs_by_rois, n1n2_ampl_list_each_by_roi, n1n2_ampl_list_each_by_epoch, n1n2_raw_line_list = self.calc_traces_sequence(
+                    n1n2_ampl_mean_of_rois_by_epoch, n1n2_ampl_mean_of_epochs_by_rois, n1n2_ampl_list_each_by_roi, n1n2_ampl_list_each_by_epoch, n1n2_bin_list_each_by_epoch, n1n2_raw_line_list = self.calc_traces_sequence(
                         i)
                 case [1, 0]:
-                    n1_ampl_mean_of_rois_by_epoch,  n1_ampl_mean_of_epochs_by_rois,  n1_ampl_list_each_by_roi,  n1_ampl_list_each_by_epoch,  n1_raw_line_list = self.calc_traces_sequence(
+                    n1_ampl_mean_of_rois_by_epoch,  n1_ampl_mean_of_epochs_by_rois,  n1_ampl_list_each_by_roi,  n1_ampl_list_each_by_epoch, n1_bin_list_each_by_epoch, n1_raw_line_list = self.calc_traces_sequence(
                         i)
                 case [0, 1]:
-                    n2_ampl_mean_of_rois_by_epoch,  n2_ampl_mean_of_epochs_by_rois,  n2_ampl_list_each_by_roi,  n2_ampl_list_each_by_epoch,  n2_raw_line_list = self.calc_traces_sequence(
+                    n2_ampl_mean_of_rois_by_epoch,  n2_ampl_mean_of_epochs_by_rois,  n2_ampl_list_each_by_roi, n2_ampl_list_each_by_epoch, n2_bin_list_each_by_epoch, n2_raw_line_list = self.calc_traces_sequence(
                         i)
                 case [0, 0]: pass
                 case [None, None]: pass
                 # responses_each_by_roi, responses_each_by_epoch = self.calc_traces_sequence(i)
 
-        ampl_n2_to_n1n2_ratio_mean_of_epochs_by_rois = np.array(n2_ampl_mean_of_epochs_by_rois) / \
-            np.array(n1n2_ampl_mean_of_epochs_by_rois)
+        ampl_n2_to_n1n2_ratio_mean_of_epochs_by_rois = np.array(
+            n2_ampl_mean_of_epochs_by_rois) / np.array(n1n2_ampl_mean_of_epochs_by_rois)
 
-        ampl_n2_to_n1n2_ratio_rois_by_epoch = np.array(n2_ampl_list_each_by_epoch) / \
-            np.array(n1n2_ampl_list_each_by_epoch)
+        ampl_n2_to_n1n2_ratio_rois_by_epoch = np.array(
+            n2_ampl_list_each_by_epoch) / np.array(n1n2_ampl_list_each_by_epoch)
+
+        # Binarization:
+
+        n2_bin_summary_by_rois = [
+            sum(i)/len(i) > 0.5 for i in n2_bin_list_each_by_epoch]
+
+        def filter_list(list, bin=n2_bin_summary_by_rois):
+            return [value if bin[i] else None for i, value in
+                    enumerate(list)]
+
+        print(n2_bin_list_each_by_epoch)
 
         self.plot_n2_to_n1n2_ratio_rois_by_epoch(
             1/ampl_n2_to_n1n2_ratio_rois_by_epoch, '{0}{1}/_rois_by_epoch_{3}_to_{2}+{3}_ratio_auto_.png'.format(
                 csv_path, csv_file, self.stim_1_name, self.stim_2_name))
 
         # csv file of #1#2 and #2 amplitudes by rois epochs average
-        self.csv_write([['{}+{}'.format(
-            self.stim_1_name, self.stim_2_name), self.stim_2_name, 'ratio col1/col2'], *self.transpose([n1n2_ampl_mean_of_epochs_by_rois,
-                                                                                                        n2_ampl_mean_of_epochs_by_rois, 1/ampl_n2_to_n1n2_ratio_mean_of_epochs_by_rois])],
+
+        header = ['{}+{}'.format(
+            self.stim_1_name, self.stim_2_name), self.stim_2_name, 'ratio col1/col2']
+
+        self.csv_write([
+            ['Unfiltered'],
+            header,
+            *self.transpose([n1n2_ampl_mean_of_epochs_by_rois,
+                             n2_ampl_mean_of_epochs_by_rois, 1/ampl_n2_to_n1n2_ratio_mean_of_epochs_by_rois]),
+            '',
+            '',
+            '',
+            ['Filtered'],
+            header,
+            *self.transpose([filter_list(n1n2_ampl_mean_of_epochs_by_rois),
+                             filter_list(n2_ampl_mean_of_epochs_by_rois), filter_list(1/ampl_n2_to_n1n2_ratio_mean_of_epochs_by_rois)]),
+        ],
             csv_path+csv_file, csv_file, '_by_rois_mean_of_epochs_{0}{1}_and_{1}_ampl_auto_'.format(
-            self.stim_1_name, self.stim_2_name))
+            self.stim_1_name, self.stim_2_name)
+        )
 
         # plot_n1n2_n2_roi_stats for all rois
         self.plot_n1n2_n2_roi_stats(n1n2_ampl_mean_of_epochs_by_rois,
@@ -338,7 +368,9 @@ class TracesCalc():
         matrix = self.transpose(self.csv_matrix[:int(
             ((self.n_epochs+1) * self.step_duration * self.n_steps) / self.sampling_interval)])[:]
         self.plot_stacked_traces(matrix[0],
-                                 matrix[1:],
+                                 matrix[:],
+                                 n2_bin_list_each_by_epoch,
+                                 n2_bin_summary_by_rois,
                                  '{0}{1}/_full_traces_stacked_by_rois_auto_.png'.format(
             csv_path, csv_file), shift=np.amax(n2_ampl_list_each_by_roi))
 
@@ -346,10 +378,12 @@ class TracesCalc():
         chunk_size = 50
         matrix = self.transpose(self.csv_matrix[:int(
             ((self.n_epochs+1) * self.step_duration * self.n_steps) / self.sampling_interval)])
-        for pos in range(1, len(self.csv_matrix[0]), chunk_size):
+        for pos in range(0, len(self.csv_matrix[0]), chunk_size):
             self.plot_stacked_traces(matrix[0],
                                      matrix[pos:pos+chunk_size],
-                                     '{0}{1}/_full_traces_stacked_by_rois_{2}-{3}_auto_.svg'.format(
+                                     n2_bin_list_each_by_epoch[pos:pos+chunk_size],
+                                     n2_bin_summary_by_rois,
+                                     '{0}{1}/_full_traces_stacked_by_rois_{2}-{3}_auto_.png'.format(
                 csv_path, csv_file, pos, pos+chunk_size), shift=np.amax(n2_ampl_list_each_by_roi))
 
         # plot_traces_by_rois
@@ -421,12 +455,22 @@ class TracesCalc():
         plt.savefig(path)
         plt.close()
 
-    def plot_stacked_traces(self, x, array, path, shift=1.2):
+    def plot_stacked_traces(self, x, array, bin, bin_summary_by_rois, path, shift=1.2):
         plt.figure(figsize=(10, 10))
 
         for i, y in enumerate(array[1:]):
+            color = 'g-' if bin_summary_by_rois[i] else 'k-'
             shifted_y = [val + i * shift for val in y]
-            plt.plot(x, shifted_y, 'k-', linewidth=0.7, alpha=1)
+            plt.plot(x, shifted_y, color, linewidth=0.7, alpha=1)
+
+            bin_dots = [j + i * shift for j, event in enumerate(bin[i])]
+
+            # shifted_y_dots = [val for val in bin_dots]
+            # plt.plot([j for j in bin[i]],  bin_dots,
+            #         'g.', linewidth=2, alpha=1)
+
+            plt.plot([j*20+10 if bin[i][j] else None for j, dot in enumerate(bin[i])],
+                     [i*shift]*len((bin[i])), 'rx')
 
         # Set y-tick labels divided by shift, starting from 1, and rounded to integers
         ax = plt.gca()
@@ -539,7 +583,7 @@ class DerivativesCalc(Helpers):
     # def calculate_single_response(self):
 
     #     start_frame = int((self.start / 1000) // self.sampling_interval)
-    #     stop_frame = int(((self.start / 1000) + self.response_duration)
+    #     stop_frame = int(((self.start / 1000) + self.resp_duration)
     #                      // self.sampling_interval)
 
     #     self.result = self.process_tiff_stack(start_frame, stop_frame)
@@ -552,7 +596,7 @@ class DerivativesCalc(Helpers):
             self.process_tiff_stack(
                 int((self.start + (i*interval) + delay) //
                     self.sampling_interval),
-                int((self.start + (i*interval) + delay + self.response_duration) //
+                int((self.start + (i*interval) + delay + self.resp_duration) //
                     self.sampling_interval)
             ) for i in range(count)
         ]
@@ -638,7 +682,7 @@ class Movie(DerivativesCalc, TracesCalc):
                  file_path,
                  working_dir,
                  output_suffix,
-                 response_duration,
+                 resp_duration,
                  drs_pattern,
                  step_duration,
                  n_epochs,
@@ -652,7 +696,7 @@ class Movie(DerivativesCalc, TracesCalc):
                  cols_per_roi,
                  stim_1_name,
                  stim_2_name,
-                 sigmas_trashold,
+                 sigmas_treshold,
                  **misc):
 
         self.file_path = working_dir + file_path
@@ -662,13 +706,15 @@ class Movie(DerivativesCalc, TracesCalc):
             self.file_path)
         self.output_suffix = output_suffix
 
-        self.response_duration = response_duration
+        self.resp_duration = resp_duration
         self.drs_pattern = drs_pattern
         self.step_duration = step_duration
         self.n_steps = len(self.drs_pattern[0])
         self.n_epochs = n_epochs
         self.start_from_epoch = start_from_epoch if start_from_epoch != 0 else 1
         self.trig_number = trig_number-1
+
+        self.sigmas_treshold = sigmas_treshold
 
         self.time_before_trig = time_before_trig
         self.time_after_trig = time_after_trig
@@ -902,6 +948,7 @@ def main(
     cols_per_roi=s.cols_per_roi,
     time_before_trig=s.time_before_trig,
     baseline_duraton=s.baseline_duraton,
+    sigmas_treshold=s.sigmas_treshold,
     time_after_trig=s.time_after_trig,
 
 ):
@@ -910,7 +957,7 @@ def main(
 
         item[1].setdefault('output_suffix', '')
         item[1].setdefault('working_dir', working_dir)
-        item[1].setdefault('response_duration', resp_duration)
+        item[1].setdefault('resp_duration', resp_duration)
         item[1].setdefault('drs_pattern', drs_pattern)
         item[1].setdefault('step_duration', step_duration)
         item[1].setdefault('n_epochs', n_epochs)
@@ -924,7 +971,7 @@ def main(
         item[1].setdefault('cols_per_roi', cols_per_roi)
         item[1].setdefault('stim_1_name', stim_1_name)
         item[1].setdefault('stim_2_name', stim_2_name)
-        item[1].setdefault('sigmas_trashold', 5)
+        item[1].setdefault('sigmas_treshold', sigmas_treshold)
 
         print(' ')
         movie = Movie(item[0], **item[1])
@@ -944,4 +991,4 @@ def main(
 
 
 if __name__ == '__main__':
-    main()
+    pass

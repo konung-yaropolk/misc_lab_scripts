@@ -12,7 +12,7 @@ stim_2_name = '#2'
 resp_duration = 2   # in sec, expected response duration
 step_duration = 10  # in sec
 n_epochs = 1
-drs_pattern = [[1],  # stim #1
+drs_pattern = [[0],  # stim #1
                [1]]  # stim #2
 
 # Params for Traces Calculation:
@@ -25,6 +25,7 @@ cols_per_roi = 4
 
 time_before_trig = 10
 baseline_duraton = 10
+sigmas_treshold = 5
 time_after_trig = None
 
 
@@ -413,5 +414,6 @@ if __name__ == '__main__':
 
         time_before_trig,
         baseline_duraton,
+        sigmas_treshold,
         time_after_trig,
     )
