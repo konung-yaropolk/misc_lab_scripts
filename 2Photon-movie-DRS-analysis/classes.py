@@ -161,8 +161,9 @@ class TracesCalc():
             content[1:] = self.data_normalize(content[1:], start_bl, zero)
 
         csv_output = list(zip(*content))[start:end]
+        csv_output_np = np.array(csv_output)
 
-        return csv_output
+        return csv_output_np
 
     def csv_transform(self,
                       content_raw,
@@ -285,7 +286,11 @@ class TracesCalc():
         n2_bin_summary_by_rois = [
             sum(i)/len(i) > 0.5 for i in n2_bin_list_each_by_epoch]
 
-        def filter_list(list, bin=n2_bin_summary_by_rois, replace=True, replace_with=None):
+        def filter_list(list,
+                        bin=n2_bin_summary_by_rois,
+                        replace=True,
+                        replace_with=None,
+                        range=[0, 0]):
 
             if replace == True:
                 output = [value if bin[i] else replace_with for i, value in
@@ -352,9 +357,10 @@ class TracesCalc():
         LAST_VERTICAL_SHIFT = vertical_shift
 
         # plot_stacked_traces all togather
-        matrix = self.transpose(self.csv_matrix[:int(
-            ((self.n_epochs+1) * self.step_duration * self.n_steps) / self.sampling_interval)])[:]
-        self.plot_stacked_traces(matrix[0],
+        matrix = self.transpose(self.csv_matrix[int(
+            ((self.start_from_epoch-1) * self.step_duration * self.n_steps) / self.sampling_interval):int(
+            ((self.start_from_epoch-1 + self.n_epochs+1) * self.step_duration * self.n_steps) / self.sampling_interval)])[:]
+        self.plot_stacked_traces(np.array(matrix[0]) - ((self.start_from_epoch-1) * self.step_duration * self.n_steps),
                                  matrix[:],
                                  n2_bin_list_each_by_epoch,
                                  n2_bin_summary_by_rois,
@@ -362,17 +368,19 @@ class TracesCalc():
             csv_path, csv_file), vertical_shift=vertical_shift)
 
         # plot_stacked_traces by groups
-        chunk_size = 50
-        matrix = self.transpose(self.csv_matrix[:int(
-            ((self.n_epochs+1) * self.step_duration * self.n_steps) / self.sampling_interval)])
-        for pos in range(0, len(self.csv_matrix[0]), chunk_size):
-            self.plot_stacked_traces(matrix[0],
-                                     matrix[pos:pos+chunk_size],
-                                     n2_bin_list_each_by_epoch[pos:pos+chunk_size],
+        chunk_size = 40
+        matrix = self.transpose(self.csv_matrix[int(
+            ((self.start_from_epoch-1) * self.step_duration * self.n_steps) / self.sampling_interval):int(
+            ((self.start_from_epoch-1 + self.n_epochs+1) * self.step_duration * self.n_steps) / self.sampling_interval)])[:]
+        for pos in range(0, len(self.csv_matrix[0])-1, chunk_size):
+            self.plot_stacked_traces(np.array(matrix[0]) - ((self.start_from_epoch-1) * self.step_duration * self.n_steps),
+                                     matrix[pos:pos+chunk_size+1],
+                                     n2_bin_list_each_by_epoch[pos:pos +
+                                                               chunk_size+1],
                                      n2_bin_summary_by_rois[pos:pos +
-                                                            chunk_size],
+                                                            chunk_size+1],
                                      '{0}{1}/_full_traces_stacked_by_rois_{2}-{3}_auto_.png'.format(
-                csv_path, csv_file, pos, pos+chunk_size), vertical_shift=vertical_shift)
+                csv_path, csv_file, pos+1, pos+chunk_size), vertical_shift=vertical_shift)
 
         # plot_traces_by_rois
         # for i in range(len(n1n2_raw_line_list)):
