@@ -65,6 +65,7 @@ class TracesCalc():
                  mean_col_order,
                  cols_per_roi,
                  trig_number,
+                 sigmas_trashold,
                  ):
 
         self.file_path = file_path
@@ -214,7 +215,7 @@ class TracesCalc():
 
         return content_raw
 
-    def calculate_ampl_auc(self, start_bl, end_bl, start, end):
+    def calculate_ampl_auc_bin(self, start_bl, end_bl, start, end):
 
         matrix = np.array(self.transpose(self.csv_matrix))
 
@@ -249,26 +250,27 @@ class TracesCalc():
         # Calculate mean amplitude and AUC across all traces
         ampl_mean_of_rois = np.mean(ampl_list)
         auc_mean_of_rois = np.mean(auc_list)
+        bin_list = []
 
-        return ampl_mean_of_rois, ampl_list, raw_line_list
+        return ampl_mean_of_rois, ampl_list, bin_list, raw_line_list
 
-    def calc_traces_sequence(self, i, filename_ending):
+    def calc_traces_sequence(self, i):
 
         count = self.n_epochs + self.start_from_epoch-1
         interval = self.step_duration * self.n_steps
         delay = self.step_duration * i
         start = self.start_from_epoch-1
 
-        ampl_mean_of_rois_by_epoch, ampl_list_each_by_roi, raw_line_list = [
+        ampl_mean_of_rois_by_epoch, ampl_list_each_by_roi, bin_list_each_by_roi, raw_line_list = [
 
             [
-                self.calculate_ampl_auc(
+                self.calculate_ampl_auc_bin(
                     (i*interval) + delay - self.step_duration/4,
                     (i*interval) + delay,
                     (i*interval) + delay,
                     (i*interval) + delay + self.step_duration/2
                 )[j] for i in range(start, count)
-            ] for j in range(3)
+            ] for j in range(4)
 
         ]
 
@@ -276,34 +278,24 @@ class TracesCalc():
         ampl_mean_of_epochs_by_rois = [np.mean(epoch)
                                        for epoch in ampl_list_each_by_epoch]
 
-        # result_transposed = self.transpose(result)
-
-        # self.save_tiff(self.file_path + self.output_suffix +
-        #                filename_ending, self.result, metadata=metadata)
         return ampl_mean_of_rois_by_epoch, ampl_mean_of_epochs_by_rois, ampl_list_each_by_roi, ampl_list_each_by_epoch, raw_line_list
 
     def detailed_stats(self, csv_path, csv_file):
 
-        n1n2_name_ending = '_RESPONSES_{}+{}.csv'.format(
-            self.stim_1_name, self.stim_2_name)
-        n1_name_ending = '_RESPONSES_{}.csv'.format(self.stim_1_name)
-        n2_name_ending = '_RESPONSES_{}.csv'.format(self.stim_2_name)
-
-        for i, [A, C] in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
-            match [A, C]:
+        for i, [n1, n2] in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
+            match [n1, n2]:
                 case [1, 1]:
                     n1n2_ampl_mean_of_rois_by_epoch, n1n2_ampl_mean_of_epochs_by_rois, n1n2_ampl_list_each_by_roi, n1n2_ampl_list_each_by_epoch, n1n2_raw_line_list = self.calc_traces_sequence(
-                        i, n1n2_name_ending)
+                        i)
                 case [1, 0]:
                     n1_ampl_mean_of_rois_by_epoch,  n1_ampl_mean_of_epochs_by_rois,  n1_ampl_list_each_by_roi,  n1_ampl_list_each_by_epoch,  n1_raw_line_list = self.calc_traces_sequence(
-                        i, n1_name_ending)
+                        i)
                 case [0, 1]:
                     n2_ampl_mean_of_rois_by_epoch,  n2_ampl_mean_of_epochs_by_rois,  n2_ampl_list_each_by_roi,  n2_ampl_list_each_by_epoch,  n2_raw_line_list = self.calc_traces_sequence(
-                        i, n2_name_ending)
+                        i)
                 case [0, 0]: pass
                 case [None, None]: pass
-                # responses_each_by_roi, responses_each_by_epoch = self.calc_traces_sequence(
-                # i, '_RESPONSES.csv')
+                # responses_each_by_roi, responses_each_by_epoch = self.calc_traces_sequence(i)
 
         ampl_n2_to_n1n2_ratio_mean_of_epochs_by_rois = np.array(n2_ampl_mean_of_epochs_by_rois) / \
             np.array(n1n2_ampl_mean_of_epochs_by_rois)
@@ -473,9 +465,6 @@ class TracesCalc():
                 nonrecursive=True
             )
         )
-
-        # adding all trace overview file starting from almost 0 time point
-        # metadata.insert(0,['ALL_TRACE', 5])
 
         if csv_list:
 
@@ -663,6 +652,7 @@ class Movie(DerivativesCalc, TracesCalc):
                  cols_per_roi,
                  stim_1_name,
                  stim_2_name,
+                 sigmas_trashold,
                  **misc):
 
         self.file_path = working_dir + file_path
@@ -934,6 +924,7 @@ def main(
         item[1].setdefault('cols_per_roi', cols_per_roi)
         item[1].setdefault('stim_1_name', stim_1_name)
         item[1].setdefault('stim_2_name', stim_2_name)
+        item[1].setdefault('sigmas_trashold', 5)
 
         print(' ')
         movie = Movie(item[0], **item[1])
