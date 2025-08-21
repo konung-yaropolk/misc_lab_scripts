@@ -268,7 +268,7 @@ class TracesCalc():
 
             [
                 self.calculate_ampl_auc_bin(
-                    (i*interval) + delay - self.step_duration/4,
+                    (i*interval) + delay - self.step_duration/2,
                     (i*interval) + delay,
                     (i*interval) + delay,
                     (i*interval) + delay + self.step_duration/2
