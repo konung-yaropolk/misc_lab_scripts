@@ -312,11 +312,15 @@ class TracesCalc():
         n2_bin_summary_by_rois = [
             sum(i)/len(i) > 0.5 for i in n2_bin_list_each_by_epoch]
 
-        def filter_list(list, bin=n2_bin_summary_by_rois):
-            return [value if bin[i] else None for i, value in
-                    enumerate(list)]
+        def filter_list(list, bin=n2_bin_summary_by_rois, replace=True, replace_with=None):
 
-        print(n2_bin_list_each_by_epoch)
+            if replace == True:
+                output = [value if bin[i] else replace_with for i, value in
+                          enumerate(list)]
+            else:
+                output = [value for value, keep in zip(list, bin) if keep]
+
+            return output
 
         self.plot_n2_to_n1n2_ratio_rois_by_epoch(
             1/ampl_n2_to_n1n2_ratio_rois_by_epoch, '{0}{1}/_rois_by_epoch_{3}_to_{2}+{3}_ratio_auto_.png'.format(
@@ -328,25 +332,22 @@ class TracesCalc():
             self.stim_1_name, self.stim_2_name), self.stim_2_name, 'ratio col1/col2']
 
         self.csv_write([
-            ['Unfiltered'],
-            header,
+            ['Unfiltered', '', '', '', '', 'Filtered'],
+            header+['']*2+header,
             *self.transpose([n1n2_ampl_mean_of_epochs_by_rois,
-                             n2_ampl_mean_of_epochs_by_rois, 1/ampl_n2_to_n1n2_ratio_mean_of_epochs_by_rois]),
-            '',
-            '',
-            '',
-            ['Filtered'],
-            header,
-            *self.transpose([filter_list(n1n2_ampl_mean_of_epochs_by_rois),
-                             filter_list(n2_ampl_mean_of_epochs_by_rois), filter_list(1/ampl_n2_to_n1n2_ratio_mean_of_epochs_by_rois)]),
+                             n2_ampl_mean_of_epochs_by_rois, 1 /
+                             ampl_n2_to_n1n2_ratio_mean_of_epochs_by_rois, '', '', filter_list(
+                                 n1n2_ampl_mean_of_epochs_by_rois),
+                             filter_list(n2_ampl_mean_of_epochs_by_rois), filter_list(1/ampl_n2_to_n1n2_ratio_mean_of_epochs_by_rois)])
         ],
             csv_path+csv_file, csv_file, '_by_rois_mean_of_epochs_{0}{1}_and_{1}_ampl_auto_'.format(
             self.stim_1_name, self.stim_2_name)
         )
 
         # plot_n1n2_n2_roi_stats for all rois
-        self.plot_n1n2_n2_roi_stats(n1n2_ampl_mean_of_epochs_by_rois,
-                                    n2_ampl_mean_of_epochs_by_rois,
+        self.plot_n1n2_n2_roi_stats(filter_list(n1n2_ampl_mean_of_epochs_by_rois, replace=False),
+                                    filter_list(
+                                        n2_ampl_mean_of_epochs_by_rois, replace=False),
                                     '{0}{1}/_by_rois_{2}{3}_{3}_ampl_auto_.png'.format(
                                         csv_path, csv_file, self.stim_1_name, self.stim_2_name),
                                     dependent=True,
@@ -424,18 +425,21 @@ class TracesCalc():
         analysis.RunWilcoxon()
         results = analysis.GetResult()
 
-        plot = AutoStatLib.StatPlots.BarStatPlot(data,
-                                                 p=results['p-value_exact'],
-                                                 stars=results['Stars_Printed'],
-                                                 sd=results['Groups_SD'],
-                                                 mean=results['Groups_Mean'],
-                                                 median=results['Groups_Median'],
-                                                 testname=results['Test_Name'],
-                                                 n=results['Groups_N'],
-                                                 dependent=dependent,
-                                                 y_label=y_label,
-                                                 x_manual_tick_labels=x_manual_tick_labels,
-                                                 )
+        if 'p-value_exact' in results:
+            plot = AutoStatLib.StatPlots.BarStatPlot(data,
+                                                     p=results['p-value_exact'],
+                                                     stars=results['Stars_Printed'],
+                                                     sd=results['Groups_SD'],
+                                                     mean=results['Groups_Mean'],
+                                                     median=results['Groups_Median'],
+                                                     testname=results['Test_Name'],
+                                                     n=results['Groups_N'],
+                                                     dependent=dependent,
+                                                     y_label=y_label,
+                                                     x_manual_tick_labels=x_manual_tick_labels,
+                                                     )
+        else:
+            plot = AutoStatLib.StatPlots.BarStatPlot(data)
         plot.plot()
         plot.save(path)
 
@@ -489,11 +493,11 @@ class TracesCalc():
                     linewidth=2,
                     zorder=3)
 
-        plt.text(-15, -1.5, '1 dF/F0',  horizontalalignment='center',
+        plt.text(-15, -1., '1 dF/F0',  horizontalalignment='center',
                  verticalalignment='top')
 
         for i, y in enumerate(array[1:]):
-            plt.text(-20, (i*shift)+0.8, f'{i+1}', horizontalalignment='center',
+            plt.text(-20, (i*shift), f'{i+1}', horizontalalignment='center',
                      verticalalignment='top')
 
         # Save the plot as plot.png
