@@ -6,14 +6,16 @@
 run_derivatives_calculation = True
 working_dir = 'F:/Lab Work Files/2-photon/'
 
+
 stim_1_name = '#1'
 stim_2_name = '#2'
-
-resp_duration = 4   # in sec, expected response duration
-step_duration = 10  # in sec
-n_epochs = 1
 drs_pattern = [[0],  # stim #1
                [1]]  # stim #2
+
+n_epochs = 1
+resp_duration = 4   # in sec, expected response duration
+step_duration = 10  # in sec
+
 
 # Params for Traces Calculation:
 # process all csv files with traces in the WORKING_DIR directory:
@@ -477,15 +479,15 @@ to_do_list = [
     #  ],
 
 
-    # # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_14_2_registered.tif',
-    # #  {
-    # #      'output_suffix': '_WholeMovie_',
-    # #      'n_epochs': 28,
-    # #      'start_from_epoch': 1,
-    # #      'drs_pattern': [[1, 0],  # stim#1
-    # #                      [1, 1]]  # stim#2
-    # #  }
-    # #  ],
+    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_14_2_registered.tif',
+    #  {
+    #      'output_suffix': '_WholeMovie_',
+    #      'n_epochs': 28,
+    #      'start_from_epoch': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
     # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_14_2_registered.tif',
     #  {
     #      'output_suffix': '_Ctrl_',
@@ -504,6 +506,7 @@ to_do_list = [
     #      'start_from_epoch': 20,
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
+    #      'use_last_vertical_shift': True,
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
     #  }

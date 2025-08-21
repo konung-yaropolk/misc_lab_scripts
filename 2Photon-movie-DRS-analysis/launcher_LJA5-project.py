@@ -6,14 +6,16 @@
 run_derivatives_calculation = False
 working_dir = 'F:/Lab Work Files/2-photon/'
 
-stim_1_name = '#1'
-stim_2_name = '#2'
 
-resp_duration = 3   # in sec, expected response duration
-step_duration = 10  # in sec
-n_epochs = 1
+stim_1_name = 'A'
+stim_2_name = 'C'
 drs_pattern = [[0],  # stim #1
                [1]]  # stim #2
+
+n_epochs = 1
+resp_duration = 3   # in sec, expected response duration
+step_duration = 10  # in sec
+
 
 # Params for Traces Calculation:
 # process all csv files with traces in the WORKING_DIR directory:
@@ -61,8 +63,6 @@ to_do_list = [
          'trig_number': 1,
          'output_suffix': 'control',
          'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
                          [1, 1]]  # stim#2
      }
@@ -72,8 +72,6 @@ to_do_list = [
          'trig_number': 8,
          'output_suffix': 'Dynorphin_1uM',
          'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
          'use_last_vertical_shift': True,
          'drs_pattern': [[1, 0],  # stim#1
                          [1, 1]]  # stim#2
@@ -88,8 +86,6 @@ to_do_list = [
          'trig_number': 1,
          'output_suffix': 'control',
          'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
                          [1, 1]]  # stim#2
      }
@@ -99,8 +95,6 @@ to_do_list = [
          'trig_number': 7,
          'output_suffix': 'Dynorphin_1uM',
          'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
          'use_last_vertical_shift': True,
          'drs_pattern': [[1, 0],  # stim#1
                          [1, 1]]  # stim#2
@@ -114,8 +108,6 @@ to_do_list = [
          'trig_number': 1,
          'output_suffix': 'control',
          'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
                          [1, 1]]  # stim#2
      }
@@ -125,8 +117,6 @@ to_do_list = [
          'trig_number': 7,
          'output_suffix': 'Dynorphin_1uM',
          'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
          'use_last_vertical_shift': True,
          'drs_pattern': [[1, 0],  # stim#1
                          [1, 1]]  # stim#2
@@ -141,8 +131,6 @@ to_do_list = [
          'trig_number': 1,
          'output_suffix': 'control',
          'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
                          [1, 1]]  # stim#2
      }
@@ -152,8 +140,6 @@ to_do_list = [
          'trig_number': 5,
          'output_suffix': 'Dynorphin_1uM',
          'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
          'use_last_vertical_shift': True,
          'drs_pattern': [[1, 0],  # stim#1
                          [1, 1]]  # stim#2
@@ -194,8 +180,6 @@ to_do_list = [
     #      'trig_number': 3,
     #      'output_suffix': '2s_10hz_control',
     #      'n_epochs': 1,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
     #  }
@@ -205,8 +189,6 @@ to_do_list = [
     #      'trig_number': 10,
     #      'output_suffix': '2s_10hz_Dynorphin_1uM',
     #      'n_epochs': 1,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
     #  }
@@ -217,8 +199,6 @@ to_do_list = [
     #      'trig_number': 1,
     #      'output_suffix': '0.1Hz_control',
     #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
     #  }
@@ -228,8 +208,6 @@ to_do_list = [
     #      'trig_number': 6,
     #      'output_suffix': '0.1Hz_Dynorphin_1uM',
     #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
     #  }
@@ -244,8 +222,6 @@ to_do_list = [
     #      'trig_number': 3,
     #      'output_suffix': '_2s_10hz_control',
     #      'n_epochs': 1,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
     #  }
@@ -255,8 +231,6 @@ to_do_list = [
     #      'trig_number': 7,
     #      'output_suffix': '_2s_10hz_Dynorphin_1uM',
     #      'n_epochs': 1,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
     #  }
@@ -267,8 +241,6 @@ to_do_list = [
     #      'trig_number': 1,
     #      'output_suffix': '_0.1Hz_control',
     #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
     #  }
@@ -278,8 +250,6 @@ to_do_list = [
     #      'trig_number': 8,
     #      'output_suffix': '_0.1Hz_Dynorphin_1uM',
     #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
     #  }
@@ -295,8 +265,6 @@ to_do_list = [
     #      'trig_number': 3,
     #      'output_suffix': '_2s_10hz_control',
     #      'n_epochs': 1,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
     #  }
@@ -306,8 +274,6 @@ to_do_list = [
     #      'trig_number': 6,
     #      'output_suffix': '_2s_10hz_Dynorphin_1uM',
     #      'n_epochs': 1,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
     #  }
@@ -318,8 +284,6 @@ to_do_list = [
     #      'trig_number': 1,
     #      'output_suffix': '_0.1Hz_control',
     #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
     #  }
@@ -329,8 +293,6 @@ to_do_list = [
     #      'trig_number': 7,
     #      'output_suffix': '_0.1Hz_Dynorphin_1uM',
     #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
     #  }
@@ -346,8 +308,6 @@ to_do_list = [
     #      'trig_number': 3,
     #      'output_suffix': '_2s_10hz_control',
     #      'n_epochs': 1,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
     #  }
@@ -357,8 +317,6 @@ to_do_list = [
     #      'trig_number': 9,
     #      'output_suffix': '_2s_10hz_Dynorphin_1uM',
     #      'n_epochs': 1,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
     #  }
@@ -374,8 +332,6 @@ to_do_list = [
     #      'trig_number': 3,
     #      'output_suffix': '2s_10hz_control',
     #      'n_epochs': 1,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
     #  }
@@ -385,8 +341,6 @@ to_do_list = [
     #      'trig_number': 10,
     #      'output_suffix': '2s_10hz_Dynorphin_1uM',
     #      'n_epochs': 1,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
     #  }

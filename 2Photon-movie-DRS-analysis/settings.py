@@ -6,14 +6,16 @@
 run_derivatives_calculation = True
 working_dir = 'sample/'
 
+
 stim_1_name = '#1'
 stim_2_name = '#2'
-
-resp_duration = 2   # in sec, expected response duration
-step_duration = 10  # in sec
-n_epochs = 1
 drs_pattern = [[0],  # stim #1
                [1]]  # stim #2
+
+n_epochs = 1
+resp_duration = 4   # in sec, expected response duration
+step_duration = 10  # in sec
+
 
 # Params for Traces Calculation:
 # process all csv files with traces in the WORKING_DIR directory:
@@ -52,26 +54,26 @@ use_last_vertical_shift = False
 
 to_do_list = [
 
-    # ['Field_1_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
+    ['Field_1_0001_ch2_registered.tif',
+     {
+         'n_epochs': 10,
+         'stim_1_name': 'A',
+         'stim_2_name': 'C',
+         'drs_pattern': [[1, 0],  # stim#1
+                         [1, 1]]  # stim#2
+     }
+     ],
 
-    # ['Field_3_PI_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 1,
-    #      'start_from_epoch': 1,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
+    ['Field_3_PI_0001_ch2_registered.tif',
+     {
+         'n_epochs': 10,
+         'start_from_epoch': 1,
+         'stim_1_name': 'A',
+         'stim_2_name': 'C',
+         'drs_pattern': [[1, 0],  # stim#1
+                         [1, 1]]  # stim#2
+     }
+     ],
 ]
 
 

@@ -6,14 +6,16 @@
 run_derivatives_calculation = True
 working_dir = 'F:/Lab Work Files/2-photon/'
 
-stim_1_name = '#1'
-stim_2_name = '#2'
 
-resp_duration = 4   # in sec, expected response duration
-step_duration = 10  # in sec
-n_epochs = 1
+stim_1_name = 'A'
+stim_2_name = 'C'
 drs_pattern = [[0],  # stim #1
                [1]]  # stim #2
+
+n_epochs = 1
+resp_duration = 4   # in sec, expected response duration
+step_duration = 10  # in sec
+
 
 # Params for Traces Calculation:
 # process all csv files with traces in the WORKING_DIR directory:
@@ -60,8 +62,6 @@ to_do_list = [
     #      'output_suffix': '_derivatives_AC',
     #      'n_epochs': 1,
     #      'response_duration': 4,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
     #      'drs_pattern': [[1],  # stim#1
     #                      [1]]  # stim#2
     #  }
@@ -73,8 +73,6 @@ to_do_list = [
     #      'output_suffix': '_derivatives_AC',
     #      'n_epochs': 1,
     #      'response_duration': 4,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
     #      'drs_pattern': [[1],  # stim#1
     #                      [1]]  # stim#2
     #  }
@@ -87,8 +85,6 @@ to_do_list = [
     #      'output_suffix': '_derivatives_trig1',
     #      'n_epochs': 1,
     #      'response_duration': 4,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
     #  }
@@ -100,8 +96,6 @@ to_do_list = [
     #      'output_suffix': '_derivatives_trig2',
     #      'n_epochs': 1,
     #      'response_duration': 4,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
     #  }
@@ -112,8 +106,6 @@ to_do_list = [
     #      'output_suffix': '_derivatives_trig3',
     #      'n_epochs': 1,
     #      'response_duration': 4,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
     #  }
@@ -124,8 +116,6 @@ to_do_list = [
     #      'output_suffix': '_derivatives_trig4',
     #      'n_epochs': 1,
     #      'response_duration': 4,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
     #  }
