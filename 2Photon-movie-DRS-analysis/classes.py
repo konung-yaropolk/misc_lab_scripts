@@ -3,6 +3,7 @@ import re
 import csv
 import numpy as np
 import matplotlib.pyplot as plt
+from ordered_set import T
 import tifffile
 import AutoStatLib
 from PIL import Image
@@ -439,7 +440,7 @@ class TracesCalc():
                                                      x_manual_tick_labels=x_manual_tick_labels,
                                                      )
         else:
-            plot = AutoStatLib.StatPlots.BarStatPlot(data)
+            plot = AutoStatLib.StatPlots.BarStatPlot(data, dependent=True)
         plot.plot()
         plot.save(path)
 
