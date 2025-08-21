@@ -1,36 +1,37 @@
 #!/usr/bin/env python3
-# Settings block:
+# Default Settings block
+# Theese parameters will be used if not specified in the launchers
 
-# Defaults for Derivatives Calculation:
-RUN_DERIVATIVES_CALCULATION = False
-WORKING_DIR = 'F:/Lab Work Files/2-photon/'
-# WORKING_DIR = 'sample/'
+# Params for Derivatives Calculation:
+run_derivatives_calculation = True
+working_dir = 'sample/'
 
-STIM_1_NAME = '#1'
-STIM_2_NAME = '#2'
+stim_1_name = '#1'
+stim_2_name = '#2'
 
-RESP_DURATION = 2   # in sec, expected response duration
-STEP_DURATION = 10  # in sec
-N_EPOCHS = 1
+resp_duration = 2   # in sec, expected response duration
+step_duration = 10  # in sec
+n_epochs = 1
+drs_pattern = [[1],  # stim #1
+               [1]]  # stim #2
 
-
-# Defaults for Derivatives Calculation:
+# Params for Traces Calculation:
 # process all csv files with traces in the WORKING_DIR directory:
-RUN_TRACES_CALCULATION = True
+run_traces_calculation = True
 
-RELATIVE_VALUES = True
-MEAN_COL_ORDER = 2
-COLS_PER_ROI = 4
+relative_values = True
+mean_col_order = 2
+cols_per_roi = 4
 
-TIME_BEFORE_TRIG = 10
-BASELINE_DURATON = 10
-TIME_AFTER_TRIG = None
+time_before_trig = 10
+baseline_duraton = 10
+time_after_trig = None
 
 
-# TO_DO_LIST - acceptable individual parameters:
+# to_do_list - acceptable individual parameters:
 # 'drs_pattern'       : [[1, 0, 1, 0, 1, 0],  # stim#1
 #                        [0, 1, 0, 0, 1, 0]]  # stim#2
-# 'response_duration' : float in sec, expected response duration
+# 'resp_duration'     : float in sec, expected response duration
 # 'output_suffix'     : str
 # 'step_duration'     : float in sec
 # 'n_epochs'          : int > 0
@@ -40,9 +41,41 @@ TIME_AFTER_TRIG = None
 # 'stim_2_name'       : str
 
 
-TO_DO_LIST = []
+to_do_list = [
+    ['Field_3_PI_0001_ch2_registered.tif',
+     {
+         'n_epochs': 10,
+         'stim_1_name': 'A',
+         'stim_2_name': 'C',
+         'drs_pattern': [[1, 0],  # stim#1
+                         [1, 1]]  # stim#2
+     }
+     ],
+]
 
 
 if __name__ == '__main__':
     import classes
-    classes.main()
+    classes.main(
+        working_dir,
+        to_do_list,
+
+        run_derivatives_calculation,
+        run_traces_calculation,
+
+        resp_duration,
+        step_duration,
+        n_epochs,
+        drs_pattern,
+
+        stim_1_name,
+        stim_2_name,
+
+        relative_values,
+        mean_col_order,
+        cols_per_roi,
+
+        time_before_trig,
+        baseline_duraton,
+        time_after_trig,
+    )

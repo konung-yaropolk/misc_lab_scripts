@@ -10,25 +10,6 @@ from scipy.ndimage import gaussian_filter
 import settings as s
 
 # Defaults:
-WORKING_DIR = s.WORKING_DIR
-
-RESP_DURATION = s.RESP_DURATION    # in s
-STEP_DURATION = s.STEP_DURATION    # in s
-N_EPOCHS = s.N_EPOCHS
-
-
-STIM_1_NAME = s.STIM_1_NAME
-STIM_2_NAME = s.STIM_2_NAME
-
-RUN_DERIVATIVES_CALCULATION = s.RUN_DERIVATIVES_CALCULATION
-RUN_TRACES_CALCULATION = s.RUN_TRACES_CALCULATION
-
-RELATIVE_VALUES = s.RELATIVE_VALUES
-MEAN_COL_ORDER = s.MEAN_COL_ORDER
-COLS_PER_ROI = s.COLS_PER_ROI
-TIME_BEFORE_TRIG = s.TIME_BEFORE_TRIG
-BASELINE_DURATON = s.BASELINE_DURATON
-TIME_AFTER_TRIG = s.TIME_AFTER_TRIG
 
 CALCULATIONS_SUBFOLDER_NAME = '_CALCULATIONS_auto_'
 DERIVATIVES_SUBFOLDER_NAME = '_DERIVATIVES_auto_'
@@ -77,13 +58,13 @@ class TracesCalc():
 
     def __init__(self,
                  file_path,
-                 time_before_trig=TIME_BEFORE_TRIG,
-                 time_after_trig=TIME_AFTER_TRIG,
-                 baseline_duraton=BASELINE_DURATON,
-                 relative_values=RELATIVE_VALUES,
-                 mean_col_order=MEAN_COL_ORDER,
-                 cols_per_roi=COLS_PER_ROI,
-                 trig_number=1,
+                 time_before_trig,
+                 time_after_trig,
+                 baseline_duraton,
+                 relative_values,
+                 mean_col_order,
+                 cols_per_roi,
+                 trig_number,
                  ):
 
         self.file_path = file_path
@@ -666,24 +647,25 @@ class Movie(DerivativesCalc, TracesCalc):
 
     def __init__(self,
                  file_path,
-                 output_suffix='',
-                 response_duration=RESP_DURATION,
-                 drs_pattern=[[None], [None]],
-                 step_duration=STEP_DURATION,
-                 n_epochs=N_EPOCHS,
-                 start_from_epoch=1,
-                 trig_number=1,
-                 time_before_trig=TIME_BEFORE_TRIG,
-                 time_after_trig=TIME_AFTER_TRIG,
-                 baseline_duraton=BASELINE_DURATON,
-                 relative_values=RELATIVE_VALUES,
-                 mean_col_order=MEAN_COL_ORDER,
-                 cols_per_roi=COLS_PER_ROI,
-                 stim_1_name=STIM_1_NAME,
-                 stim_2_name=STIM_2_NAME,
+                 working_dir,
+                 output_suffix,
+                 response_duration,
+                 drs_pattern,
+                 step_duration,
+                 n_epochs,
+                 start_from_epoch,
+                 trig_number,
+                 time_before_trig,
+                 time_after_trig,
+                 baseline_duraton,
+                 relative_values,
+                 mean_col_order,
+                 cols_per_roi,
+                 stim_1_name,
+                 stim_2_name,
                  **misc):
 
-        self.file_path = WORKING_DIR + file_path
+        self.file_path = working_dir + file_path
         self.path = os.path.split(self.file_path)[0]
         self.file = os.path.split(self.file_path)[1]
         self.filename_suffix, self.file_nosuffix = self.__calculate_suffix_and_nosuffix(
@@ -910,84 +892,60 @@ class MetadataParser():
 
 def main(
 
-    working_dir=s.WORKING_DIR,
-    to_do_list=s.TO_DO_LIST,
+    working_dir=s.working_dir,
+    to_do_list=s.to_do_list,
 
-    run_derivatives_calculation=s.RUN_DERIVATIVES_CALCULATION,
-    run_traces_calculation=s.RUN_TRACES_CALCULATION,
+    run_derivatives_calculation=s.run_derivatives_calculation,
+    run_traces_calculation=s.run_traces_calculation,
 
-    resp_duration=s.RESP_DURATION,    # in s
-    step_duration=s.STEP_DURATION,    # in s
-    n_epochs=s.N_EPOCHS,
+    resp_duration=s.resp_duration,
+    step_duration=s.step_duration,
+    n_epochs=s.n_epochs,
+    drs_pattern=s.drs_pattern,
 
 
-    stim_1_name=s.STIM_1_NAME,
-    stim_2_name=s.STIM_2_NAME,
+    stim_1_name=s.stim_1_name,
+    stim_2_name=s.stim_2_name,
 
-    relative_values=s.RELATIVE_VALUES,
-    mean_col_order=s.MEAN_COL_ORDER,
-    cols_per_roi=s.COLS_PER_ROI,
-    time_before_trig=s.TIME_BEFORE_TRIG,
-    baseline_duraton=s.BASELINE_DURATON,
-    time_after_trig=s.TIME_AFTER_TRIG,
+    relative_values=s.relative_values,
+    mean_col_order=s.mean_col_order,
+    cols_per_roi=s.cols_per_roi,
+    time_before_trig=s.time_before_trig,
+    baseline_duraton=s.baseline_duraton,
+    time_after_trig=s.time_after_trig,
 
 ):
 
-    global WORKING_DIR
-    global TO_DO_LIST
+    for item in to_do_list:
 
-    global RUN_DERIVATIVES_CALCULATION
-    global RUN_TRACES_CALCULATION
-
-    global RESP_DURATION
-    global STEP_DURATION
-    global N_EPOCHS
-
-    global STIM_1_NAME
-    global STIM_2_NAME
-
-    global RELATIVE_VALUES
-    global MEAN_COL_ORDER
-    global COLS_PER_ROI
-    global TIME_BEFORE_TRIG
-    global BASELINE_DURATON
-    global TIME_AFTER_TRIG
-
-    WORKING_DIR = working_dir
-    TO_DO_LIST = to_do_list
-
-    RUN_DERIVATIVES_CALCULATION = run_derivatives_calculation
-    RUN_TRACES_CALCULATION = run_traces_calculation
-
-    RESP_DURATION = resp_duration
-    STEP_DURATION = step_duration
-    N_EPOCHS = n_epochs
-
-    STIM_1_NAME = stim_1_name
-    STIM_2_NAME = stim_2_name
-
-    RELATIVE_VALUES = relative_values
-    MEAN_COL_ORDER = mean_col_order
-    COLS_PER_ROI = cols_per_roi
-    TIME_BEFORE_TRIG = time_before_trig
-    BASELINE_DURATON = baseline_duraton
-    TIME_AFTER_TRIG = time_after_trig
-
-    print(RESP_DURATION)
-
-    for item in TO_DO_LIST:
+        item[1].setdefault('output_suffix', '')
+        item[1].setdefault('working_dir', working_dir)
+        item[1].setdefault('response_duration', resp_duration)
+        item[1].setdefault('drs_pattern', drs_pattern)
+        item[1].setdefault('step_duration', step_duration)
+        item[1].setdefault('n_epochs', n_epochs)
+        item[1].setdefault('start_from_epoch', 1)
+        item[1].setdefault('trig_number', 1)
+        item[1].setdefault('time_before_trig', time_before_trig)
+        item[1].setdefault('time_after_trig', time_after_trig)
+        item[1].setdefault('baseline_duraton', baseline_duraton)
+        item[1].setdefault('relative_values', relative_values)
+        item[1].setdefault('mean_col_order', mean_col_order)
+        item[1].setdefault('cols_per_roi', cols_per_roi)
+        item[1].setdefault('stim_1_name', stim_1_name)
+        item[1].setdefault('stim_2_name', stim_2_name)
 
         print(' ')
         movie = Movie(item[0], **item[1])
 
-        if RUN_DERIVATIVES_CALCULATION:
+        if run_derivatives_calculation:
             # try:
             movie.derivatives_calculate()
             # except Exception as e:
             #     print(e)
             #     pass
 
-        if RUN_TRACES_CALCULATION:
+        if run_traces_calculation:
             movie.csv_process()
             pass
 

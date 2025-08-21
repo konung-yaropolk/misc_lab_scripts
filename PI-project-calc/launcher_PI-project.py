@@ -1,36 +1,37 @@
 #!/usr/bin/env python3
-# Settings block:
+# Default Settings block
+# Theese parameters will be used if not specified in the launchers
 
-# Defaults for Derivatives Calculation:
-RUN_DERIVATIVES_CALCULATION = True
-WORKING_DIR = 'F:/Lab Work Files/2-photon/'
-# WORKING_DIR = 'sample/'
+# Params for Derivatives Calculation:
+run_derivatives_calculation = True
+working_dir = 'F:/Lab Work Files/2-photon/'
 
-STIM_1_NAME = '#1'
-STIM_2_NAME = '#2'
+stim_1_name = '#1'
+stim_2_name = '#2'
 
-RESP_DURATION = 4  # in sec, expected response duration
-STEP_DURATION = 10  # in sec
-N_EPOCHS = 1
+resp_duration = 4   # in sec, expected response duration
+step_duration = 10  # in sec
+n_epochs = 1
+drs_pattern = [[1],  # stim #1
+               [1]]  # stim #2
 
-
-# Defaults for Derivatives Calculation:
+# Params for Traces Calculation:
 # process all csv files with traces in the WORKING_DIR directory:
-RUN_TRACES_CALCULATION = False
+run_traces_calculation = True
 
-RELATIVE_VALUES = True
-MEAN_COL_ORDER = 2
-COLS_PER_ROI = 4
+relative_values = True
+mean_col_order = 2
+cols_per_roi = 4
 
-TIME_BEFORE_TRIG = 10
-BASELINE_DURATON = 10
-TIME_AFTER_TRIG = None
+time_before_trig = 10
+baseline_duraton = 10
+time_after_trig = None
 
 
-# TO_DO_LIST - acceptable individual parameters:
+# to_do_list - acceptable individual parameters:
 # 'drs_pattern'       : [[1, 0, 1, 0, 1, 0],  # stim#1
 #                        [0, 1, 0, 0, 1, 0]]  # stim#2
-# 'response_duration' : float in sec, expected response duration
+# 'resp_duration'     : float in sec, expected response duration
 # 'output_suffix'     : str
 # 'step_duration'     : float in sec
 # 'n_epochs'          : int > 0
@@ -40,7 +41,8 @@ TIME_AFTER_TRIG = None
 # 'stim_2_name'       : str
 
 
-TO_DO_LIST = [
+to_do_list = [
+
 
     # ['Field_3_PI_0001_ch2_registered.tif',
     #  {
@@ -3607,23 +3609,25 @@ TO_DO_LIST = [
 if __name__ == '__main__':
     import classes
     classes.main(
-        working_dir=WORKING_DIR,
-        to_do_list=TO_DO_LIST,
+        working_dir,
+        to_do_list,
 
-        run_derivatives_calculation=RUN_DERIVATIVES_CALCULATION,
-        run_traces_calculation=RUN_TRACES_CALCULATION,
+        run_derivatives_calculation,
+        run_traces_calculation,
 
-        resp_duration=RESP_DURATION,   
-        step_duration=STEP_DURATION,   
-        n_epochs=N_EPOCHS,
+        resp_duration,
+        step_duration,
+        n_epochs,
+        drs_pattern,
 
-        stim_1_name=STIM_1_NAME,
-        stim_2_name=STIM_2_NAME,
+        stim_1_name,
+        stim_2_name,
 
-        relative_values=RELATIVE_VALUES,
-        mean_col_order=MEAN_COL_ORDER,
-        cols_per_roi=COLS_PER_ROI,
-        time_before_trig=TIME_BEFORE_TRIG,
-        baseline_duraton=BASELINE_DURATON,
-        time_after_trig=TIME_AFTER_TRIG,
+        relative_values,
+        mean_col_order,
+        cols_per_roi,
+
+        time_before_trig,
+        baseline_duraton,
+        time_after_trig,
     )
