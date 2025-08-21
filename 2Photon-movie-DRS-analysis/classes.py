@@ -16,6 +16,10 @@ CALCULATIONS_SUBFOLDER_NAME = '_CALCULATIONS_auto_'
 DERIVATIVES_SUBFOLDER_NAME = '_DERIVATIVES_auto_'
 
 
+# Mutable globals:
+LAST_VERTICAL_SHIFT = 0
+
+
 class Helpers():
 
     def save_tiff(self, output_path, data, metadata={}):
@@ -56,41 +60,6 @@ class Helpers():
 
 
 class TracesCalc():
-
-    def __init__(self,
-                 file_path,
-                 time_before_trig,
-                 time_after_trig,
-                 baseline_duraton,
-                 relative_values,
-                 mean_col_order,
-                 cols_per_roi,
-                 trig_number,
-                 sigmas_treshold,
-                 ):
-
-        self.file_path = file_path
-        self.path = os.path.split(self.file_path)[0]
-        self.file = os.path.split(self.file_path)[1]
-
-        self.time_before_trig = time_before_trig
-        self.time_after_trig = time_after_trig
-        self.baseline_duraton = baseline_duraton
-        self.relative_values = relative_values
-        self.mean_col_order = mean_col_order
-        self.cols_per_roi = cols_per_roi
-
-        self.trig_number = trig_number-1
-
-        self.sigmas_treshold = sigmas_treshold
-
-        Parser = MetadataParser()
-        self.events, self.sampling_interval, self.movie_duration = Parser.Parse(
-            self.path, self.file_nosuffix)
-
-        self.event = self.events[trig_number]
-        self.event_name = self.events[trig_number][0]
-        self.start = self.events[trig_number][1]
 
     def file_finder(self, pattern, nonrecursive=False):
         files_list = []  # To store the paths of .txt files
@@ -366,6 +335,21 @@ class TracesCalc():
                 x_manual_tick_labels=['{}+{}'.format(
                     self.stim_1_name, self.stim_2_name), self.stim_2_name],)
 
+        # vertically shifted traces plots:
+        global LAST_VERTICAL_SHIFT
+        print(LAST_VERTICAL_SHIFT, 'fff')
+        print(self.vertical_shift, 'eee')
+
+        if self.use_last_vertical_shift == True:
+            self.vertical_shift = LAST_VERTICAL_SHIFT
+
+        if not self.vertical_shift or self.vertical_shift == 0:
+            vertical_shift = np.amax(n2_ampl_list_each_by_roi)
+        else:
+            vertical_shift = self.vertical_shift
+
+        LAST_VERTICAL_SHIFT = vertical_shift
+
         # plot_stacked_traces all togather
         matrix = self.transpose(self.csv_matrix[:int(
             ((self.n_epochs+1) * self.step_duration * self.n_steps) / self.sampling_interval)])[:]
@@ -374,7 +358,7 @@ class TracesCalc():
                                  n2_bin_list_each_by_epoch,
                                  n2_bin_summary_by_rois,
                                  '{0}{1}/_full_traces_stacked_by_rois_auto_.png'.format(
-            csv_path, csv_file), shift=np.amax(n2_ampl_list_each_by_roi))
+            csv_path, csv_file), vertical_shift=vertical_shift)
 
         # plot_stacked_traces by groups
         chunk_size = 50
@@ -387,7 +371,7 @@ class TracesCalc():
                                      n2_bin_summary_by_rois[pos:pos +
                                                             chunk_size],
                                      '{0}{1}/_full_traces_stacked_by_rois_{2}-{3}_auto_.png'.format(
-                csv_path, csv_file, pos, pos+chunk_size), shift=np.amax(n2_ampl_list_each_by_roi))
+                csv_path, csv_file, pos, pos+chunk_size), vertical_shift=vertical_shift)
 
         # plot_traces_by_rois
         # for i in range(len(n1n2_raw_line_list)):
@@ -444,6 +428,7 @@ class TracesCalc():
             plot = AutoStatLib.StatPlots.BarStatPlot(data, dependent=True)
         plot.plot()
         plot.save(path)
+        plot.close()
 
     def plot_traces_by_rois(self, array1, array2, path):
         plt.figure()
@@ -461,28 +446,25 @@ class TracesCalc():
         plt.savefig(path)
         plt.close()
 
-    def plot_stacked_traces(self, x, array, bin, bin_summary_by_rois, path, shift=1.2):
+    def plot_stacked_traces(self, x, array, bin, bin_summary_by_rois, path, vertical_shift=1):
         plt.figure(figsize=(10, 10))
 
         for i, y in enumerate(array[1:]):
             color = 'g-' if bin_summary_by_rois[i] else 'k-'
-            shifted_y = [val + i * shift for val in y]
-            plt.plot(x, shifted_y, color, linewidth=0.7, alpha=1)
+            vertical_shifted_y = [val + i * vertical_shift for val in y]
+            plt.plot(x, vertical_shifted_y, color, linewidth=0.7, alpha=1)
 
-            bin_dots = [j + i * shift for j, event in enumerate(bin[i])]
-
-            # shifted_y_dots = [val for val in bin_dots]
-            # plt.plot([j for j in bin[i]],  bin_dots,
-            #         'g.', linewidth=2, alpha=1)
+            bin_dots = [j + i * vertical_shift for j,
+                        event in enumerate(bin[i])]
 
             plt.plot([j*20+10 if bin[i][j] else None for j, dot in enumerate(bin[i])],
-                     [i*shift]*len((bin[i])), 'rx')
+                     [i*vertical_shift]*len((bin[i])), 'rx')
 
-        # Set y-tick labels divided by shift, starting from 1, and rounded to integers
+        # Set y-tick labels divided by vertical_shift, starting from 1, and rounded to integers
         ax = plt.gca()
         # y_ticks = ax.get_yticks()
         # ax.set_yticks(y_ticks)
-        # ax.set_yticklabels([f'{int(round(y / shift + 1))}' for y in y_ticks])
+        # ax.set_yticklabels([f'{int(round(y / vertical_shift + 1))}' for y in y_ticks])
 
         # Remove y-axis ticks
         ax.set_yticks([])
@@ -499,7 +481,7 @@ class TracesCalc():
                  verticalalignment='top')
 
         for i, y in enumerate(array[1:]):
-            plt.text(-20, (i*shift), f'{i+1}', horizontalalignment='center',
+            plt.text(-20, (i*vertical_shift), f'{i+1}', horizontalalignment='center',
                      verticalalignment='bottom')
 
         # Save the plot as plot.png
@@ -703,6 +685,8 @@ class Movie(DerivativesCalc, TracesCalc):
                  stim_1_name,
                  stim_2_name,
                  sigmas_treshold,
+                 vertical_shift,
+                 use_last_vertical_shift,
                  **misc):
 
         self.file_path = working_dir + file_path
@@ -721,6 +705,8 @@ class Movie(DerivativesCalc, TracesCalc):
         self.trig_number = trig_number-1
 
         self.sigmas_treshold = sigmas_treshold
+        self.vertical_shift = vertical_shift
+        self.use_last_vertical_shift = use_last_vertical_shift
 
         self.time_before_trig = time_before_trig
         self.time_after_trig = time_after_trig
@@ -955,6 +941,8 @@ def main(
     time_before_trig=s.time_before_trig,
     baseline_duraton=s.baseline_duraton,
     sigmas_treshold=s.sigmas_treshold,
+    vertical_shift=s.vertical_shift,
+    use_last_vertical_shift=s.use_last_vertical_shift,
     time_after_trig=s.time_after_trig,
 
 ):
@@ -978,6 +966,8 @@ def main(
         item[1].setdefault('stim_1_name', stim_1_name)
         item[1].setdefault('stim_2_name', stim_2_name)
         item[1].setdefault('sigmas_treshold', sigmas_treshold)
+        item[1].setdefault('vertical_shift', vertical_shift)
+        item[1].setdefault('use_last_vertical_shift', use_last_vertical_shift)
 
         print(' ')
         movie = Movie(item[0], **item[1])

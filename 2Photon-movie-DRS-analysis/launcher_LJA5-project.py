@@ -28,6 +28,13 @@ baseline_duraton = 10
 sigmas_treshold = 5
 time_after_trig = None
 
+# vertical vertical_shift for all-traces graph in dF/F0 units,
+# set 0 to make vertical_shift the same as largest responce
+vertical_shift = 0
+
+# use vertical shift from previous run to plot in the same scales
+use_last_vertical_shift = False
+
 
 # Params explanation:
 #
@@ -67,6 +74,7 @@ to_do_list = [
          'n_epochs': 10,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
+         'use_last_vertical_shift': True,
          'drs_pattern': [[1, 0],  # stim#1
                          [1, 1]]  # stim#2
      }
@@ -93,6 +101,7 @@ to_do_list = [
          'n_epochs': 10,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
+         'use_last_vertical_shift': True,
          'drs_pattern': [[1, 0],  # stim#1
                          [1, 1]]  # stim#2
      }
@@ -118,6 +127,7 @@ to_do_list = [
          'n_epochs': 10,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
+         'use_last_vertical_shift': True,
          'drs_pattern': [[1, 0],  # stim#1
                          [1, 1]]  # stim#2
      }
@@ -144,10 +154,16 @@ to_do_list = [
          'n_epochs': 10,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
+         'use_last_vertical_shift': True,
          'drs_pattern': [[1, 0],  # stim#1
                          [1, 1]]  # stim#2
      }
      ],
+
+
+
+
+
 
 
 
@@ -415,5 +431,7 @@ if __name__ == '__main__':
         time_before_trig,
         baseline_duraton,
         sigmas_treshold,
+        vertical_shift,
+        use_last_vertical_shift,
         time_after_trig,
     )

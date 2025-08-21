@@ -28,6 +28,13 @@ baseline_duraton = 10
 sigmas_treshold = 5
 time_after_trig = None
 
+# vertical vertical_shift for all-traces graph in dF/F0 units,
+# set 0 to make vertical_shift the same as largest responce
+vertical_shift = 0
+
+# use vertical shift from previous run to plot in the same scales
+use_last_vertical_shift = False
+
 
 # Params explanation:
 #
@@ -3632,5 +3639,7 @@ if __name__ == '__main__':
         time_before_trig,
         baseline_duraton,
         sigmas_treshold,
+        vertical_shift,
+        use_last_vertical_shift,
         time_after_trig,
     )
