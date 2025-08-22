@@ -54,26 +54,26 @@ use_last_vertical_shift = False
 
 to_do_list = [
 
-    ['Field_1_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
+    # ['Field_1_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
 
-    ['Field_3_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'start_from_epoch': 1,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
+    # ['Field_3_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'start_from_epoch': 1,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
 ]
 
 
