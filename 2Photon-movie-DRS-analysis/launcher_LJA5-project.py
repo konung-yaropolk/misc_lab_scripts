@@ -3,7 +3,7 @@
 # Theese parameters will be used if not specified in the launchers
 
 # Params for Derivatives Calculation:
-run_derivatives_calculation = False
+run_derivatives_calculation = True
 working_dir = 'F:/Lab Work Files/2-photon/'
 
 
@@ -36,6 +36,9 @@ vertical_shift = 0
 
 # use vertical shift from previous run to plot in the same scales
 use_last_vertical_shift = False
+
+# use binarixation based on SD from previous run to compare the same ROIs
+use_last_SD_filter = False
 
 
 # Params explanation:
@@ -118,6 +121,7 @@ to_do_list = [
          'output_suffix': 'Dynorphin_1uM',
          'n_epochs': 10,
          'use_last_vertical_shift': True,
+         'use_last_SD_filter': True,
          'drs_pattern': [[1, 0],  # stim#1
                          [1, 1]]  # stim#2
      }
@@ -387,5 +391,6 @@ if __name__ == '__main__':
         sigmas_treshold,
         vertical_shift,
         use_last_vertical_shift,
+        use_last_SD_filter,
         time_after_trig,
     )

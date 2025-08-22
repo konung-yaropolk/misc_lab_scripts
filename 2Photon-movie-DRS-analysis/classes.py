@@ -17,7 +17,8 @@ DERIVATIVES_SUBFOLDER_NAME = '_DERIVATIVES_auto_'
 
 
 # Mutable globals:
-LAST_VERTICAL_SHIFT = 0
+LAST_VERTICAL_SHIFT = []
+LAST_SD_FILTER = []
 
 
 class Helpers():
@@ -255,7 +256,7 @@ class TracesCalc():
 
         return ampl_mean_of_rois_by_epoch, ampl_mean_of_epochs_by_rois, ampl_list_each_by_roi, ampl_list_each_by_epoch, bin_list_each_by_epoch, raw_line_list
 
-    def detailed_stats(self, csv_path, csv_file):
+    def detailed_stats(self, csv_path, csv_file, csv_order):
 
         for i, [s1, s2] in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
             match [s1, s2]:
@@ -287,10 +288,9 @@ class TracesCalc():
             sum(i)/len(i) > 0.5 for i in s2_bin_list_each_by_epoch]
 
         def filter_list(list,
-                        bin=s2_bin_summary_by_rois,
+                        bin,
                         replace=True,
-                        replace_with=None,
-                        range=[0, 0]):
+                        replace_with=None):
 
             if replace == True:
                 output = [value if bin[i] else replace_with for i, value in
@@ -305,27 +305,36 @@ class TracesCalc():
                 csv_path, csv_file, self.stim_1_name, self.stim_2_name))
 
         # csv file of #1#2 and #2 amplitudes by rois epochs average
+        global LAST_SD_FILTER
+
+        if self.use_last_SD_filter == True and len(LAST_SD_FILTER[csv_order]) == len(s2_bin_summary_by_rois):
+            filter = LAST_SD_FILTER[csv_order]
+        else:
+            filter = s2_bin_summary_by_rois
+
+        LAST_SD_FILTER.append(s2_bin_summary_by_rois)
 
         header = ['{}+{}'.format(
             self.stim_1_name, self.stim_2_name), self.stim_2_name, 'ratio col1/col2']
 
         self.csv_write([
-            ['Unfiltered', '', '', '', '', 'Filtered'],
+            ['Unfiltered', '', '', '', '',
+                'Filtered by {} SD'.format(self.sigmas_treshold)],
             header+['']*2+header,
             *self.transpose([s1s2_ampl_mean_of_epochs_by_rois,
                              s2_ampl_mean_of_epochs_by_rois, 1 /
                              ampl_s2_to_s1s2_ratio_mean_of_epochs_by_rois, '', '', filter_list(
-                                 s1s2_ampl_mean_of_epochs_by_rois),
-                             filter_list(s2_ampl_mean_of_epochs_by_rois), filter_list(1/ampl_s2_to_s1s2_ratio_mean_of_epochs_by_rois)])
+                                 s1s2_ampl_mean_of_epochs_by_rois, filter),
+                             filter_list(s2_ampl_mean_of_epochs_by_rois, filter), filter_list(1/ampl_s2_to_s1s2_ratio_mean_of_epochs_by_rois, filter)])
         ],
-            csv_path+csv_file, csv_file, '_by_rois_mean_of_epochs_{0}{1}_and_{1}_ampl_auto_'.format(
-            self.stim_1_name, self.stim_2_name)
+            csv_path+csv_file, csv_file, '_by_rois_mean_of_epochs_{0}{1}_and_{1}_ampl_{2}_auto_'.format(
+            self.stim_1_name, self.stim_2_name, self.output_suffix)
         )
 
         # plot_s1s2_s2_roi_stats for all rois
-        self.plot_s1s2_s2_roi_stats(filter_list(s1s2_ampl_mean_of_epochs_by_rois, replace=False),
+        self.plot_s1s2_s2_roi_stats(filter_list(s1s2_ampl_mean_of_epochs_by_rois, filter, replace=False),
                                     filter_list(
-                                        s2_ampl_mean_of_epochs_by_rois, replace=False),
+                                        s2_ampl_mean_of_epochs_by_rois, filter, replace=False),
                                     '{0}{1}/_by_rois_{2}{3}_{3}_ampl_auto_.png'.format(
                                         csv_path, csv_file, self.stim_1_name, self.stim_2_name),
                                     dependent=True,
@@ -347,14 +356,14 @@ class TracesCalc():
         global LAST_VERTICAL_SHIFT
 
         if self.use_last_vertical_shift == True:
-            self.vertical_shift = LAST_VERTICAL_SHIFT
+            self.vertical_shift = LAST_VERTICAL_SHIFT[-csv_order]
 
         if not self.vertical_shift or self.vertical_shift == 0:
             vertical_shift = np.amax(s2_ampl_list_each_by_roi)
         else:
             vertical_shift = self.vertical_shift
 
-        LAST_VERTICAL_SHIFT = vertical_shift
+        LAST_VERTICAL_SHIFT.append(vertical_shift)
 
         # plot_stacked_traces all togather
         matrix = self.transpose(self.csv_matrix[int(
@@ -506,7 +515,7 @@ class TracesCalc():
 
         if csv_list:
 
-            for csv_path, csv_file in csv_list:
+            for i, [csv_path, csv_file] in enumerate(csv_list):
                 content_raw = self.csv_read(csv_path, csv_file)
                 content = self.csv_transform(content_raw)
 
@@ -529,7 +538,7 @@ class TracesCalc():
 
                 if detailed_stats:
                     self.detailed_stats(
-                        csv_path, csv_file + '.csv' + CALCULATIONS_SUBFOLDER_NAME + self.output_suffix)
+                        csv_path, csv_file + '.csv' + CALCULATIONS_SUBFOLDER_NAME + self.output_suffix, i)
 
             result = '***    Done: {} csv files for      {}'.format(
                 len(csv_list), self.file_path)
@@ -693,6 +702,7 @@ class Movie(DerivativesCalc, TracesCalc):
                  sigmas_treshold,
                  vertical_shift,
                  use_last_vertical_shift,
+                 use_last_SD_filter,
                  **misc):
 
         self.file_path = working_dir + file_path
@@ -713,6 +723,7 @@ class Movie(DerivativesCalc, TracesCalc):
         self.sigmas_treshold = sigmas_treshold
         self.vertical_shift = vertical_shift
         self.use_last_vertical_shift = use_last_vertical_shift
+        self.use_last_SD_filter = use_last_SD_filter
 
         self.time_before_trig = time_before_trig
         self.time_after_trig = time_after_trig
@@ -949,6 +960,7 @@ def main(
     sigmas_treshold=s.sigmas_treshold,
     vertical_shift=s.vertical_shift,
     use_last_vertical_shift=s.use_last_vertical_shift,
+    use_last_SD_filter=s.use_last_SD_filter,
     time_after_trig=s.time_after_trig,
 
 ):
@@ -974,6 +986,7 @@ def main(
         item[1].setdefault('sigmas_treshold', sigmas_treshold)
         item[1].setdefault('vertical_shift', vertical_shift)
         item[1].setdefault('use_last_vertical_shift', use_last_vertical_shift)
+        item[1].setdefault('use_last_SD_filter', use_last_SD_filter)
 
         print(' ')
         movie = Movie(item[0], **item[1])

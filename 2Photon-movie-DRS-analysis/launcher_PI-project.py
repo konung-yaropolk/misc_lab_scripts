@@ -37,6 +37,9 @@ vertical_shift = 0
 # use vertical shift from previous run to plot in the same scales
 use_last_vertical_shift = False
 
+# use binarixation based on SD from previous run to compare the same ROIs
+use_last_SD_filter = False
+
 
 # Params explanation:
 #
@@ -3644,5 +3647,6 @@ if __name__ == '__main__':
         sigmas_treshold,
         vertical_shift,
         use_last_vertical_shift,
+        use_last_SD_filter,
         time_after_trig,
     )
