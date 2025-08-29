@@ -227,7 +227,7 @@ class TracesCalc():
         bin_list = [bool(ampl > self.sigmas_treshold * np.std(traces[i][bl_indices]))
                     for i, ampl in enumerate(ampl_list)]
 
-        return ampl_mean_of_rois, ampl_list, bin_list, raw_line_list
+        return ampl_mean_of_rois, ampl_list, auc_mean_of_rois, auc_list, bin_list, raw_line_list
 
     def calc_traces_sequence(self, i):
 
@@ -236,7 +236,7 @@ class TracesCalc():
         delay = self.step_duration * i
         start = self.start_from_epoch-1
 
-        ampl_mean_of_rois_by_epoch, ampl_list_each_by_roi, bin_list_each_by_roi, raw_line_list = [
+        ampl_mean_of_rois_by_epoch, ampl_list_each_by_roi, auc_mean_of_rois_by_epoch, auc_list_each_by_roi, bin_list_each_by_roi, raw_line_list = [
 
             [
                 self.calculate_ampl_auc_bin(
@@ -245,31 +245,34 @@ class TracesCalc():
                     (i*interval) + delay,
                     (i*interval) + delay + self.step_duration/2
                 )[j] for i in range(start, count)
-            ] for j in range(4)
+            ] for j in range(6)
 
         ]
 
         ampl_list_each_by_epoch = self.transpose(ampl_list_each_by_roi)
+        auc_list_each_by_epoch = self.transpose(auc_list_each_by_roi)
         bin_list_each_by_epoch = self.transpose(bin_list_each_by_roi)
         ampl_mean_of_epochs_by_rois = [np.mean(epoch)
                                        for epoch in ampl_list_each_by_epoch]
+        auc_mean_of_epochs_by_rois = [np.mean(epoch)
+                                      for epoch in auc_list_each_by_epoch]
 
-        return ampl_mean_of_rois_by_epoch, ampl_mean_of_epochs_by_rois, ampl_list_each_by_roi, ampl_list_each_by_epoch, bin_list_each_by_epoch, raw_line_list
+        return ampl_mean_of_rois_by_epoch, ampl_mean_of_epochs_by_rois, ampl_list_each_by_roi, ampl_list_each_by_epoch, auc_mean_of_rois_by_epoch, auc_mean_of_epochs_by_rois, auc_list_each_by_roi, auc_list_each_by_epoch, bin_list_each_by_epoch, raw_line_list
 
     def detailed_stats(self, csv_path, csv_file, csv_order):
 
         for i, [s1, s2] in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
             match [s1, s2]:
                 case [1, 1]:
-                    s1s2_ampl_mean_of_rois_by_epoch, s1s2_ampl_mean_of_epochs_by_rois, s1s2_ampl_list_each_by_roi, s1s2_ampl_list_each_by_epoch, s1s2_bin_list_each_by_epoch, s1s2_raw_line_list = self.calc_traces_sequence(
+                    s1s2_ampl_mean_of_rois_by_epoch, s1s2_ampl_mean_of_epochs_by_rois, s1s2_ampl_list_each_by_roi, s1s2_ampl_list_each_by_epoch, s1s2_auc_mean_of_rois_by_epoch, s1s2_auc_mean_of_epochs_by_rois, s1s2_auc_list_each_by_roi, s1s2_auc_list_each_by_epoch, s1s2_bin_list_each_by_epoch, s1s2_raw_line_list = self.calc_traces_sequence(
                         i)
                     self.s1s2_delay = i*self.step_duration
                 case [1, 0]:
-                    s1_ampl_mean_of_rois_by_epoch,  s1_ampl_mean_of_epochs_by_rois,  s1_ampl_list_each_by_roi,  s1_ampl_list_each_by_epoch, s1_bin_list_each_by_epoch, s1_raw_line_list = self.calc_traces_sequence(
+                    s1_ampl_mean_of_rois_by_epoch,  s1_ampl_mean_of_epochs_by_rois,  s1_ampl_list_each_by_roi,  s1_ampl_list_each_by_epoch, s1_auc_mean_of_rois_by_epoch,  s1_auc_mean_of_epochs_by_rois,  s1_auc_list_each_by_roi,  s1_auc_list_each_by_epoch, s1_bin_list_each_by_epoch, s1_raw_line_list = self.calc_traces_sequence(
                         i)
                     self.s1_delay = i*self.step_duration
                 case [0, 1]:
-                    s2_ampl_mean_of_rois_by_epoch,  s2_ampl_mean_of_epochs_by_rois,  s2_ampl_list_each_by_roi, s2_ampl_list_each_by_epoch, s2_bin_list_each_by_epoch, s2_raw_line_list = self.calc_traces_sequence(
+                    s2_ampl_mean_of_rois_by_epoch,  s2_ampl_mean_of_epochs_by_rois,  s2_ampl_list_each_by_roi, s2_ampl_list_each_by_epoch, s2_auc_mean_of_rois_by_epoch,  s2_auc_mean_of_epochs_by_rois,  s2_auc_list_each_by_roi, s2_auc_list_each_by_epoch, s2_bin_list_each_by_epoch, s2_raw_line_list = self.calc_traces_sequence(
                         i)
                     self.s2_delay = i*self.step_duration
                 case [0, 0]: pass
@@ -331,7 +334,18 @@ class TracesCalc():
             self.stim_1_name, self.stim_2_name, self.output_suffix)
         )
 
-        # plot_s1s2_s2_roi_stats for all rois
+        # plot_s1s2_s2_roi_stats AUC for all rois
+        self.plot_s1s2_s2_roi_stats(filter_list(s1s2_auc_mean_of_epochs_by_rois, filter, replace=False),
+                                    filter_list(
+                                        s2_auc_mean_of_epochs_by_rois, filter, replace=False),
+                                    '{0}{1}/_by_rois_{2}{3}_{3}_AUC_auto_.png'.format(
+                                        csv_path, csv_file, self.stim_1_name, self.stim_2_name),
+                                    dependent=True,
+                                    y_label='AUC',
+                                    x_manual_tick_labels=['{}+{}'.format(
+                                        self.stim_1_name, self.stim_2_name), self.stim_2_name],)
+
+        # plot_s1s2_s2_roi_stats Ampl for all rois
         self.plot_s1s2_s2_roi_stats(filter_list(s1s2_ampl_mean_of_epochs_by_rois, filter, replace=False),
                                     filter_list(
                                         s2_ampl_mean_of_epochs_by_rois, filter, replace=False),
