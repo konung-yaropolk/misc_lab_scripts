@@ -205,6 +205,7 @@ class TracesCalc():
         # Lists to store peak amplitudes and AUCs for each trace
         ampl_list = []
         auc_list = []
+        bin_list = []
         raw_line_list = [x[whole_step_indices]-start]
 
         for trace in traces:
@@ -218,14 +219,20 @@ class TracesCalc():
             # AUC in signal period
             auc = np.trapz(corrected_trace[sig_indices], x[sig_indices])
             auc_list.append(auc)
+            # biarization
+            bin_list.append(ampl > self.sigmas_treshold * np.std(trace[bl_indices]))
 
             raw_line_list.append(corrected_trace[whole_step_indices])
+        
+            # # Debug plot
+            # print(ampl > self.sigmas_treshold * np.std(trace[bl_indices]))
+            # plt.plot(corrected_trace[whole_step_indices])
+            # plt.show()
+
 
         # Calculate mean amplitude and AUC across all traces
         ampl_mean_of_rois = np.mean(ampl_list)
         auc_mean_of_rois = np.mean(auc_list)
-        bin_list = [bool(ampl > self.sigmas_treshold * np.std(traces[i][bl_indices]))
-                    for i, ampl in enumerate(ampl_list)]
 
         return ampl_mean_of_rois, ampl_list, auc_mean_of_rois, auc_list, bin_list, raw_line_list
 
@@ -259,7 +266,7 @@ class TracesCalc():
 
         return ampl_mean_of_rois_by_epoch, ampl_mean_of_epochs_by_rois, ampl_list_each_by_roi, ampl_list_each_by_epoch, auc_mean_of_rois_by_epoch, auc_mean_of_epochs_by_rois, auc_list_each_by_roi, auc_list_each_by_epoch, bin_list_each_by_epoch, raw_line_list
 
-    def detailed_stats(self, csv_path, csv_file, csv_order):
+    def detailed_stats(self, csv_path, csv_file, csv_order, item):
 
         s1s2 = False
         s1 = False
@@ -332,8 +339,8 @@ class TracesCalc():
         # csv file of #1#2 and #2 amplitudes by rois epochs average
         global LAST_SD_FILTER
 
-        if self.use_last_SD_filter == True and len(LAST_SD_FILTER[csv_order]) == len(s2_bin_summary_by_rois):
-            filter = LAST_SD_FILTER[csv_order]
+        if self.use_last_SD_filter == True and len(LAST_SD_FILTER[-csv_order]) == len(s2_bin_summary_by_rois):
+            filter = LAST_SD_FILTER[-csv_order]
         else:
             filter = s2_bin_summary_by_rois
 
@@ -558,7 +565,7 @@ class TracesCalc():
         plt.savefig(path, transparent=False)
         plt.close()
 
-    def csv_process(self, detailed_stats=True):
+    def csv_process(self, item, detailed_stats=True):
         csv_list = []
         csv_list.extend(
             self.file_lister(
@@ -592,13 +599,14 @@ class TracesCalc():
 
                 if detailed_stats:
                     self.detailed_stats(
-                        csv_path, csv_file + '.csv' + CALCULATIONS_SUBFOLDER_NAME + self.output_suffix, i)
+                        csv_path, csv_file + '.csv' + CALCULATIONS_SUBFOLDER_NAME + self.output_suffix, len(csv_list), item)
+
 
             result = '***    Done: {} csv files for      {}'.format(
                 len(csv_list), self.file_path)
 
         else:
-            result = '---    Skip: no csv files for     {}'.format(
+            result = '---    Skip: no csv files for      {}'.format(
                 self.file_path)
 
         csv_list = None
@@ -799,6 +807,10 @@ class Movie(DerivativesCalc, TracesCalc):
         self.event = self.events[self.trig_number]
         self.event_name = self.events[self.trig_number][0]
         self.start = self.events[self.trig_number][1]
+
+        # Adjust sampling interval for specific microscope software quirk
+        # Coefficient estimated experimentally
+        self.sampling_interval -= self.sampling_interval * 0.0029183722446345
 
         print('\nFile: {} \nMovie duration: {} \nn frames: {} \nSampling interval, s: {} \nTrigger time, s: {}'.format(
             self.file_path, self.movie_duration, self.n_frames, self.sampling_interval, self.start))
@@ -1019,7 +1031,7 @@ def main(
 
 ):
 
-    for item in to_do_list:
+    for i, item in enumerate(to_do_list):
 
         item[1].setdefault('output_suffix', '')
         item[1].setdefault('working_dir', working_dir)
@@ -1053,7 +1065,7 @@ def main(
             #     pass
 
         if run_traces_calculation:
-            movie.csv_process()
+            movie.csv_process(i)
             pass
 
         del movie

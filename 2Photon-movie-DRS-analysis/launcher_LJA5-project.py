@@ -289,26 +289,6 @@ to_do_list = [
 
 
 
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
-    #  {
-    #      'trig_number': 1,
-    #      'output_suffix': 'control',
-    #      'n_epochs': 10,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
-    #  {
-    #      'trig_number': 7,
-    #      'output_suffix': 'Dynorphin_1uM',
-    #      'n_epochs': 10,
-    #      'use_last_vertical_shift': True,
-    #      'use_last_SD_filter': True,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
 
 
 
@@ -348,6 +328,58 @@ to_do_list = [
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
+     {
+         'trig_number': 1,
+         'output_suffix': '0.1Hz_control',
+         'n_epochs': 10,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [1, 1]]  # stim#2
+     }
+     ],
+    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
+     {
+         'trig_number': 7,
+         'output_suffix': '0.1Hz_Dynorphin_1uM',
+         'n_epochs': 10,
+         'use_last_vertical_shift': True,
+         'use_last_SD_filter': True,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [1, 1]]  # stim#2
+     }
+     ],
+    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
+     {
+         'trig_number': 3,
+         'output_suffix': '10Hz_control',
+         'n_epochs': 1,
+         'drs_pattern': [[0],  # stim#1
+                         [1]]  # stim#2
+     }
+     ],
+    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
+     {
+         'trig_number': 5,
+         'output_suffix': '10Hz_Dynorphin_1uM',
+         'n_epochs': 1,
+         'use_last_vertical_shift': True,
+         'use_last_SD_filter': True,
+         'drs_pattern': [[0],  # stim#1
+                         [1]]  # stim#2
+     }
+     ],
 
 
 
