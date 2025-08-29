@@ -261,29 +261,51 @@ class TracesCalc():
 
     def detailed_stats(self, csv_path, csv_file, csv_order):
 
+        s1s2 = False
+        s1 = False
+        s2 = False
         for i, [s1, s2] in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
             match [s1, s2]:
                 case [1, 1]:
                     s1s2_ampl_mean_of_rois_by_epoch, s1s2_ampl_mean_of_epochs_by_rois, s1s2_ampl_list_each_by_roi, s1s2_ampl_list_each_by_epoch, s1s2_auc_mean_of_rois_by_epoch, s1s2_auc_mean_of_epochs_by_rois, s1s2_auc_list_each_by_roi, s1s2_auc_list_each_by_epoch, s1s2_bin_list_each_by_epoch, s1s2_raw_line_list = self.calc_traces_sequence(
                         i)
                     self.s1s2_delay = i*self.step_duration
+                    s1s2=True
                 case [1, 0]:
                     s1_ampl_mean_of_rois_by_epoch,  s1_ampl_mean_of_epochs_by_rois,  s1_ampl_list_each_by_roi,  s1_ampl_list_each_by_epoch, s1_auc_mean_of_rois_by_epoch,  s1_auc_mean_of_epochs_by_rois,  s1_auc_list_each_by_roi,  s1_auc_list_each_by_epoch, s1_bin_list_each_by_epoch, s1_raw_line_list = self.calc_traces_sequence(
                         i)
                     self.s1_delay = i*self.step_duration
+                    s1=True
                 case [0, 1]:
                     s2_ampl_mean_of_rois_by_epoch,  s2_ampl_mean_of_epochs_by_rois,  s2_ampl_list_each_by_roi, s2_ampl_list_each_by_epoch, s2_auc_mean_of_rois_by_epoch,  s2_auc_mean_of_epochs_by_rois,  s2_auc_list_each_by_roi, s2_auc_list_each_by_epoch, s2_bin_list_each_by_epoch, s2_raw_line_list = self.calc_traces_sequence(
                         i)
                     self.s2_delay = i*self.step_duration
+                    s2=True
                 case [0, 0]: pass
                 case [None, None]: pass
                 # responses_each_by_roi, responses_each_by_epoch = self.calc_traces_sequence(i)
 
-        ampl_s2_to_s1s2_ratio_mean_of_epochs_by_rois = np.array(
-            s2_ampl_mean_of_epochs_by_rois) / np.array(s1s2_ampl_mean_of_epochs_by_rois)
+        try:
+            ampl_s2_to_s1s2_ratio_mean_of_epochs_by_rois = np.array(
+                s2_ampl_mean_of_epochs_by_rois) / np.array(s1s2_ampl_mean_of_epochs_by_rois)            
+            ampl_s2_to_s1s2_ratio_rois_by_epoch = np.array(
+                s2_ampl_list_each_by_epoch) / np.array(s1s2_ampl_list_each_by_epoch)
+        except NameError:
+            ampl_s2_to_s1s2_ratio_mean_of_epochs_by_rois = np.array([0.001]*len(s2_ampl_mean_of_epochs_by_rois))
+            ampl_s2_to_s1s2_ratio_rois_by_epoch = np.array([[0.001] for _ in range(len(s2_ampl_list_each_by_epoch))])
+            s1s2_ampl_mean_of_epochs_by_rois = np.array([0.001] * len(s2_auc_mean_of_epochs_by_rois))
+            s1s2_ampl_list_each_by_epoch = np.array([[0.001] * self.n_epochs])
 
-        ampl_s2_to_s1s2_ratio_rois_by_epoch = np.array(
-            s2_ampl_list_each_by_epoch) / np.array(s1s2_ampl_list_each_by_epoch)
+        try:
+            auc_s2_to_s1s2_ratio_mean_of_epochs_by_rois = np.array(
+                s2_auc_mean_of_epochs_by_rois) / np.array(s1s2_auc_mean_of_epochs_by_rois)            
+            auc_s2_to_s1s2_ratio_rois_by_epoch = np.array(
+                s2_auc_list_each_by_epoch) / np.array(s1s2_auc_list_each_by_epoch)
+        except NameError:
+            auc_s2_to_s1s2_ratio_mean_of_epochs_by_rois = np.array([0.001]*len(s2_auc_mean_of_epochs_by_rois))
+            auc_s2_to_s1s2_ratio_rois_by_epoch = np.array([[0.001] for _ in range(len(s2_auc_list_each_by_epoch))])
+            s1s2_auc_mean_of_epochs_by_rois = np.array([0.001] * len(s2_auc_mean_of_epochs_by_rois))
+            s1s2_auc_list_each_by_epoch = np.array([[0.001] * self.n_epochs])
 
         # Binarization:
 
@@ -320,6 +342,8 @@ class TracesCalc():
         header = ['{}+{}'.format(
             self.stim_1_name, self.stim_2_name), self.stim_2_name, 'ratio col1/col2']
 
+
+        # CSV summary Amplitude
         self.csv_write([
             ['Unfiltered', '', '', '', '',
                 'Filtered by {} SD'.format(self.sigmas_treshold)],
@@ -334,11 +358,26 @@ class TracesCalc():
             self.stim_1_name, self.stim_2_name, self.output_suffix)
         )
 
+        # CSV summary AUC
+        self.csv_write([
+            ['Unfiltered', '', '', '', '',
+                'Filtered by {} SD'.format(self.sigmas_treshold)],
+            header+['']*2+header,
+            *self.transpose([s1s2_auc_mean_of_epochs_by_rois,
+                             s2_auc_mean_of_epochs_by_rois, 1 /
+                             auc_s2_to_s1s2_ratio_mean_of_epochs_by_rois, '', '', filter_list(
+                                 s1s2_ampl_mean_of_epochs_by_rois, filter),
+                             filter_list(s2_auc_mean_of_epochs_by_rois, filter), filter_list(1/auc_s2_to_s1s2_ratio_mean_of_epochs_by_rois, filter)])
+        ],
+            csv_path+csv_file, csv_file, '_by_rois_mean_of_epochs_{0}{1}_and_{1}_auc_{2}_auto_'.format(
+            self.stim_1_name, self.stim_2_name, self.output_suffix)
+        )
+
         # plot_s1s2_s2_roi_stats AUC for all rois
         self.plot_s1s2_s2_roi_stats(filter_list(s1s2_auc_mean_of_epochs_by_rois, filter, replace=False),
                                     filter_list(
                                         s2_auc_mean_of_epochs_by_rois, filter, replace=False),
-                                    '{0}{1}/_by_rois_{2}{3}_{3}_AUC_auto_.png'.format(
+                                    '{0}{1}/_by_rois_{2}{3}_{3}_auc_auto_.png'.format(
                                         csv_path, csv_file, self.stim_1_name, self.stim_2_name),
                                     dependent=True,
                                     y_label='AUC',
@@ -357,14 +396,15 @@ class TracesCalc():
                                         self.stim_1_name, self.stim_2_name), self.stim_2_name],)
 
         # plot_s1s2_s2_roi_stats for each roi during timeline
-        for i in range(len(s1s2_ampl_list_each_by_epoch)):
-            self.plot_s1s2_s2_roi_stats(s1s2_ampl_list_each_by_epoch[i],
-                                        s2_ampl_list_each_by_epoch[i],
-                                        '{0}{1}/_roi{2}_{3}{4}_{4}_ampl_auto_.png'.format(
-                csv_path, csv_file, i+1, self.stim_1_name, self.stim_2_name),
-                y_label=f'dF/F0        ROI {i+1}',
-                x_manual_tick_labels=['{}+{}'.format(
-                    self.stim_1_name, self.stim_2_name), self.stim_2_name],)
+        if s1s2 and s2:
+            for i in range(len(s1s2_ampl_list_each_by_epoch)):
+                self.plot_s1s2_s2_roi_stats(s1s2_ampl_list_each_by_epoch[i],
+                                            s2_ampl_list_each_by_epoch[i],
+                                            '{0}{1}/_roi{2}_{3}{4}_{4}_ampl_auto_.png'.format(
+                    csv_path, csv_file, i+1, self.stim_1_name, self.stim_2_name),
+                    y_label=f'dF/F0        ROI {i+1}',
+                    x_manual_tick_labels=['{}+{}'.format(
+                        self.stim_1_name, self.stim_2_name), self.stim_2_name],)
 
         # vertically shifted traces plots:
         global LAST_VERTICAL_SHIFT
