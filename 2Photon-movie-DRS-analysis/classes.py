@@ -217,18 +217,18 @@ class TracesCalc():
             ampl = np.max(corrected_trace[sig_indices])
             ampl_list.append(ampl)
             # AUC in signal period
-            auc = np.trapz(corrected_trace[sig_indices], x[sig_indices])
+            auc = np.trapezoid(corrected_trace[sig_indices], x[sig_indices])
             auc_list.append(auc)
             # biarization
-            bin_list.append(ampl > self.sigmas_treshold * np.std(trace[bl_indices]))
+            bin_list.append(ampl > self.sigmas_treshold *
+                            np.std(trace[bl_indices]))
 
             raw_line_list.append(corrected_trace[whole_step_indices])
-        
+
             # # Debug plot
             # print(ampl > self.sigmas_treshold * np.std(trace[bl_indices]))
             # plt.plot(corrected_trace[whole_step_indices])
             # plt.show()
-
 
         # Calculate mean amplitude and AUC across all traces
         ampl_mean_of_rois = np.mean(ampl_list)
@@ -277,41 +277,47 @@ class TracesCalc():
                     s1s2_ampl_mean_of_rois_by_epoch, s1s2_ampl_mean_of_epochs_by_rois, s1s2_ampl_list_each_by_roi, s1s2_ampl_list_each_by_epoch, s1s2_auc_mean_of_rois_by_epoch, s1s2_auc_mean_of_epochs_by_rois, s1s2_auc_list_each_by_roi, s1s2_auc_list_each_by_epoch, s1s2_bin_list_each_by_epoch, s1s2_raw_line_list = self.calc_traces_sequence(
                         i)
                     self.s1s2_delay = i*self.step_duration
-                    s1s2=True
+                    s1s2 = True
                 case [1, 0]:
                     s1_ampl_mean_of_rois_by_epoch,  s1_ampl_mean_of_epochs_by_rois,  s1_ampl_list_each_by_roi,  s1_ampl_list_each_by_epoch, s1_auc_mean_of_rois_by_epoch,  s1_auc_mean_of_epochs_by_rois,  s1_auc_list_each_by_roi,  s1_auc_list_each_by_epoch, s1_bin_list_each_by_epoch, s1_raw_line_list = self.calc_traces_sequence(
                         i)
                     self.s1_delay = i*self.step_duration
-                    s1=True
+                    s1 = True
                 case [0, 1]:
                     s2_ampl_mean_of_rois_by_epoch,  s2_ampl_mean_of_epochs_by_rois,  s2_ampl_list_each_by_roi, s2_ampl_list_each_by_epoch, s2_auc_mean_of_rois_by_epoch,  s2_auc_mean_of_epochs_by_rois,  s2_auc_list_each_by_roi, s2_auc_list_each_by_epoch, s2_bin_list_each_by_epoch, s2_raw_line_list = self.calc_traces_sequence(
                         i)
                     self.s2_delay = i*self.step_duration
-                    s2=True
+                    s2 = True
                 case [0, 0]: pass
                 case [None, None]: pass
                 # responses_each_by_roi, responses_each_by_epoch = self.calc_traces_sequence(i)
 
         try:
             ampl_s2_to_s1s2_ratio_mean_of_epochs_by_rois = np.array(
-                s2_ampl_mean_of_epochs_by_rois) / np.array(s1s2_ampl_mean_of_epochs_by_rois)            
+                s2_ampl_mean_of_epochs_by_rois) / np.array(s1s2_ampl_mean_of_epochs_by_rois)
             ampl_s2_to_s1s2_ratio_rois_by_epoch = np.array(
                 s2_ampl_list_each_by_epoch) / np.array(s1s2_ampl_list_each_by_epoch)
         except NameError:
-            ampl_s2_to_s1s2_ratio_mean_of_epochs_by_rois = np.array([0.001]*len(s2_ampl_mean_of_epochs_by_rois))
-            ampl_s2_to_s1s2_ratio_rois_by_epoch = np.array([[0.001] for _ in range(len(s2_ampl_list_each_by_epoch))])
-            s1s2_ampl_mean_of_epochs_by_rois = np.array([0.001] * len(s2_auc_mean_of_epochs_by_rois))
+            ampl_s2_to_s1s2_ratio_mean_of_epochs_by_rois = np.array(
+                [0.001]*len(s2_ampl_mean_of_epochs_by_rois))
+            ampl_s2_to_s1s2_ratio_rois_by_epoch = np.array(
+                [[0.001] for _ in range(len(s2_ampl_list_each_by_epoch))])
+            s1s2_ampl_mean_of_epochs_by_rois = np.array(
+                [0.001] * len(s2_auc_mean_of_epochs_by_rois))
             s1s2_ampl_list_each_by_epoch = np.array([[0.001] * self.n_epochs])
 
         try:
             auc_s2_to_s1s2_ratio_mean_of_epochs_by_rois = np.array(
-                s2_auc_mean_of_epochs_by_rois) / np.array(s1s2_auc_mean_of_epochs_by_rois)            
+                s2_auc_mean_of_epochs_by_rois) / np.array(s1s2_auc_mean_of_epochs_by_rois)
             auc_s2_to_s1s2_ratio_rois_by_epoch = np.array(
                 s2_auc_list_each_by_epoch) / np.array(s1s2_auc_list_each_by_epoch)
         except NameError:
-            auc_s2_to_s1s2_ratio_mean_of_epochs_by_rois = np.array([0.001]*len(s2_auc_mean_of_epochs_by_rois))
-            auc_s2_to_s1s2_ratio_rois_by_epoch = np.array([[0.001] for _ in range(len(s2_auc_list_each_by_epoch))])
-            s1s2_auc_mean_of_epochs_by_rois = np.array([0.001] * len(s2_auc_mean_of_epochs_by_rois))
+            auc_s2_to_s1s2_ratio_mean_of_epochs_by_rois = np.array(
+                [0.001]*len(s2_auc_mean_of_epochs_by_rois))
+            auc_s2_to_s1s2_ratio_rois_by_epoch = np.array(
+                [[0.001] for _ in range(len(s2_auc_list_each_by_epoch))])
+            s1s2_auc_mean_of_epochs_by_rois = np.array(
+                [0.001] * len(s2_auc_mean_of_epochs_by_rois))
             s1s2_auc_list_each_by_epoch = np.array([[0.001] * self.n_epochs])
 
         # Binarization:
@@ -339,7 +345,8 @@ class TracesCalc():
         # csv file of #1#2 and #2 amplitudes by rois epochs average
         global LAST_SD_FILTER
 
-        if self.use_last_SD_filter == True: # and len(LAST_SD_FILTER[-csv_order]) == len(s2_bin_summary_by_rois):
+        # and len(LAST_SD_FILTER[-csv_order]) == len(s2_bin_summary_by_rois):
+        if self.use_last_SD_filter == True:
             filter = LAST_SD_FILTER[-csv_order]
         else:
             filter = s2_bin_summary_by_rois
@@ -348,7 +355,6 @@ class TracesCalc():
 
         header = ['{}+{}'.format(
             self.stim_1_name, self.stim_2_name), self.stim_2_name, 'ratio col1/col2']
-
 
         # CSV summary Amplitude
         self.csv_write([
