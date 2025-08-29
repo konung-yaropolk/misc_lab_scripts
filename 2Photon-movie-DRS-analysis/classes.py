@@ -339,12 +339,12 @@ class TracesCalc():
         # csv file of #1#2 and #2 amplitudes by rois epochs average
         global LAST_SD_FILTER
 
-        if self.use_last_SD_filter == True and len(LAST_SD_FILTER[-csv_order]) == len(s2_bin_summary_by_rois):
+        if self.use_last_SD_filter == True: # and len(LAST_SD_FILTER[-csv_order]) == len(s2_bin_summary_by_rois):
             filter = LAST_SD_FILTER[-csv_order]
         else:
             filter = s2_bin_summary_by_rois
 
-        LAST_SD_FILTER.append(s2_bin_summary_by_rois)
+        LAST_SD_FILTER.append(filter)
 
         header = ['{}+{}'.format(
             self.stim_1_name, self.stim_2_name), self.stim_2_name, 'ratio col1/col2']
@@ -600,7 +600,6 @@ class TracesCalc():
                 if detailed_stats:
                     self.detailed_stats(
                         csv_path, csv_file + '.csv' + CALCULATIONS_SUBFOLDER_NAME + self.output_suffix, len(csv_list), item)
-
 
             result = '***    Done: {} csv files for      {}'.format(
                 len(csv_list), self.file_path)
