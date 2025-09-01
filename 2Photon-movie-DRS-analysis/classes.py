@@ -464,6 +464,16 @@ class TracesCalc():
         #                              s2_raw_line_list[i],
         #                              '{0}{1}/_epoch{2}_AC_C_traces_auto_.png'.format(csv_path, csv_file[:], i+self.start_from_epoch))
 
+        # plot_heatmap
+        matrix = self.transpose(self.csv_matrix[int(
+            ((self.start_from_epoch-1) * self.step_duration * self.n_steps) / self.sampling_interval):int(
+            ((self.start_from_epoch-1 + self.n_epochs+1) * self.step_duration * self.n_steps) / self.sampling_interval)])[:]
+        self.plot_heatmap(matrix[:],
+                          s2_bin_list_each_by_epoch,
+                          s2_bin_summary_by_rois,
+                          '{0}{1}/_heatmap_by_rois_auto_.png'.format(
+            csv_path, csv_file))
+
     def plot_s2_to_s1s2_ratio_rois_by_epoch(self, array, path):
 
         # Create the plot
@@ -569,6 +579,34 @@ class TracesCalc():
         # Save the plot as plot.png
         plt.tight_layout()
         plt.savefig(path, transparent=False)
+        plt.close()
+
+    def plot_heatmap(self, matrix, bin, bin_summary_by_rois, path):
+        array = np.array(matrix[1:])  # Exclude the x-axis row
+        x = np.array(matrix[0])       # x-axis values
+
+        # Create the heatmap
+        plt.figure(figsize=(12, 8))
+        plt.imshow(array, aspect='auto', cmap='viridis',
+                   extent=[x[0], x[-1], 0, len(array)])
+        plt.colorbar(label='dF/F0')
+
+        # Overlay bin events
+        for i in range(len(array)):
+            for j, dot in enumerate(bin[i]):
+                if dot:
+                    event_x = j * self.step_duration * self.n_steps + self.s2_delay
+                    plt.plot(event_x, len(array)-i - 0.5, 'rx')
+
+        # Annotate ROI labels
+        for i in range(len(array)):
+            plt.text(x[0] - 20, i + 0.5, f'{i+1}',
+                     verticalalignment='center', horizontalalignment='right')
+
+        # plt.xlabel('Time')
+        # plt.ylabel('ROIs')
+        plt.tight_layout()
+        plt.savefig(path)
         plt.close()
 
     def csv_process(self, item, detailed_stats=True):
@@ -709,18 +747,18 @@ class DerivativesCalc(Helpers):
         s2_name_ending = '_auto_DERIVATIVES_{}.tif'.format(self.stim_2_name)
 
         for i, [A, C] in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
-            match [A, C]:
-                case [1, 1]:
+            match (A, C):
+                case (1, 1):
                     print('\nSequence #1+#2:')
                     self.calc_sequence(i, s1s2_name_ending)
-                case [1, 0]:
+                case (1, 0):
                     print('\nSequence #1:')
                     self.calc_sequence(i, s1_name_ending)
-                case [0, 1]:
+                case (0, 1):
                     print('\nSequence #2:')
                     self.calc_sequence(i, s2_name_ending)
-                case [0, 0]: pass
-                case [None, None]: self.calc_sequence(
+                case (0, 0): pass
+                case (None, None): self.calc_sequence(
                     i, '_auto_DERIVATIVES.tif')
 
         merger_s1s2_s2 = TifColorMerger(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME + self.output_suffix),
