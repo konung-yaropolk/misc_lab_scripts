@@ -392,7 +392,7 @@ class TracesCalc():
                                         s2_auc_mean_of_epochs_by_rois, filter, replace=False),
                                     '{0}{1}/_by_rois_{2}{3}_{3}_auc_auto_.png'.format(
                                         csv_path, csv_file, self.stim_1_name, self.stim_2_name),
-                                    dependent=True,
+                                    paired=True,
                                     y_label='AUC',
                                     x_manual_tick_labels=['{}+{}'.format(
                                         self.stim_1_name, self.stim_2_name), self.stim_2_name],)
@@ -403,7 +403,7 @@ class TracesCalc():
                                         s2_ampl_mean_of_epochs_by_rois, filter, replace=False),
                                     '{0}{1}/_by_rois_{2}{3}_{3}_ampl_auto_.png'.format(
                                         csv_path, csv_file, self.stim_1_name, self.stim_2_name),
-                                    dependent=True,
+                                    paired=True,
                                     y_label='dF/F0',
                                     x_manual_tick_labels=['{}+{}'.format(
                                         self.stim_1_name, self.stim_2_name), self.stim_2_name],)
@@ -415,6 +415,7 @@ class TracesCalc():
                                             s2_ampl_list_each_by_epoch[i],
                                             '{0}{1}/_roi{2}_{3}{4}_{4}_ampl_auto_.png'.format(
                     csv_path, csv_file, i+1, self.stim_1_name, self.stim_2_name),
+                    paired=True,
                     y_label=f'dF/F0        ROI {i+1}',
                     x_manual_tick_labels=['{}+{}'.format(
                         self.stim_1_name, self.stim_2_name), self.stim_2_name],)
@@ -491,7 +492,7 @@ class TracesCalc():
             '{1} to {0}+{1} resp amplitude ratio'.format(self.stim_1_name, self.stim_2_name))
         plt.savefig(path)
 
-    def plot_s1s2_s2_roi_stats(self, group1, group2, path, dependent=False, y_label='', x_manual_tick_labels=[]):
+    def plot_s1s2_s2_roi_stats(self, group1, group2, path, paired=True, y_label='', x_manual_tick_labels=[]):
 
         data = [group1, group2]
 
@@ -506,18 +507,14 @@ class TracesCalc():
         analysis.RunWilcoxon()
         results = analysis.GetResult()
 
-        if 'p-value_exact' in results:
+        if 'p_value_exact' in results:
             plot = AutoStatLib.StatPlots.BarStatPlot(data,
-                                                     p=results['p-value_exact'],
-                                                     stars=results['Stars_Printed'],
-                                                     sd=results['Groups_SD'],
-                                                     mean=results['Groups_Mean'],
-                                                     median=results['Groups_Median'],
-                                                     testname=results['Test_Name'],
-                                                     n=results['Groups_N'],
-                                                     dependent=dependent,
+                                                     **results,
                                                      y_label=y_label,
                                                      x_manual_tick_labels=x_manual_tick_labels,
+                                                     figure_scale_factor=0.8,
+                                                     figure_h=4,
+                                                     figure_w=0,
                                                      )
         else:
             plot = AutoStatLib.StatPlots.BarStatPlot(data, dependent=True)
@@ -583,20 +580,27 @@ class TracesCalc():
 
     def plot_heatmap(self, matrix, bin, bin_summary_by_rois, path):
         array = np.array(matrix[1:])  # Exclude the x-axis row
+        array = array[::-1]           # reverse matrix along y axis
         x = np.array(matrix[0])       # x-axis values
 
         # Create the heatmap
-        plt.figure(figsize=(12, 8))
-        plt.imshow(array, aspect='auto', cmap='viridis',
-                   extent=[x[0], x[-1], 0, len(array)])
+        plt.figure(figsize=(14, 10))
+        plt.imshow(array,
+                   aspect='auto',
+                   cmap='viridis',
+                   interpolation='nearest',
+                   origin='upper',
+                   extent=[x[0], x[-1], len(array), 0])
         plt.colorbar(label='dF/F0')
 
         # Overlay bin events
         for i in range(len(array)):
+            if bin_summary_by_rois[i]:
+                plt.plot(-5, len(array)-i-0.5, 'wo')
             for j, dot in enumerate(bin[i]):
                 if dot:
                     event_x = j * self.step_duration * self.n_steps + self.s2_delay
-                    plt.plot(event_x, len(array)-i - 0.5, 'rx')
+                    plt.plot(event_x, len(array)-i-0.5, 'rx')
 
         # Annotate ROI labels
         for i in range(len(array)):
