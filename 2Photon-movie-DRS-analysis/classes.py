@@ -3,7 +3,6 @@ import re
 import csv
 import numpy as np
 import matplotlib.pyplot as plt
-from ordered_set import T
 import tifffile
 import AutoStatLib
 from PIL import Image
@@ -17,8 +16,8 @@ DERIVATIVES_SUBFOLDER_NAME = '_DERIVATIVES_auto_'
 
 
 # Mutable globals:
-LAST_VERTICAL_SHIFT = []
-LAST_SD_FILTER = []
+LAST_VERTICAL_SHIFT = {}
+LAST_SD_FILTER = {}
 
 
 class Helpers():
@@ -60,7 +59,14 @@ class Helpers():
         return data_t
 
 
-class TracesCalc():
+class Logging():
+
+    def logging(self, *args, **kwargs):
+        message = ' '.join(map(str, args))
+        self.log += '\n' + message
+
+
+class TracesCalc(Logging):
 
     def file_finder(self, pattern, nonrecursive=False):
         files_list = []  # To store the paths of .txt files
@@ -88,7 +94,7 @@ class TracesCalc():
                 )
             )
         else:
-            print("!!!    Fail: invalid path        ", self.path)
+            self.logging("!!!    Fail: invalid path        ", self.path)
 
         return files
 
@@ -226,7 +232,7 @@ class TracesCalc():
             raw_line_list.append(corrected_trace[whole_step_indices])
 
             # # Debug plot
-            # print(ampl > self.sigmas_treshold * np.std(trace[bl_indices]))
+            # self.logging(ampl > self.sigmas_treshold * np.std(trace[bl_indices]))
             # plt.plot(corrected_trace[whole_step_indices])
             # plt.show()
 
@@ -266,7 +272,7 @@ class TracesCalc():
 
         return ampl_mean_of_rois_by_epoch, ampl_mean_of_epochs_by_rois, ampl_list_each_by_roi, ampl_list_each_by_epoch, auc_mean_of_rois_by_epoch, auc_mean_of_epochs_by_rois, auc_list_each_by_roi, auc_list_each_by_epoch, bin_list_each_by_epoch, raw_line_list
 
-    def detailed_stats(self, csv_path, csv_file, csv_order, item):
+    def detailed_stats(self, csv_path, csv_file):
 
         s1s2 = False
         s1 = False
@@ -344,14 +350,11 @@ class TracesCalc():
 
         # csv file of #1#2 and #2 amplitudes by rois epochs average
         global LAST_SD_FILTER
-
-        # and len(LAST_SD_FILTER[-csv_order]) == len(s2_bin_summary_by_rois):
         if self.use_last_SD_filter == True:
-            filter = LAST_SD_FILTER[-csv_order]
+            filter = LAST_SD_FILTER[self.path]
         else:
             filter = s2_bin_summary_by_rois
-
-        LAST_SD_FILTER.append(filter)
+        LAST_SD_FILTER |= {self.path: filter}
 
         header = ['{}+{}'.format(
             self.stim_1_name, self.stim_2_name), self.stim_2_name, 'ratio col1/col2']
@@ -420,18 +423,14 @@ class TracesCalc():
                     x_manual_tick_labels=['{}+{}'.format(
                         self.stim_1_name, self.stim_2_name), self.stim_2_name],)
 
-        # vertically shifted traces plots:
         global LAST_VERTICAL_SHIFT
-
         if self.use_last_vertical_shift == True:
-            self.vertical_shift = LAST_VERTICAL_SHIFT[-csv_order]
-
+            self.vertical_shift = LAST_VERTICAL_SHIFT[self.file_path]
         if not self.vertical_shift or self.vertical_shift == 0:
             vertical_shift = np.amax(s2_ampl_list_each_by_roi)
         else:
             vertical_shift = self.vertical_shift
-
-        LAST_VERTICAL_SHIFT.append(vertical_shift)
+        LAST_VERTICAL_SHIFT |= {self.file_path: vertical_shift}
 
         # plot_stacked_traces all togather
         matrix = self.transpose(self.csv_matrix[int(
@@ -613,7 +612,7 @@ class TracesCalc():
         plt.savefig(path)
         plt.close()
 
-    def csv_process(self, item, detailed_stats=True):
+    def csv_process(self, detailed_stats=True):
         csv_list = []
         csv_list.extend(
             self.file_lister(
@@ -634,7 +633,7 @@ class TracesCalc():
                 #     try:
                 #         self.csv_write(csv_output, csv_path, csv_file)
                 #     except PermissionError:
-                #         print('       File actually opened:')
+                #         self.logging('       File actually opened:')
                 #         continue
 
                 self.csv_matrix = self.csv_cutter(content)
@@ -642,12 +641,12 @@ class TracesCalc():
                     self.csv_write(self.csv_matrix, csv_path,
                                    csv_file + '.csv', CALCULATIONS_SUBFOLDER_NAME + self.output_suffix, subdir=True)
                 except PermissionError:
-                    print('       File actually opened:')
+                    self.logging('       File actually opened:')
                     continue
 
                 if detailed_stats:
                     self.detailed_stats(
-                        csv_path, csv_file + '.csv' + CALCULATIONS_SUBFOLDER_NAME + self.output_suffix, len(csv_list), item)
+                        csv_path, csv_file + '.csv' + CALCULATIONS_SUBFOLDER_NAME + self.output_suffix)
 
             result = '***    Done: {} csv files for      {}'.format(
                 len(csv_list), self.file_path)
@@ -657,11 +656,11 @@ class TracesCalc():
                 self.file_path)
 
         csv_list = None
-        print(result)
+        self.logging(result)
         return result
 
 
-class DerivativesCalc(Helpers):
+class DerivativesCalc(Helpers, Logging):
 
     def compute_gaussian_derivatives(self, image_stack, start, end, sigma):
 
@@ -681,7 +680,7 @@ class DerivativesCalc(Helpers):
         start -= 1
         end -= 1
 
-        print('Frames ', start, ':', end)
+        self.logging('Frames ', start, ':', end)
 
         # Initialize a list to store the derivative images
         derivatives = self.compute_gaussian_derivatives(
@@ -712,7 +711,7 @@ class DerivativesCalc(Helpers):
                     self.sampling_interval)
             ) for i in range(count)
         ]
-        print(f'\nTaken {count-start} epochs: {start + 1} to {count}')
+        self.logging(f'\nTaken {count-start} epochs: {start + 1} to {count}')
         self.result = np.average(sequence_stack[start:], axis=0)
 
         # return self.result
@@ -753,13 +752,13 @@ class DerivativesCalc(Helpers):
         for i, [A, C] in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
             match (A, C):
                 case (1, 1):
-                    print('\nSequence #1+#2:')
+                    self.logging('\nSequence #1+#2:')
                     self.calc_sequence(i, s1s2_name_ending)
                 case (1, 0):
-                    print('\nSequence #1:')
+                    self.logging('\nSequence #1:')
                     self.calc_sequence(i, s1_name_ending)
                 case (0, 1):
-                    print('\nSequence #2:')
+                    self.logging('\nSequence #2:')
                     self.calc_sequence(i, s2_name_ending)
                 case (0, 0): pass
                 case (None, None): self.calc_sequence(
@@ -788,7 +787,7 @@ class DerivativesCalc(Helpers):
         del merger_s1_s2
 
 
-class Movie(DerivativesCalc, TracesCalc):
+class Movie(DerivativesCalc, TracesCalc, Logging):
 
     def __init__(self,
                  file_path,
@@ -859,7 +858,9 @@ class Movie(DerivativesCalc, TracesCalc):
         # Coefficient estimated experimentally
         self.sampling_interval -= self.sampling_interval * 0.0029183722446345
 
-        print('\nFile: {} \nMovie duration: {} \nn frames: {} \nSampling interval, s: {} \nTrigger time, s: {}'.format(
+        self.log = ' \n'
+
+        self.logging('\nFile: {} \nMovie duration: {} \nn frames: {} \nSampling interval, s: {} \nTrigger time, s: {}'.format(
             self.file_path, self.movie_duration, self.n_frames, self.sampling_interval, self.start))
 
     def __calculate_suffix_and_nosuffix(self, file_full_path):
@@ -929,7 +930,7 @@ class TifColorMerger(Helpers):
                 self.save_tiff(output_path, multi_channel_array, metadata={
                     'axes': 'CYX', 'mode': 'composite'})
             except PermissionError as e:
-                print('PermissionError:', e)
+                self.logging('PermissionError:', e)
 
         # Save the image as a PNG file
         if png:
@@ -944,7 +945,7 @@ class TifColorMerger(Helpers):
             try:
                 rgb_image.save(output_path[:-4] + '.png')
             except PermissionError as e:
-                print('PermissionError:', e)
+                self.logging('PermissionError:', e)
 
         # make heatmap and save as a PNG file
         if heatmap:
@@ -972,10 +973,10 @@ class TifColorMerger(Helpers):
                 # tifffile.imwrite(output_heatmap_path, ratio_image.astype(np.float32), imagej=True, metadata=metadata)
                 self.save_tiff(output_heatmap_path,
                                ratio_image, metadata=metadata)
-                print(f"Created heatmap image: {output_heatmap_path}")
+                self.logging(f"Created heatmap image: {output_heatmap_path}")
 
             except PermissionError as e:
-                print('PermissionError:', e)
+                self.logging('PermissionError:', e)
 
             # Save the ratio image as a heatmap in PNG format using matplotlib
             ratio_image = np.clip(ratio_image, 1, 4)
@@ -1021,7 +1022,8 @@ class TifColorMerger(Helpers):
 
                     self.__create_two_channel_image(
                         red_path, green_path, blue_path, output_path, heatmap=heatmap, png=png, tif=tif)
-                    print("\nCreated hyperstack image: {}".format(output_path))
+                    self.logging(
+                        "\nCreated hyperstack image: {}".format(output_path))
 
 
 class MetadataParser():
@@ -1048,23 +1050,36 @@ class MetadataParser():
         return events, t_resolution, t_duration, n_slides
 
 
+def worker(item, run_derivatives_calculation, run_traces_calculation) -> None:
+
+    movie = Movie(item[0], **item[1])
+
+    if run_derivatives_calculation:
+        # try:
+        movie.derivatives_calculate()
+        # except Exception as e:
+        #     print(e)
+        #     pass
+
+    if run_traces_calculation:
+        movie.csv_process()
+
+    print(movie.log)
+    del movie
+
+
 def main(
 
     working_dir=s.working_dir,
     to_do_list=s.to_do_list,
-
     run_derivatives_calculation=s.run_derivatives_calculation,
     run_traces_calculation=s.run_traces_calculation,
-
     resp_duration=s.resp_duration,
     step_duration=s.step_duration,
     n_epochs=s.n_epochs,
     drs_pattern=s.drs_pattern,
-
-
     stim_1_name=s.stim_1_name,
     stim_2_name=s.stim_2_name,
-
     relative_values=s.relative_values,
     mean_col_order=s.mean_col_order,
     cols_per_roi=s.cols_per_roi,
@@ -1075,10 +1090,13 @@ def main(
     use_last_vertical_shift=s.use_last_vertical_shift,
     use_last_SD_filter=s.use_last_SD_filter,
     time_after_trig=s.time_after_trig,
+    multiprocessing=s.multiprocessing,
+    processes_limit=s.processes_limit,
 
-):
+) -> None:
+    processes = []
 
-    for i, item in enumerate(to_do_list):
+    for item in to_do_list:
 
         item[1].setdefault('output_suffix', '')
         item[1].setdefault('working_dir', working_dir)
@@ -1101,21 +1119,22 @@ def main(
         item[1].setdefault('use_last_vertical_shift', use_last_vertical_shift)
         item[1].setdefault('use_last_SD_filter', use_last_SD_filter)
 
-        print(' ')
-        movie = Movie(item[0], **item[1])
+        args = [item, run_derivatives_calculation, run_traces_calculation]
 
-        if run_derivatives_calculation:
-            # try:
-            movie.derivatives_calculate()
-            # except Exception as e:
-            #     print(e)
-            #     pass
+        if multiprocessing:
+            import multiprocessing as mp
+            p = mp.Process(target=worker, args=args)
+            processes.append(p)
+            p.start()
+        else:
+            worker(*args)
 
-        if run_traces_calculation:
-            movie.csv_process(i)
-            pass
-
-        del movie
+    if multiprocessing:
+        print('\nParallel processing mode activated:')
+        print('Please, ensure if you have enough RAM for multiprocessing.')
+        print('{} threads created\nJob started...\n\n'.format(len(processes)))
+        for p in processes:
+            p.join()
 
 
 if __name__ == '__main__':

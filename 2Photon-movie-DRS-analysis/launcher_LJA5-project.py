@@ -40,6 +40,15 @@ use_last_vertical_shift = False
 # use binarixation based on SD from previous run to compare the same ROIs
 use_last_SD_filter = False
 
+# Use all available CPU cores.
+# Faster, but need much more RAM so can be unstable.
+multiprocessing = False
+
+# Maximum size of multiprocessing pull
+# Set the maximum of processes if there isn't enough RAM
+# Set 0 or None to use as many processes as possible
+processes_limit = 10
+
 
 # Params explanation:
 #
@@ -340,46 +349,46 @@ to_do_list = [
 
 
 
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
-     {
-         'trig_number': 1,
-         'output_suffix': '0.1Hz_control',
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
-     {
-         'trig_number': 7,
-         'output_suffix': '0.1Hz_Dynorphin_1uM',
-         'n_epochs': 10,
-         'use_last_vertical_shift': True,
-         'use_last_SD_filter': True,
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
-     {
-         'trig_number': 3,
-         'output_suffix': '10Hz_control',
-         'n_epochs': 1,
-         'drs_pattern': [[0],  # stim#1
-                         [1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
-     {
-         'trig_number': 5,
-         'output_suffix': '10Hz_Dynorphin_1uM',
-         'n_epochs': 1,
-         'use_last_vertical_shift': True,
-         'use_last_SD_filter': True,
-         'drs_pattern': [[0],  # stim#1
-                         [1]]  # stim#2
-     }
-     ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': '0.1Hz_control',
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 7,
+    #      'output_suffix': '0.1Hz_Dynorphin_1uM',
+    #      'n_epochs': 10,
+    #      'use_last_vertical_shift': True,
+    #      'use_last_SD_filter': True,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 3,
+    #      'output_suffix': '10Hz_control',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 5,
+    #      'output_suffix': '10Hz_Dynorphin_1uM',
+    #      'n_epochs': 1,
+    #      'use_last_vertical_shift': True,
+    #      'use_last_SD_filter': True,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
 
 
 
@@ -387,206 +396,206 @@ to_do_list = [
 
 
 
-    ['LJA5 project Dynorphin control/2025_08_22/Field_1_Dynorphin_application_registered.tif',
-     {
-         'trig_number': 3,
-         'output_suffix': '0.1Hz_control',
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['LJA5 project Dynorphin control/2025_08_22/Field_1_Dynorphin_application_registered.tif',
-     {
-         'trig_number': 5,
-         'output_suffix': '0.1Hz_Dynorphin_1uM',
-         'n_epochs': 10,
-         'use_last_vertical_shift': True,
-         'use_last_SD_filter': True,
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['LJA5 project Dynorphin control/2025_08_22/Field_1_Dynorphin_application_registered.tif',
-     {
-         'trig_number': 2,
-         'output_suffix': '2Hz_control',
-         'n_epochs': 1,
-         'drs_pattern': [[0],  # stim#1
-                         [1]]  # stim#2
-     }
-     ],
-    ['LJA5 project Dynorphin control/2025_08_22/Field_1_Dynorphin_application_registered.tif',
-     {
-         'trig_number': 6,
-         'output_suffix': '2Hz_Dynorphin_1uM',
-         'n_epochs': 1,
-         'use_last_vertical_shift': True,
-         'use_last_SD_filter': True,
-         'drs_pattern': [[0],  # stim#1
-                         [1]]  # stim#2
-     }
-     ],
-    ['LJA5 project Dynorphin control/2025_08_22/Field_1_Dynorphin_application_registered.tif',
-     {
-         'trig_number': 1,
-         'output_suffix': '10Hz_control',
-         'n_epochs': 1,
-         'drs_pattern': [[0],  # stim#1
-                         [1]]  # stim#2
-     }
-     ],
-    ['LJA5 project Dynorphin control/2025_08_22/Field_1_Dynorphin_application_registered.tif',
-     {
-         'trig_number': 7,
-         'output_suffix': '10Hz_Dynorphin_1uM',
-         'n_epochs': 1,
-         'use_last_vertical_shift': True,
-         'use_last_SD_filter': True,
-         'drs_pattern': [[0],  # stim#1
-                         [1]]  # stim#2
-     }
-     ],
+    # ['LJA5 project Dynorphin control/2025_08_22/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 3,
+    #      'output_suffix': '0.1Hz_control',
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_22/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 5,
+    #      'output_suffix': '0.1Hz_Dynorphin_1uM',
+    #      'n_epochs': 10,
+    #      'use_last_vertical_shift': True,
+    #      'use_last_SD_filter': True,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_22/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 2,
+    #      'output_suffix': '2Hz_control',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_22/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 6,
+    #      'output_suffix': '2Hz_Dynorphin_1uM',
+    #      'n_epochs': 1,
+    #      'use_last_vertical_shift': True,
+    #      'use_last_SD_filter': True,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_22/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': '10Hz_control',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_22/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 7,
+    #      'output_suffix': '10Hz_Dynorphin_1uM',
+    #      'n_epochs': 1,
+    #      'use_last_vertical_shift': True,
+    #      'use_last_SD_filter': True,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
 
 
 
-    ['LJA5 project Dynorphin control/2025_08_25/Field_1_Dynorphin_application_registered.tif',
-     {
-         'trig_number': 3,
-         'output_suffix': '0.1Hz_control',
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['LJA5 project Dynorphin control/2025_08_25/Field_1_Dynorphin_application_registered.tif',
-     {
-         'trig_number': 5,
-         'output_suffix': '0.1Hz_Dynorphin_1uM',
-         'n_epochs': 10,
-         'use_last_vertical_shift': True,
-         'use_last_SD_filter': True,
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['LJA5 project Dynorphin control/2025_08_25/Field_1_Dynorphin_application_registered.tif',
-     {
-         'trig_number': 2,
-         'output_suffix': '2Hz_control',
-         'n_epochs': 1,
-         'drs_pattern': [[0],  # stim#1
-                         [1]]  # stim#2
-     }
-     ],
-    ['LJA5 project Dynorphin control/2025_08_25/Field_1_Dynorphin_application_registered.tif',
-     {
-         'trig_number': 6,
-         'output_suffix': '2Hz_Dynorphin_1uM',
-         'n_epochs': 1,
-         'use_last_vertical_shift': True,
-         'use_last_SD_filter': True,
-         'drs_pattern': [[0],  # stim#1
-                         [1]]  # stim#2
-     }
-     ],
-    ['LJA5 project Dynorphin control/2025_08_25/Field_1_Dynorphin_application_registered.tif',
-     {
-         'trig_number': 1,
-         'output_suffix': '10Hz_control',
-         'n_epochs': 1,
-         'drs_pattern': [[0],  # stim#1
-                         [1]]  # stim#2
-     }
-     ],
-    ['LJA5 project Dynorphin control/2025_08_25/Field_1_Dynorphin_application_registered.tif',
-     {
-         'trig_number': 7,
-         'output_suffix': '10Hz_Dynorphin_1uM',
-         'n_epochs': 1,
-         'use_last_vertical_shift': True,
-         'use_last_SD_filter': True,
-         'drs_pattern': [[0],  # stim#1
-                         [1]]  # stim#2
-     }
-     ],
-    ['LJA5 project Dynorphin control/2025_08_25/Field_1_Dynorphin_application_registered.tif',
-     {
-         'trig_number': 9,
-         'output_suffix': '10Hz_Naloxone_5uM',
-         'n_epochs': 1,
-         'use_last_vertical_shift': True,
-         'use_last_SD_filter': True,
-         'drs_pattern': [[0],  # stim#1
-                         [1]]  # stim#2
-     }
-     ],
+    # ['LJA5 project Dynorphin control/2025_08_25/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 3,
+    #      'output_suffix': '0.1Hz_control',
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_25/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 5,
+    #      'output_suffix': '0.1Hz_Dynorphin_1uM',
+    #      'n_epochs': 10,
+    #      'use_last_vertical_shift': True,
+    #      'use_last_SD_filter': True,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_25/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 2,
+    #      'output_suffix': '2Hz_control',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_25/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 6,
+    #      'output_suffix': '2Hz_Dynorphin_1uM',
+    #      'n_epochs': 1,
+    #      'use_last_vertical_shift': True,
+    #      'use_last_SD_filter': True,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_25/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': '10Hz_control',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_25/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 7,
+    #      'output_suffix': '10Hz_Dynorphin_1uM',
+    #      'n_epochs': 1,
+    #      'use_last_vertical_shift': True,
+    #      'use_last_SD_filter': True,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_25/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 9,
+    #      'output_suffix': '10Hz_Naloxone_5uM',
+    #      'n_epochs': 1,
+    #      'use_last_vertical_shift': True,
+    #      'use_last_SD_filter': True,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
 
 
-    ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
-     {
-         'trig_number': 3,
-         'output_suffix': '0.1Hz_control',
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
-     {
-         'trig_number': 5,
-         'output_suffix': '0.1Hz_Dynorphin_1uM',
-         'n_epochs': 10,
-         'use_last_vertical_shift': True,
-         'use_last_SD_filter': True,
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
-     {
-         'trig_number': 11,
-         'output_suffix': '0.1Hz_Naloxone_5uM',
-         'n_epochs': 10,
-         'use_last_vertical_shift': True,
-         'use_last_SD_filter': True,
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
+    # ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
+    #  {
+    #      'trig_number': 3,
+    #      'output_suffix': '0.1Hz_control',
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
+    #  {
+    #      'trig_number': 5,
+    #      'output_suffix': '0.1Hz_Dynorphin_1uM',
+    #      'n_epochs': 10,
+    #      'use_last_vertical_shift': True,
+    #      'use_last_SD_filter': True,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
+    #  {
+    #      'trig_number': 11,
+    #      'output_suffix': '0.1Hz_Naloxone_5uM',
+    #      'n_epochs': 10,
+    #      'use_last_vertical_shift': True,
+    #      'use_last_SD_filter': True,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
 
 
-    ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
-     {
-         'trig_number': 2,
-         'output_suffix': '2Hz_control',
-         'n_epochs': 1,
-         'drs_pattern': [[0],  # stim#1
-                         [1]]  # stim#2
-     }
-     ],
-    ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
-     {
-         'trig_number': 6,
-         'output_suffix': '2Hz_Dynorphin_1uM',
-         'n_epochs': 1,
-         'use_last_vertical_shift': True,
-         'use_last_SD_filter': True,
-         'drs_pattern': [[0],  # stim#1
-                         [1]]  # stim#2
-     }
-     ],
-    ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
-     {
-         'trig_number': 10,
-         'output_suffix': '2Hz_Naloxone_5uM',
-         'n_epochs': 1,
-         'use_last_vertical_shift': True,
-         'use_last_SD_filter': True,
-         'drs_pattern': [[0],  # stim#1
-                         [1]]  # stim#2
-     }
-     ],
+    # ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
+    #  {
+    #      'trig_number': 2,
+    #      'output_suffix': '2Hz_control',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
+    #  {
+    #      'trig_number': 6,
+    #      'output_suffix': '2Hz_Dynorphin_1uM',
+    #      'n_epochs': 1,
+    #      'use_last_vertical_shift': True,
+    #      'use_last_SD_filter': True,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
+    #  {
+    #      'trig_number': 10,
+    #      'output_suffix': '2Hz_Naloxone_5uM',
+    #      'n_epochs': 1,
+    #      'use_last_vertical_shift': True,
+    #      'use_last_SD_filter': True,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
 
     ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
      {
@@ -673,4 +682,6 @@ if __name__ == '__main__':
         use_last_vertical_shift,
         use_last_SD_filter,
         time_after_trig,
+        multiprocessing,
+        processes_limit,
     )

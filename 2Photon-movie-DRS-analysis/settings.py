@@ -40,6 +40,16 @@ use_last_vertical_shift = False
 # use binarixation based on SD from previous run to compare the same ROIs
 use_last_SD_filter = False
 
+# Use all available CPU cores.
+# Faster, but need much more RAM so can be unstable.
+multiprocessing = False
+
+# Maximum size of multiprocessing pull
+# Set the maximum of processes if there isn't enough RAM
+# Set 0 or None to use as many processes as possible
+processes_limit = 10
+
+
 # Params explanation:
 #
 # 'drs_pattern'       : [[1, 0, 1, 0, 1, 0],  # stim#1
@@ -107,4 +117,6 @@ if __name__ == '__main__':
         use_last_vertical_shift,
         use_last_SD_filter,
         time_after_trig,
+        multiprocessing,
+        processes_limit,
     )
