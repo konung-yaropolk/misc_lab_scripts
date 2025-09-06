@@ -1070,18 +1070,20 @@ def worker(item, run_derivatives_calculation, run_traces_calculation, v_shifts={
 
     movie = Movie(item[0], **item[1], v_shifts=v_shifts, filters=filters)
 
+    e1 = ''
     if run_derivatives_calculation:
         try:
             movie.derivatives_calculate()
         except Exception as e:
-            print(e)
+            e1=repr(e)
             pass
-
+            
+    e2 = ''
     if run_traces_calculation:
         try:
             movie.csv_process()
         except Exception as e:
-            print(e)
+            e2=repr(e)
             pass
 
     # get some results to use them in the next calculations as params
@@ -1091,7 +1093,7 @@ def worker(item, run_derivatives_calculation, run_traces_calculation, v_shifts={
     print(movie.log)
 
     del movie
-    return vertical_shifts, filters
+    return vertical_shifts, filters, item[0], e1, e2
 
 
 def main(
@@ -1199,8 +1201,13 @@ def main(
                             run_traces_calculation, v_shifts, filters)
             v_shifts |= output[0]
             filters |= output[1]
-            print(output[0])
 
+    errors = [[i[2]+':\n', 'derivatives : '  +i[3]+'\n', 'calculations:   ' +i[4]+'\n', '\n'] for i in output if (i[3] or i[4])]
+    msg = [item for sublist in errors for item in sublist] if errors else ['--no errors--\n']
+
+    print('\n\nAll done.\n')
+    print('Errors: \n')
+    print(*msg)
 
 if __name__ == '__main__':
     print('Set the parameters in the launcher file and run it to execute the script')
