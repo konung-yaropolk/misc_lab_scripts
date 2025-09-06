@@ -15,11 +15,6 @@ CALCULATIONS_SUBFOLDER_NAME = '_CALCULATIONS_auto_'
 DERIVATIVES_SUBFOLDER_NAME = '_DERIVATIVES_auto_'
 
 
-# Mutable globals:
-LAST_VERTICAL_SHIFT = {}
-LAST_SD_FILTER = {}
-
-
 class Helpers():
 
     def save_tiff(self, output_path, data, metadata={}):
@@ -274,6 +269,9 @@ class TracesCalc(Logging):
 
     def detailed_stats(self, csv_path, csv_file):
 
+        # create unique id for each calculation unit (created folder)
+        unit_id = self.file_path + '::' + csv_file
+
         s1s2 = False
         s1 = False
         s2 = False
@@ -335,7 +333,6 @@ class TracesCalc(Logging):
                         bin,
                         replace=True,
                         replace_with=None):
-
             if replace == True:
                 output = [value if bin[i] else replace_with for i, value in
                           enumerate(list)]
@@ -349,12 +346,11 @@ class TracesCalc(Logging):
                 csv_path, csv_file, self.stim_1_name, self.stim_2_name))
 
         # csv file of #1#2 and #2 amplitudes by rois epochs average
-        global LAST_SD_FILTER
-        if self.use_last_SD_filter == True:
-            filter = LAST_SD_FILTER[self.path]
+        if self.use_last_SD_filter == True and unit_id in self.filters:
+            filter = self.filters[unit_id]
         else:
             filter = s2_bin_summary_by_rois
-        LAST_SD_FILTER |= {self.path: filter}
+        self.filters_return |= {unit_id: filter}
 
         header = ['{}+{}'.format(
             self.stim_1_name, self.stim_2_name), self.stim_2_name, 'ratio col1/col2']
@@ -423,14 +419,13 @@ class TracesCalc(Logging):
                     x_manual_tick_labels=['{}+{}'.format(
                         self.stim_1_name, self.stim_2_name), self.stim_2_name],)
 
-        global LAST_VERTICAL_SHIFT
-        if self.use_last_vertical_shift == True:
-            self.vertical_shift = LAST_VERTICAL_SHIFT[self.file_path]
+        if self.use_last_vertical_shift == True and unit_id in self.v_shifts:
+            self.vertical_shift = self.v_shifts[unit_id]
         if not self.vertical_shift or self.vertical_shift == 0:
             vertical_shift = np.amax(s2_ampl_list_each_by_roi)
         else:
             vertical_shift = self.vertical_shift
-        LAST_VERTICAL_SHIFT |= {self.file_path: vertical_shift}
+        self.v_shifts_return |= {unit_id: vertical_shift}
 
         # plot_stacked_traces all togather
         matrix = self.transpose(self.csv_matrix[int(
@@ -811,7 +806,9 @@ class Movie(DerivativesCalc, TracesCalc, Logging):
                  vertical_shift,
                  use_last_vertical_shift,
                  use_last_SD_filter,
-                 **misc):
+                 v_shifts={},
+                 filters={},
+                 ** misc):
 
         self.file_path = working_dir + file_path
         self.path = os.path.split(self.file_path)[0]
@@ -859,6 +856,12 @@ class Movie(DerivativesCalc, TracesCalc, Logging):
         self.sampling_interval -= self.sampling_interval * 0.0029183722446345
 
         self.log = ' \n'
+
+        self.v_shifts = v_shifts
+        self.filters = filters
+
+        self.v_shifts_return = {}
+        self.filters_return = {}
 
         self.logging('\nFile: {} \nMovie duration: {} \nn frames: {} \nSampling interval, s: {} \nTrigger time, s: {}'.format(
             self.file_path, self.movie_duration, self.n_frames, self.sampling_interval, self.start))
@@ -1050,9 +1053,9 @@ class MetadataParser():
         return events, t_resolution, t_duration, n_slides
 
 
-def worker(item, run_derivatives_calculation, run_traces_calculation) -> None:
+def worker(item, run_derivatives_calculation, run_traces_calculation, v_shifts={}, filters={}):
 
-    movie = Movie(item[0], **item[1])
+    movie = Movie(item[0], **item[1], v_shifts=v_shifts, filters=filters)
 
     if run_derivatives_calculation:
         # try:
@@ -1064,8 +1067,13 @@ def worker(item, run_derivatives_calculation, run_traces_calculation) -> None:
     if run_traces_calculation:
         movie.csv_process()
 
+    vertical_shifts = movie.v_shifts_return
+    filters = movie.filters_return
+
     print(movie.log)
+
     del movie
+    return vertical_shifts, filters
 
 
 def main(
@@ -1093,8 +1101,10 @@ def main(
     multiprocessing=s.multiprocessing,
     processes_limit=s.processes_limit,
 
-) -> None:
-    processes = []
+):
+
+    v_shifts = {}
+    filters = {}
 
     for item in to_do_list:
 
@@ -1119,23 +1129,53 @@ def main(
         item[1].setdefault('use_last_vertical_shift', use_last_vertical_shift)
         item[1].setdefault('use_last_SD_filter', use_last_SD_filter)
 
-        args = [item, run_derivatives_calculation, run_traces_calculation]
-
-        if multiprocessing:
-            import multiprocessing as mp
-            p = mp.Process(target=worker, args=args)
-            processes.append(p)
-            p.start()
-        else:
-            worker(*args)
-
     if multiprocessing:
+        import multiprocessing as mp
+
+        cores = mp.cpu_count()          # CPU cores count
+        jobs = len(to_do_list)          # jobs to do count
+
+        threads = min(cores, jobs,
+                      processes_limit)
+        try:
+            pool = mp.Pool(threads)
+        except ValueError:
+            print('No one file listed, there is nothing to do.')
+            return 0
+
         print('\nParallel processing mode activated:')
         print('Please, ensure if you have enough RAM for multiprocessing.')
-        print('{} threads created\nJob started...\n\n'.format(len(processes)))
-        for p in processes:
-            p.join()
+        print('If processing went wrong, please, use "processes_limit" option in the settings.py')
+        print('{0} cpu cores per queue of {1} files found, pool of {2} processes created.'.format(
+            cores, jobs, threads))
+        print('\nJob started...\n')
+
+        do_first = [i for i in to_do_list if not (i[1]
+                    ['use_last_vertical_shift'] or
+                    i[1]['use_last_SD_filter'])]
+        do_second = [i for i in to_do_list if (i[1]
+                     ['use_last_vertical_shift'] or
+                     i[1]['use_last_SD_filter'])]
+
+        do_first_processes = [pool.apply_async(worker, args=(item, run_derivatives_calculation, run_traces_calculation))
+                              for item in do_first]
+        output = [p.get() for p in do_first_processes]
+
+        v_shifts = output[0][0]
+        filters = output[0][1]
+
+        do_second_processes = [pool.apply_async(worker, args=(item, run_derivatives_calculation, run_traces_calculation, v_shifts, filters))
+                               for item in do_second]
+        _ = [p.get() for p in do_second_processes]
+
+    else:
+        for item in to_do_list:
+            output = worker(item, run_derivatives_calculation,
+                            run_traces_calculation, v_shifts, filters)
+            v_shifts |= output[0]
+            filters |= output[1]
+            print(output[0])
 
 
 if __name__ == '__main__':
-    pass
+    print('Set the parameters in the launcher file and run it to execute the script')
