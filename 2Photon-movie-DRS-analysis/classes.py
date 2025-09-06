@@ -56,6 +56,9 @@ class Helpers():
 
 class Logging():
 
+    def __init__(self,):
+        self.log = ' \n'
+
     def logging(self, *args, **kwargs):
         message = ' '.join(map(str, args))
         self.log += '\n' + message
@@ -855,13 +858,13 @@ class Movie(DerivativesCalc, TracesCalc, Logging):
         # Coefficient estimated experimentally
         self.sampling_interval -= self.sampling_interval * 0.0029183722446345
 
-        self.log = ' \n'
-
         self.v_shifts = v_shifts
         self.filters = filters
 
         self.v_shifts_return = {}
         self.filters_return = {}
+
+        Logging.__init__(self,)
 
         self.logging('\nFile: {} \nMovie duration: {} \nn frames: {} \nSampling interval, s: {} \nTrigger time, s: {}'.format(
             self.file_path, self.movie_duration, self.n_frames, self.sampling_interval, self.start))
@@ -898,7 +901,13 @@ class Movie(DerivativesCalc, TracesCalc, Logging):
 
 class TifColorMerger(Helpers):
 
-    def __init__(self, dir, red_name_ending, green_name_ending, blue_name_ending, output_name_ending, output_suffix):
+    def __init__(self,
+                 dir,
+                 red_name_ending,
+                 green_name_ending,
+                 blue_name_ending,
+                 output_name_ending,
+                 output_suffix):
         self.dir = dir
         self.red_name_ending = red_name_ending
         self.green_name_ending = green_name_ending
@@ -933,7 +942,8 @@ class TifColorMerger(Helpers):
                 self.save_tiff(output_path, multi_channel_array, metadata={
                     'axes': 'CYX', 'mode': 'composite'})
             except PermissionError as e:
-                self.logging('PermissionError:', e)
+                pass
+                print('PermissionError:', e)
 
         # Save the image as a PNG file
         if png:
@@ -948,7 +958,8 @@ class TifColorMerger(Helpers):
             try:
                 rgb_image.save(output_path[:-4] + '.png')
             except PermissionError as e:
-                self.logging('PermissionError:', e)
+                pass
+                print('PermissionError:', e)
 
         # make heatmap and save as a PNG file
         if heatmap:
@@ -976,10 +987,10 @@ class TifColorMerger(Helpers):
                 # tifffile.imwrite(output_heatmap_path, ratio_image.astype(np.float32), imagej=True, metadata=metadata)
                 self.save_tiff(output_heatmap_path,
                                ratio_image, metadata=metadata)
-                self.logging(f"Created heatmap image: {output_heatmap_path}")
+                # self.logging(f"Created heatmap image: {output_heatmap_path}")
 
             except PermissionError as e:
-                self.logging('PermissionError:', e)
+                print('PermissionError:', e)
 
             # Save the ratio image as a heatmap in PNG format using matplotlib
             ratio_image = np.clip(ratio_image, 1, 4)
@@ -1025,8 +1036,7 @@ class TifColorMerger(Helpers):
 
                     self.__create_two_channel_image(
                         red_path, green_path, blue_path, output_path, heatmap=heatmap, png=png, tif=tif)
-                    self.logging(
-                        "\nCreated hyperstack image: {}".format(output_path))
+                    # self.logging("\nCreated hyperstack image: {}".format(output_path))
 
 
 class MetadataParser():

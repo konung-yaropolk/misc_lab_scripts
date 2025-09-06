@@ -19,7 +19,7 @@ step_duration = 10  # in sec
 
 # Params for Traces Calculation:
 # process all csv files with traces in the WORKING_DIR directory:
-run_traces_calculation = False
+run_traces_calculation = True
 
 relative_values = True
 mean_col_order = 2
@@ -47,7 +47,7 @@ multiprocessing = True
 # Maximum size of multiprocessing pull
 # Set the maximum of processes if there isn't enough RAM
 # Set 0 or None to use as many processes as possible
-processes_limit = 16
+processes_limit = 8
 
 
 # Params explanation:
