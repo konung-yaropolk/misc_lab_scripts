@@ -1152,6 +1152,12 @@ def main(
         except ValueError:
             print('No one file listed, there is nothing to do.')
             return 0
+        
+        def spread_jobs(jobs):
+            processes = [pool.apply_async(worker, args=(item, run_derivatives_calculation, run_traces_calculation, v_shifts, filters))
+                                for item in jobs]
+            output = [p.get() for p in processes]
+            return output
 
         print('\nParallel processing mode activated:')
         print('Please, ensure if you have enough RAM for multiprocessing.')
@@ -1167,16 +1173,13 @@ def main(
                      ['use_last_vertical_shift'] or
                      i[1]['use_last_SD_filter'])]
 
-        do_first_processes = [pool.apply_async(worker, args=(item, run_derivatives_calculation, run_traces_calculation))
-                              for item in do_first]
-        output = [p.get() for p in do_first_processes]
+        
+        output = spread_jobs(do_first)
 
         v_shifts = output[0][0]
         filters = output[0][1]
 
-        do_second_processes = [pool.apply_async(worker, args=(item, run_derivatives_calculation, run_traces_calculation, v_shifts, filters))
-                               for item in do_second]
-        _ = [p.get() for p in do_second_processes]
+        _ = spread_jobs(do_second)
 
     else:
         for item in to_do_list:
