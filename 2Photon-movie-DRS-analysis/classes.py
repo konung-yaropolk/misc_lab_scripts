@@ -348,13 +348,15 @@ class TracesCalc(Logging):
             1/ampl_s2_to_s1s2_ratio_rois_by_epoch, '{0}{1}/_rois_by_epoch_{3}_to_{2}+{3}_ratio_auto_.png'.format(
                 csv_path, csv_file, self.stim_1_name, self.stim_2_name))
 
-        # csv file of #1#2 and #2 amplitudes by rois epochs average
+        # save binarization for the next calculations
         if self.use_last_SD_filter == True and unit_id in self.filters:
             filter = self.filters[unit_id]
         else:
             filter = s2_bin_summary_by_rois
         self.filters_return |= {unit_id: filter}
 
+
+        # csv file of #1#2 and #2 amplitudes by rois epochs average
         header = ['{}+{}'.format(
             self.stim_1_name, self.stim_2_name), self.stim_2_name, 'ratio col1/col2']
 
@@ -422,6 +424,7 @@ class TracesCalc(Logging):
                     x_manual_tick_labels=['{}+{}'.format(
                         self.stim_1_name, self.stim_2_name), self.stim_2_name],)
 
+        # save vertical shift for the next calculations
         if self.use_last_vertical_shift == True and unit_id in self.v_shifts:
             self.vertical_shift = self.v_shifts[unit_id]
         if not self.vertical_shift or self.vertical_shift == 0:
@@ -1068,15 +1071,20 @@ def worker(item, run_derivatives_calculation, run_traces_calculation, v_shifts={
     movie = Movie(item[0], **item[1], v_shifts=v_shifts, filters=filters)
 
     if run_derivatives_calculation:
-        # try:
-        movie.derivatives_calculate()
-        # except Exception as e:
-        #     print(e)
-        #     pass
+        try:
+            movie.derivatives_calculate()
+        except Exception as e:
+            print(e)
+            pass
 
     if run_traces_calculation:
-        movie.csv_process()
+        try:
+            movie.csv_process()
+        except Exception as e:
+            print(e)
+            pass
 
+    # get some results to use them in the next calculations as params
     vertical_shifts = movie.v_shifts_return
     filters = movie.filters_return
 
@@ -1118,6 +1126,7 @@ def main(
 
     for item in to_do_list:
 
+        # setting default parameters if they are missing in the to_do_list
         item[1].setdefault('output_suffix', '')
         item[1].setdefault('working_dir', working_dir)
         item[1].setdefault('resp_duration', resp_duration)
@@ -1166,6 +1175,9 @@ def main(
             cores, jobs, threads))
         print('\nJob started...\n')
 
+
+        # separating the jobs that have to be done first, 
+        # because they do not use the results of the previous calculations
         do_first = [i for i in to_do_list if not (i[1]
                     ['use_last_vertical_shift'] or
                     i[1]['use_last_SD_filter'])]
