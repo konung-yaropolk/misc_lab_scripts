@@ -1195,6 +1195,13 @@ def main(
 
         _ = spread_jobs(do_second)
 
+        errors = [[i[2]+':\n', 'derivatives : '  +i[3]+'\n', 'calculations:   ' +i[4]+'\n', '\n'] for i in output if (i[3] or i[4])]
+        msg = [item for sublist in errors for item in sublist] if errors else ['--no errors--\n']
+
+        print('\n\nAll done.\n')
+        print('Errors: \n')
+        print(*msg)
+
     else:
         for item in to_do_list:
             output = worker(item, run_derivatives_calculation,
@@ -1202,12 +1209,7 @@ def main(
             v_shifts |= output[0]
             filters |= output[1]
 
-    errors = [[i[2]+':\n', 'derivatives : '  +i[3]+'\n', 'calculations:   ' +i[4]+'\n', '\n'] for i in output if (i[3] or i[4])]
-    msg = [item for sublist in errors for item in sublist] if errors else ['--no errors--\n']
 
-    print('\n\nAll done.\n')
-    print('Errors: \n')
-    print(*msg)
 
 if __name__ == '__main__':
     print('Set the parameters in the launcher file and run it to execute the script')

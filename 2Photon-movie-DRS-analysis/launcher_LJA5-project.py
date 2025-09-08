@@ -42,7 +42,7 @@ use_last_SD_filter = False
 
 # Use all available CPU cores.
 # Faster, but need much more RAM so can be unstable.
-multiprocessing = True
+multiprocessing = False
 
 # Maximum size of multiprocessing pull
 # Set the maximum of processes if there isn't enough RAM
