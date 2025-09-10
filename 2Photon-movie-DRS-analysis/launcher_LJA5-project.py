@@ -47,7 +47,7 @@ multiprocessing = False
 # Maximum size of multiprocessing pull
 # Set the maximum of processes if there isn't enough RAM
 # Set 0 or None to use as many processes as possible
-processes_limit = 16
+processes_limit = 64
 
 
 # Params explanation:
