@@ -17,9 +17,9 @@ DERIVATIVES_SUBFOLDER_NAME = '_DERIVATIVES_auto_'
 # Adjust the sampling interval to account for the
 # clock synchronization of the microscope's hardware and PC
 # Coefficient estimated experimentally
-# 0.0031556459008686036  more precise
-# 0.0029183722446345     old one estimation
-SYNC_COEF = 0.00313
+# -0.0031556459008686036  more precise
+# -0.0029183722446345     old one estimation
+SYNC_COEF = -0.00313
 
 
 class Helpers():
@@ -863,7 +863,7 @@ class Movie(DerivativesCalc, TracesCalc, Logging):
         self.event_name = self.events[self.trig_number][0]
         self.start = self.events[self.trig_number][1]
 
-        self.sampling_interval -= self.sampling_interval * SYNC_COEF
+        self.sampling_interval += self.sampling_interval * SYNC_COEF
 
         self.v_shifts = v_shifts
         self.filters = filters
