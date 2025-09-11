@@ -355,7 +355,6 @@ class TracesCalc(Logging):
             filter = s2_bin_summary_by_rois
         self.filters_return |= {unit_id: filter}
 
-
         # csv file of #1#2 and #2 amplitudes by rois epochs average
         header = ['{}+{}'.format(
             self.stim_1_name, self.stim_2_name), self.stim_2_name, 'ratio col1/col2']
@@ -587,7 +586,7 @@ class TracesCalc(Logging):
         plt.figure(figsize=(14, 10))
         plt.imshow(array,
                    aspect='auto',
-                   cmap='viridis',
+                   cmap='magma',
                    interpolation='nearest',
                    origin='upper',
                    extent=[x[0], x[-1], len(array), 0])
@@ -600,12 +599,7 @@ class TracesCalc(Logging):
             for j, dot in enumerate(bin[i]):
                 if dot:
                     event_x = j * self.step_duration * self.n_steps + self.s2_delay
-                    plt.plot(event_x, len(array)-i-0.5, 'rx')
-
-        # Annotate ROI labels
-        for i in range(len(array)):
-            plt.text(x[0] - 20, i + 0.5, f'{i+1}',
-                     verticalalignment='center', horizontalalignment='right')
+                    plt.plot(event_x, len(array)-i-0.5, 'wx')
 
         # plt.xlabel('Time')
         # plt.ylabel('ROIs')
@@ -1075,15 +1069,15 @@ def worker(item, run_derivatives_calculation, run_traces_calculation, v_shifts={
         try:
             movie.derivatives_calculate()
         except Exception as e:
-            e1=repr(e)
+            e1 = repr(e)
             pass
-            
+
     e2 = ''
     if run_traces_calculation:
         try:
             movie.csv_process()
         except Exception as e:
-            e2=repr(e)
+            e2 = repr(e)
             pass
 
     # get some results to use them in the next calculations as params
@@ -1163,10 +1157,10 @@ def main(
         except ValueError:
             print('No one file listed, there is nothing to do.')
             return 0
-        
+
         def spread_jobs(jobs):
             processes = [pool.apply_async(worker, args=(item, run_derivatives_calculation, run_traces_calculation, v_shifts, filters))
-                                for item in jobs]
+                         for item in jobs]
             output = [p.get() for p in processes]
             return output
 
@@ -1177,8 +1171,7 @@ def main(
             cores, jobs, threads))
         print('\nJob started...\n')
 
-
-        # separating the jobs that have to be done first, 
+        # separating the jobs that have to be done first,
         # because they do not use the results of the previous calculations
         do_first = [i for i in to_do_list if not (i[1]
                     ['use_last_vertical_shift'] or
@@ -1187,7 +1180,6 @@ def main(
                      ['use_last_vertical_shift'] or
                      i[1]['use_last_SD_filter'])]
 
-        
         output = spread_jobs(do_first)
 
         v_shifts = output[0][0]
@@ -1195,8 +1187,10 @@ def main(
 
         _ = spread_jobs(do_second)
 
-        errors = [[i[2]+':\n', 'derivatives : '  +i[3]+'\n', 'calculations:   ' +i[4]+'\n', '\n'] for i in output if (i[3] or i[4])]
-        msg = [item for sublist in errors for item in sublist] if errors else ['--no errors--\n']
+        errors = [[i[2]+':\n', 'derivatives : ' + i[3]+'\n',
+                   'calculations:   ' + i[4]+'\n', '\n'] for i in output if (i[3] or i[4])]
+        msg = [item for sublist in errors for item in sublist] if errors else [
+            '--no errors--\n']
 
         print('\n\nAll done.\n')
         print('Errors: \n')
@@ -1208,7 +1202,6 @@ def main(
                             run_traces_calculation, v_shifts, filters)
             v_shifts |= output[0]
             filters |= output[1]
-
 
 
 if __name__ == '__main__':
