@@ -14,6 +14,12 @@ import settings as s
 CALCULATIONS_SUBFOLDER_NAME = '_CALCULATIONS_auto_'
 DERIVATIVES_SUBFOLDER_NAME = '_DERIVATIVES_auto_'
 
+# Adjust sampling interval for specific microscope software quirk
+# Coefficient estimated experimentally
+# 0.0031556459008686036  more precise
+# 0.0029183722446345     old one estimation
+QUIRK = 0.00313
+
 
 class Helpers():
 
@@ -34,11 +40,15 @@ class Helpers():
         rows = len(matrix)
         cols = max(len(row) for row in matrix)
 
-        transposed = [[None] * rows for _ in range(cols)]
+        # use internal numpy method if ndarray for optimization
+        if isinstance(matrix, np.ndarray):
+            transposed = matrix.T
+        else:
+            transposed = [[None] * rows for _ in range(cols)]
 
-        for i in range(rows):
-            for j in range(len(matrix[i])):
-                transposed[j][i] = matrix[i][j]
+            for i in range(rows):
+                for j in range(len(matrix[i])):
+                    transposed[j][i] = matrix[i][j]
 
         return transposed
 
@@ -432,12 +442,19 @@ class TracesCalc(Logging):
             vertical_shift = self.vertical_shift
         self.v_shifts_return |= {unit_id: vertical_shift}
 
-        # plot_stacked_traces all togather
-        matrix = self.transpose(self.csv_matrix[int(
+        # CSV all traces in timeframe
+        matrix = self.csv_matrix[int(
             ((self.start_from_epoch-1) * self.step_duration * self.n_steps) / self.sampling_interval):int(
-            ((self.start_from_epoch-1 + self.n_epochs+1) * self.step_duration * self.n_steps) / self.sampling_interval)])[:]
-        self.plot_stacked_traces(np.array(matrix[0]) - ((self.start_from_epoch-1) * self.step_duration * self.n_steps),
-                                 matrix[:],
+            ((self.start_from_epoch-1 + self.n_epochs+1) * self.step_duration * self.n_steps) / self.sampling_interval)]
+        matrix_T = self.transpose(matrix)
+        self.csv_write(matrix,
+                       csv_path+csv_file, csv_file, '_full_traces_raw_{0}{1}_and_{1}_ampl_{2}_auto_'.format(
+                           self.stim_1_name, self.stim_2_name, self.output_suffix)
+                       )
+
+        # plot_stacked_traces all togather
+        self.plot_stacked_traces(np.array(matrix_T[0]) - ((self.start_from_epoch-1) * self.step_duration * self.n_steps),
+                                 matrix_T[:],
                                  s2_bin_list_each_by_epoch,
                                  s2_bin_summary_by_rois,
                                  '{0}{1}/_full_traces_stacked_by_rois_auto_.png'.format(
@@ -445,12 +462,9 @@ class TracesCalc(Logging):
 
         # plot_stacked_traces by groups
         chunk_size = 40
-        matrix = self.transpose(self.csv_matrix[int(
-            ((self.start_from_epoch-1) * self.step_duration * self.n_steps) / self.sampling_interval):int(
-            ((self.start_from_epoch-1 + self.n_epochs+1) * self.step_duration * self.n_steps) / self.sampling_interval)])[:]
         for pos in range(0, len(self.csv_matrix[0])-1, chunk_size):
-            self.plot_stacked_traces(np.array(matrix[0]) - ((self.start_from_epoch-1) * self.step_duration * self.n_steps),
-                                     matrix[pos:pos+chunk_size+1],
+            self.plot_stacked_traces(np.array(matrix_T[0]) - ((self.start_from_epoch-1) * self.step_duration * self.n_steps),
+                                     matrix_T[pos:pos+chunk_size+1],
                                      s2_bin_list_each_by_epoch[pos:pos +
                                                                chunk_size+1],
                                      s2_bin_summary_by_rois[pos:pos +
@@ -465,10 +479,7 @@ class TracesCalc(Logging):
         #                              '{0}{1}/_epoch{2}_AC_C_traces_auto_.png'.format(csv_path, csv_file[:], i+self.start_from_epoch))
 
         # plot_heatmap
-        matrix = self.transpose(self.csv_matrix[int(
-            ((self.start_from_epoch-1) * self.step_duration * self.n_steps) / self.sampling_interval):int(
-            ((self.start_from_epoch-1 + self.n_epochs+1) * self.step_duration * self.n_steps) / self.sampling_interval)])[:]
-        self.plot_heatmap(matrix[:],
+        self.plot_heatmap(matrix_T[:],
                           s2_bin_list_each_by_epoch,
                           s2_bin_summary_by_rois,
                           '{0}{1}/_heatmap_by_rois_auto_.png'.format(
@@ -635,8 +646,8 @@ class TracesCalc(Logging):
                 try:
                     self.csv_write(self.csv_matrix, csv_path,
                                    csv_file + '.csv', CALCULATIONS_SUBFOLDER_NAME + self.output_suffix, subdir=True)
-                except PermissionError:
-                    self.logging('       File actually opened:')
+                except PermissionError as e:
+                    self.logging('       File actually opened:' + repr(e))
                     continue
 
                 if detailed_stats:
@@ -851,9 +862,7 @@ class Movie(DerivativesCalc, TracesCalc, Logging):
         self.event_name = self.events[self.trig_number][0]
         self.start = self.events[self.trig_number][1]
 
-        # Adjust sampling interval for specific microscope software quirk
-        # Coefficient estimated experimentally
-        self.sampling_interval -= self.sampling_interval * 0.0029183722446345
+        self.sampling_interval -= self.sampling_interval * QUIRK
 
         self.v_shifts = v_shifts
         self.filters = filters
@@ -1087,7 +1096,7 @@ def worker(item, run_derivatives_calculation, run_traces_calculation, v_shifts={
     print(movie.log)
 
     del movie
-    return vertical_shifts, filters, item[0], e1, e2
+    return vertical_shifts, filters, item[0]+'_'+item[1]['output_suffix'], e1, e2
 
 
 def main(

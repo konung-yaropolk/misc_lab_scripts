@@ -3,7 +3,7 @@
 # Theese parameters will be used if not specified in the launchers
 
 # Params for Derivatives Calculation:
-run_derivatives_calculation = True
+run_derivatives_calculation = False
 working_dir = 'F:/Lab Work Files/2-photon/'
 
 
