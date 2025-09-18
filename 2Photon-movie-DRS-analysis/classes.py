@@ -244,6 +244,7 @@ class TracesCalc(Logging):
             # self.logging(ampl > self.sigmas_treshold * np.std(trace[bl_indices]))
             # plt.plot(corrected_trace[whole_step_indices])
             # plt.show()
+            # plt.close()
 
         # Calculate mean amplitude and AUC across all traces
         ampl_mean_of_rois = np.mean(ampl_list)
@@ -283,8 +284,8 @@ class TracesCalc(Logging):
 
     def detailed_stats(self, csv_path, csv_file):
 
-        # create unique id for each calculation unit (created folder)
-        unit_id = self.file_path + '::' + csv_file
+        # create unique id for each calculation unit (trigger)
+        unit_id = self.file_path + '  ' + str(self.trig_number)
 
         s1s2 = False
         s1 = False
@@ -339,7 +340,20 @@ class TracesCalc(Logging):
             s1s2_auc_list_each_by_epoch = np.array([[0.001] * self.n_epochs])
 
         # Binarization:
+        # Check is there both stim or only one to avoid errs
+        # Огидна конструкція, потім переробити
+        if not s1s2 and not s1:
+            s1s2_bin_list_each_by_epoch = s2_bin_list_each_by_epoch
+            s1_bin_list_each_by_epoch = s2_bin_list_each_by_epoch
+        if not s1s2 and s1:
+            s1s2_bin_list_each_by_epoch = s1_bin_list_each_by_epoch
+        if not s1 and s1s2:
+            s1_bin_list_each_by_epoch = s1s2_bin_list_each_by_epoch
 
+        s1s2_bin_summary_by_rois = [
+            sum(i)/len(i) > 0.5 for i in s1s2_bin_list_each_by_epoch]
+        s1_bin_summary_by_rois = [
+            sum(i)/len(i) > 0.5 for i in s1_bin_list_each_by_epoch]
         s2_bin_summary_by_rois = [
             sum(i)/len(i) > 0.5 for i in s2_bin_list_each_by_epoch]
 
@@ -360,10 +374,13 @@ class TracesCalc(Logging):
                 csv_path, csv_file, self.stim_1_name, self.stim_2_name))
 
         # save binarization for the next calculations
-        if self.use_last_SD_filter == True and unit_id in self.filters:
-            filter = self.filters[unit_id]
+        load_filter = self.file_path + '  ' + str(self.SD_filter_of_trig-1)
+        if self.SD_filter_of_trig and load_filter in self.filters:
+            filter = self.filters[load_filter]
         else:
-            filter = s2_bin_summary_by_rois
+            filter = [s1s2_bin_summary_by_rois,
+                      s1_bin_summary_by_rois,
+                      s2_bin_summary_by_rois]
         self.filters_return |= {unit_id: filter}
 
         # csv file of #1#2 and #2 amplitudes by rois epochs average
@@ -373,13 +390,31 @@ class TracesCalc(Logging):
         # CSV summary Amplitude
         self.csv_write([
             ['Unfiltered', '', '', '', '',
-                'Filtered by {} SD'.format(self.sigmas_treshold)],
-            header+['']*2+header,
+                'Filtered by {} SD of {}'.format(
+                    self.sigmas_treshold, self.stim_2_name),
+             '', '', '', '',
+                'Filtered by {} SD of {}+{}'.format(
+                    self.sigmas_treshold, self.stim_1_name, self.stim_2_name)
+             ],
+            header+['']*2+header+['']*2+header,
             *self.transpose([s1s2_ampl_mean_of_epochs_by_rois,
                              s2_ampl_mean_of_epochs_by_rois, 1 /
-                             ampl_s2_to_s1s2_ratio_mean_of_epochs_by_rois, '', '', filter_list(
-                                 s1s2_ampl_mean_of_epochs_by_rois, filter),
-                             filter_list(s2_ampl_mean_of_epochs_by_rois, filter), filter_list(1/ampl_s2_to_s1s2_ratio_mean_of_epochs_by_rois, filter)])
+                             ampl_s2_to_s1s2_ratio_mean_of_epochs_by_rois,
+                             '', '',
+                             filter_list(
+                                 s1s2_ampl_mean_of_epochs_by_rois, filter[2]),
+                             filter_list(
+                                 s2_ampl_mean_of_epochs_by_rois, filter[2]),
+                             filter_list(
+                                 1/ampl_s2_to_s1s2_ratio_mean_of_epochs_by_rois, filter[2]),
+                             '', '',
+                             filter_list(
+                                 s1s2_ampl_mean_of_epochs_by_rois, filter[1]),
+                             filter_list(
+                                 s2_ampl_mean_of_epochs_by_rois, filter[1]),
+                             filter_list(
+                                 1/ampl_s2_to_s1s2_ratio_mean_of_epochs_by_rois, filter[1]),
+                             ])
         ],
             csv_path+csv_file, csv_file, '_by_rois_mean_of_epochs_{0}{1}_and_{1}_ampl_{2}_auto_'.format(
             self.stim_1_name, self.stim_2_name, self.output_suffix)
@@ -388,22 +423,40 @@ class TracesCalc(Logging):
         # CSV summary AUC
         self.csv_write([
             ['Unfiltered', '', '', '', '',
-                'Filtered by {} SD'.format(self.sigmas_treshold)],
-            header+['']*2+header,
+                'Filtered by {} SD of {} resp'.format(
+                    self.sigmas_treshold, self.stim_2_name),
+             '', '', '', '',
+                'Filtered by {} SD of {}+{} resp'.format(
+                    self.sigmas_treshold, self.stim_1_name, self.stim_2_name)
+             ],
+            header+['']*2+header+['']*2+header,
             *self.transpose([s1s2_auc_mean_of_epochs_by_rois,
                              s2_auc_mean_of_epochs_by_rois, 1 /
-                             auc_s2_to_s1s2_ratio_mean_of_epochs_by_rois, '', '', filter_list(
-                                 s1s2_ampl_mean_of_epochs_by_rois, filter),
-                             filter_list(s2_auc_mean_of_epochs_by_rois, filter), filter_list(1/auc_s2_to_s1s2_ratio_mean_of_epochs_by_rois, filter)])
+                             auc_s2_to_s1s2_ratio_mean_of_epochs_by_rois,
+                             '', '',
+                             filter_list(
+                                 s1s2_auc_mean_of_epochs_by_rois, filter[2]),
+                             filter_list(
+                                 s2_auc_mean_of_epochs_by_rois, filter[2]),
+                             filter_list(
+                                 1/auc_s2_to_s1s2_ratio_mean_of_epochs_by_rois, filter[2]),
+                             '', '',
+                             filter_list(
+                                 s1s2_auc_mean_of_epochs_by_rois, filter[1]),
+                             filter_list(
+                                 s2_auc_mean_of_epochs_by_rois, filter[1]),
+                             filter_list(
+                                 1/auc_s2_to_s1s2_ratio_mean_of_epochs_by_rois, filter[1]),
+                             ])
         ],
             csv_path+csv_file, csv_file, '_by_rois_mean_of_epochs_{0}{1}_and_{1}_auc_{2}_auto_'.format(
             self.stim_1_name, self.stim_2_name, self.output_suffix)
         )
 
         # plot_s1s2_s2_roi_stats AUC for all rois
-        self.plot_s1s2_s2_roi_stats(filter_list(s1s2_auc_mean_of_epochs_by_rois, filter, replace=False),
+        self.plot_s1s2_s2_roi_stats(filter_list(s1s2_auc_mean_of_epochs_by_rois, filter[2], replace=False),
                                     filter_list(
-                                        s2_auc_mean_of_epochs_by_rois, filter, replace=False),
+                                        s2_auc_mean_of_epochs_by_rois, filter[2], replace=False),
                                     '{0}{1}/_by_rois_{2}{3}_{3}_auc_auto_.png'.format(
                                         csv_path, csv_file, self.stim_1_name, self.stim_2_name),
                                     paired=True,
@@ -412,9 +465,9 @@ class TracesCalc(Logging):
                                         self.stim_1_name, self.stim_2_name), self.stim_2_name],)
 
         # plot_s1s2_s2_roi_stats Ampl for all rois
-        self.plot_s1s2_s2_roi_stats(filter_list(s1s2_ampl_mean_of_epochs_by_rois, filter, replace=False),
+        self.plot_s1s2_s2_roi_stats(filter_list(s1s2_ampl_mean_of_epochs_by_rois, filter[2], replace=False),
                                     filter_list(
-                                        s2_ampl_mean_of_epochs_by_rois, filter, replace=False),
+                                        s2_ampl_mean_of_epochs_by_rois, filter[2], replace=False),
                                     '{0}{1}/_by_rois_{2}{3}_{3}_ampl_auto_.png'.format(
                                         csv_path, csv_file, self.stim_1_name, self.stim_2_name),
                                     paired=True,
@@ -435,12 +488,15 @@ class TracesCalc(Logging):
                         self.stim_1_name, self.stim_2_name), self.stim_2_name],)
 
         # save vertical shift for the next calculations
-        if self.use_last_vertical_shift == True and unit_id in self.v_shifts:
-            self.vertical_shift = self.v_shifts[unit_id]
+        load_vshift = self.file_path + '  ' + \
+            str(self.vertical_shift_of_trig-1)
+        if self.vertical_shift_of_trig and load_vshift in self.v_shifts:
+            self.vertical_shift = self.v_shifts[load_vshift]
         if not self.vertical_shift or self.vertical_shift == 0:
             vertical_shift = np.amax(s2_ampl_list_each_by_roi)
         else:
             vertical_shift = self.vertical_shift
+
         self.v_shifts_return |= {unit_id: vertical_shift}
 
         # CSV all traces in timeframe
@@ -479,12 +535,20 @@ class TracesCalc(Logging):
         #                              s2_raw_line_list[i],
         #                              '{0}{1}/_epoch{2}_AC_C_traces_auto_.png'.format(csv_path, csv_file[:], i+self.start_from_epoch))
 
-        # plot_heatmap
+        # plot_heatmaps
         self.plot_heatmap(matrix_T[:],
                           s2_bin_list_each_by_epoch,
                           s2_bin_summary_by_rois,
-                          '{0}{1}/_heatmap_by_rois_auto_.png'.format(
-            csv_path, csv_file))
+                          '{0}{1}/_heatmap_by_rois_bin{2}_auto_.png'.format(
+            csv_path, csv_file, self.stim_2_name),
+            delay=self.s2_delay)
+
+        self.plot_heatmap(matrix_T[:],
+                          s1s2_bin_list_each_by_epoch,
+                          s1s2_bin_summary_by_rois,
+                          '{0}{1}/_heatmap_by_rois_bin{2}_auto_.png'.format(
+            csv_path, csv_file, self.stim_1_name+self.stim_2_name),
+            delay=0)
 
     def plot_s2_to_s1s2_ratio_rois_by_epoch(self, array, path):
 
@@ -502,6 +566,7 @@ class TracesCalc(Logging):
         plt.ylabel(
             '{1} to {0}+{1} resp amplitude ratio'.format(self.stim_1_name, self.stim_2_name))
         plt.savefig(path)
+        plt.close()
 
     def plot_s1s2_s2_roi_stats(self, group1, group2, path, paired=True, y_label='', x_manual_tick_labels=[]):
 
@@ -589,7 +654,7 @@ class TracesCalc(Logging):
         plt.savefig(path, transparent=False)
         plt.close()
 
-    def plot_heatmap(self, matrix, bin, bin_summary_by_rois, path):
+    def plot_heatmap(self, matrix, bin, bin_summary_by_rois, path, delay=0):
         array = np.array(matrix[1:])  # Exclude the x-axis row
         array = array[::-1]           # reverse matrix along y axis
         x = np.array(matrix[0])       # x-axis values
@@ -610,7 +675,7 @@ class TracesCalc(Logging):
                 plt.plot(-5, len(array)-i-0.5, 'wo')
             for j, dot in enumerate(bin[i]):
                 if dot:
-                    event_x = j * self.step_duration * self.n_steps + self.s2_delay
+                    event_x = j * self.step_duration * self.n_steps + delay
                     plt.plot(event_x, len(array)-i-0.5, 'wx')
 
         # plt.xlabel('Time')
@@ -816,8 +881,8 @@ class Movie(DerivativesCalc, TracesCalc, Logging):
                  stim_2_name,
                  sigmas_treshold,
                  vertical_shift,
-                 use_last_vertical_shift,
-                 use_last_SD_filter,
+                 vertical_shift_of_trig,
+                 SD_filter_of_trig,
                  v_shifts={},
                  filters={},
                  ** misc):
@@ -839,8 +904,8 @@ class Movie(DerivativesCalc, TracesCalc, Logging):
 
         self.sigmas_treshold = sigmas_treshold
         self.vertical_shift = vertical_shift
-        self.use_last_vertical_shift = use_last_vertical_shift
-        self.use_last_SD_filter = use_last_SD_filter
+        self.vertical_shift_of_trig = vertical_shift_of_trig
+        self.SD_filter_of_trig = SD_filter_of_trig
 
         self.time_before_trig = time_before_trig
         self.time_after_trig = time_after_trig
@@ -1119,8 +1184,8 @@ def main(
     baseline_duraton=s.baseline_duraton,
     sigmas_treshold=s.sigmas_treshold,
     vertical_shift=s.vertical_shift,
-    use_last_vertical_shift=s.use_last_vertical_shift,
-    use_last_SD_filter=s.use_last_SD_filter,
+    vertical_shift_of_trig=s.vertical_shift_of_trig,
+    SD_filter_of_trig=s.SD_filter_of_trig,
     time_after_trig=s.time_after_trig,
     multiprocessing=s.multiprocessing,
     processes_limit=s.processes_limit,
@@ -1151,8 +1216,8 @@ def main(
         item[1].setdefault('stim_2_name', stim_2_name)
         item[1].setdefault('sigmas_treshold', sigmas_treshold)
         item[1].setdefault('vertical_shift', vertical_shift)
-        item[1].setdefault('use_last_vertical_shift', use_last_vertical_shift)
-        item[1].setdefault('use_last_SD_filter', use_last_SD_filter)
+        item[1].setdefault('vertical_shift_of_trig', vertical_shift_of_trig)
+        item[1].setdefault('SD_filter_of_trig', SD_filter_of_trig)
 
     if multiprocessing:
         import multiprocessing as mp
@@ -1184,11 +1249,11 @@ def main(
         # separating the jobs that have to be done first,
         # because they do not use the results of the previous calculations
         do_first = [i for i in to_do_list if not (i[1]
-                    ['use_last_vertical_shift'] or
-                    i[1]['use_last_SD_filter'])]
+                    ['vertical_shift_of_trig'] or
+                    i[1]['SD_filter_of_trig'])]
         do_second = [i for i in to_do_list if (i[1]
-                     ['use_last_vertical_shift'] or
-                     i[1]['use_last_SD_filter'])]
+                     ['vertical_shift_of_trig'] or
+                     i[1]['SD_filter_of_trig'])]
 
         output = spread_jobs(do_first)
 
@@ -1212,6 +1277,10 @@ def main(
                             run_traces_calculation, v_shifts, filters)
             v_shifts |= output[0]
             filters |= output[1]
+            if output[3]:
+                print(output[3])
+            if output[4]:
+                print(output[4])
 
 
 if __name__ == '__main__':

@@ -34,11 +34,11 @@ time_after_trig = None
 # set 0 to make vertical_shift the same as largest responce
 vertical_shift = 0
 
-# use vertical shift from previous run to plot in the same scales
-use_last_vertical_shift = False
+# use vertical shift from this trig to plot in the same scales
+vertical_shift_of_trig = 0
 
-# use binarixation based on SD from previous run to compare the same ROIs
-use_last_SD_filter = False
+# use binarization based on SD from this trig to compare the same ROIs
+SD_filter_of_trig = 0
 
 
 # Params explanation:
@@ -509,7 +509,7 @@ to_do_list = [
     #      'start_from_epoch': 20,
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
-    #      'use_last_vertical_shift': True,
+    #      'vertical_shift_of_trig': True,
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
     #  }
@@ -3646,7 +3646,7 @@ if __name__ == '__main__':
         baseline_duraton,
         sigmas_treshold,
         vertical_shift,
-        use_last_vertical_shift,
-        use_last_SD_filter,
+        vertical_shift_of_trig,
+        SD_filter_of_trig,
         time_after_trig,
     )
