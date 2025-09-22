@@ -1255,6 +1255,9 @@ def main(
         cores = mp.cpu_count()          # CPU cores count
         jobs = len(to_do_list)          # jobs to do count
 
+        if processes_limit == 0:
+            processes_limit = 1000
+
         threads = min(cores, jobs,
                       processes_limit)
         try:

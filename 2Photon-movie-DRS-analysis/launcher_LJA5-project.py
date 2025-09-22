@@ -47,7 +47,7 @@ multiprocessing = True
 # Maximum size of multiprocessing pull
 # Set the maximum of processes if there isn't enough RAM
 # Set 0 or None to use as many processes as possible
-processes_limit = 0
+processes_limit = 10
 
 
 # Params explanation:
@@ -375,46 +375,46 @@ to_do_list = [
 
 
 
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
-     {
-         'trig_number': 1,
-         'output_suffix': '0.1Hz_control',
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
-     {
-         'trig_number': 7,
-         'output_suffix': '0.1Hz_Dynorphin_1uM',
-         'n_epochs': 10,
-         'vertical_shift_of_trig': 1,
-         'SD_filter_of_trig': 1,
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
-     {
-         'trig_number': 3,
-         'output_suffix': '10Hz_control',
-         'n_epochs': 1,
-         'drs_pattern': [[0],  # stim#1
-                         [1]]  # stim#2
-     }
-     ],
-    ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
-     {
-         'trig_number': 5,
-         'output_suffix': '10Hz_Dynorphin_1uM',
-         'n_epochs': 1,
-         'vertical_shift_of_trig': 3,
-         'SD_filter_of_trig': 3,
-         'drs_pattern': [[0],  # stim#1
-                         [1]]  # stim#2
-     }
-     ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': '0.1Hz_control',
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 7,
+    #      'output_suffix': '0.1Hz_Dynorphin_1uM',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 3,
+    #      'output_suffix': '10Hz_control',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 5,
+    #      'output_suffix': '10Hz_Dynorphin_1uM',
+    #      'n_epochs': 1,
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
 
 
 
