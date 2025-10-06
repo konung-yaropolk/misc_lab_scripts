@@ -7,8 +7,8 @@ run_derivatives_calculation = False
 working_dir = 'F:/Lab Work Files/2-photon/'
 
 
-stim_1_name = 'L4C'
-stim_2_name = 'L5C'
+stim_1_name = 'L5-C'
+stim_2_name = 'L4-C'
 drs_pattern = [[0],  # stim #1
                [1]]  # stim #2
 
