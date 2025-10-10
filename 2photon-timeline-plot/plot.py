@@ -25,6 +25,10 @@ DRS   C 10Hz 0.6s
 
 '''
 
+# designating the current directory
+DIR = os.path.dirname(os.path.abspath(__file__))
+FILE = os.path.join(DIR, FILE)
+
 
 # Read the CSV file
 df = pd.read_csv(FILE)
@@ -81,7 +85,7 @@ for i, column in enumerate(df.columns[1:], start=1):
     plt.ylim(*Y_RANGE)
 
     # Save the figure as a PNG file
-    os.makedirs('rois', exist_ok=True)
-    plt.savefig(f'rois/roi_{i}.jpg')
+    os.makedirs(os.path.join(DIR, 'rois'), exist_ok=True)
+    plt.savefig(os.path.join(DIR, f'rois/roi_{i}.jpg'))
 
     plt.close()
