@@ -149,8 +149,8 @@ class TracesCalc(Logging):
             mean = baseline_sum/baseline_len if baseline_len and baseline else 0
 
             column_normalized = [(float(cell)-mean) /
-                                 mean if mean else 0 for cell in column]                 # dF/F0
-            # column_normalized = [float(cell)/mean if mean else 1 for cell in column]   # dF/F
+                                 mean if mean else 0 for cell in column]                 # ΔF/F₀
+            # column_normalized = [float(cell)/mean if mean else 1 for cell in column]   # ΔF/F
 
             content_normalized.append(column_normalized)
 
@@ -479,7 +479,7 @@ class TracesCalc(Logging):
                                     '{0}{1}/_by_rois_{2}_{3}_ampl_auto_.png'.format(
                                         csv_path, csv_file, self.group_names[0], self.group_names[1]),
                                     paired=True,
-                                    y_label='dF/F0',
+                                    y_label='ΔF/F₀',
                                     x_manual_tick_labels=[self.group_names[0], self.group_names[1]])
 
         # plot_s1s2_s2_roi_stats for each roi during timeline
@@ -490,7 +490,7 @@ class TracesCalc(Logging):
                                             '{0}{1}/_roi{2}_{3}{4}_{4}_ampl_auto_.png'.format(
                     csv_path, csv_file, i+1, self.stim_1_name, self.stim_2_name),
                     paired=True,
-                    y_label=f'dF/F0        ROI {i+1}',
+                    y_label=f'ΔF/F₀        ROI {i+1}',
                     x_manual_tick_labels=['{}+{}'.format(
                         self.stim_1_name, self.stim_2_name), self.stim_2_name],)
 
@@ -671,7 +671,7 @@ class TracesCalc(Logging):
                     linewidth=2,
                     zorder=3)
 
-        plt.text(-15, -1., '1 dF/F0',  horizontalalignment='center',
+        plt.text(-15, -1., '1 ΔF/F₀',  horizontalalignment='center',
                  verticalalignment='top')
 
         for i, y in enumerate(array[1:]):
@@ -696,7 +696,7 @@ class TracesCalc(Logging):
                    interpolation='nearest',
                    origin='upper',
                    extent=[x[0], x[-1], len(array), 0])
-        plt.colorbar(label='dF/F0')
+        plt.colorbar(label='ΔF/F₀')
 
         # Overlay bin events
         if bin and bin_summary_by_rois:

@@ -47,7 +47,7 @@ multiprocessing = True
 # Maximum size of multiprocessing pull
 # Set the maximum of processes if there isn't enough RAM
 # Set 0 or None to use as many processes as possible
-processes_limit = 10
+processes_limit = 14
 
 
 # Params explanation:
@@ -107,8 +107,8 @@ to_do_list = [
     #  {
     #      'trig_number': 3,
     #      'output_suffix': '2s_10hz_control',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
@@ -118,8 +118,8 @@ to_do_list = [
     #  {
     #      'trig_number': 10,
     #      'output_suffix': '2s_10hz_Dynorphin_1uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
@@ -130,8 +130,8 @@ to_do_list = [
     #  {
     #      'trig_number': 1,
     #      'output_suffix': '0.1Hz_control',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 10,
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
@@ -141,8 +141,8 @@ to_do_list = [
     #  {
     #      'trig_number': 6,
     #      'output_suffix': '0.1Hz_Dynorphin_1uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 10,
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
@@ -157,8 +157,8 @@ to_do_list = [
     #  {
     #      'trig_number': 3,
     #      'output_suffix': '_2s_10hz_control',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
@@ -168,8 +168,8 @@ to_do_list = [
     #  {
     #      'trig_number': 7,
     #      'output_suffix': '_2s_10hz_Dynorphin_1uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
@@ -180,8 +180,8 @@ to_do_list = [
     #  {
     #      'trig_number': 1,
     #      'output_suffix': '_0.1Hz_control',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 10,
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
@@ -191,8 +191,8 @@ to_do_list = [
     #  {
     #      'trig_number': 8,
     #      'output_suffix': '_0.1Hz_Dynorphin_1uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 10,
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
@@ -208,8 +208,8 @@ to_do_list = [
     #  {
     #      'trig_number': 3,
     #      'output_suffix': '_2s_10hz_control',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
@@ -219,8 +219,8 @@ to_do_list = [
     #  {
     #      'trig_number': 6,
     #      'output_suffix': '_2s_10hz_Dynorphin_1uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
@@ -231,8 +231,8 @@ to_do_list = [
     #  {
     #      'trig_number': 1,
     #      'output_suffix': '_0.1Hz_control',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 10,
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
@@ -242,8 +242,8 @@ to_do_list = [
     #  {
     #      'trig_number': 7,
     #      'output_suffix': '_0.1Hz_Dynorphin_1uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 10,
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
@@ -259,8 +259,8 @@ to_do_list = [
     #  {
     #      'trig_number': 3,
     #      'output_suffix': '_2s_10hz_control',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
@@ -270,8 +270,8 @@ to_do_list = [
     #  {
     #      'trig_number': 9,
     #      'output_suffix': '_2s_10hz_Dynorphin_1uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
@@ -287,8 +287,8 @@ to_do_list = [
     #  {
     #      'trig_number': 3,
     #      'output_suffix': '2s_10hz_control',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
@@ -298,8 +298,8 @@ to_do_list = [
     #  {
     #      'trig_number': 10,
     #      'output_suffix': '2s_10hz_Dynorphin_1uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
@@ -319,8 +319,8 @@ to_do_list = [
     #  {
     #      'trig_number': 1,
     #      'output_suffix': 'control',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 10,
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
@@ -330,8 +330,8 @@ to_do_list = [
     #  {
     #      'trig_number': 8,
     #      'output_suffix': 'Dynorphin_1uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 10,
     #      'vertical_shift_of_trig': 1,
     #      'drs_pattern': [[1, 0],  # stim#1
@@ -346,8 +346,8 @@ to_do_list = [
     #  {
     #      'trig_number': 1,
     #      'output_suffix': 'control',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 10,
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
@@ -357,8 +357,8 @@ to_do_list = [
     #  {
     #      'trig_number': 7,
     #      'output_suffix': 'Dynorphin_1uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 10,
     #      'vertical_shift_of_trig': 1,
     #      'drs_pattern': [[1, 0],  # stim#1
@@ -413,7 +413,7 @@ to_do_list = [
 
 
 
-    # # Control group:
+    # # # Control group:
 
 
 
@@ -423,8 +423,8 @@ to_do_list = [
     #  {
     #      'trig_number': 1,
     #      'output_suffix': '0.1Hz_control',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 10,
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
@@ -434,8 +434,8 @@ to_do_list = [
     #  {
     #      'trig_number': 7,
     #      'output_suffix': '0.1Hz_Dynorphin_1uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 10,
     #      'vertical_shift_of_trig': 1,
     #      'SD_filter_of_trig': 1,
@@ -447,8 +447,8 @@ to_do_list = [
     #  {
     #      'trig_number': 3,
     #      'output_suffix': '10Hz_control',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
@@ -458,8 +458,8 @@ to_do_list = [
     #  {
     #      'trig_number': 5,
     #      'output_suffix': '10Hz_Dynorphin_1uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'vertical_shift_of_trig': 3,
     #      'SD_filter_of_trig': 3,
@@ -478,8 +478,8 @@ to_do_list = [
     #  {
     #      'trig_number': 3,
     #      'output_suffix': '0.1Hz_control',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 10,
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
@@ -489,8 +489,8 @@ to_do_list = [
     #  {
     #      'trig_number': 5,
     #      'output_suffix': '0.1Hz_Dynorphin_1uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 10,
     #      'vertical_shift_of_trig': 3,
     #      'SD_filter_of_trig': 3,
@@ -502,8 +502,8 @@ to_do_list = [
     #  {
     #      'trig_number': 2,
     #      'output_suffix': '2Hz_control',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
@@ -513,8 +513,8 @@ to_do_list = [
     #  {
     #      'trig_number': 6,
     #      'output_suffix': '2Hz_Dynorphin_1uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'vertical_shift_of_trig': 2,
     #      'SD_filter_of_trig': 2,
@@ -526,8 +526,8 @@ to_do_list = [
     #  {
     #      'trig_number': 1,
     #      'output_suffix': '10Hz_control',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
@@ -537,8 +537,8 @@ to_do_list = [
     #  {
     #      'trig_number': 7,
     #      'output_suffix': '10Hz_Dynorphin_1uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'vertical_shift_of_trig': 1,
     #      'SD_filter_of_trig': 1,
@@ -553,8 +553,8 @@ to_do_list = [
     #  {
     #      'trig_number': 3,
     #      'output_suffix': '0.1Hz_control',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 10,
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
@@ -564,8 +564,8 @@ to_do_list = [
     #  {
     #      'trig_number': 5,
     #      'output_suffix': '0.1Hz_Dynorphin_1uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 10,
     #      'vertical_shift_of_trig': 3,
     #      'SD_filter_of_trig': 3,
@@ -577,8 +577,8 @@ to_do_list = [
     #  {
     #      'trig_number': 2,
     #      'output_suffix': '2Hz_control',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
@@ -588,8 +588,8 @@ to_do_list = [
     #  {
     #      'trig_number': 6,
     #      'output_suffix': '2Hz_Dynorphin_1uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'vertical_shift_of_trig': 2,
     #      'SD_filter_of_trig': 2,
@@ -601,8 +601,8 @@ to_do_list = [
     #  {
     #      'trig_number': 1,
     #      'output_suffix': '10Hz_control',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
@@ -612,8 +612,8 @@ to_do_list = [
     #  {
     #      'trig_number': 7,
     #      'output_suffix': '10Hz_Dynorphin_1uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'vertical_shift_of_trig': 1,
     #      'SD_filter_of_trig': 1,
@@ -625,8 +625,8 @@ to_do_list = [
     #  {
     #      'trig_number': 9,
     #      'output_suffix': '10Hz_Naloxone_5uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'vertical_shift_of_trig': 1,
     #      'SD_filter_of_trig': 1,
@@ -679,8 +679,8 @@ to_do_list = [
     #  {
     #      'trig_number': 2,
     #      'output_suffix': '2Hz_control',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
@@ -690,8 +690,8 @@ to_do_list = [
     #  {
     #      'trig_number': 6,
     #      'output_suffix': '2Hz_Dynorphin_1uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'vertical_shift_of_trig': 2,
     #      'SD_filter_of_trig': 2,
@@ -703,8 +703,8 @@ to_do_list = [
     #  {
     #      'trig_number': 10,
     #      'output_suffix': '2Hz_Naloxone_5uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'vertical_shift_of_trig': 2,
     #      'SD_filter_of_trig': 2,
@@ -717,8 +717,8 @@ to_do_list = [
     #  {
     #      'trig_number': 1,
     #      'output_suffix': '10Hz_control',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
@@ -728,8 +728,8 @@ to_do_list = [
     #  {
     #      'trig_number': 7,
     #      'output_suffix': '10Hz_Dynorphin_1uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'vertical_shift_of_trig': 1,
     #      'SD_filter_of_trig': 1,
@@ -741,8 +741,8 @@ to_do_list = [
     #  {
     #      'trig_number': 9,
     #      'output_suffix': '10Hz_Naloxone_5uM',
-    #      'stim_1_name' : 'A',
-    #      'stim_2_name' : 'C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
     #      'vertical_shift_of_trig': 1,
     #      'SD_filter_of_trig': 1,
