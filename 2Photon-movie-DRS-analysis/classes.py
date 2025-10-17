@@ -291,32 +291,56 @@ class TracesCalc(Logging):
         s1 = False
         s2 = False
         self.group_names = []
-        for i, [s1, s2] in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
-            match [s1, s2]:
-                case [1, 1]:
-                    s1s2_ampl_mean_of_rois_by_epoch, s1s2_ampl_mean_of_epochs_by_rois, s1s2_ampl_list_each_by_roi, s1s2_ampl_list_each_by_epoch, s1s2_auc_mean_of_rois_by_epoch, s1s2_auc_mean_of_epochs_by_rois, s1s2_auc_list_each_by_roi, s1s2_auc_list_each_by_epoch, s1s2_bin_list_each_by_epoch, s1s2_raw_line_list = self.calc_traces_sequence(
-                        i)
+        for i, (s1, s2) in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
+            match (s1, s2):
+                case (1, 1):
+                    (s1s2_ampl_mean_of_rois_by_epoch, 
+                     s1s2_ampl_mean_of_epochs_by_rois, 
+                     s1s2_ampl_list_each_by_roi,
+                     s1s2_ampl_list_each_by_epoch, 
+                     s1s2_auc_mean_of_rois_by_epoch, 
+                     s1s2_auc_mean_of_epochs_by_rois, 
+                     s1s2_auc_list_each_by_roi, 
+                     s1s2_auc_list_each_by_epoch, 
+                     s1s2_bin_list_each_by_epoch, 
+                     s1s2_raw_line_list) = self.calc_traces_sequence(i)
                     self.s1s2_delay = i*self.step_duration
                     s1s2 = True
                     s1s2_order = i
                     self.group_names.append(self.stim_1_name +
                                             '&' + self.stim_2_name)
-                case [1, 0]:
-                    s1_ampl_mean_of_rois_by_epoch,  s1_ampl_mean_of_epochs_by_rois,  s1_ampl_list_each_by_roi,  s1_ampl_list_each_by_epoch, s1_auc_mean_of_rois_by_epoch,  s1_auc_mean_of_epochs_by_rois,  s1_auc_list_each_by_roi,  s1_auc_list_each_by_epoch, s1_bin_list_each_by_epoch, s1_raw_line_list = self.calc_traces_sequence(
-                        i)
+                case (1, 0):
+                    (s1_ampl_mean_of_rois_by_epoch, 
+                     s1_ampl_mean_of_epochs_by_rois,  
+                     s1_ampl_list_each_by_roi,  
+                     s1_ampl_list_each_by_epoch, 
+                     s1_auc_mean_of_rois_by_epoch,  
+                     s1_auc_mean_of_epochs_by_rois,  
+                     s1_auc_list_each_by_roi,  
+                     s1_auc_list_each_by_epoch, 
+                     s1_bin_list_each_by_epoch, 
+                     s1_raw_line_list) = self.calc_traces_sequence(i)
                     self.s1_delay = i*self.step_duration
                     s1 = True
                     s1_order = i
                     self.group_names.append(self.stim_1_name)
-                case [0, 1]:
-                    s2_ampl_mean_of_rois_by_epoch,  s2_ampl_mean_of_epochs_by_rois,  s2_ampl_list_each_by_roi, s2_ampl_list_each_by_epoch, s2_auc_mean_of_rois_by_epoch,  s2_auc_mean_of_epochs_by_rois,  s2_auc_list_each_by_roi, s2_auc_list_each_by_epoch, s2_bin_list_each_by_epoch, s2_raw_line_list = self.calc_traces_sequence(
-                        i)
+                case (0, 1):
+                    (s2_ampl_mean_of_rois_by_epoch,  
+                     s2_ampl_mean_of_epochs_by_rois,  
+                     s2_ampl_list_each_by_roi, 
+                     s2_ampl_list_each_by_epoch, 
+                     s2_auc_mean_of_rois_by_epoch, 
+                     s2_auc_mean_of_epochs_by_rois,  
+                     s2_auc_list_each_by_roi, 
+                     s2_auc_list_each_by_epoch, 
+                     s2_bin_list_each_by_epoch, 
+                     s2_raw_line_list) = self.calc_traces_sequence(i)
                     self.s2_delay = i*self.step_duration
                     s2 = True
                     s2_order = i
                     self.group_names.append(self.stim_2_name)
-                case [0, 0]: pass
-                case [None, None]: pass
+                case (0, 0): pass
+                case (None, None): pass
                 # responses_each_by_roi, responses_each_by_epoch = self.calc_traces_sequence(i)
 
         try:
@@ -851,7 +875,7 @@ class DerivativesCalc(Helpers, Logging):
         s1_name_ending = '_auto_DERIVATIVES_{}.tif'.format(self.stim_1_name)
         s2_name_ending = '_auto_DERIVATIVES_{}.tif'.format(self.stim_2_name)
 
-        for i, [A, C] in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
+        for i, (A, C) in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
             match (A, C):
                 case (1, 1):
                     self.logging('\nSequence #1+#2:')
