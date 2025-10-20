@@ -294,15 +294,15 @@ class TracesCalc(Logging):
         for i, (s1, s2) in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
             match (s1, s2):
                 case (1, 1):
-                    (s1s2_ampl_mean_of_rois_by_epoch, 
-                     s1s2_ampl_mean_of_epochs_by_rois, 
+                    (s1s2_ampl_mean_of_rois_by_epoch,
+                     s1s2_ampl_mean_of_epochs_by_rois,
                      s1s2_ampl_list_each_by_roi,
-                     s1s2_ampl_list_each_by_epoch, 
-                     s1s2_auc_mean_of_rois_by_epoch, 
-                     s1s2_auc_mean_of_epochs_by_rois, 
-                     s1s2_auc_list_each_by_roi, 
-                     s1s2_auc_list_each_by_epoch, 
-                     s1s2_bin_list_each_by_epoch, 
+                     s1s2_ampl_list_each_by_epoch,
+                     s1s2_auc_mean_of_rois_by_epoch,
+                     s1s2_auc_mean_of_epochs_by_rois,
+                     s1s2_auc_list_each_by_roi,
+                     s1s2_auc_list_each_by_epoch,
+                     s1s2_bin_list_each_by_epoch,
                      s1s2_raw_line_list) = self.calc_traces_sequence(i)
                     self.s1s2_delay = i*self.step_duration
                     s1s2 = True
@@ -310,30 +310,30 @@ class TracesCalc(Logging):
                     self.group_names.append(self.stim_1_name +
                                             '&' + self.stim_2_name)
                 case (1, 0):
-                    (s1_ampl_mean_of_rois_by_epoch, 
-                     s1_ampl_mean_of_epochs_by_rois,  
-                     s1_ampl_list_each_by_roi,  
-                     s1_ampl_list_each_by_epoch, 
-                     s1_auc_mean_of_rois_by_epoch,  
-                     s1_auc_mean_of_epochs_by_rois,  
-                     s1_auc_list_each_by_roi,  
-                     s1_auc_list_each_by_epoch, 
-                     s1_bin_list_each_by_epoch, 
+                    (s1_ampl_mean_of_rois_by_epoch,
+                     s1_ampl_mean_of_epochs_by_rois,
+                     s1_ampl_list_each_by_roi,
+                     s1_ampl_list_each_by_epoch,
+                     s1_auc_mean_of_rois_by_epoch,
+                     s1_auc_mean_of_epochs_by_rois,
+                     s1_auc_list_each_by_roi,
+                     s1_auc_list_each_by_epoch,
+                     s1_bin_list_each_by_epoch,
                      s1_raw_line_list) = self.calc_traces_sequence(i)
                     self.s1_delay = i*self.step_duration
                     s1 = True
                     s1_order = i
                     self.group_names.append(self.stim_1_name)
                 case (0, 1):
-                    (s2_ampl_mean_of_rois_by_epoch,  
-                     s2_ampl_mean_of_epochs_by_rois,  
-                     s2_ampl_list_each_by_roi, 
-                     s2_ampl_list_each_by_epoch, 
-                     s2_auc_mean_of_rois_by_epoch, 
-                     s2_auc_mean_of_epochs_by_rois,  
-                     s2_auc_list_each_by_roi, 
-                     s2_auc_list_each_by_epoch, 
-                     s2_bin_list_each_by_epoch, 
+                    (s2_ampl_mean_of_rois_by_epoch,
+                     s2_ampl_mean_of_epochs_by_rois,
+                     s2_ampl_list_each_by_roi,
+                     s2_ampl_list_each_by_epoch,
+                     s2_auc_mean_of_rois_by_epoch,
+                     s2_auc_mean_of_epochs_by_rois,
+                     s2_auc_list_each_by_roi,
+                     s2_auc_list_each_by_epoch,
+                     s2_bin_list_each_by_epoch,
                      s2_raw_line_list) = self.calc_traces_sequence(i)
                     self.s2_delay = i*self.step_duration
                     s2 = True
@@ -404,8 +404,8 @@ class TracesCalc(Logging):
             return output
 
         self.plot_s2_to_s1s2_ratio_rois_by_epoch(
-            1/ampl_s2_to_s1s2_ratio_rois_by_epoch, '{0}{1}/_rois_by_epoch_{3}_to_{2}_ratio_auto_.png'.format(
-                csv_path, csv_file, self.group_names[0], self.group_names[1]))
+            1/ampl_s2_to_s1s2_ratio_rois_by_epoch, '{0}{1}/_rois_by_epoch_{3}_to_{2}_{4}_ratio_auto_.png'.format(
+                csv_path, csv_file, self.group_names[0], self.group_names[1]), self.output_suffix)
 
         # save binarization for the next calculations
         load_filter = self.file_path + '  ' + str(self.SD_filter_of_trig-1)
@@ -490,8 +490,8 @@ class TracesCalc(Logging):
         self.plot_s1s2_s2_roi_stats(filter_list(s1s2_auc_mean_of_epochs_by_rois, filter[2], replace=False),
                                     filter_list(
                                         s2_auc_mean_of_epochs_by_rois, filter[2], replace=False),
-                                    '{0}{1}/_by_rois_{2}_{3}_auc_auto_.png'.format(
-                                        csv_path, csv_file, self.group_names[0], self.group_names[1]),
+                                    '{0}{1}/_by_rois_{2}_{3}_{4}_auc_auto_.png'.format(
+                                        csv_path, csv_file, self.group_names[0], self.group_names[1], self.output_suffix),
                                     paired=True,
                                     y_label='AUC',
                                     x_manual_tick_labels=[self.group_names[0], self.group_names[1]])
@@ -500,8 +500,8 @@ class TracesCalc(Logging):
         self.plot_s1s2_s2_roi_stats(filter_list(s1s2_ampl_mean_of_epochs_by_rois, filter[2], replace=False),
                                     filter_list(
                                         s2_ampl_mean_of_epochs_by_rois, filter[2], replace=False),
-                                    '{0}{1}/_by_rois_{2}_{3}_ampl_auto_.png'.format(
-                                        csv_path, csv_file, self.group_names[0], self.group_names[1]),
+                                    '{0}{1}/_by_rois_{2}_{3}_{4}_ampl_auto_.png'.format(
+                                        csv_path, csv_file, self.group_names[0], self.group_names[1], self.output_suffix),
                                     paired=True,
                                     y_label='ΔF/F₀',
                                     x_manual_tick_labels=[self.group_names[0], self.group_names[1]])
@@ -511,8 +511,8 @@ class TracesCalc(Logging):
             for i in range(len(s1s2_ampl_list_each_by_epoch)):
                 self.plot_s1s2_s2_roi_stats(s1s2_ampl_list_each_by_epoch[i],
                                             s2_ampl_list_each_by_epoch[i],
-                                            '{0}{1}/_roi{2}_{3}{4}_{4}_ampl_auto_.png'.format(
-                    csv_path, csv_file, i+1, self.stim_1_name, self.stim_2_name),
+                                            '{0}{1}/_roi{2}_{3}{4}_{4}_{5}_ampl_auto_.png'.format(
+                    csv_path, csv_file, i+1, self.stim_1_name, self.stim_2_name, self.output_suffix),
                     paired=True,
                     y_label=f'ΔF/F₀        ROI {i+1}',
                     x_manual_tick_labels=['{}+{}'.format(
@@ -549,14 +549,14 @@ class TracesCalc(Logging):
                                  matrix_T[:],
                                  s1s2_bin_list_each_by_epoch,
                                  s1s2_bin_summary_by_rois,
-                                 '{0}{1}/_by_rois_traces_bin_{2}/_full_traces_stacked_by_rois_auto_.png'.format(
-            csv_path, csv_file, self.group_names[0]), vertical_shift=vertical_shift, delay=0)
+                                 '{0}{1}/_by_rois_traces_bin_{2}_{3}/_full_traces_stacked_by_rois_auto_.png'.format(
+            csv_path, csv_file, self.group_names[0], self.output_suffix), vertical_shift=vertical_shift, delay=0)
         self.plot_stacked_traces(np.array(matrix_T[0]) - ((self.start_from_epoch-1) * self.step_duration * self.n_steps),
                                  matrix_T[:],
                                  s2_bin_list_each_by_epoch,
                                  s2_bin_summary_by_rois,
-                                 '{0}{1}/_by_rois_traces_bin_{2}/_full_traces_stacked_by_rois_auto_.png'.format(
-            csv_path, csv_file, self.group_names[1]), vertical_shift=vertical_shift, delay=self.s2_delay)
+                                 '{0}{1}/_by_rois_traces_bin_{2}_{3}/_full_traces_stacked_by_rois_auto_.png'.format(
+            csv_path, csv_file, self.group_names[1], self.output_suffix), vertical_shift=vertical_shift, delay=self.s2_delay)
 
         # plot_stacked_traces by groups
         chunk_size = 40
@@ -567,8 +567,8 @@ class TracesCalc(Logging):
                                                                  chunk_size+1],
                                      s1s2_bin_summary_by_rois[pos:pos +
                                                               chunk_size+1],
-                                     '{0}{1}/_by_rois_traces_bin_{2}/_full_traces_stacked_by_rois_{3}-{4}_auto_.png'.format(
-                csv_path, csv_file, self.group_names[0], pos+1, pos+chunk_size), vertical_shift=vertical_shift, delay=self.s2_delay)
+                                     '{0}{1}/_by_rois_traces_bin_{2}/_full_traces_stacked_by_rois_{3}-{4}_{5}_auto_.png'.format(
+                csv_path, csv_file, self.group_names[0], pos+1, pos+chunk_size, self.output_suffix), vertical_shift=vertical_shift, delay=self.s2_delay)
         for pos in range(0, len(self.csv_matrix[0])-1, chunk_size):
             self.plot_stacked_traces(np.array(matrix_T[0]) - ((self.start_from_epoch-1) * self.step_duration * self.n_steps),
                                      matrix_T[pos:pos+chunk_size+1],
@@ -576,8 +576,8 @@ class TracesCalc(Logging):
                                                                chunk_size+1],
                                      s2_bin_summary_by_rois[pos:pos +
                                                             chunk_size+1],
-                                     '{0}{1}/_by_rois_traces_bin_{2}/_full_traces_stacked_by_rois_{3}-{4}_auto_.png'.format(
-                csv_path, csv_file, self.group_names[1], pos+1, pos+chunk_size), vertical_shift=vertical_shift, delay=self.s2_delay)
+                                     '{0}{1}/_by_rois_traces_bin_{2}/_full_traces_stacked_by_rois_{3}-{4}_{5}auto_.png'.format(
+                csv_path, csv_file, self.group_names[1], pos+1, pos+chunk_size, self.output_suffix), vertical_shift=vertical_shift, delay=self.s2_delay)
 
         # plot_traces_by_rois
         # for i in range(len(s1s2_raw_line_list)):
@@ -587,20 +587,20 @@ class TracesCalc(Logging):
 
         # plot_heatmaps
         self.plot_heatmap(matrix_T[:],
-                          '{0}{1}/_by_rois__heatmap_bin_{2}_auto_.png'.format(
-            csv_path, csv_file, self.group_names[0]),
+                          '{0}{1}/_by_rois__heatmap_bin_{2}_{3}_auto_.png'.format(
+            csv_path, csv_file, self.group_names[0], self.output_suffix),
             s1s2_bin_list_each_by_epoch,
             s1s2_bin_summary_by_rois,
             delay=0)
         self.plot_heatmap(matrix_T[:],
-                          '{0}{1}/_by_rois__heatmap_bin_{2}_auto_.png'.format(
-            csv_path, csv_file, self.group_names[1]),
+                          '{0}{1}/_by_rois__heatmap_bin_{2}_{3}_auto_.png'.format(
+            csv_path, csv_file, self.group_names[1], self.output_suffix),
             s2_bin_list_each_by_epoch,
             s2_bin_summary_by_rois,
             delay=self.s2_delay)
         self.plot_heatmap(matrix_T[:],
-                          '{0}{1}/_by_rois__heatmap_auto_.png'.format(
-            csv_path, csv_file),
+                          '{0}{1}/_by_rois__heatmap_auto_{2}.png'.format(
+            csv_path, csv_file, self.output_suffix),
             delay=self.s2_delay)
 
     def plot_s2_to_s1s2_ratio_rois_by_epoch(self, array, path):

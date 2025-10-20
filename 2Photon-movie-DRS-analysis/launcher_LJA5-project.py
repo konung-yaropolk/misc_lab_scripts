@@ -754,6 +754,59 @@ to_do_list = [
 
 
 
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_15/Field_6_Dynorphin_application.tif',
+     {
+         'trig_number': 1,
+         'output_suffix': '_Control',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 3,
+         'SD_filter_of_trig': 3,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_15/Field_6_Dynorphin_application.tif',
+     {
+         'trig_number': 3,
+         'output_suffix': '_CNO',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 0,
+         'SD_filter_of_trig': 0,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_15/Field_6_Dynorphin_application.tif',
+     {
+         'trig_number': 5,
+         'output_suffix': '_Dynorphin',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 3,
+         'SD_filter_of_trig': 3,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_15/Field_6_Dynorphin_application.tif',
+     {
+         'trig_number': 7,
+         'output_suffix': '_Naloxone',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 3,
+         'SD_filter_of_trig': 3,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+
 
 
 
