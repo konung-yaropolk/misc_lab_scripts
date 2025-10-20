@@ -297,8 +297,8 @@ class TracesCalc(Logging):
         s1 = False
         s2 = False
         self.group_names = []
-        for i, (s1, s2) in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
-            match (s1, s2):
+        for i, (sp1, sp2) in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
+            match (sp1, sp2):
                 case (1, 1):
                     (s1s2_ampl_mean_of_rois_by_epoch,
                      s1s2_ampl_mean_of_epochs_by_rois,
