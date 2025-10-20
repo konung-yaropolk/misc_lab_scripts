@@ -25,7 +25,7 @@ DERIVATIVES_SUBFOLDER_NAME = '_DERIVATIVES_auto_'
 SYNC_COEF = -0.00313
 
 # if true - provide detailed errors traceback
-DEBUG = True
+DEBUG = False
 
 
 class Helpers():
