@@ -1,12 +1,15 @@
 import os
 import re
 import csv
+import traceback
+
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.ndimage import gaussian_filter
+from PIL import Image
 import tifffile
 import AutoStatLib
-from PIL import Image
-from scipy.ndimage import gaussian_filter
+
 import settings as s
 
 # Defaults:
@@ -20,6 +23,9 @@ DERIVATIVES_SUBFOLDER_NAME = '_DERIVATIVES_auto_'
 # -0.0031556459008686036  more precise
 # -0.0029183722446345     old one estimation
 SYNC_COEF = -0.00313
+
+# if true - provide detailed errors traceback
+DEBUG = True
 
 
 class Helpers():
@@ -103,7 +109,7 @@ class TracesCalc(Logging):
                 )
             )
         else:
-            self.logging("!!!    Fail: invalid path        ", self.path)
+            self.logging('!!!    Fail: invalid path        ', self.path)
 
         return files
 
@@ -405,7 +411,7 @@ class TracesCalc(Logging):
 
         self.plot_s2_to_s1s2_ratio_rois_by_epoch(
             1/ampl_s2_to_s1s2_ratio_rois_by_epoch, '{0}{1}/_rois_by_epoch_{3}_to_{2}_{4}_ratio_auto_.png'.format(
-                csv_path, csv_file, self.group_names[0], self.group_names[1]), self.output_suffix)
+                csv_path, csv_file, self.group_names[0], self.group_names[1], self.output_suffix))
 
         # save binarization for the next calculations
         load_filter = self.file_path + '  ' + str(self.SD_filter_of_trig-1)
@@ -542,20 +548,20 @@ class TracesCalc(Logging):
 
         for i in self.group_names:
             os.makedirs(csv_path + csv_file +
-                        '/_by_rois_traces_bin_{}'.format(i), exist_ok=True)
+                        '/_by_rois_traces_bin_{0}_{1}_auto_'.format(i, self.output_suffix), exist_ok=True)
 
         # plot_stacked_traces all togather
         self.plot_stacked_traces(np.array(matrix_T[0]) - ((self.start_from_epoch-1) * self.step_duration * self.n_steps),
                                  matrix_T[:],
                                  s1s2_bin_list_each_by_epoch,
                                  s1s2_bin_summary_by_rois,
-                                 '{0}{1}/_by_rois_traces_bin_{2}_{3}/_full_traces_stacked_by_rois_auto_.png'.format(
+                                 '{0}{1}/_by_rois_traces_bin_{2}_{3}_auto_/_full_traces_stacked_by_rois_auto_.png'.format(
             csv_path, csv_file, self.group_names[0], self.output_suffix), vertical_shift=vertical_shift, delay=0)
         self.plot_stacked_traces(np.array(matrix_T[0]) - ((self.start_from_epoch-1) * self.step_duration * self.n_steps),
                                  matrix_T[:],
                                  s2_bin_list_each_by_epoch,
                                  s2_bin_summary_by_rois,
-                                 '{0}{1}/_by_rois_traces_bin_{2}_{3}/_full_traces_stacked_by_rois_auto_.png'.format(
+                                 '{0}{1}/_by_rois_traces_bin_{2}_{3}_auto_/_full_traces_stacked_by_rois_auto_.png'.format(
             csv_path, csv_file, self.group_names[1], self.output_suffix), vertical_shift=vertical_shift, delay=self.s2_delay)
 
         # plot_stacked_traces by groups
@@ -567,7 +573,7 @@ class TracesCalc(Logging):
                                                                  chunk_size+1],
                                      s1s2_bin_summary_by_rois[pos:pos +
                                                               chunk_size+1],
-                                     '{0}{1}/_by_rois_traces_bin_{2}/_full_traces_stacked_by_rois_{3}-{4}_{5}_auto_.png'.format(
+                                     '{0}{1}/_by_rois_traces_bin_{2}_{5}_auto_/_full_traces_stacked_by_rois_{3}-{4}_{5}_auto_.png'.format(
                 csv_path, csv_file, self.group_names[0], pos+1, pos+chunk_size, self.output_suffix), vertical_shift=vertical_shift, delay=self.s2_delay)
         for pos in range(0, len(self.csv_matrix[0])-1, chunk_size):
             self.plot_stacked_traces(np.array(matrix_T[0]) - ((self.start_from_epoch-1) * self.step_duration * self.n_steps),
@@ -576,7 +582,7 @@ class TracesCalc(Logging):
                                                                chunk_size+1],
                                      s2_bin_summary_by_rois[pos:pos +
                                                             chunk_size+1],
-                                     '{0}{1}/_by_rois_traces_bin_{2}/_full_traces_stacked_by_rois_{3}-{4}_{5}auto_.png'.format(
+                                     '{0}{1}/_by_rois_traces_bin_{2}_{5}_auto_/_full_traces_stacked_by_rois_{3}-{4}_{5}_auto_.png'.format(
                 csv_path, csv_file, self.group_names[1], pos+1, pos+chunk_size, self.output_suffix), vertical_shift=vertical_shift, delay=self.s2_delay)
 
         # plot_traces_by_rois
@@ -1199,6 +1205,8 @@ def worker(item, run_derivatives_calculation, run_traces_calculation, v_shifts={
             movie.derivatives_calculate()
         except Exception as e:
             e1 = repr(e)
+            if DEBUG:
+                print(traceback.format_exc())
             pass
 
     e2 = ''
@@ -1207,6 +1215,8 @@ def worker(item, run_derivatives_calculation, run_traces_calculation, v_shifts={
             movie.csv_process()
         except Exception as e:
             e2 = repr(e)
+            if DEBUG:
+                print(traceback.format_exc())
             pass
 
     # get some results to use them in the next calculations as params
@@ -1282,7 +1292,7 @@ def main(
         if processes_limit == 0:
             processes_limit = 1000
 
-        threads = min(cores, jobs,
+        threads = min(cores-2, jobs,
                       processes_limit)
         try:
             pool = mp.Pool(threads)
