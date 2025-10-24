@@ -349,12 +349,12 @@ class TracesCalc(Logging):
                 case (None, None): pass
                 # responses_each_by_roi, responses_each_by_epoch = self.calc_traces_sequence(i)
 
-        try:
-            ampl_s2_to_s1s2_ratio_mean_of_epochs_by_rois = np.array(
-                s2_ampl_mean_of_epochs_by_rois) / np.array(s1s2_ampl_mean_of_epochs_by_rois)
-            ampl_s2_to_s1s2_ratio_rois_by_epoch = np.array(
-                s2_ampl_list_each_by_epoch) / np.array(s1s2_ampl_list_each_by_epoch)
-        except NameError:
+
+
+        # Check is there both stim or only one to avoid errs
+        # Огидна конструкція, потім переробити
+
+        if not s1s2 and not s1:
             ampl_s2_to_s1s2_ratio_mean_of_epochs_by_rois = np.array(
                 [0.001]*len(s2_ampl_mean_of_epochs_by_rois))
             ampl_s2_to_s1s2_ratio_rois_by_epoch = np.array(
@@ -363,12 +363,6 @@ class TracesCalc(Logging):
                 [0.001] * len(s2_auc_mean_of_epochs_by_rois))
             s1s2_ampl_list_each_by_epoch = np.array([[0.001] * self.n_epochs])
 
-        try:
-            auc_s2_to_s1s2_ratio_mean_of_epochs_by_rois = np.array(
-                s2_auc_mean_of_epochs_by_rois) / np.array(s1s2_auc_mean_of_epochs_by_rois)
-            auc_s2_to_s1s2_ratio_rois_by_epoch = np.array(
-                s2_auc_list_each_by_epoch) / np.array(s1s2_auc_list_each_by_epoch)
-        except NameError:
             auc_s2_to_s1s2_ratio_mean_of_epochs_by_rois = np.array(
                 [0.001]*len(s2_auc_mean_of_epochs_by_rois))
             auc_s2_to_s1s2_ratio_rois_by_epoch = np.array(
@@ -377,9 +371,46 @@ class TracesCalc(Logging):
                 [0.001] * len(s2_auc_mean_of_epochs_by_rois))
             s1s2_auc_list_each_by_epoch = np.array([[0.001] * self.n_epochs])
 
+
+        if  s1s2 and not s1:
+            st1_ampl_mean_of_epochs_by_rois=s1s2_ampl_mean_of_epochs_by_rois
+            st2_ampl_mean_of_epochs_by_rois=s2_ampl_mean_of_epochs_by_rois              
+
+            ampl_st2_to_st1_ratio_mean_of_epochs_by_rois = np.array(
+                s2_ampl_mean_of_epochs_by_rois) / np.array(s1s2_ampl_mean_of_epochs_by_rois)
+            ampl_st2_to_st1_ratio_rois_by_epoch = np.array(
+                s2_ampl_list_each_by_epoch) / np.array(s1s2_ampl_list_each_by_epoch)
+            
+
+            st1_auc_mean_of_epochs_by_rois=s1s2_auc_mean_of_epochs_by_rois
+            st2_auc_mean_of_epochs_by_rois=s2_auc_mean_of_epochs_by_rois              
+
+            auc_st2_to_st1_ratio_mean_of_epochs_by_rois = np.array(
+                s2_auc_mean_of_epochs_by_rois) / np.array(s1s2_auc_mean_of_epochs_by_rois)
+            auc_st2_to_st1_ratio_rois_by_epoch = np.array(
+                s2_auc_list_each_by_epoch) / np.array(s1s2_auc_list_each_by_epoch)
+
+            
+        if  s1 and not s1s2:
+            st1_ampl_mean_of_epochs_by_rois=s1_ampl_mean_of_epochs_by_rois
+            st2_ampl_mean_of_epochs_by_rois=s2_ampl_mean_of_epochs_by_rois      
+
+            ampl_st2_to_st1_ratio_mean_of_epochs_by_rois = np.array(
+                s2_ampl_mean_of_epochs_by_rois) / np.array(s1_ampl_mean_of_epochs_by_rois)
+            ampl_st2_to_st1_ratio_rois_by_epoch = np.array(
+                s2_ampl_list_each_by_epoch) / np.array(s1_ampl_list_each_by_epoch)
+            
+            st1_auc_mean_of_epochs_by_rois=s1_auc_mean_of_epochs_by_rois
+            st2_auc_mean_of_epochs_by_rois=s2_auc_mean_of_epochs_by_rois      
+
+            auc_st2_to_st1_ratio_mean_of_epochs_by_rois = np.array(
+                s2_auc_mean_of_epochs_by_rois) / np.array(s1_auc_mean_of_epochs_by_rois)
+            auc_st2_to_st1_ratio_rois_by_epoch = np.array(
+                s2_auc_list_each_by_epoch) / np.array(s1_auc_list_each_by_epoch)
+
+
         # Binarization:
-        # Check is there both stim or only one to avoid errs
-        # Огидна конструкція, потім переробити
+
         if not s1s2 and not s1:
             s1s2_bin_list_each_by_epoch = s2_bin_list_each_by_epoch
             s1_bin_list_each_by_epoch = s2_bin_list_each_by_epoch
@@ -410,7 +441,7 @@ class TracesCalc(Logging):
             return output
 
         self.plot_s2_to_s1s2_ratio_rois_by_epoch(
-            1/ampl_s2_to_s1s2_ratio_rois_by_epoch, '{0}{1}/_rois_by_epoch_{3}_to_{2}_{4}_ratio_auto_.png'.format(
+            1/ampl_st2_to_st1_ratio_rois_by_epoch, '{0}{1}/_rois_by_epoch_{3}_to_{2}_{4}_ratio_auto_.png'.format(
                 csv_path, csv_file, self.group_names[0], self.group_names[1], self.output_suffix))
 
         # save binarization for the next calculations
@@ -427,6 +458,7 @@ class TracesCalc(Logging):
         header = [self.group_names[0], self.group_names[1], 'ratio col1/col2']
 
         # CSV summary Amplitude
+
         self.csv_write([
             ['Unfiltered', '', '', '', '',
                 'Filtered by {} SD of {}'.format(
@@ -436,23 +468,23 @@ class TracesCalc(Logging):
                     self.sigmas_treshold, self.group_names[0])
              ],
             header+['']*2+header+['']*2+header,
-            *self.transpose([s1s2_ampl_mean_of_epochs_by_rois,
-                             s2_ampl_mean_of_epochs_by_rois, 1 /
-                             ampl_s2_to_s1s2_ratio_mean_of_epochs_by_rois,
+            *self.transpose([st1_ampl_mean_of_epochs_by_rois,
+                             st2_ampl_mean_of_epochs_by_rois, 1 /
+                             ampl_st2_to_st1_ratio_mean_of_epochs_by_rois,
                              '', '',
                              filter_list(
-                                 s1s2_ampl_mean_of_epochs_by_rois, filter[2]),
+                                 st1_ampl_mean_of_epochs_by_rois, filter[2]),
                              filter_list(
-                                 s2_ampl_mean_of_epochs_by_rois, filter[2]),
+                                 st2_ampl_mean_of_epochs_by_rois, filter[2]),
                              filter_list(
-                                 1/ampl_s2_to_s1s2_ratio_mean_of_epochs_by_rois, filter[2]),
+                                 1/ampl_st2_to_st1_ratio_mean_of_epochs_by_rois, filter[2]),
                              '', '',
                              filter_list(
-                                 s1s2_ampl_mean_of_epochs_by_rois, filter[1]),
+                                 st1_ampl_mean_of_epochs_by_rois, filter[1]),
                              filter_list(
-                                 s2_ampl_mean_of_epochs_by_rois, filter[1]),
+                                 st2_ampl_mean_of_epochs_by_rois, filter[1]),
                              filter_list(
-                                 1/ampl_s2_to_s1s2_ratio_mean_of_epochs_by_rois, filter[1]),
+                                 1/ampl_st2_to_st1_ratio_mean_of_epochs_by_rois, filter[1]),
                              ])
         ],
             csv_path+csv_file, csv_file, '_by_rois_mean_of_epochs_{0}_and_{1}_ampl_{2}_auto_'.format(
@@ -469,23 +501,23 @@ class TracesCalc(Logging):
                     self.sigmas_treshold, self.group_names[0])
              ],
             header+['']*2+header+['']*2+header,
-            *self.transpose([s1s2_auc_mean_of_epochs_by_rois,
-                             s2_auc_mean_of_epochs_by_rois, 1 /
-                             auc_s2_to_s1s2_ratio_mean_of_epochs_by_rois,
+            *self.transpose([st1_auc_mean_of_epochs_by_rois,
+                             st2_auc_mean_of_epochs_by_rois, 1 /
+                             auc_st2_to_st1_ratio_mean_of_epochs_by_rois,
                              '', '',
                              filter_list(
-                                 s1s2_auc_mean_of_epochs_by_rois, filter[2]),
+                                 st1_auc_mean_of_epochs_by_rois, filter[2]),
                              filter_list(
-                                 s2_auc_mean_of_epochs_by_rois, filter[2]),
+                                 st2_auc_mean_of_epochs_by_rois, filter[2]),
                              filter_list(
-                                 1/auc_s2_to_s1s2_ratio_mean_of_epochs_by_rois, filter[2]),
+                                 1/auc_st2_to_st1_ratio_mean_of_epochs_by_rois, filter[2]),
                              '', '',
                              filter_list(
-                                 s1s2_auc_mean_of_epochs_by_rois, filter[1]),
+                                 st1_auc_mean_of_epochs_by_rois, filter[1]),
                              filter_list(
-                                 s2_auc_mean_of_epochs_by_rois, filter[1]),
+                                 st2_auc_mean_of_epochs_by_rois, filter[1]),
                              filter_list(
-                                 1/auc_s2_to_s1s2_ratio_mean_of_epochs_by_rois, filter[1]),
+                                 1/auc_st2_to_st1_ratio_mean_of_epochs_by_rois, filter[1]),
                              ])
         ],
             csv_path+csv_file, csv_file, '_by_rois_mean_of_epochs_{0}_and_{1}_auc_{2}_auto_'.format(
@@ -493,9 +525,9 @@ class TracesCalc(Logging):
         )
 
         # plot_s1s2_s2_roi_stats AUC for all rois
-        self.plot_s1s2_s2_roi_stats(filter_list(s1s2_auc_mean_of_epochs_by_rois, filter[2], replace=False),
+        self.plot_s1s2_s2_roi_stats(filter_list(st1_auc_mean_of_epochs_by_rois, filter[2], replace=False),
                                     filter_list(
-                                        s2_auc_mean_of_epochs_by_rois, filter[2], replace=False),
+                                        st2_auc_mean_of_epochs_by_rois, filter[2], replace=False),
                                     '{0}{1}/_by_rois_{2}_{3}_{4}_auc_auto_.png'.format(
                                         csv_path, csv_file, self.group_names[0], self.group_names[1], self.output_suffix),
                                     paired=True,
@@ -503,9 +535,9 @@ class TracesCalc(Logging):
                                     x_manual_tick_labels=[self.group_names[0], self.group_names[1]])
 
         # plot_s1s2_s2_roi_stats Ampl for all rois
-        self.plot_s1s2_s2_roi_stats(filter_list(s1s2_ampl_mean_of_epochs_by_rois, filter[2], replace=False),
+        self.plot_s1s2_s2_roi_stats(filter_list(st1_ampl_mean_of_epochs_by_rois, filter[2], replace=False),
                                     filter_list(
-                                        s2_ampl_mean_of_epochs_by_rois, filter[2], replace=False),
+                                        st2_ampl_mean_of_epochs_by_rois, filter[2], replace=False),
                                     '{0}{1}/_by_rois_{2}_{3}_{4}_ampl_auto_.png'.format(
                                         csv_path, csv_file, self.group_names[0], self.group_names[1], self.output_suffix),
                                     paired=True,
@@ -1014,6 +1046,8 @@ class Movie(DerivativesCalc, TracesCalc, Logging):
         # List all .txt files in the directory
         txt_files = [os.path.abspath(os.path.normpath(os.path.join(
             dir_path, f))) for f in os.listdir(dir_path) if f.endswith('.txt')]
+        
+        assert txt_files, f'!!! Error: No .txt metadata file found in directory {dir_path}.'   
 
         # Find the longest common prefix among the given file and txt files
         common_prefixes = [os.path.commonprefix(
