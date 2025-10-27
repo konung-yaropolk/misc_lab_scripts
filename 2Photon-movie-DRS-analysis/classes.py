@@ -28,6 +28,11 @@ SYNC_COEF = -0.00313
 DEBUG = False
 
 
+# bugs:
+# 1. on st1 still deley +10s
+# 2. when multiprocessing does not load bins and vshifts again (could not reproduce again)
+
+
 class Helpers():
 
     def save_tiff(self, output_path, data, metadata={}):
@@ -349,10 +354,14 @@ class TracesCalc(Logging):
                 case (None, None): pass
                 # responses_each_by_roi, responses_each_by_epoch = self.calc_traces_sequence(i)
 
-
-
         # Check is there both stim or only one to avoid errs
         # Огидна конструкція, потім переробити
+
+        if s1s2:
+            st1_ampl_mean_of_epochs_by_rois = s1s2_ampl_mean_of_epochs_by_rois
+            st2_ampl_mean_of_epochs_by_rois = s2_ampl_mean_of_epochs_by_rois
+            st1_auc_mean_of_epochs_by_rois = s1s2_auc_mean_of_epochs_by_rois
+            st2_auc_mean_of_epochs_by_rois = s2_auc_mean_of_epochs_by_rois
 
         if not s1s2 and not s1:
             ampl_s2_to_s1s2_ratio_mean_of_epochs_by_rois = np.array(
@@ -371,43 +380,39 @@ class TracesCalc(Logging):
                 [0.001] * len(s2_auc_mean_of_epochs_by_rois))
             s1s2_auc_list_each_by_epoch = np.array([[0.001] * self.n_epochs])
 
-
-        if  s1s2 and not s1:
-            st1_ampl_mean_of_epochs_by_rois=s1s2_ampl_mean_of_epochs_by_rois
-            st2_ampl_mean_of_epochs_by_rois=s2_ampl_mean_of_epochs_by_rois              
+        if s1s2 and not s1:
+            st1_ampl_mean_of_epochs_by_rois = s1s2_ampl_mean_of_epochs_by_rois
+            st2_ampl_mean_of_epochs_by_rois = s2_ampl_mean_of_epochs_by_rois
 
             ampl_st2_to_st1_ratio_mean_of_epochs_by_rois = np.array(
                 s2_ampl_mean_of_epochs_by_rois) / np.array(s1s2_ampl_mean_of_epochs_by_rois)
             ampl_st2_to_st1_ratio_rois_by_epoch = np.array(
                 s2_ampl_list_each_by_epoch) / np.array(s1s2_ampl_list_each_by_epoch)
-            
 
-            st1_auc_mean_of_epochs_by_rois=s1s2_auc_mean_of_epochs_by_rois
-            st2_auc_mean_of_epochs_by_rois=s2_auc_mean_of_epochs_by_rois              
+            st1_auc_mean_of_epochs_by_rois = s1s2_auc_mean_of_epochs_by_rois
+            st2_auc_mean_of_epochs_by_rois = s2_auc_mean_of_epochs_by_rois
 
             auc_st2_to_st1_ratio_mean_of_epochs_by_rois = np.array(
                 s2_auc_mean_of_epochs_by_rois) / np.array(s1s2_auc_mean_of_epochs_by_rois)
             auc_st2_to_st1_ratio_rois_by_epoch = np.array(
                 s2_auc_list_each_by_epoch) / np.array(s1s2_auc_list_each_by_epoch)
 
-            
-        if  s1 and not s1s2:
-            st1_ampl_mean_of_epochs_by_rois=s1_ampl_mean_of_epochs_by_rois
-            st2_ampl_mean_of_epochs_by_rois=s2_ampl_mean_of_epochs_by_rois      
+        if s1 and not s1s2:
+            st1_ampl_mean_of_epochs_by_rois = s1_ampl_mean_of_epochs_by_rois
+            st2_ampl_mean_of_epochs_by_rois = s2_ampl_mean_of_epochs_by_rois
 
             ampl_st2_to_st1_ratio_mean_of_epochs_by_rois = np.array(
                 s2_ampl_mean_of_epochs_by_rois) / np.array(s1_ampl_mean_of_epochs_by_rois)
             ampl_st2_to_st1_ratio_rois_by_epoch = np.array(
                 s2_ampl_list_each_by_epoch) / np.array(s1_ampl_list_each_by_epoch)
-            
-            st1_auc_mean_of_epochs_by_rois=s1_auc_mean_of_epochs_by_rois
-            st2_auc_mean_of_epochs_by_rois=s2_auc_mean_of_epochs_by_rois      
+
+            st1_auc_mean_of_epochs_by_rois = s1_auc_mean_of_epochs_by_rois
+            st2_auc_mean_of_epochs_by_rois = s2_auc_mean_of_epochs_by_rois
 
             auc_st2_to_st1_ratio_mean_of_epochs_by_rois = np.array(
                 s2_auc_mean_of_epochs_by_rois) / np.array(s1_auc_mean_of_epochs_by_rois)
             auc_st2_to_st1_ratio_rois_by_epoch = np.array(
                 s2_auc_list_each_by_epoch) / np.array(s1_auc_list_each_by_epoch)
-
 
         # Binarization:
 
@@ -469,8 +474,8 @@ class TracesCalc(Logging):
              ],
             header+['']*2+header+['']*2+header,
             *self.transpose([st1_ampl_mean_of_epochs_by_rois,
-                             st2_ampl_mean_of_epochs_by_rois, 1 /
-                             ampl_st2_to_st1_ratio_mean_of_epochs_by_rois,
+                             st2_ampl_mean_of_epochs_by_rois,
+                             1 / ampl_st2_to_st1_ratio_mean_of_epochs_by_rois,
                              '', '',
                              filter_list(
                                  st1_ampl_mean_of_epochs_by_rois, filter[2]),
@@ -502,8 +507,8 @@ class TracesCalc(Logging):
              ],
             header+['']*2+header+['']*2+header,
             *self.transpose([st1_auc_mean_of_epochs_by_rois,
-                             st2_auc_mean_of_epochs_by_rois, 1 /
-                             auc_st2_to_st1_ratio_mean_of_epochs_by_rois,
+                             st2_auc_mean_of_epochs_by_rois,
+                             1 / auc_st2_to_st1_ratio_mean_of_epochs_by_rois,
                              '', '',
                              filter_list(
                                  st1_auc_mean_of_epochs_by_rois, filter[2]),
@@ -597,7 +602,7 @@ class TracesCalc(Logging):
             csv_path, csv_file, self.group_names[1], self.output_suffix), vertical_shift=vertical_shift, delay=self.s2_delay)
 
         # plot_stacked_traces by groups
-        chunk_size = 40
+        chunk_size = 20
         for pos in range(0, len(self.csv_matrix[0])-1, chunk_size):
             self.plot_stacked_traces(np.array(matrix_T[0]) - ((self.start_from_epoch-1) * self.step_duration * self.n_steps),
                                      matrix_T[pos:pos+chunk_size+1],
@@ -1046,8 +1051,8 @@ class Movie(DerivativesCalc, TracesCalc, Logging):
         # List all .txt files in the directory
         txt_files = [os.path.abspath(os.path.normpath(os.path.join(
             dir_path, f))) for f in os.listdir(dir_path) if f.endswith('.txt')]
-        
-        assert txt_files, f'!!! Error: No .txt metadata file found in directory {dir_path}.'   
+
+        assert txt_files, f'!!! Error: No .txt metadata file found in directory {dir_path}.'
 
         # Find the longest common prefix among the given file and txt files
         common_prefixes = [os.path.commonprefix(
