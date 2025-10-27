@@ -16,6 +16,7 @@ import settings as s
 
 CALCULATIONS_SUBFOLDER_NAME = '_CALCULATIONS_auto_'
 DERIVATIVES_SUBFOLDER_NAME = '_DERIVATIVES_auto_'
+BINARIZATION_RESP_THRESHOLD = 0.29 # min percent of responses for ROI to consider it responsive
 
 # Adjust the sampling interval to account for the
 # clock synchronization of the microscope's hardware and PC
@@ -427,16 +428,16 @@ class TracesCalc(Logging):
             self.group_names.insert(0, '_')
 
         s1s2_bin_summary_by_rois = [
-            sum(i)/len(i) > 0.5 for i in s1s2_bin_list_each_by_epoch]
+            sum(i)/len(i) > BINARIZATION_RESP_THRESHOLD for i in s1s2_bin_list_each_by_epoch]
         s1_bin_summary_by_rois = [
-            sum(i)/len(i) > 0.5 for i in s1_bin_list_each_by_epoch]
+            sum(i)/len(i) > BINARIZATION_RESP_THRESHOLD for i in s1_bin_list_each_by_epoch]
         s2_bin_summary_by_rois = [
-            sum(i)/len(i) > 0.5 for i in s2_bin_list_each_by_epoch]
+            sum(i)/len(i) > BINARIZATION_RESP_THRESHOLD for i in s2_bin_list_each_by_epoch]
 
         def filter_list(list,
                         bin,
                         replace=True,
-                        replace_with=None):
+                        replace_with=None):    
             if replace == True:
                 output = [value if bin[i] else replace_with for i, value in
                           enumerate(list)]
