@@ -557,7 +557,7 @@ class TracesCalc(Logging):
                                         csv_path, csv_file, self.group_names[0], self.group_names[1], self.output_suffix),
                                     paired=True,
                                     y_label='AUC',
-                                    x_manual_tick_labels=[self.group_names[0], self.group_names[1]])
+                                    Groups_Name=[self.group_names[0], self.group_names[1]])
 
         # plot_s1s2_s2_roi_stats Ampl for all rois
         self.plot_s1s2_s2_roi_stats(filter_list(st1_ampl_mean_of_epochs_by_rois, filter[2], replace=False),
@@ -567,7 +567,7 @@ class TracesCalc(Logging):
                                         csv_path, csv_file, self.group_names[0], self.group_names[1], self.output_suffix),
                                     paired=True,
                                     y_label='ΔF/F₀',
-                                    x_manual_tick_labels=[self.group_names[0], self.group_names[1]])
+                                    Groups_Name=[self.group_names[0], self.group_names[1]])
 
         # plot_s1s2_s2_roi_stats for each roi during timeline
         if s1s2 and s2:
@@ -578,7 +578,7 @@ class TracesCalc(Logging):
                     csv_path, csv_file, i+1, self.stim_1_name, self.stim_2_name, self.output_suffix),
                     paired=True,
                     y_label=f'ΔF/F₀        ROI {i+1}',
-                    x_manual_tick_labels=['{}+{}'.format(
+                    Groups_Name=['{}+{}'.format(
                         self.stim_1_name, self.stim_2_name), self.stim_2_name],)
 
         # save vertical shift for the next calculations
@@ -684,17 +684,17 @@ class TracesCalc(Logging):
         plt.savefig(path)
         plt.close()
 
-    def plot_s1s2_s2_roi_stats(self, group1, group2, path, paired=True, y_label='', x_manual_tick_labels=[]):
+    def plot_s1s2_s2_roi_stats(self, group1, group2, path, paired=True, y_label='', Groups_Name=[]):
 
         data = [group1, group2]
 
         # set the parameters:
-        paired = True   # is groups dependend or not
+        paired = True    # is groups dependend or not
         tails = 2        # two-tailed or one-tailed result
 
         # initiate the analysis
         analysis = AutoStatLib.StatisticalAnalysis(
-            data, paired=paired, tails=tails, verbose=False)
+            data, paired=paired, tails=tails, verbose=False, groups_name=Groups_Name,)
 
         analysis.RunWilcoxon()
         results = analysis.GetResult()
@@ -702,8 +702,7 @@ class TracesCalc(Logging):
         if 'p_value_exact' in results:
             plot = AutoStatLib.StatPlots.BarStatPlot(data,
                                                      **results,
-                                                     y_label=y_label,
-                                                     x_manual_tick_labels=x_manual_tick_labels,
+                                                     y_label=y_label,                                                     
                                                      figure_scale_factor=0.8,
                                                      figure_h=4,
                                                      figure_w=0,
@@ -1424,7 +1423,7 @@ def main(
             if output[-1][4]:
                 print(output[-1][4])
 
-    print(len(output))
+
 
 
 
