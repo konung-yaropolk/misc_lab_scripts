@@ -25,7 +25,8 @@ BINARIZATION_RESP_THRESHOLD = 0.29 # min percent of responses for ROI to conside
 # -0.0029183722446345     old one estimation
 SYNC_COEF = -0.00313
 
-# if true - provide detailed errors traceback
+# if true - provide detailed errors tracebac6
+
 DEBUG = False
 
 
@@ -76,6 +77,31 @@ class Helpers():
             len(balanced_data))) for i in range(max_len))
         return data_t
 
+    def csv_write(self, csv_output, csv_path, csv_file, filename_suffix, subdir=False):
+
+        if subdir:
+            os.makedirs(csv_path + csv_file +
+                        filename_suffix + '/', exist_ok=True)
+            path = '{0}{1}{2}/{2}.csv'.format(
+                csv_path,
+                csv_file,
+                filename_suffix,
+            )
+
+        else:
+            path = '{0}/{2}.csv'.format(
+                csv_path,
+                csv_file,
+                filename_suffix,
+            )
+
+        with open(path, 'w') as f:
+
+            writer = csv.writer(f, delimiter=',',
+                                lineterminator='\r',)
+            for row in csv_output:
+                writer.writerow(row)
+
 
 class Logging():
 
@@ -119,30 +145,7 @@ class TracesCalc(Logging):
 
         return files
 
-    def csv_write(self, csv_output, csv_path, csv_file, filename_suffix, subdir=False):
 
-        if subdir:
-            os.makedirs(csv_path + csv_file +
-                        filename_suffix + '/', exist_ok=True)
-            path = '{0}{1}{2}/{2}.csv'.format(
-                csv_path,
-                csv_file,
-                filename_suffix,
-            )
-
-        else:
-            path = '{0}/{2}.csv'.format(
-                csv_path,
-                csv_file,
-                filename_suffix,
-            )
-
-        with open(path, 'w') as f:
-
-            writer = csv.writer(f, delimiter=',',
-                                lineterminator='\r',)
-            for row in csv_output:
-                writer.writerow(row)
 
     def find_time_index(self, content, time):
         content = (float(i)-time for i in list(zip(*content))[0])
@@ -446,19 +449,35 @@ class TracesCalc(Logging):
 
             return output
 
+        # save binarization for the next calculations
+        load_unitid = self.file_path + '  ' + str(self.SD_filter_of_trig-1)
+        current_filter =[s1s2_bin_summary_by_rois,
+                         s1_bin_summary_by_rois,
+                         s2_bin_summary_by_rois]
+        
+        if self.SD_filter_of_trig and load_unitid in self.filters:
+            filter = self.filters[load_unitid]
+        else:
+            filter = current_filter
+            
+        self.filters_return |= {unit_id: current_filter}
+
+        # save responses Ampl and AUC for the next calculations
+        amps = [st1_ampl_mean_of_epochs_by_rois,
+                st1_ampl_mean_of_epochs_by_rois,
+                st2_ampl_mean_of_epochs_by_rois]
+        
+        aucs = [st1_auc_mean_of_epochs_by_rois,
+                st1_auc_mean_of_epochs_by_rois, 
+                st2_auc_mean_of_epochs_by_rois]
+
+        self.ampls_return |= {unit_id:amps}
+        self.aucs_return |= {unit_id:aucs}
+
+
         self.plot_s2_to_s1s2_ratio_rois_by_epoch(
             1/ampl_st2_to_st1_ratio_rois_by_epoch, '{0}{1}/_rois_by_epoch_{3}_to_{2}_{4}_ratio_auto_.png'.format(
                 csv_path, csv_file, self.group_names[0], self.group_names[1], self.output_suffix))
-
-        # save binarization for the next calculations
-        load_filter = self.file_path + '  ' + str(self.SD_filter_of_trig-1)
-        if self.SD_filter_of_trig and load_filter in self.filters:
-            filter = self.filters[load_filter]
-        else:
-            filter = [s1s2_bin_summary_by_rois,
-                      s1_bin_summary_by_rois,
-                      s2_bin_summary_by_rois]
-        self.filters_return |= {unit_id: filter}
 
         # csv file of #1#2 and #2 amplitudes by rois epochs average
         header = [self.group_names[0], self.group_names[1], 'ratio col1/col2']
@@ -1033,6 +1052,8 @@ class Movie(DerivativesCalc, TracesCalc, Logging):
 
         self.v_shifts_return = {}
         self.filters_return = {}
+        self.ampls_return = {}
+        self.aucs_return = {}
 
         Logging.__init__(self,)
 
@@ -1235,7 +1256,13 @@ class MetadataParser():
         return events, t_resolution, t_duration, n_slides
 
 
-def worker(item, run_derivatives_calculation, run_traces_calculation, v_shifts={}, filters={}):
+class PostprocessingSummary(Helpers): 
+
+    def __init__(self,):
+        pass
+
+
+def worker(item, run_derivatives_calculation, run_traces_calculation, v_shifts={}, filters={}, ampls={}, aucs={}):
 
     movie = Movie(item[0], **item[1], v_shifts=v_shifts, filters=filters)
 
@@ -1262,11 +1289,13 @@ def worker(item, run_derivatives_calculation, run_traces_calculation, v_shifts={
     # get some results to use them in the next calculations as params
     vertical_shifts = movie.v_shifts_return
     filters = movie.filters_return
+    ampls = movie.ampls_return
+    aucs = movie.aucs_return
 
     print(movie.log)
 
     del movie
-    return vertical_shifts, filters, item[0]+'_'+item[1]['output_suffix'], e1, e2
+    return vertical_shifts, [filters, ampls, aucs], item[0]+'_'+item[1]['output_suffix'], e1, e2
 
 
 def main(
@@ -1365,7 +1394,9 @@ def main(
         output = spread_jobs(do_first)
 
         v_shifts = output[0][0]
-        filters = output[0][1]
+        filters = output[0][1][0]
+        ampls =  output[0][1][1]
+        aucs =  output[0][1][2]
 
         _ = spread_jobs(do_second)
 
@@ -1379,15 +1410,22 @@ def main(
         print(*msg)
 
     else:
+        output=[]
         for item in to_do_list:
-            output = worker(item, run_derivatives_calculation,
-                            run_traces_calculation, v_shifts, filters)
-            v_shifts |= output[0]
-            filters |= output[1]
-            if output[3]:
-                print(output[3])
-            if output[4]:
-                print(output[4])
+            output.append(worker(item, run_derivatives_calculation,
+                            run_traces_calculation, v_shifts, filters))
+            v_shifts = output[-1][0]
+            filters = output[-1][1][0]
+            ampls = output[-1][1][1]
+            aucs = output[-1][1][2]
+
+            if output[-1][3]:
+                print(output[-1][3])
+            if output[-1][4]:
+                print(output[-1][4])
+
+    print(len(output))
+
 
 
 if __name__ == '__main__':
