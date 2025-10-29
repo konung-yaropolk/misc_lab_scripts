@@ -2,6 +2,7 @@ import os
 import re
 import csv
 import traceback
+from openpyxl import Workbook
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -30,6 +31,8 @@ SYNC_COEF = -0.00313
 
 DEBUG = False
 
+
+postprocessingsummary=True
 
 # bugs:
 # 1. on st1 still deley +10s
@@ -102,6 +105,19 @@ class Helpers():
                                 lineterminator='\r',)
             for row in csv_output:
                 writer.writerow(row)
+
+    def filter_list(self,
+                    list,
+                    bin,
+                    replace=True,
+                    replace_with=None):
+        if replace == True:
+            output = [value if bin[i] else replace_with for i, value in
+                        enumerate(list)]
+        else:
+            output = [value for value, keep in zip(list, bin) if keep]
+
+        return output
 
 
 class Logging():
@@ -426,33 +442,24 @@ class TracesCalc(Logging):
             s1s2_bin_list_each_by_epoch = s1_bin_list_each_by_epoch
         if not s1 and s1s2:
             s1_bin_list_each_by_epoch = s1s2_bin_list_each_by_epoch
+
         if len(self.group_names) == 1:
             self.group_names.insert(0, '_')
 
-        s1s2_bin_summary_by_rois = [
-            sum(i)/len(i) > BINARIZATION_RESP_THRESHOLD for i in s1s2_bin_list_each_by_epoch]
-        s1_bin_summary_by_rois = [
-            sum(i)/len(i) > BINARIZATION_RESP_THRESHOLD for i in s1_bin_list_each_by_epoch]
-        s2_bin_summary_by_rois = [
+        if not s1s2 and s1:
+            st1_bin_summary_by_rois = [
+                sum(i)/len(i) > BINARIZATION_RESP_THRESHOLD for i in s1s2_bin_list_each_by_epoch]
+        if not s1s2 and s1:
+            st1_bin_summary_by_rois = [
+                sum(i)/len(i) > BINARIZATION_RESP_THRESHOLD for i in s1_bin_list_each_by_epoch]
+        st2_bin_summary_by_rois = [
             sum(i)/len(i) > BINARIZATION_RESP_THRESHOLD for i in s2_bin_list_each_by_epoch]
 
-        def filter_list(list,
-                        bin,
-                        replace=True,
-                        replace_with=None):
-            if replace == True:
-                output = [value if bin[i] else replace_with for i, value in
-                          enumerate(list)]
-            else:
-                output = [value for value, keep in zip(list, bin) if keep]
-
-            return output
-
         # save binarization for the next calculations
-        load_unitid = self.file_path + '  ' + str(self.SD_filter_of_trig-1)
-        current_filter = [s1s2_bin_summary_by_rois,
-                          s1_bin_summary_by_rois,
-                          s2_bin_summary_by_rois]
+        load_unitid = self.file_path + '%' + str(self.SD_filter_of_trig-1)
+        current_filter = [st1_bin_summary_by_rois,
+                          st1_bin_summary_by_rois,
+                          st2_bin_summary_by_rois]
 
         if self.SD_filter_of_trig and load_unitid in self.filters:
             filter = self.filters[load_unitid]
@@ -495,18 +502,18 @@ class TracesCalc(Logging):
                              st2_ampl_mean_of_epochs_by_rois,
                              1 / ampl_st2_to_st1_ratio_mean_of_epochs_by_rois,
                              '', '',
-                             filter_list(
+                             self.filter_list(
                                  st1_ampl_mean_of_epochs_by_rois, filter[2]),
-                             filter_list(
+                             self.filter_list(
                                  st2_ampl_mean_of_epochs_by_rois, filter[2]),
-                             filter_list(
+                             self.filter_list(
                                  1/ampl_st2_to_st1_ratio_mean_of_epochs_by_rois, filter[2]),
                              '', '',
-                             filter_list(
+                             self.filter_list(
                                  st1_ampl_mean_of_epochs_by_rois, filter[1]),
-                             filter_list(
+                             self.filter_list(
                                  st2_ampl_mean_of_epochs_by_rois, filter[1]),
-                             filter_list(
+                             self.filter_list(
                                  1/ampl_st2_to_st1_ratio_mean_of_epochs_by_rois, filter[1]),
                              ])
         ],
@@ -528,18 +535,18 @@ class TracesCalc(Logging):
                              st2_auc_mean_of_epochs_by_rois,
                              1 / auc_st2_to_st1_ratio_mean_of_epochs_by_rois,
                              '', '',
-                             filter_list(
+                             self.filter_list(
                                  st1_auc_mean_of_epochs_by_rois, filter[2]),
-                             filter_list(
+                             self.filter_list(
                                  st2_auc_mean_of_epochs_by_rois, filter[2]),
-                             filter_list(
+                             self.filter_list(
                                  1/auc_st2_to_st1_ratio_mean_of_epochs_by_rois, filter[2]),
                              '', '',
-                             filter_list(
+                             self.filter_list(
                                  st1_auc_mean_of_epochs_by_rois, filter[1]),
-                             filter_list(
+                             self.filter_list(
                                  st2_auc_mean_of_epochs_by_rois, filter[1]),
-                             filter_list(
+                             self.filter_list(
                                  1/auc_st2_to_st1_ratio_mean_of_epochs_by_rois, filter[1]),
                              ])
         ],
@@ -548,8 +555,8 @@ class TracesCalc(Logging):
         )
 
         # plot_s1s2_s2_roi_stats AUC for all rois
-        self.plot_s1s2_s2_roi_stats(filter_list(st1_auc_mean_of_epochs_by_rois, filter[2], replace=False),
-                                    filter_list(
+        self.plot_s1s2_s2_roi_stats(self.filter_list(st1_auc_mean_of_epochs_by_rois, filter[2], replace=False),
+                                    self.filter_list(
                                         st2_auc_mean_of_epochs_by_rois, filter[2], replace=False),
                                     '{0}{1}/_by_rois_{2}_{3}_{4}_auc_auto_.png'.format(
                                         csv_path, csv_file, self.group_names[0], self.group_names[1], self.output_suffix),
@@ -558,8 +565,8 @@ class TracesCalc(Logging):
                                     Groups_Name=[self.group_names[0], self.group_names[1]])
 
         # plot_s1s2_s2_roi_stats Ampl for all rois
-        self.plot_s1s2_s2_roi_stats(filter_list(st1_ampl_mean_of_epochs_by_rois, filter[2], replace=False),
-                                    filter_list(
+        self.plot_s1s2_s2_roi_stats(self.filter_list(st1_ampl_mean_of_epochs_by_rois, filter[2], replace=False),
+                                    self.filter_list(
                                         st2_ampl_mean_of_epochs_by_rois, filter[2], replace=False),
                                     '{0}{1}/_by_rois_{2}_{3}_{4}_ampl_auto_.png'.format(
                                         csv_path, csv_file, self.group_names[0], self.group_names[1], self.output_suffix),
@@ -580,7 +587,7 @@ class TracesCalc(Logging):
                         self.stim_1_name, self.stim_2_name), self.stim_2_name],)
 
         # save vertical shift for the next calculations
-        load_vshift = self.file_path + '  ' + \
+        load_vshift = self.file_path + '%' + \
             str(self.vertical_shift_of_trig-1)
         if self.vertical_shift_of_trig and load_vshift in self.v_shifts:
             self.vertical_shift = self.v_shifts[load_vshift]
@@ -609,13 +616,13 @@ class TracesCalc(Logging):
         self.plot_stacked_traces(np.array(matrix_T[0]) - ((self.start_from_epoch-1) * self.step_duration * self.n_steps),
                                  matrix_T[:],
                                  s1s2_bin_list_each_by_epoch,
-                                 s1s2_bin_summary_by_rois,
+                                 st1_bin_summary_by_rois,
                                  '{0}{1}/_by_rois_traces_bin_{2}_{3}_auto_/_full_traces_stacked_by_rois_auto_.png'.format(
             csv_path, csv_file, self.group_names[0], self.output_suffix), vertical_shift=vertical_shift, delay=0)
         self.plot_stacked_traces(np.array(matrix_T[0]) - ((self.start_from_epoch-1) * self.step_duration * self.n_steps),
                                  matrix_T[:],
                                  s2_bin_list_each_by_epoch,
-                                 s2_bin_summary_by_rois,
+                                 st2_bin_summary_by_rois,
                                  '{0}{1}/_by_rois_traces_bin_{2}_{3}_auto_/_full_traces_stacked_by_rois_auto_.png'.format(
             csv_path, csv_file, self.group_names[1], self.output_suffix), vertical_shift=vertical_shift, delay=self.s2_delay)
 
@@ -626,7 +633,7 @@ class TracesCalc(Logging):
                                      matrix_T[pos:pos+chunk_size+1],
                                      s1s2_bin_list_each_by_epoch[pos:pos +
                                                                  chunk_size+1],
-                                     s1s2_bin_summary_by_rois[pos:pos +
+                                     st1_bin_summary_by_rois[pos:pos +
                                                               chunk_size+1],
                                      '{0}{1}/_by_rois_traces_bin_{2}_{5}_auto_/_full_traces_stacked_by_rois_{3}-{4}_{5}_auto_.png'.format(
                 csv_path, csv_file, self.group_names[0], pos+1, pos+chunk_size, self.output_suffix), vertical_shift=vertical_shift, delay=self.s2_delay)
@@ -635,7 +642,7 @@ class TracesCalc(Logging):
                                      matrix_T[pos:pos+chunk_size+1],
                                      s2_bin_list_each_by_epoch[pos:pos +
                                                                chunk_size+1],
-                                     s2_bin_summary_by_rois[pos:pos +
+                                     st2_bin_summary_by_rois[pos:pos +
                                                             chunk_size+1],
                                      '{0}{1}/_by_rois_traces_bin_{2}_{5}_auto_/_full_traces_stacked_by_rois_{3}-{4}_{5}_auto_.png'.format(
                 csv_path, csv_file, self.group_names[1], pos+1, pos+chunk_size, self.output_suffix), vertical_shift=vertical_shift, delay=self.s2_delay)
@@ -651,13 +658,13 @@ class TracesCalc(Logging):
                           '{0}{1}/_by_rois__heatmap_bin_{2}_{3}_auto_.png'.format(
             csv_path, csv_file, self.group_names[0], self.output_suffix),
             s1s2_bin_list_each_by_epoch,
-            s1s2_bin_summary_by_rois,
+            st1_bin_summary_by_rois,
             delay=0)
         self.plot_heatmap(matrix_T[:],
                           '{0}{1}/_by_rois__heatmap_bin_{2}_{3}_auto_.png'.format(
             csv_path, csv_file, self.group_names[1], self.output_suffix),
             s2_bin_list_each_by_epoch,
-            s2_bin_summary_by_rois,
+            st2_bin_summary_by_rois,
             delay=self.s2_delay)
         self.plot_heatmap(matrix_T[:],
                           '{0}{1}/_by_rois__heatmap_auto_{2}.png'.format(
@@ -1258,6 +1265,57 @@ class PostprocessingSummary(Helpers):
     def __init__(self,):
         pass
 
+    def reformat_dict(self, data, col=1):
+        from collections import defaultdict
+
+        grouped = defaultdict(list)
+
+        for key, value in data.items():
+            name, order_str = key.split('%')
+            order = int(order_str)
+            grouped[name].append((order, value))
+
+        # Sort by the integer order and extract only the lists
+        reformatted = {
+            name: [v[col] for _, v in sorted(values, key=lambda x: x[0])]
+            for name, values in grouped.items()
+        }
+
+        return reformatted
+
+    def save_dict_to_xlsx_files(self, data, suffix=''):
+        """
+        Takes a dict where each key is a file path (.xlsx)
+        and each value is a list of lists representing columns.
+        Writes each value into a separate Excel file.
+        Empty lists or zeros produce empty columns.
+        """
+        for filepath, columns in data.items():
+            # Ensure directory exists
+            os.makedirs(os.path.dirname(filepath), exist_ok=True)
+
+            wb = Workbook()
+            ws = wb.active
+            ws.title = "Data"
+
+            # Find max column height
+            max_len = max((len(col) for col in columns if isinstance(col, list)), default=0)
+
+            for col_idx, col_data in enumerate(columns, start=1):
+                if not isinstance(col_data, list):
+                    continue
+                for row_idx in range(max_len):
+                    # Fill only if valid non-empty/nonzero
+                    if row_idx < len(col_data):
+                        val = col_data[row_idx]
+                        # if val.size == 0:
+                        #     continue
+                        ws.cell(row=row_idx + 1, column=col_idx, value=val)
+
+            wb.save(filepath[:-4]+suffix+'.xlsx')
+            print(f"✅ Saved {filepath[:-4]+suffix+'.xlsx'}")
+
+
 
 def worker(item, run_derivatives_calculation, run_traces_calculation, v_shifts={}, filters={}, ampls={}, aucs={}):
 
@@ -1287,12 +1345,12 @@ def worker(item, run_derivatives_calculation, run_traces_calculation, v_shifts={
     vertical_shifts = movie.v_shifts_return
     filters = movie.filters_return
     ampls = movie.ampls_return
-    aucs = movie.aucs_return
+    #aucs = movie.aucs_return
 
     print(movie.log)
 
     del movie
-    return vertical_shifts, [filters, ampls, aucs], item[0]+'_'+item[1]['output_suffix'], e1, e2
+    return vertical_shifts, [filters, ampls], item[0]+'_'+item[1]['output_suffix'], e1, e2
 
 
 def main(
@@ -1321,9 +1379,6 @@ def main(
     processes_limit=s.processes_limit,
 
 ):
-
-    v_shifts = {}
-    filters = {}
 
     for item in to_do_list:
 
@@ -1366,6 +1421,8 @@ def main(
             print('No one file listed, there is nothing to do.')
             return 0
 
+        v_shifts = {}
+        filters = {}
         def spread_jobs(jobs):
             processes = [pool.apply_async(worker, args=(item, run_derivatives_calculation, run_traces_calculation, v_shifts, filters))
                          for item in jobs]
@@ -1390,10 +1447,9 @@ def main(
 
         output = spread_jobs(do_first)
 
-        v_shifts = output[0][0]
-        filters = output[0][1][0]
-        # ampls = output[0][1][1]
-        # aucs = output[0][1][2]
+        for i in output:
+            v_shifts.update(i[0])
+            filters.update(i[1][0])
 
         output.extend(spread_jobs(do_second))
 
@@ -1409,6 +1465,8 @@ def main(
     else:
         output = []
         for item in to_do_list:
+            v_shifts ={}
+            filters = {}
             output.append(worker(item, run_derivatives_calculation,
                                  run_traces_calculation, v_shifts, filters))
             v_shifts = output[-1][0]
@@ -1421,7 +1479,53 @@ def main(
             if output[-1][4]:
                 print(output[-1][4])
 
-    print(output)
+    if postprocessingsummary:
+        bins ={}
+        amps={}
+        for i in output:
+            bins.update(i[1][0])
+            amps.update(i[1][1])
+
+        summary = PostprocessingSummary()
+        bins_st1 = summary.reformat_dict(bins, col=1)
+        bins_st2 = summary.reformat_dict(bins, col=2)
+        amps_st1 = summary.reformat_dict(amps, col=1)
+        amps_st2 = summary.reformat_dict(amps, col=2)
+
+        amps_filtered_st1={}
+        amps_filtered_st2={}
+
+        h=Helpers()
+
+        for key, value in bins_st1.items():
+            amps_filtered_st1[key] = [h.filter_list(i, np.logical_and(bins_st1[key][0], bins_st1[key][1]),replace=True,
+                    replace_with='--') for i in amps_st1[key] ]
+        
+        for key, value in bins_st2.items():
+            amps_filtered_st2[key] = [h.filter_list(i, np.logical_and(bins_st2[key][0], bins_st2[key][1]),replace=True,
+                    replace_with='--') for i in amps_st2[key] ]
+
+        table_st1 = {}
+        table_st2 = {}
+        for key, value in bins_st1.items():
+            table_st1[key] = bins_st1[key] + [''] + [''] + amps_st1[key] + [''] + [''] + amps_filtered_st1[key]
+            table_st2[key] = bins_st2[key] + [''] + [''] + amps_st2[key] + [''] + [''] + amps_filtered_st2[key]
+
+
+        summary.save_dict_to_xlsx_files(table_st1, suffix='_stim1_summary')
+        summary.save_dict_to_xlsx_files(table_st2, suffix='_stim2_summary')
+
+
+        # analysis_st1_all = AutoStatLib.StatisticalAnalysis(amps_st1, paired=True, tails=2, popmean=0, posthoc=True)
+        # analysis_st1_all.RunKruskalWallis()
+        # results = analysis_st1_all.GetResult()
+        # plot = AutoStatLib.StatPlots.BarStatPlot(results['Samples'], **results)
+
+
+
+
+
+
 
 
 if __name__ == '__main__':
