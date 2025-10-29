@@ -32,7 +32,7 @@ SYNC_COEF = -0.00313
 DEBUG = False
 
 
-postprocessingsummary=True
+postprocessingsummary = True
 
 # bugs:
 # 1. on st1 still deley +10s
@@ -113,7 +113,7 @@ class Helpers():
                     replace_with=None):
         if replace == True:
             output = [value if bin[i] else replace_with for i, value in
-                        enumerate(list)]
+                      enumerate(list)]
         else:
             output = [value for value, keep in zip(list, bin) if keep]
 
@@ -312,10 +312,11 @@ class TracesCalc(Logging):
 
         return ampl_mean_of_rois_by_epoch, ampl_mean_of_epochs_by_rois, ampl_list_each_by_roi, ampl_list_each_by_epoch, auc_mean_of_rois_by_epoch, auc_mean_of_epochs_by_rois, auc_list_each_by_roi, auc_list_each_by_epoch, bin_list_each_by_epoch, raw_line_list
 
-    def detailed_stats(self, csv_path, csv_file):
+    def detailed_stats(self, csv_path, csv_file, output_dir):
 
         # create unique id for each calculation unit (trigger)
-        unit_id = self.file_path + '%' + str(self.trig_number)
+        # unit_id = self.file_path + '%' + str(self.trig_number)
+        unit_id = csv_path + csv_file + '%' + str(self.trig_number)
 
         s1s2 = False
         s1 = False
@@ -456,7 +457,7 @@ class TracesCalc(Logging):
             sum(i)/len(i) > BINARIZATION_RESP_THRESHOLD for i in s2_bin_list_each_by_epoch]
 
         # save binarization for the next calculations
-        load_unitid = self.file_path + '%' + str(self.SD_filter_of_trig-1)
+        load_unitid = csv_path + csv_file + '%' + str(self.SD_filter_of_trig-1)
         current_filter = [st1_bin_summary_by_rois,
                           st1_bin_summary_by_rois,
                           st2_bin_summary_by_rois]
@@ -482,7 +483,7 @@ class TracesCalc(Logging):
 
         self.plot_s2_to_s1s2_ratio_rois_by_epoch(
             1/ampl_st2_to_st1_ratio_rois_by_epoch, '{0}{1}/_rois_by_epoch_{3}_to_{2}_{4}_ratio_auto_.png'.format(
-                csv_path, csv_file, self.group_names[0], self.group_names[1], self.output_suffix))
+                csv_path, output_dir, self.group_names[0], self.group_names[1], self.output_suffix))
 
         # csv file of #1#2 and #2 amplitudes by rois epochs average
         header = [self.group_names[0], self.group_names[1], 'ratio col1/col2']
@@ -517,7 +518,7 @@ class TracesCalc(Logging):
                                  1/ampl_st2_to_st1_ratio_mean_of_epochs_by_rois, filter[1]),
                              ])
         ],
-            csv_path+csv_file, csv_file, '_by_rois_mean_of_epochs_{0}_and_{1}_ampl_{2}_auto_'.format(
+            csv_path+output_dir, output_dir, '_by_rois_mean_of_epochs_{0}_and_{1}_ampl_{2}_auto_'.format(
             self.group_names[0], self.group_names[1], self.output_suffix)
         )
 
@@ -550,7 +551,7 @@ class TracesCalc(Logging):
                                  1/auc_st2_to_st1_ratio_mean_of_epochs_by_rois, filter[1]),
                              ])
         ],
-            csv_path+csv_file, csv_file, '_by_rois_mean_of_epochs_{0}_and_{1}_auc_{2}_auto_'.format(
+            csv_path+output_dir, output_dir, '_by_rois_mean_of_epochs_{0}_and_{1}_auc_{2}_auto_'.format(
             self.group_names[0], self.group_names[1], self.output_suffix)
         )
 
@@ -559,7 +560,7 @@ class TracesCalc(Logging):
                                     self.filter_list(
                                         st2_auc_mean_of_epochs_by_rois, filter[2], replace=False),
                                     '{0}{1}/_by_rois_{2}_{3}_{4}_auc_auto_.png'.format(
-                                        csv_path, csv_file, self.group_names[0], self.group_names[1], self.output_suffix),
+                                        csv_path, output_dir, self.group_names[0], self.group_names[1], self.output_suffix),
                                     paired=True,
                                     y_label='AUC',
                                     Groups_Name=[self.group_names[0], self.group_names[1]])
@@ -569,7 +570,7 @@ class TracesCalc(Logging):
                                     self.filter_list(
                                         st2_ampl_mean_of_epochs_by_rois, filter[2], replace=False),
                                     '{0}{1}/_by_rois_{2}_{3}_{4}_ampl_auto_.png'.format(
-                                        csv_path, csv_file, self.group_names[0], self.group_names[1], self.output_suffix),
+                                        csv_path, output_dir, self.group_names[0], self.group_names[1], self.output_suffix),
                                     paired=True,
                                     y_label='ΔF/F₀',
                                     Groups_Name=[self.group_names[0], self.group_names[1]])
@@ -580,14 +581,14 @@ class TracesCalc(Logging):
                 self.plot_s1s2_s2_roi_stats(s1s2_ampl_list_each_by_epoch[i],
                                             s2_ampl_list_each_by_epoch[i],
                                             '{0}{1}/_roi{2}_{3}{4}_{4}_{5}_ampl_auto_.png'.format(
-                    csv_path, csv_file, i+1, self.stim_1_name, self.stim_2_name, self.output_suffix),
+                    csv_path, output_dir, i+1, self.stim_1_name, self.stim_2_name, self.output_suffix),
                     paired=True,
                     y_label=f'ΔF/F₀        ROI {i+1}',
                     Groups_Name=['{}+{}'.format(
                         self.stim_1_name, self.stim_2_name), self.stim_2_name],)
 
         # save vertical shift for the next calculations
-        load_vshift = self.file_path + '%' + \
+        load_vshift = csv_path + csv_file + '%' + \
             str(self.vertical_shift_of_trig-1)
         if self.vertical_shift_of_trig and load_vshift in self.v_shifts:
             self.vertical_shift = self.v_shifts[load_vshift]
@@ -604,12 +605,12 @@ class TracesCalc(Logging):
             ((self.start_from_epoch-1 + self.n_epochs+1) * self.step_duration * self.n_steps) / self.sampling_interval)]
         matrix_T = self.transpose(matrix)
         self.csv_write(matrix,
-                       csv_path+csv_file, csv_file, '_full_traces_raw_{0}_and_{1}_ampl_{2}_auto_'.format(
+                       csv_path+output_dir, output_dir, '_full_traces_raw_{0}_and_{1}_ampl_{2}_auto_'.format(
                            self.group_names[0], self.group_names[1], self.output_suffix)
                        )
 
         for i in self.group_names:
-            os.makedirs(csv_path + csv_file +
+            os.makedirs(csv_path + output_dir +
                         '/_by_rois_traces_bin_{0}_{1}_auto_'.format(i, self.output_suffix), exist_ok=True)
 
         # plot_stacked_traces all togather
@@ -618,13 +619,13 @@ class TracesCalc(Logging):
                                  s1s2_bin_list_each_by_epoch,
                                  st1_bin_summary_by_rois,
                                  '{0}{1}/_by_rois_traces_bin_{2}_{3}_auto_/_full_traces_stacked_by_rois_auto_.png'.format(
-            csv_path, csv_file, self.group_names[0], self.output_suffix), vertical_shift=vertical_shift, delay=0)
+            csv_path, output_dir, self.group_names[0], self.output_suffix), vertical_shift=vertical_shift, delay=0)
         self.plot_stacked_traces(np.array(matrix_T[0]) - ((self.start_from_epoch-1) * self.step_duration * self.n_steps),
                                  matrix_T[:],
                                  s2_bin_list_each_by_epoch,
                                  st2_bin_summary_by_rois,
                                  '{0}{1}/_by_rois_traces_bin_{2}_{3}_auto_/_full_traces_stacked_by_rois_auto_.png'.format(
-            csv_path, csv_file, self.group_names[1], self.output_suffix), vertical_shift=vertical_shift, delay=self.s2_delay)
+            csv_path, output_dir, self.group_names[1], self.output_suffix), vertical_shift=vertical_shift, delay=self.s2_delay)
 
         # plot_stacked_traces by groups
         chunk_size = 20
@@ -634,41 +635,41 @@ class TracesCalc(Logging):
                                      s1s2_bin_list_each_by_epoch[pos:pos +
                                                                  chunk_size+1],
                                      st1_bin_summary_by_rois[pos:pos +
-                                                              chunk_size+1],
+                                                             chunk_size+1],
                                      '{0}{1}/_by_rois_traces_bin_{2}_{5}_auto_/_full_traces_stacked_by_rois_{3}-{4}_{5}_auto_.png'.format(
-                csv_path, csv_file, self.group_names[0], pos+1, pos+chunk_size, self.output_suffix), vertical_shift=vertical_shift, delay=self.s2_delay)
+                csv_path, output_dir, self.group_names[0], pos+1, pos+chunk_size, self.output_suffix), vertical_shift=vertical_shift, delay=self.s2_delay)
         for pos in range(0, len(self.csv_matrix[0])-1, chunk_size):
             self.plot_stacked_traces(np.array(matrix_T[0]) - ((self.start_from_epoch-1) * self.step_duration * self.n_steps),
                                      matrix_T[pos:pos+chunk_size+1],
                                      s2_bin_list_each_by_epoch[pos:pos +
                                                                chunk_size+1],
                                      st2_bin_summary_by_rois[pos:pos +
-                                                            chunk_size+1],
+                                                             chunk_size+1],
                                      '{0}{1}/_by_rois_traces_bin_{2}_{5}_auto_/_full_traces_stacked_by_rois_{3}-{4}_{5}_auto_.png'.format(
-                csv_path, csv_file, self.group_names[1], pos+1, pos+chunk_size, self.output_suffix), vertical_shift=vertical_shift, delay=self.s2_delay)
+                csv_path, output_dir, self.group_names[1], pos+1, pos+chunk_size, self.output_suffix), vertical_shift=vertical_shift, delay=self.s2_delay)
 
         # plot_traces_by_rois
         # for i in range(len(s1s2_raw_line_list)):
         #     self.plot_traces_by_rois(s1s2_raw_line_list[i],
         #                              s2_raw_line_list[i],
-        #                              '{0}{1}/_epoch{2}_AC_C_traces_auto_.png'.format(csv_path, csv_file[:], i+self.start_from_epoch))
+        #                              '{0}{1}/_epoch{2}_AC_C_traces_auto_.png'.format(csv_path, output_dir[:], i+self.start_from_epoch))
 
         # plot_heatmaps
         self.plot_heatmap(matrix_T[:],
                           '{0}{1}/_by_rois__heatmap_bin_{2}_{3}_auto_.png'.format(
-            csv_path, csv_file, self.group_names[0], self.output_suffix),
+            csv_path, output_dir, self.group_names[0], self.output_suffix),
             s1s2_bin_list_each_by_epoch,
             st1_bin_summary_by_rois,
             delay=0)
         self.plot_heatmap(matrix_T[:],
                           '{0}{1}/_by_rois__heatmap_bin_{2}_{3}_auto_.png'.format(
-            csv_path, csv_file, self.group_names[1], self.output_suffix),
+            csv_path, output_dir, self.group_names[1], self.output_suffix),
             s2_bin_list_each_by_epoch,
             st2_bin_summary_by_rois,
             delay=self.s2_delay)
         self.plot_heatmap(matrix_T[:],
                           '{0}{1}/_by_rois__heatmap_auto_{2}.png'.format(
-            csv_path, csv_file, self.output_suffix),
+            csv_path, output_dir, self.output_suffix),
             delay=self.s2_delay)
 
     def plot_s2_to_s1s2_ratio_rois_by_epoch(self, array, path):
@@ -839,7 +840,7 @@ class TracesCalc(Logging):
 
                 if detailed_stats:
                     self.detailed_stats(
-                        csv_path, csv_file + '.csv' + CALCULATIONS_SUBFOLDER_NAME + self.output_suffix)
+                        csv_path, csv_file, csv_file + '.csv' + CALCULATIONS_SUBFOLDER_NAME + self.output_suffix)
 
             result = '***    Done: {} csv files for      {}'.format(
                 len(csv_list), self.file_path)
@@ -1299,7 +1300,8 @@ class PostprocessingSummary(Helpers):
             ws.title = "Data"
 
             # Find max column height
-            max_len = max((len(col) for col in columns if isinstance(col, list)), default=0)
+            max_len = max((len(col)
+                          for col in columns if isinstance(col, list)), default=0)
 
             for col_idx, col_data in enumerate(columns, start=1):
                 if not isinstance(col_data, list):
@@ -1312,9 +1314,8 @@ class PostprocessingSummary(Helpers):
                         #     continue
                         ws.cell(row=row_idx + 1, column=col_idx, value=val)
 
-            wb.save(filepath[:-4]+suffix+'.xlsx')
-            print(f"✅ Saved {filepath[:-4]+suffix+'.xlsx'}")
-
+            wb.save(filepath+suffix+'.xlsx')
+            print(f"✅ Saved {filepath+suffix+'.xlsx'}")
 
 
 def worker(item, run_derivatives_calculation, run_traces_calculation, v_shifts={}, filters={}, ampls={}, aucs={}):
@@ -1345,7 +1346,7 @@ def worker(item, run_derivatives_calculation, run_traces_calculation, v_shifts={
     vertical_shifts = movie.v_shifts_return
     filters = movie.filters_return
     ampls = movie.ampls_return
-    #aucs = movie.aucs_return
+    # aucs = movie.aucs_return
 
     print(movie.log)
 
@@ -1423,6 +1424,7 @@ def main(
 
         v_shifts = {}
         filters = {}
+
         def spread_jobs(jobs):
             processes = [pool.apply_async(worker, args=(item, run_derivatives_calculation, run_traces_calculation, v_shifts, filters))
                          for item in jobs]
@@ -1465,7 +1467,7 @@ def main(
     else:
         output = []
         for item in to_do_list:
-            v_shifts ={}
+            v_shifts = {}
             filters = {}
             output.append(worker(item, run_derivatives_calculation,
                                  run_traces_calculation, v_shifts, filters))
@@ -1480,8 +1482,8 @@ def main(
                 print(output[-1][4])
 
     if postprocessingsummary:
-        bins ={}
-        amps={}
+        bins = {}
+        amps = {}
         for i in output:
             bins.update(i[1][0])
             amps.update(i[1][1])
@@ -1492,40 +1494,34 @@ def main(
         amps_st1 = summary.reformat_dict(amps, col=1)
         amps_st2 = summary.reformat_dict(amps, col=2)
 
-        amps_filtered_st1={}
-        amps_filtered_st2={}
+        amps_filtered_st1 = {}
+        amps_filtered_st2 = {}
 
-        h=Helpers()
+        h = Helpers()
 
         for key, value in bins_st1.items():
-            amps_filtered_st1[key] = [h.filter_list(i, np.logical_and(bins_st1[key][0], bins_st1[key][1]),replace=True,
-                    replace_with='--') for i in amps_st1[key] ]
-        
+            amps_filtered_st1[key] = [h.filter_list(i, np.logical_and(bins_st1[key][0], bins_st1[key][1]), replace=True,
+                                                    replace_with='--') for i in amps_st1[key]]
+
         for key, value in bins_st2.items():
-            amps_filtered_st2[key] = [h.filter_list(i, np.logical_and(bins_st2[key][0], bins_st2[key][1]),replace=True,
-                    replace_with='--') for i in amps_st2[key] ]
+            amps_filtered_st2[key] = [h.filter_list(i, np.logical_and(bins_st2[key][0], bins_st2[key][1]), replace=True,
+                                                    replace_with='--') for i in amps_st2[key]]
 
         table_st1 = {}
         table_st2 = {}
         for key, value in bins_st1.items():
-            table_st1[key] = bins_st1[key] + [''] + [''] + amps_st1[key] + [''] + [''] + amps_filtered_st1[key]
-            table_st2[key] = bins_st2[key] + [''] + [''] + amps_st2[key] + [''] + [''] + amps_filtered_st2[key]
-
+            table_st1[key] = bins_st1[key] + [''] + [''] + \
+                amps_st1[key] + [''] + [''] + amps_filtered_st1[key]
+            table_st2[key] = bins_st2[key] + [''] + [''] + \
+                amps_st2[key] + [''] + [''] + amps_filtered_st2[key]
 
         summary.save_dict_to_xlsx_files(table_st1, suffix='_stim1_summary')
         summary.save_dict_to_xlsx_files(table_st2, suffix='_stim2_summary')
-
 
         # analysis_st1_all = AutoStatLib.StatisticalAnalysis(amps_st1, paired=True, tails=2, popmean=0, posthoc=True)
         # analysis_st1_all.RunKruskalWallis()
         # results = analysis_st1_all.GetResult()
         # plot = AutoStatLib.StatPlots.BarStatPlot(results['Samples'], **results)
-
-
-
-
-
-
 
 
 if __name__ == '__main__':

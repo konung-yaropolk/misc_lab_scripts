@@ -13,7 +13,7 @@ drs_pattern = [[0],  # stim #1
                [1]]  # stim #2
 
 n_epochs = 1
-resp_duration = 4   # in sec, expected response duration
+resp_duration = 3   # in sec, expected response duration
 step_duration = 10  # in sec
 
 
@@ -59,70 +59,1427 @@ to_do_list = [
 
 
 
-    # ['Thy1-RGeco control/2025_08_04_M1/Field_1_Caps_activators_application_ch1_registered_.tif',
-    #  {
-    #      'trig_number': 1,
-    #      'output_suffix': '_derivatives_AC',
-    #      'n_epochs': 1,
-    #      'response_duration': 4,
-    #      'drs_pattern': [[1],  # stim#1
-    #                      [1]]  # stim#2
-    #  }
-    #  ],
 
-    # ['Thy1-RGeco control/2025_08_04_M2/Field_1_Caps_activators_application_0001_ch1_registered.tif',
+
+    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_12/Test.tif',
     #  {
     #      'trig_number': 1,
-    #      'output_suffix': '_derivatives_AC',
+    #      'output_suffix': '_test_0hour',
+    #      'stim_1_name' : 'A',
+    #      'stim_2_name' : 'C',
     #      'n_epochs': 1,
-    #      'response_duration': 4,
-    #      'drs_pattern': [[1],  # stim#1
-    #                      [1]]  # stim#2
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
     #  }
     #  ],
 
 
-    # ['Thy1-RGeco control/2025_08_04_M3/Field_1_Caps_activators_application_ch1_registered.tif',
-    #  {
-    #      'trig_number': 1,
-    #      'output_suffix': '_derivatives_trig1',
-    #      'n_epochs': 1,
-    #      'response_duration': 4,
-    #      'drs_pattern': [[0],  # stim#1
-    #                      [1]]  # stim#2
-    #  }
-    #  ],
-
-    # ['Thy1-RGeco control/2025_08_04_M3/Field_1_Caps_activators_application_ch1_registered.tif',
+    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_12/Test.tif',
     #  {
     #      'trig_number': 2,
-    #      'output_suffix': '_derivatives_trig2',
+    #      'output_suffix': '_test_1hour',
+    #      'stim_1_name' : 'A',
+    #      'stim_2_name' : 'C',
     #      'n_epochs': 1,
-    #      'response_duration': 4,
-    #      'drs_pattern': [[0],  # stim#1
-    #                      [1]]  # stim#2
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['Thy1-RGeco control/2025_08_04_M3/Field_1_Caps_activators_application_ch1_registered.tif',
+
+
+
+
+
+
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
     #  {
     #      'trig_number': 3,
-    #      'output_suffix': '_derivatives_trig3',
+    #      'output_suffix': '2s_10hz_control',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 1,
-    #      'response_duration': 4,
     #      'drs_pattern': [[0],  # stim#1
     #                      [1]]  # stim#2
     #  }
     #  ],
-    # ['Thy1-RGeco control/2025_08_04_M3/Field_1_Caps_activators_application_ch1_registered.tif',
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 10,
+    #      'output_suffix': '2s_10hz_Dynorphin_1uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': '0.1Hz_control',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 6,
+    #      'output_suffix': '0.1Hz_Dynorphin_1uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 3,
+    #      'output_suffix': '_2s_10hz_control',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 7,
+    #      'output_suffix': '_2s_10hz_Dynorphin_1uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': '_0.1Hz_control',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 8,
+    #      'output_suffix': '_0.1Hz_Dynorphin_1uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 3,
+    #      'output_suffix': '_2s_10hz_control',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 6,
+    #      'output_suffix': '_2s_10hz_Dynorphin_1uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': '_0.1Hz_control',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 7,
+    #      'output_suffix': '_0.1Hz_Dynorphin_1uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_11_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 3,
+    #      'output_suffix': '_2s_10hz_control',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_11_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 9,
+    #      'output_suffix': '_2s_10hz_Dynorphin_1uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch1_registered.tif',
+    #  {
+    #      'trig_number': 3,
+    #      'output_suffix': '2s_10hz_control',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch1_registered.tif',
+    #  {
+    #      'trig_number': 10,
+    #      'output_suffix': '2s_10hz_Dynorphin_1uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+
+
+
+    # # Dynorphin applications:
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': 'control',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 8,
+    #      'output_suffix': 'Dynorphin_1uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': 'control',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 7,
+    #      'output_suffix': 'Dynorphin_1uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # # Control group:
+
+
+
+
+
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': '0.1Hz_control',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 7,
+    #      'output_suffix': '0.1Hz_Dynorphin_1uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 3,
+    #      'output_suffix': '10Hz_control',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_7_Dynorphin_application_ch2_registered.tif',
+    #  {
+    #      'trig_number': 5,
+    #      'output_suffix': '10Hz_Dynorphin_1uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+
+
+
+    # ['LJA5 project Dynorphin control/2025_08_22/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 3,
+    #      'output_suffix': '0.1Hz_control',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_22/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 5,
+    #      'output_suffix': '0.1Hz_Dynorphin_1uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_22/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 2,
+    #      'output_suffix': '2Hz_control',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_22/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 6,
+    #      'output_suffix': '2Hz_Dynorphin_1uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'vertical_shift_of_trig': 2,
+    #      'SD_filter_of_trig': 2,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_22/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': '10Hz_control',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_22/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 7,
+    #      'output_suffix': '10Hz_Dynorphin_1uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+    # ['LJA5 project Dynorphin control/2025_08_25/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 3,
+    #      'output_suffix': '0.1Hz_control',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_25/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 5,
+    #      'output_suffix': '0.1Hz_Dynorphin_1uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_25/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 2,
+    #      'output_suffix': '2Hz_control',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_25/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 6,
+    #      'output_suffix': '2Hz_Dynorphin_1uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'vertical_shift_of_trig': 2,
+    #      'SD_filter_of_trig': 2,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_25/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': '10Hz_control',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_25/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 7,
+    #      'output_suffix': '10Hz_Dynorphin_1uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_25/Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 9,
+    #      'output_suffix': '10Hz_Naloxone_5uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
+    #  {
+    #      'trig_number': 3,
+    #      'output_suffix': '0.1Hz_control',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
+    #  {
+    #      'trig_number': 5,
+    #      'output_suffix': '0.1Hz_Dynorphin_1uM',
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
+    #  {
+    #      'trig_number': 11,
+    #      'output_suffix': '0.1Hz_Naloxone_5uM',
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
+    #  {
+    #      'trig_number': 2,
+    #      'output_suffix': '2Hz_control',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
+    #  {
+    #      'trig_number': 6,
+    #      'output_suffix': '2Hz_Dynorphin_1uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'vertical_shift_of_trig': 2,
+    #      'SD_filter_of_trig': 2,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
+    #  {
+    #      'trig_number': 10,
+    #      'output_suffix': '2Hz_Naloxone_5uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'vertical_shift_of_trig': 2,
+    #      'SD_filter_of_trig': 2,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+
+    # ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': '10Hz_control',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
+    #  {
+    #      'trig_number': 7,
+    #      'output_suffix': '10Hz_Dynorphin_1uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+    # ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
+    #  {
+    #      'trig_number': 9,
+    #      'output_suffix': '10Hz_Naloxone_5uM',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 1,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[0],  # stim#1
+    #                      [1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # # CNO  10/07/2025
+
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': '_Control',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['registered_full.tif',
     #  {
     #      'trig_number': 4,
-    #      'output_suffix': '_derivatives_trig4',
-    #      'n_epochs': 1,
-    #      'response_duration': 4,
-    #      'drs_pattern': [[0],  # stim#1
-    #                      [1]]  # stim#2
+    #      'output_suffix': '_CNO',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 0,
+    #      'SD_filter_of_trig': 0,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
     #  }
     #  ],
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 6,
+    #      'output_suffix': '_CNO2',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 0,
+    #      'SD_filter_of_trig': 0,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 8,
+    #      'output_suffix': '_Naloxone1',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    #   ['registered_full.tif',
+    #  {
+    #      'trig_number': 10,
+    #      'output_suffix': '_Naloxone2',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+
+    # # CNO 2025_10_03
+
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': '_Control',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 4,
+    #      'output_suffix': '_CNO',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 0,
+    #      'SD_filter_of_trig': 0,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ]
+
+
+    # # CNO 2025_10_15
+
+    # ['Field_6_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': '_Control',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['Field_6_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 3,
+    #      'output_suffix': '_CNO',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 0,
+    #      'SD_filter_of_trig': 0,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['Field_6_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 5,
+    #      'output_suffix': '_Dynorphin',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['Field_6_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 7,
+    #      'output_suffix': '_Naloxone',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # # CNO 2025_10_10
+
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': '_Control',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 4,
+    #      'output_suffix': '_CNO',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 0,
+    #      'SD_filter_of_trig': 0,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 5,
+    #      'output_suffix': '_CNO2',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 8,
+    #      'output_suffix': '_Naloxone1',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    #   ['registered_full.tif',
+    #  {
+    #      'trig_number': 9,
+    #      'output_suffix': '_Naloxone2',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    #    ['registered_full.tif',
+    #  {
+    #      'trig_number': 12,
+    #      'output_suffix': '_Naloxone3',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+
+    # # CNO 2025_10_16
+
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': '_Control',
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 6,
+    #      'output_suffix': '_CNO',
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 0,
+    #      'SD_filter_of_trig': 0,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 9,
+    #      'output_suffix': '_Dynorphin',
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 12,
+    #      'output_suffix': '_Naloxone1',
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    #   ['registered_full.tif',
+    #  {
+    #      'trig_number': 13,
+    #      'output_suffix': '_Naloxone2',
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    #    ['registered_full.tif',
+    #  {
+    #      'trig_number': 15,
+    #      'output_suffix': '_Naloxone3',
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 3,
+    #      'SD_filter_of_trig': 3,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+
+    # # CNO 2025_10_20
+
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': '_Control',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 0,
+    #      'SD_filter_of_trig': 0,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 5,
+    #      'output_suffix': '_CNO',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 9,
+    #      'output_suffix': '_Dynorphin',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 12,
+    #      'output_suffix': '_Naloxone1',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    #   ['registered_full.tif',
+    #  {
+    #      'trig_number': 13,
+    #      'output_suffix': '_Naloxone2',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    #    ['registered_full.tif',
+    #  {
+    #      'trig_number': 15,
+    #      'output_suffix': '_Naloxone3',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+
+    # CNO 2025_10_21
+
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': '_Control',
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 0,
+    #      'SD_filter_of_trig': 0,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 4,
+    #      'output_suffix': '_CNO',
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 7,
+    #      'output_suffix': '_Dynorphin',
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 10,
+    #      'output_suffix': '_Naloxone1',
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    #   ['registered_full.tif',
+    #  {
+    #      'trig_number': 11,
+    #      'output_suffix': '_Naloxone2',
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    #    ['registered_full.tif',
+    #  {
+    #      'trig_number': 13,
+    #      'output_suffix': '_Naloxone3',
+    #      'stim_1_name': 'L4-C',
+    #      'stim_2_name': 'L5-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+
+    # CNO 2025_09_16
+
+    #  ['registered_full.tif',
+    #  {
+    #      'trig_number': 2,
+    #      'output_suffix': '_Control',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 0,
+    #      'SD_filter_of_trig': 0,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 4,
+    #      'output_suffix': '_CNO',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 8,
+    #      'output_suffix': '_Dynorphin',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 11,
+    #      'output_suffix': '_Naloxone1',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    #   ['registered_full.tif',
+    #  {
+    #      'trig_number': 14,
+    #      'output_suffix': '_Naloxone2',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ]
+    # CNO 2025_09_17
+
+    #  ['registered_full.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': '_Control',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 0,
+    #      'SD_filter_of_trig': 0,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 4,
+    #      'output_suffix': '_CNO',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 7,
+    #      'output_suffix': '_Dynorphin',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 11,
+    #      'output_suffix': '_Naloxone1',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    #   ['registered_full.tif',
+    #  {
+    #      'trig_number': 13,
+    #      'output_suffix': '_Naloxone2',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ]
+
+    # CNO 2025_09_18
+
+    #  ['registered_full.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'output_suffix': '_Control',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 0,
+    #      'SD_filter_of_trig': 0,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 4,
+    #      'output_suffix': '_CNO',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['registered_full.tif',
+    #  {
+    #      'trig_number': 7,
+    #      'output_suffix': '_Dynorphin',
+    #      'stim_1_name': 'L5-C',
+    #      'stim_2_name': 'L4-C',
+    #      'n_epochs': 10,
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [0, 1]]  # stim#2
+    #  }
+    #  ],
+    ['registered_full.tif',
+     {
+         'trig_number': 10,
+         'output_suffix': '_Naloxone1',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['registered_full.tif',
+     {
+         'trig_number': 12,
+         'output_suffix': '_Naloxone2',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['registered_full.tif',
+        {
+            'trig_number': 14,
+            'output_suffix': '_Naloxone3',
+            'stim_1_name': 'L5-C',
+            'stim_2_name': 'L4-C',
+            'n_epochs': 10,
+            'vertical_shift_of_trig': 1,
+            'SD_filter_of_trig': 1,
+            'drs_pattern': [[1, 0],  # stim#1
+                            [0, 1]]  # stim#2
+        }
+     ],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
