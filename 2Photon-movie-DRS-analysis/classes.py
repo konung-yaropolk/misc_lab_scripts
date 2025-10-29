@@ -299,7 +299,7 @@ class TracesCalc(Logging):
     def detailed_stats(self, csv_path, csv_file):
 
         # create unique id for each calculation unit (trigger)
-        unit_id = self.file_path + ' ' + str(self.trig_number).rjust(2)
+        unit_id = self.file_path + '%' + str(self.trig_number)
 
         s1s2 = False
         s1 = False
@@ -1392,8 +1392,8 @@ def main(
 
         v_shifts = output[0][0]
         filters = output[0][1][0]
-        ampls = output[0][1][1]
-        aucs = output[0][1][2]
+        # ampls = output[0][1][1]
+        # aucs = output[0][1][2]
 
         output.extend(spread_jobs(do_second))
 
@@ -1413,8 +1413,8 @@ def main(
                                  run_traces_calculation, v_shifts, filters))
             v_shifts = output[-1][0]
             filters = output[-1][1][0]
-            ampls = output[-1][1][1]
-            aucs = output[-1][1][2]
+            # ampls = output[-1][1][1]
+            # aucs = output[-1][1][2]
 
             if output[-1][3]:
                 print(output[-1][3])
