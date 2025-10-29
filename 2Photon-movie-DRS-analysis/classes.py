@@ -16,7 +16,8 @@ import settings as s
 
 CALCULATIONS_SUBFOLDER_NAME = '_CALCULATIONS_auto_'
 DERIVATIVES_SUBFOLDER_NAME = '_DERIVATIVES_auto_'
-BINARIZATION_RESP_THRESHOLD = 0.29 # min percent of responses for ROI to consider it responsive
+# min percent of responses for ROI to consider it responsive
+BINARIZATION_RESP_THRESHOLD = 0.29
 
 # Adjust the sampling interval to account for the
 # clock synchronization of the microscope's hardware and PC
@@ -144,8 +145,6 @@ class TracesCalc(Logging):
             self.logging('!!!    Fail: invalid path        ', self.path)
 
         return files
-
-
 
     def find_time_index(self, content, time):
         content = (float(i)-time for i in list(zip(*content))[0])
@@ -300,7 +299,7 @@ class TracesCalc(Logging):
     def detailed_stats(self, csv_path, csv_file):
 
         # create unique id for each calculation unit (trigger)
-        unit_id = self.file_path + '  ' + str(self.trig_number)
+        unit_id = self.file_path + ' ' + str(self.trig_number).rjust(2)
 
         s1s2 = False
         s1 = False
@@ -440,7 +439,7 @@ class TracesCalc(Logging):
         def filter_list(list,
                         bin,
                         replace=True,
-                        replace_with=None):    
+                        replace_with=None):
             if replace == True:
                 output = [value if bin[i] else replace_with for i, value in
                           enumerate(list)]
@@ -451,29 +450,28 @@ class TracesCalc(Logging):
 
         # save binarization for the next calculations
         load_unitid = self.file_path + '  ' + str(self.SD_filter_of_trig-1)
-        current_filter =[s1s2_bin_summary_by_rois,
-                         s1_bin_summary_by_rois,
-                         s2_bin_summary_by_rois]
-        
+        current_filter = [s1s2_bin_summary_by_rois,
+                          s1_bin_summary_by_rois,
+                          s2_bin_summary_by_rois]
+
         if self.SD_filter_of_trig and load_unitid in self.filters:
             filter = self.filters[load_unitid]
         else:
             filter = current_filter
-            
+
         self.filters_return |= {unit_id: current_filter}
 
         # save responses Ampl and AUC for the next calculations
         amps = [st1_ampl_mean_of_epochs_by_rois,
                 st1_ampl_mean_of_epochs_by_rois,
                 st2_ampl_mean_of_epochs_by_rois]
-        
+
         aucs = [st1_auc_mean_of_epochs_by_rois,
-                st1_auc_mean_of_epochs_by_rois, 
+                st1_auc_mean_of_epochs_by_rois,
                 st2_auc_mean_of_epochs_by_rois]
 
-        self.ampls_return |= {unit_id:amps}
-        self.aucs_return |= {unit_id:aucs}
-
+        self.ampls_return |= {unit_id: amps}
+        self.aucs_return |= {unit_id: aucs}
 
         self.plot_s2_to_s1s2_ratio_rois_by_epoch(
             1/ampl_st2_to_st1_ratio_rois_by_epoch, '{0}{1}/_rois_by_epoch_{3}_to_{2}_{4}_ratio_auto_.png'.format(
@@ -702,7 +700,7 @@ class TracesCalc(Logging):
         if 'p_value_exact' in results:
             plot = AutoStatLib.StatPlots.BarStatPlot(data,
                                                      **results,
-                                                     y_label=y_label,                                                     
+                                                     y_label=y_label,
                                                      figure_scale_factor=0.8,
                                                      figure_h=4,
                                                      figure_w=0,
@@ -1255,7 +1253,7 @@ class MetadataParser():
         return events, t_resolution, t_duration, n_slides
 
 
-class PostprocessingSummary(Helpers): 
+class PostprocessingSummary(Helpers):
 
     def __init__(self,):
         pass
@@ -1394,10 +1392,10 @@ def main(
 
         v_shifts = output[0][0]
         filters = output[0][1][0]
-        ampls =  output[0][1][1]
-        aucs =  output[0][1][2]
+        ampls = output[0][1][1]
+        aucs = output[0][1][2]
 
-        _ = spread_jobs(do_second)
+        output.extend(spread_jobs(do_second))
 
         errors = [[i[2]+':\n', 'derivatives : ' + i[3]+'\n',
                    'calculations:   ' + i[4]+'\n', '\n'] for i in output if (i[3] or i[4])]
@@ -1409,10 +1407,10 @@ def main(
         print(*msg)
 
     else:
-        output=[]
+        output = []
         for item in to_do_list:
             output.append(worker(item, run_derivatives_calculation,
-                            run_traces_calculation, v_shifts, filters))
+                                 run_traces_calculation, v_shifts, filters))
             v_shifts = output[-1][0]
             filters = output[-1][1][0]
             ampls = output[-1][1][1]
@@ -1423,8 +1421,7 @@ def main(
             if output[-1][4]:
                 print(output[-1][4])
 
-
-
+    print(output)
 
 
 if __name__ == '__main__':
