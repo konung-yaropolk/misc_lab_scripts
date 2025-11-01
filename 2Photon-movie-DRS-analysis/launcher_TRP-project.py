@@ -1369,47 +1369,48 @@ to_do_list = [
     #  }
     #  ]
 
-    # CNO 2025_09_18
 
-    #  ['registered_full.tif',
-    #  {
-    #      'trig_number': 1,
-    #      'output_suffix': '_Control',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 0,
-    #      'SD_filter_of_trig': 0,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['registered_full.tif',
-    #  {
-    #      'trig_number': 4,
-    #      'output_suffix': '_CNO',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 1,
-    #      'SD_filter_of_trig': 1,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['registered_full.tif',
-    #  {
-    #      'trig_number': 7,
-    #      'output_suffix': '_Dynorphin',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 1,
-    #      'SD_filter_of_trig': 1,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
+    # # CNO 2025_09_18
+
+    ['registered_full.tif',
+     {
+         'trig_number': 1,
+         'output_suffix': '_Control',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 0,
+         'SD_filter_of_trig': 0,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['registered_full.tif',
+     {
+         'trig_number': 4,
+         'output_suffix': '_CNO',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['registered_full.tif',
+     {
+         'trig_number': 7,
+         'output_suffix': '_Dynorphin',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
     ['registered_full.tif',
      {
          'trig_number': 10,

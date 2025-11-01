@@ -958,6 +958,7 @@ class DerivativesCalc(Helpers, Logging):
                 case (None, None): self.calc_sequence(
                     i, '_auto_DERIVATIVES.tif')
 
+        # Different stims - differrent colors
         merger_s1s2_s2 = TifColorMerger(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME + self.output_suffix),
                                         s1s2_name_ending,
                                         s2_name_ending,
@@ -969,6 +970,7 @@ class DerivativesCalc(Helpers, Logging):
         merger_s1s2_s2.process_directory(heatmap=True, png=True, tif=True)
         del merger_s1s2_s2
 
+        # Different stims - differrent colors
         merger_s1_s2 = TifColorMerger(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME + self.output_suffix),
                                       s2_name_ending,
                                       s1_name_ending,
@@ -1315,7 +1317,7 @@ class PostprocessingSummary(Helpers):
                         ws.cell(row=row_idx + 1, column=col_idx, value=val)
 
             wb.save(filepath+suffix+'.xlsx')
-            print(f"✅ Saved {filepath+suffix+'.xlsx'}")
+            print(f"✅ Summary Saved {filepath+suffix+'.xlsx'}")
 
 
 def worker(item, run_derivatives_calculation, run_traces_calculation, v_shifts={}, filters={}, ampls={}, aucs={}):
@@ -1458,7 +1460,7 @@ def main(
         errors = [[i[2]+':\n', 'derivatives : ' + i[3]+'\n',
                    'calculations:   ' + i[4]+'\n', '\n'] for i in output if (i[3] or i[4])]
         msg = [item for sublist in errors for item in sublist] if errors else [
-            '--no errors--\n']
+            '✅ --no errors--\n']
 
         print('\n\nAll done.\n')
         print('Errors: \n')
