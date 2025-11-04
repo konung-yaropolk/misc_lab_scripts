@@ -1496,26 +1496,38 @@ def main(
         amps_st1 = summary.reformat_dict(amps, col=1)
         amps_st2 = summary.reformat_dict(amps, col=2)
 
-        amps_filtered_st1 = {}
-        amps_filtered_st2 = {}
+        amps_filtered1_st1 = {}
+        amps_filtered1_st2 = {}
+        amps_filtered2_st1 = {}
+        amps_filtered2_st2 = {}
 
         h = Helpers()
 
         for key, value in bins_st1.items():
-            amps_filtered_st1[key] = [h.filter_list(i, np.logical_and(bins_st1[key][0], bins_st1[key][1]), replace=True,
-                                                    replace_with='--') for i in amps_st1[key]]
+            amps_filtered1_st1[key] = [h.filter_list(i, np.logical_and(bins_st1[key][0], bins_st1[key][1]), replace=True,
+                                                     replace_with=' ') for i in amps_st1[key]]
 
         for key, value in bins_st2.items():
-            amps_filtered_st2[key] = [h.filter_list(i, np.logical_and(bins_st2[key][0], bins_st2[key][1]), replace=True,
-                                                    replace_with='--') for i in amps_st2[key]]
+            amps_filtered1_st2[key] = [h.filter_list(i, np.logical_and(bins_st2[key][0], bins_st2[key][1]), replace=True,
+                                                     replace_with=' ') for i in amps_st2[key]]
+
+        for key, value in bins_st1.items():
+            amps_filtered2_st1[key] = [h.filter_list(i, bins_st1[key][0], replace=True,
+                                                     replace_with=' ') for i in amps_st1[key]]
+
+        for key, value in bins_st2.items():
+            amps_filtered2_st2[key] = [h.filter_list(i, bins_st2[key][0], replace=True,
+                                                     replace_with=' ') for i in amps_st2[key]]
 
         table_st1 = {}
         table_st2 = {}
         for key, value in bins_st1.items():
-            table_st1[key] = bins_st1[key] + [''] + [''] + \
-                amps_st1[key] + [''] + [''] + amps_filtered_st1[key]
-            table_st2[key] = bins_st2[key] + [''] + [''] + \
-                amps_st2[key] + [''] + [''] + amps_filtered_st2[key]
+            table_st1[key] = bins_st1[key] + [''] + ['Filtered by col 1 AND 2'] + \
+                amps_st1[key] + [''] + [''] + amps_filtered1_st1[key] + \
+                [''] + ['Filtered by col 1'] + amps_filtered2_st1[key]
+            table_st2[key] = bins_st2[key] + [''] + ['Filtered by col 1 AND 2'] + \
+                amps_st2[key] + [''] + [''] + amps_filtered1_st2[key] + \
+                [''] + ['Filtered by col 1'] + amps_filtered2_st2[key]
 
         summary.save_dict_to_xlsx_files(table_st1, suffix='_stim1_summary')
         summary.save_dict_to_xlsx_files(table_st2, suffix='_stim2_summary')
