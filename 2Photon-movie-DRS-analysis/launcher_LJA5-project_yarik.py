@@ -3,12 +3,13 @@
 # Theese parameters will be used if not specified in the launchers
 
 # Params for Derivatives Calculation:
-run_derivatives_calculation = False
+run_derivatives_calculation = True
 working_dir = 'F:/Lab Work Files/2-photon/'
 
 
 stim_1_name = 'step1'
 stim_2_name = 'step2'
+output_suffix = '_'
 drs_pattern = [[0],  # stim #1
                [1]]  # stim #2
 
@@ -19,7 +20,7 @@ step_duration = 10  # in sec
 
 # Params for Traces Calculation:
 # process all csv files with traces in the WORKING_DIR directory:
-run_traces_calculation = True
+run_traces_calculation = False
 
 relative_values = True
 mean_col_order = 2
@@ -42,7 +43,7 @@ SD_filter_of_trig = 0
 
 # Use all available CPU cores.
 # Faster, but need much more RAM so can be unstable.
-multiprocessing = True
+multiprocessing = False
 
 # Maximum size of multiprocessing pull
 # Set the maximum of processes if there isn't enough RAM
@@ -73,7 +74,7 @@ to_do_list = [
     # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_12/Test.tif',
     #  {
     #      'trig_number': 1,
-    #      'output_suffix': '_test_0hour',
+    #      'output_suffix': 'test_0hour',
     #      'stim_1_name' : 'A',
     #      'stim_2_name' : 'C',
     #      'n_epochs': 1,
@@ -86,7 +87,7 @@ to_do_list = [
     # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_12/Test.tif',
     #  {
     #      'trig_number': 2,
-    #      'output_suffix': '_test_1hour',
+    #      'output_suffix': 'test_1hour',
     #      'stim_1_name' : 'A',
     #      'stim_2_name' : 'C',
     #      'n_epochs': 1,
@@ -156,7 +157,7 @@ to_do_list = [
     # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch2_registered.tif',
     #  {
     #      'trig_number': 3,
-    #      'output_suffix': '_2s_10hz_control',
+    #      'output_suffix': '2s_10hz_control',
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
     #      'n_epochs': 1,
@@ -167,7 +168,7 @@ to_do_list = [
     # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch2_registered.tif',
     #  {
     #      'trig_number': 7,
-    #      'output_suffix': '_2s_10hz_Dynorphin_1uM',
+    #      'output_suffix': '2s_10hz_Dynorphin_1uM',
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
     #      'n_epochs': 1,
@@ -179,7 +180,7 @@ to_do_list = [
     # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch2_registered.tif',
     #  {
     #      'trig_number': 1,
-    #      'output_suffix': '_0.1Hz_control',
+    #      'output_suffix': '0.1Hz_control',
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
     #      'n_epochs': 10,
@@ -190,7 +191,7 @@ to_do_list = [
     # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch2_registered.tif',
     #  {
     #      'trig_number': 8,
-    #      'output_suffix': '_0.1Hz_Dynorphin_1uM',
+    #      'output_suffix': '0.1Hz_Dynorphin_1uM',
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
     #      'n_epochs': 10,
@@ -207,7 +208,7 @@ to_do_list = [
     # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch2_registered.tif',
     #  {
     #      'trig_number': 3,
-    #      'output_suffix': '_2s_10hz_control',
+    #      'output_suffix': '2s_10hz_control',
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
     #      'n_epochs': 1,
@@ -218,7 +219,7 @@ to_do_list = [
     # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch2_registered.tif',
     #  {
     #      'trig_number': 6,
-    #      'output_suffix': '_2s_10hz_Dynorphin_1uM',
+    #      'output_suffix': '2s_10hz_Dynorphin_1uM',
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
     #      'n_epochs': 1,
@@ -230,7 +231,7 @@ to_do_list = [
     # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch2_registered.tif',
     #  {
     #      'trig_number': 1,
-    #      'output_suffix': '_0.1Hz_control',
+    #      'output_suffix': '0.1Hz_control',
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
     #      'n_epochs': 10,
@@ -241,7 +242,7 @@ to_do_list = [
     # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_7_Dynorphin_application_ch2_registered.tif',
     #  {
     #      'trig_number': 7,
-    #      'output_suffix': '_0.1Hz_Dynorphin_1uM',
+    #      'output_suffix': '0.1Hz_Dynorphin_1uM',
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
     #      'n_epochs': 10,
@@ -258,7 +259,7 @@ to_do_list = [
     # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_11_Dynorphin_application_ch2_registered.tif',
     #  {
     #      'trig_number': 3,
-    #      'output_suffix': '_2s_10hz_control',
+    #      'output_suffix': '2s_10hz_control',
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
     #      'n_epochs': 1,
@@ -269,7 +270,7 @@ to_do_list = [
     # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_11_Dynorphin_application_ch2_registered.tif',
     #  {
     #      'trig_number': 9,
-    #      'output_suffix': '_2s_10hz_Dynorphin_1uM',
+    #      'output_suffix': '2s_10hz_Dynorphin_1uM',
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
     #      'n_epochs': 1,
@@ -624,7 +625,7 @@ to_do_list = [
     # ['LJA5 project Dynorphin control/2025_08_25/Field_1_Dynorphin_application_registered.tif',
     #  {
     #      'trig_number': 9,
-    #      'output_suffix': '10Hz_Naloxone_5uM',
+    #      'output_suffix': '10Hz_Nalx_5uM',
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
     #      'n_epochs': 1,
@@ -663,7 +664,7 @@ to_do_list = [
     # ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
     #  {
     #      'trig_number': 11,
-    #      'output_suffix': '0.1Hz_Naloxone_5uM',
+    #      'output_suffix': '0.1Hz_Nalx_5uM',
     #      'vertical_shift_of_trig': 3,
     #      'SD_filter_of_trig': 3,
     #      'stim_1_name': 'A',
@@ -702,7 +703,7 @@ to_do_list = [
     # ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
     #  {
     #      'trig_number': 10,
-    #      'output_suffix': '2Hz_Naloxone_5uM',
+    #      'output_suffix': '2Hz_Nalx_5uM',
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
     #      'n_epochs': 1,
@@ -740,7 +741,7 @@ to_do_list = [
     # ['LJA5 project Dynorphin control/2025_08_26/Field_1_registered.tif',
     #  {
     #      'trig_number': 9,
-    #      'output_suffix': '10Hz_Naloxone_5uM',
+    #      'output_suffix': '10Hz_Nalx_5uM',
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
     #      'n_epochs': 1,
@@ -754,6 +755,73 @@ to_do_list = [
 
 
 
+    # Ctrl 2025_09_12
+
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_12/Field_7_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 1,
+         'output_suffix': 'Control',
+         'stim_1_name': 'L4-A',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 0,
+         'SD_filter_of_trig': 0,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [1, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_12/Field_7_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 4,
+         'output_suffix': 'CNO',
+         'stim_1_name': 'L4-A',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [1, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_12/Field_7_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 6,
+         'output_suffix': 'Dynorphin',
+         'stim_1_name': 'L4-A',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [1, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_12/Field_7_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 8,
+         'output_suffix': 'Nalx_5min',
+         'stim_1_name': 'L4-A',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [1, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_12/Field_7_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 9,
+         'output_suffix': 'Nalx_15min',
+         'stim_1_name': 'L4-A',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [1, 1]]  # stim#2
+     }
+     ],
 
 
 
@@ -764,611 +832,565 @@ to_do_list = [
 
 
 
-    # # CNO 2025_09_15
-
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_15/Field_6_Dynorphin_application.tif',
-    #  {
-    #      'trig_number': 1,
-    #      'output_suffix': '_Control',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 3,
-    #      'SD_filter_of_trig': 3,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_15/Field_6_Dynorphin_application.tif',
-    #  {
-    #      'trig_number': 3,
-    #      'output_suffix': '_CNO',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 0,
-    #      'SD_filter_of_trig': 0,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_15/Field_6_Dynorphin_application.tif',
-    #  {
-    #      'trig_number': 5,
-    #      'output_suffix': '_Dynorphin',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 3,
-    #      'SD_filter_of_trig': 3,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_15/Field_6_Dynorphin_application.tif',
-    #  {
-    #      'trig_number': 7,
-    #      'output_suffix': '_Naloxone',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 3,
-    #      'SD_filter_of_trig': 3,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
 
 
 
 
+    # CNO 2025_09_15
+
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_15/Field_6_Dynorphin_application_registered.tif',
+     {
+         'trig_number': 1,
+         'output_suffix': 'Control',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 3,
+         'SD_filter_of_trig': 3,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_15/Field_6_Dynorphin_application_registered.tif',
+     {
+         'trig_number': 3,
+         'output_suffix': 'CNO',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 0,
+         'SD_filter_of_trig': 0,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_15/Field_6_Dynorphin_application_registered.tif',
+     {
+         'trig_number': 5,
+         'output_suffix': 'Dynorphin',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 3,
+         'SD_filter_of_trig': 3,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_15/Field_6_Dynorphin_application_registered.tif',
+     {
+         'trig_number': 7,
+         'output_suffix': 'Nalx_5min',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 3,
+         'SD_filter_of_trig': 3,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
 
 
 
-    # # CNO 2025_09_16
-
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_16/Field_5_Dynorphin_application_registered_full.tif',
-    #  {
-    #      'trig_number': 2,
-    #      'output_suffix': '_Control',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 0,
-    #      'SD_filter_of_trig': 0,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_16/Field_5_Dynorphin_application_registered_full.tif',
-    #  {
-    #      'trig_number': 4,
-    #      'output_suffix': '_CNO',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 2,
-    #      'SD_filter_of_trig': 2,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_16/Field_5_Dynorphin_application_registered_full.tif',
-    #  {
-    #      'trig_number': 8,
-    #      'output_suffix': '_Dynorphin',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 2,
-    #      'SD_filter_of_trig': 2,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_16/Field_5_Dynorphin_application_registered_full.tif',
-    #  {
-    #      'trig_number': 11,
-    #      'output_suffix': '_Naloxone1',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 2,
-    #      'SD_filter_of_trig': 2,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_16/Field_5_Dynorphin_application_registered_full.tif',
-    #  {
-    #      'trig_number': 14,
-    #      'output_suffix': '_Naloxone2',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 2,
-    #      'SD_filter_of_trig': 2,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
 
 
 
-    # # CNO 2025_09_17
 
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_17/Field_3_Dynorphin_application_registered_full.tif',
-    #  {
-    #      'trig_number': 1,
-    #      'output_suffix': '_Control',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 0,
-    #      'SD_filter_of_trig': 0,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_17/Field_3_Dynorphin_application_registered_full.tif',
-    #  {
-    #      'trig_number': 4,
-    #      'output_suffix': '_CNO',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 1,
-    #      'SD_filter_of_trig': 1,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_17/Field_3_Dynorphin_application_registered_full.tif',
-    #  {
-    #      'trig_number': 7,
-    #      'output_suffix': '_Dynorphin',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 1,
-    #      'SD_filter_of_trig': 1,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_17/Field_3_Dynorphin_application_registered_full.tif',
-    #  {
-    #      'trig_number': 11,
-    #      'output_suffix': '_Naloxone1',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 1,
-    #      'SD_filter_of_trig': 1,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_17/Field_3_Dynorphin_application_registered_full.tif',
-    #  {
-    #      'trig_number': 13,
-    #      'output_suffix': '_Naloxone2',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 1,
-    #      'SD_filter_of_trig': 1,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
+    # CNO 2025_09_16
 
-
-    # # # CNO 2025_09_18
-
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_18/Field_3_Dynorphin_application_registered_full.tif',
-    #  {
-    #      'trig_number': 1,
-    #      'output_suffix': '_Control',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 0,
-    #      'SD_filter_of_trig': 0,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_18/Field_3_Dynorphin_application_registered_full.tif',
-    #  {
-    #      'trig_number': 4,
-    #      'output_suffix': '_CNO',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 1,
-    #      'SD_filter_of_trig': 1,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_18/Field_3_Dynorphin_application_registered_full.tif',
-    #  {
-    #      'trig_number': 7,
-    #      'output_suffix': '_Dynorphin',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 1,
-    #      'SD_filter_of_trig': 1,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_18/Field_3_Dynorphin_application_registered_full.tif',
-    #  {
-    #      'trig_number': 10,
-    #      'output_suffix': '_Naloxone1',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 1,
-    #      'SD_filter_of_trig': 1,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_18/Field_3_Dynorphin_application_registered_full.tif',
-    #  {
-    #      'trig_number': 12,
-    #      'output_suffix': '_Naloxone2',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 1,
-    #      'SD_filter_of_trig': 1,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_18/Field_3_Dynorphin_application_registered_full.tif',
-    #     {
-    #         'trig_number': 14,
-    #         'output_suffix': '_Naloxone3',
-    #         'stim_1_name': 'L5-C',
-    #         'stim_2_name': 'L4-C',
-    #         'n_epochs': 10,
-    #         'vertical_shift_of_trig': 1,
-    #         'SD_filter_of_trig': 1,
-    #         'drs_pattern': [[1, 0],  # stim#1
-    #                         [0, 1]]  # stim#2
-    #     }
-    #  ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_16/Field_5_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 2,
+         'output_suffix': 'Control',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 0,
+         'SD_filter_of_trig': 0,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_16/Field_5_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 4,
+         'output_suffix': 'CNO',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 2,
+         'SD_filter_of_trig': 2,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_16/Field_5_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 8,
+         'output_suffix': 'Dynorphin',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 2,
+         'SD_filter_of_trig': 2,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_16/Field_5_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 11,
+         'output_suffix': 'Nalx_5min',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 2,
+         'SD_filter_of_trig': 2,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_16/Field_5_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 14,
+         'output_suffix': 'Nalx_15min',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 2,
+         'SD_filter_of_trig': 2,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
 
 
-    # # CNO  10/07/2025
 
-    # ['registered_full.tif',
-    #  {
-    #      'trig_number': 1,
-    #      'output_suffix': '_Control',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 3,
-    #      'SD_filter_of_trig': 3,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['registered_full.tif',
-    #  {
-    #      'trig_number': 4,
-    #      'output_suffix': '_CNO',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 0,
-    #      'SD_filter_of_trig': 0,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['registered_full.tif',
-    #  {
-    #      'trig_number': 6,
-    #      'output_suffix': '_CNO2',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 0,
-    #      'SD_filter_of_trig': 0,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
+    # CNO 2025_09_17
 
-    # ['registered_full.tif',
-    #  {
-    #      'trig_number': 8,
-    #      'output_suffix': '_Naloxone1',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 3,
-    #      'SD_filter_of_trig': 3,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    #   ['registered_full.tif',
-    #  {
-    #      'trig_number': 10,
-    #      'output_suffix': '_Naloxone2',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 3,
-    #      'SD_filter_of_trig': 3,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-
-    # # CNO 2025_10_03
-
-    # ['registered_full.tif',
-    #  {
-    #      'trig_number': 1,
-    #      'output_suffix': '_Control',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 3,
-    #      'SD_filter_of_trig': 3,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['registered_full.tif',
-    #  {
-    #      'trig_number': 4,
-    #      'output_suffix': '_CNO',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 0,
-    #      'SD_filter_of_trig': 0,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ]
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_17/Field_3_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 1,
+         'output_suffix': 'Control',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 0,
+         'SD_filter_of_trig': 0,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_17/Field_3_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 4,
+         'output_suffix': 'CNO',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_17/Field_3_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 7,
+         'output_suffix': 'Dynorphin',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_17/Field_3_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 11,
+         'output_suffix': 'Nalx_5min',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_17/Field_3_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 13,
+         'output_suffix': 'Nalx_15min',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
 
 
-    # # CNO 2025_10_15
+    # # CNO 2025_09_18
 
-    # ['Field_6_Dynorphin_application_registered.tif',
-    #  {
-    #      'trig_number': 1,
-    #      'output_suffix': '_Control',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 3,
-    #      'SD_filter_of_trig': 3,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Field_6_Dynorphin_application_registered.tif',
-    #  {
-    #      'trig_number': 3,
-    #      'output_suffix': '_CNO',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 0,
-    #      'SD_filter_of_trig': 0,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Field_6_Dynorphin_application_registered.tif',
-    #  {
-    #      'trig_number': 5,
-    #      'output_suffix': '_Dynorphin',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 3,
-    #      'SD_filter_of_trig': 3,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Field_6_Dynorphin_application_registered.tif',
-    #  {
-    #      'trig_number': 7,
-    #      'output_suffix': '_Naloxone',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 3,
-    #      'SD_filter_of_trig': 3,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_18/Field_3_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 1,
+         'output_suffix': 'Control',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 0,
+         'SD_filter_of_trig': 0,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_18/Field_3_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 4,
+         'output_suffix': 'CNO',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_18/Field_3_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 7,
+         'output_suffix': 'Dynorphin',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_18/Field_3_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 10,
+         'output_suffix': 'Nalx_2min',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_18/Field_3_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 12,
+         'output_suffix': 'Nalx_10min',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_09_18/Field_3_Dynorphin_application_registered_full.tif',
+        {
+            'trig_number': 14,
+            'output_suffix': 'Nalx_15min',
+            'stim_1_name': 'L5-C',
+            'stim_2_name': 'L4-C',
+            'n_epochs': 10,
+            'vertical_shift_of_trig': 1,
+            'SD_filter_of_trig': 1,
+            'drs_pattern': [[1, 0],  # stim#1
+                            [0, 1]]  # stim#2
+        }
+     ],
 
 
-    # # CNO 2025_10_10
 
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_10/Field_6_Dynorphin_application_registered_full.tif',
-    #  {
-    #      'trig_number': 1,
-    #      'output_suffix': '_Control',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 3,
-    #      'SD_filter_of_trig': 3,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_10/Field_6_Dynorphin_application_registered_full.tif',
-    # #  {
-    # #      'trig_number': 4,
-    # #      'output_suffix': '_CNO_1min',
-    # #      'stim_1_name': 'L5-C',
-    # #      'stim_2_name': 'L4-C',
-    # #      'n_epochs': 10,
-    # #      'vertical_shift_of_trig': 0,
-    # #      'SD_filter_of_trig': 0,
-    # #      'drs_pattern': [[1, 0],  # stim#1
-    # #                      [0, 1]]  # stim#2
-    # #  }
-    # #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_10/Field_6_Dynorphin_application_registered_full.tif',
-    #  {
-    #      'trig_number': 5,
-    #      'output_suffix': '_CNO',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 3,
-    #      'SD_filter_of_trig': 3,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_10/Field_6_Dynorphin_application_registered_full.tif',
-    #  {
-    #      'trig_number': 8,
-    #      'output_suffix': '_Naloxone1',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 3,
-    #      'SD_filter_of_trig': 3,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_10/Field_6_Dynorphin_application_registered_full.tif',
-    #  {
-    #      'trig_number': 9,
-    #      'output_suffix': '_Naloxone2',
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 3,
-    #      'SD_filter_of_trig': 3,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_10/Field_6_Dynorphin_application_registered_full.tif',
-    #     {
-    #         'trig_number': 12,
-    #         'output_suffix': '_Naloxone3',
-    #         'stim_1_name': 'L5-C',
-    #         'stim_2_name': 'L4-C',
-    #         'n_epochs': 10,
-    #         'vertical_shift_of_trig': 3,
-    #         'SD_filter_of_trig': 3,
-    #         'drs_pattern': [[1, 0],  # stim#1
-    #                         [0, 1]]  # stim#2
-    #     }
-    #  ],
 
-    # # CNO 2025_10_16
 
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_16/registered_full/registered_full.tif',
-    #  {
-    #      'trig_number': 1,
-    #      'output_suffix': '_Control',
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 0,
-    #      'SD_filter_of_trig': 0,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_16/registered_full/registered_full.tif',
-    #  {
-    #      'trig_number': 6,
-    #      'output_suffix': '_CNO',
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 1,
-    #      'SD_filter_of_trig': 1,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_16/registered_full/registered_full.tif',
-    #  {
-    #      'trig_number': 9,
-    #      'output_suffix': '_Dynorphin',
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 1,
-    #      'SD_filter_of_trig': 1,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_16/registered_full/registered_full.tif',
-    #  {
-    #      'trig_number': 12,
-    #      'output_suffix': '_Naloxone1',
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 1,
-    #      'SD_filter_of_trig': 1,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_16/registered_full/registered_full.tif',
-    #  {
-    #      'trig_number': 13,
-    #      'output_suffix': '_Naloxone2',
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-C',
-    #      'n_epochs': 10,
-    #      'vertical_shift_of_trig': 1,
-    #      'SD_filter_of_trig': 1,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_16/registered_full/registered_full.tif',
-    #     {
-    #         'trig_number': 15,
-    #         'output_suffix': '_Naloxone3',
-    #         'stim_1_name': 'L4-C',
-    #         'stim_2_name': 'L5-C',
-    #         'n_epochs': 10,
-    #         'vertical_shift_of_trig': 1,
-    #         'SD_filter_of_trig': 1,
-    #         'drs_pattern': [[1, 0],  # stim#1
-    #                         [0, 1]]  # stim#2
-    #     }
-    #  ],
+    # CNO 2025_10_03
+
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_03/Field_5_Dynorphin_application_0001_0001_registered_full.tif',
+     {
+         'trig_number': 1,
+         'output_suffix': 'Control',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 0,
+         'SD_filter_of_trig': 0,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_03/Field_5_Dynorphin_application_0001_0001_registered_full.tif',
+     {
+         'trig_number': 4,
+         'output_suffix': 'CNO',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+
+
+
+
+
+
+    # CNO 2025_10_07
+
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_07/Field_4_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 1,
+         'output_suffix': 'Control',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 0,
+         'SD_filter_of_trig': 0,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_07/Field_4_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 4,
+         'output_suffix': 'CNO_3min',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_07/Field_4_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 6,
+         'output_suffix': 'CNO_8min',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 0,
+         'SD_filter_of_trig': 0,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_07/Field_4_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 8,
+         'output_suffix': 'Nalx_2min',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_07/Field_4_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 10,
+         'output_suffix': 'Nalx_8min',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+
+    # CNO 2025_10_10
+
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_10/Field_6_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 1,
+         'output_suffix': 'Control',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 3,
+         'SD_filter_of_trig': 3,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_10/Field_6_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 4,
+         'output_suffix': 'CNO_1min',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 0,
+         'SD_filter_of_trig': 0,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_10/Field_6_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 5,
+         'output_suffix': 'CNO_3min',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 3,
+         'SD_filter_of_trig': 3,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_10/Field_6_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 8,
+         'output_suffix': 'Nalx_3min',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 3,
+         'SD_filter_of_trig': 3,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_10/Field_6_Dynorphin_application_registered_full.tif',
+     {
+         'trig_number': 9,
+         'output_suffix': 'Nalx_6min',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 3,
+         'SD_filter_of_trig': 3,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_10/Field_6_Dynorphin_application_registered_full.tif',
+        {
+            'trig_number': 12,
+            'output_suffix': 'Nalx_15min',
+            'stim_1_name': 'L5-C',
+            'stim_2_name': 'L4-C',
+            'n_epochs': 10,
+            'vertical_shift_of_trig': 3,
+            'SD_filter_of_trig': 3,
+            'drs_pattern': [[1, 0],  # stim#1
+                            [0, 1]]  # stim#2
+        }
+     ],
+
+    # CNO 2025_10_16
+
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_16/registered_full/registered_full.tif',
+     {
+         'trig_number': 1,
+         'output_suffix': 'Control',
+         'stim_1_name': 'L4-C',
+         'stim_2_name': 'L5-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 0,
+         'SD_filter_of_trig': 0,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_16/registered_full/registered_full.tif',
+     {
+         'trig_number': 6,
+         'output_suffix': 'CNO',
+         'stim_1_name': 'L4-C',
+         'stim_2_name': 'L5-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_16/registered_full/registered_full.tif',
+     {
+         'trig_number': 9,
+         'output_suffix': 'Dynorphin',
+         'stim_1_name': 'L4-C',
+         'stim_2_name': 'L5-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_16/registered_full/registered_full.tif',
+     {
+         'trig_number': 12,
+         'output_suffix': 'Nalx_1min',
+         'stim_1_name': 'L4-C',
+         'stim_2_name': 'L5-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_16/registered_full/registered_full.tif',
+     {
+         'trig_number': 13,
+         'output_suffix': 'Nalx_5min',
+         'stim_1_name': 'L4-C',
+         'stim_2_name': 'L5-C',
+         'n_epochs': 10,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_16/registered_full/registered_full.tif',
+        {
+            'trig_number': 15,
+            'output_suffix': 'Nalx_15min',
+            'stim_1_name': 'L4-C',
+            'stim_2_name': 'L5-C',
+            'n_epochs': 10,
+            'vertical_shift_of_trig': 1,
+            'SD_filter_of_trig': 1,
+            'drs_pattern': [[1, 0],  # stim#1
+                            [0, 1]]  # stim#2
+        }
+     ],
 
     # CNO 2025_10_20
 
     ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_20/registered_full/registered_full.tif',
      {
          'trig_number': 1,
-         'output_suffix': '_Control',
+         'output_suffix': 'Control',
          'stim_1_name': 'L5-C',
          'stim_2_name': 'L4-C',
          'n_epochs': 10,
@@ -1381,7 +1403,7 @@ to_do_list = [
     ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_20/registered_full/registered_full.tif',
      {
          'trig_number': 5,
-         'output_suffix': '_CNO',
+         'output_suffix': 'CNO',
          'stim_1_name': 'L5-C',
          'stim_2_name': 'L4-C',
          'n_epochs': 10,
@@ -1394,7 +1416,7 @@ to_do_list = [
     ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_20/registered_full/registered_full.tif',
      {
          'trig_number': 9,
-         'output_suffix': '_Dynorphin',
+         'output_suffix': 'Dynorphin',
          'stim_1_name': 'L5-C',
          'stim_2_name': 'L4-C',
          'n_epochs': 10,
@@ -1407,7 +1429,7 @@ to_do_list = [
     ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_20/registered_full/registered_full.tif',
      {
          'trig_number': 12,
-         'output_suffix': '_Naloxone1',
+         'output_suffix': 'Nalx_1min',
          'stim_1_name': 'L5-C',
          'stim_2_name': 'L4-C',
          'n_epochs': 10,
@@ -1420,7 +1442,7 @@ to_do_list = [
     ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_20/registered_full/registered_full.tif',
      {
          'trig_number': 13,
-         'output_suffix': '_Naloxone2',
+         'output_suffix': 'Nalx_6min',
          'stim_1_name': 'L5-C',
          'stim_2_name': 'L4-C',
          'n_epochs': 10,
@@ -1433,7 +1455,7 @@ to_do_list = [
     ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_20/registered_full/registered_full.tif',
         {
             'trig_number': 15,
-            'output_suffix': '_Naloxone3',
+            'output_suffix': 'Nalx_15min',
             'stim_1_name': 'L5-C',
             'stim_2_name': 'L4-C',
             'n_epochs': 10,
@@ -1449,7 +1471,7 @@ to_do_list = [
     ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_21/registered_full/registered_full.tif',
      {
          'trig_number': 1,
-         'output_suffix': '_Control',
+         'output_suffix': 'Control',
          'stim_1_name': 'L4-C',
          'stim_2_name': 'L5-C',
          'n_epochs': 10,
@@ -1462,7 +1484,7 @@ to_do_list = [
     ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_21/registered_full/registered_full.tif',
      {
          'trig_number': 4,
-         'output_suffix': '_CNO',
+         'output_suffix': 'CNO',
          'stim_1_name': 'L4-C',
          'stim_2_name': 'L5-C',
          'n_epochs': 10,
@@ -1475,7 +1497,7 @@ to_do_list = [
     ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_21/registered_full/registered_full.tif',
      {
          'trig_number': 7,
-         'output_suffix': '_Dynorphin',
+         'output_suffix': 'Dynorphin',
          'stim_1_name': 'L4-C',
          'stim_2_name': 'L5-C',
          'n_epochs': 10,
@@ -1488,7 +1510,7 @@ to_do_list = [
     ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_21/registered_full/registered_full.tif',
      {
          'trig_number': 10,
-         'output_suffix': '_Naloxone1',
+         'output_suffix': 'Nalx_2min',
          'stim_1_name': 'L4-C',
          'stim_2_name': 'L5-C',
          'n_epochs': 10,
@@ -1501,7 +1523,7 @@ to_do_list = [
     ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_21/registered_full/registered_full.tif',
      {
          'trig_number': 11,
-         'output_suffix': '_Naloxone2',
+         'output_suffix': 'Nalx_10min',
          'stim_1_name': 'L4-C',
          'stim_2_name': 'L5-C',
          'n_epochs': 10,
@@ -1514,7 +1536,7 @@ to_do_list = [
     ['LJA5 project CNO Dynorphin and PI DRS Polyrythm/2025_10_21/registered_full/registered_full.tif',
         {
             'trig_number': 13,
-            'output_suffix': '_Naloxone3',
+            'output_suffix': 'Nalx_15min',
             'stim_1_name': 'L4-C',
             'stim_2_name': 'L5-C',
             'n_epochs': 10,

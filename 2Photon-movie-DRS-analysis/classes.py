@@ -17,6 +17,7 @@ import settings as s
 
 CALCULATIONS_SUBFOLDER_NAME = '_CALCULATIONS_auto_'
 DERIVATIVES_SUBFOLDER_NAME = '_DERIVATIVES_auto_'
+SUMMARY_SUBFOLDER_NAME = '_SUMMARY_auto__'
 # min percent of responses for ROI to consider it responsive
 BINARIZATION_RESP_THRESHOLD = 0.29
 
@@ -316,7 +317,8 @@ class TracesCalc(Logging):
 
         # create unique id for each calculation unit (trigger)
         # unit_id = self.file_path + '%' + str(self.trig_number)
-        unit_id = csv_path + csv_file + '%' + str(self.trig_number)
+        unit_id = csv_path + csv_file + '$' + \
+            str(self.trig_number) + '$' + self.output_suffix
 
         s1s2 = False
         s1 = False
@@ -1274,8 +1276,16 @@ class PostprocessingSummary(Helpers):
         grouped = defaultdict(list)
 
         for key, value in data.items():
-            name, order_str = key.split('%')
+            name, order_str, suffix = key.split('$')
             order = int(order_str)
+            # insert suffix as a name of column in summary
+            if value[0][0] != suffix:
+                value[0].insert(0, suffix)
+            if value[1][0] != suffix:
+                value[1].insert(0, suffix)
+            if value[2][0] != suffix:
+                value[2].insert(0, suffix)
+
             grouped[name].append((order, value))
 
         # Sort by the integer order and extract only the lists
@@ -1294,8 +1304,7 @@ class PostprocessingSummary(Helpers):
         Empty lists or zeros produce empty columns.
         """
         for filepath, columns in data.items():
-            # Ensure directory exists
-            os.makedirs(os.path.dirname(filepath), exist_ok=True)
+
 
             wb = Workbook()
             ws = wb.active
@@ -1316,8 +1325,16 @@ class PostprocessingSummary(Helpers):
                         #     continue
                         ws.cell(row=row_idx + 1, column=col_idx, value=val)
 
-            wb.save(filepath+suffix+'.xlsx')
-            print(f"✅ Summary Saved {filepath+suffix+'.xlsx'}")
+            savepath= '{0}.csv{2}/{1}{3}.xlsx'.format(
+                              filepath,
+                              os.path.dirname(filepath).split("/")[-1],
+                              SUMMARY_SUBFOLDER_NAME,
+                              suffix)
+             # Ensure directory exists
+            os.makedirs(os.path.dirname(savepath), exist_ok=True)
+
+            wb.save(savepath)
+            print(f"✅ Summary Saved ", savepath)
 
 
 def worker(item, run_derivatives_calculation, run_traces_calculation, v_shifts={}, filters={}, ampls={}, aucs={}):
@@ -1348,12 +1365,13 @@ def worker(item, run_derivatives_calculation, run_traces_calculation, v_shifts={
     vertical_shifts = movie.v_shifts_return
     filters = movie.filters_return
     ampls = movie.ampls_return
+    suffix = movie.output_suffix
     # aucs = movie.aucs_return
 
     print(movie.log)
 
     del movie
-    return vertical_shifts, [filters, ampls], item[0]+'_'+item[1]['output_suffix'], e1, e2
+    return vertical_shifts, [filters, ampls], item[0]+'_'+suffix, e1, e2
 
 
 def main(
@@ -1483,7 +1501,7 @@ def main(
             if output[-1][4]:
                 print(output[-1][4])
 
-    if postprocessingsummary:
+    if postprocessingsummary and run_traces_calculation:
         bins = {}
         amps = {}
         for i in output:
@@ -1504,38 +1522,102 @@ def main(
         h = Helpers()
 
         for key, value in bins_st1.items():
-            amps_filtered1_st1[key] = [h.filter_list(i, np.logical_and(bins_st1[key][0], bins_st1[key][1]), replace=True,
+            amps_filtered1_st1[key] = [h.filter_list(i, bins_st1[key][0], replace=True,
                                                      replace_with='--') for i in amps_st1[key]]
-
         for key, value in bins_st2.items():
-            amps_filtered1_st2[key] = [h.filter_list(i, np.logical_and(bins_st2[key][0], bins_st2[key][1]), replace=True,
+            amps_filtered1_st2[key] = [h.filter_list(i, bins_st2[key][0], replace=True,
                                                      replace_with='--') for i in amps_st2[key]]
 
         for key, value in bins_st1.items():
-            amps_filtered2_st1[key] = [h.filter_list(i, bins_st1[key][0], replace=True,
-                                                     replace_with='--') for i in amps_st1[key]]
+            amps_filtered2_st1[key] = [h.filter_list(i, np.logical_and(
+                np.array(bins_st1[key][0], dtype=np.bool_),
+                np.array(bins_st1[key][1], dtype=np.bool_),
+            ), replace=True, replace_with='--') for i in amps_st1[key]]
 
         for key, value in bins_st2.items():
-            amps_filtered2_st2[key] = [h.filter_list(i, bins_st2[key][0], replace=True,
-                                                     replace_with='--') for i in amps_st2[key]]
+            amps_filtered2_st2[key] = [h.filter_list(i, np.logical_and(
+                np.array(bins_st2[key][0], dtype=np.bool_),
+                np.array(bins_st2[key][1], dtype=np.bool_),
+            ), replace=True, replace_with='--') for i in amps_st2[key]]
 
+        # create summary xlsx
         table_st1 = {}
         table_st2 = {}
         for key, value in bins_st1.items():
-            table_st1[key] = bins_st1[key] + [''] + [''] + \
-                amps_st1[key] + [''] + [''] + amps_filtered1_st1[key] + \
-                [''] + [''] + amps_filtered2_st1[key]
-            table_st2[key] = bins_st2[key] + [''] + [''] + \
-                amps_st2[key] + [''] + [''] + amps_filtered1_st2[key] + \
-                [''] + [''] + amps_filtered2_st2[key]
+            table_st1[key] = bins_st1[key] + [''] + \
+                amps_st1[key] + [''] + amps_filtered1_st1[key] + \
+                [''] + amps_filtered2_st1[key]
+            table_st2[key] = bins_st2[key] + [''] + \
+                amps_st2[key] + [''] + amps_filtered1_st2[key] + \
+                [''] + amps_filtered2_st2[key]
 
         summary.save_dict_to_xlsx_files(table_st1, suffix='_stim1_summary')
         summary.save_dict_to_xlsx_files(table_st2, suffix='_stim2_summary')
 
-        # analysis_st1_all = AutoStatLib.StatisticalAnalysis(amps_st1, paired=True, tails=2, popmean=0, posthoc=True)
-        # analysis_st1_all.RunKruskalWallis()
-        # results = analysis_st1_all.GetResult()
-        # plot = AutoStatLib.StatPlots.BarStatPlot(results['Samples'], **results)
+        # statistical analysis and plotting
+        def statplot(data, key, suffix, groups_name, plot_title='', test='wilcoxon'):
+            analysis = AutoStatLib.StatisticalAnalysis(
+                data, paired=True, tails=2, popmean=0, posthoc=True, verbose=False, groups_name=groups_name)
+            if test=='friedman': analysis.RunFriedman()
+            else: analysis.RunWilcoxon()
+            results = analysis.GetResult()
+
+            if 'Samples' in results:
+                if test=='friedman':
+                    plot = AutoStatLib.StatPlots.SwarmStatPlot(results['Samples'],
+                                                                **results, 
+                                                                y_label='Amplitude, ΔF/F₀',
+                                                                plot_title=plot_title,
+                                                                print_p_label=False)
+                else:
+                    plot = AutoStatLib.StatPlots.BarStatPlot(results['Samples'],
+                                                             **results,
+                                                             y_label='Amplitude, ΔF/F₀',
+                                                             plot_title=plot_title,
+                                                             print_p_label=False)
+                plot.plot()
+
+                savepath= '{0}.csv{2}/{1}{3}.png'.format(
+                        key,
+                        os.path.dirname(key).split("/")[-1],
+                        SUMMARY_SUBFOLDER_NAME,
+                        suffix)
+
+                plot.save(savepath)
+                print(f"📈 Graph Saved ", savepath)
+                plot.close()
+
+            del analysis
+
+        for key in table_st1.keys():
+
+            data_f1_st1 = amps_filtered1_st1[key]
+            statplot(data_f1_st1, key, '_stim1_summary_rois_1_all', plot_title='ROIs responded in Ctrl', test='friedman',
+                     groups_name=[i[0] for i in data_f1_st1])            
+            statplot(data_f1_st1[:2], key, '_stim1_summary_rois_1', plot_title='ROIs in Ctrl',
+                     groups_name=[i[0] for i in data_f1_st1[:2]])     
+               
+            data_f2_st1 = amps_filtered2_st1[key]
+            statplot(data_f2_st1, key, '_stim1_summary_rois_1&2_all', plot_title='ROIs responded in Ctrl and CNO', test='friedman',
+                     groups_name=[i[0] for i in data_f2_st1])
+            statplot(data_f2_st1[:2], key, '_stim1_summary_rois_1&2', plot_title='ROIs in Ctrl & CNO',
+                     groups_name=[i[0] for i in data_f2_st1[:2]])
+
+
+            
+        for key in table_st2.keys():
+
+            data_f1_st2 = amps_filtered1_st2[key]
+            statplot(data_f1_st2, key, '_stim2_summary_rois_1_all', plot_title='ROIs responded in Ctrl', test='friedman',
+                     groups_name=[i[0] for i in data_f1_st2])     
+            statplot(data_f1_st2[:2], key, '_stim2_summary_rois_1', plot_title='ROIs in Ctrl',
+                     groups_name=[i[0] for i in data_f1_st2[:2]])     
+
+            data_f2_st2 = amps_filtered2_st2[key]
+            statplot(data_f2_st2, key, '_stim2_summary_rois_1&2_all', plot_title='ROIs responded in Ctrl and CNO', test='friedman',
+                     groups_name=[i[0] for i in data_f2_st2])
+            statplot(data_f2_st2[:2], key, '_stim2_summary_rois_1&2', plot_title='ROIs in Ctrl & CNO',
+                     groups_name=[i[0] for i in data_f2_st2[:2]])
 
 
 if __name__ == '__main__':

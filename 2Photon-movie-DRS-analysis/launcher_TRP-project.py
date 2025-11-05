@@ -9,6 +9,7 @@ working_dir = 'F:/Lab Work Files/2-photon/'
 
 stim_1_name = 'A'
 stim_2_name = 'C'
+output_suffix = '_'
 drs_pattern = [[0],  # stim #1
                [1]]  # stim #2
 
