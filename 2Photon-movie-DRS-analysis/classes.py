@@ -1568,13 +1568,14 @@ def main(
                                                                 **results, 
                                                                 y_label='Amplitude, ΔF/F₀',
                                                                 plot_title=plot_title,
-                                                                print_p_label=False)
+                                                                print_p_label=False,
+                                                                print_stars=False)
                 else:
                     plot = AutoStatLib.StatPlots.BarStatPlot(results['Samples'],
                                                              **results,
                                                              y_label='Amplitude, ΔF/F₀',
                                                              plot_title=plot_title,
-                                                             print_p_label=False)
+                                                             print_p_label=True)
                 plot.plot()
 
                 savepath= '{0}.csv{2}/{1}{3}.png'.format(

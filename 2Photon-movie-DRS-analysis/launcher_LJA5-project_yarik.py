@@ -3,7 +3,7 @@
 # Theese parameters will be used if not specified in the launchers
 
 # Params for Derivatives Calculation:
-run_derivatives_calculation = True
+run_derivatives_calculation = False
 working_dir = 'F:/Lab Work Files/2-photon/'
 
 
@@ -20,7 +20,7 @@ step_duration = 10  # in sec
 
 # Params for Traces Calculation:
 # process all csv files with traces in the WORKING_DIR directory:
-run_traces_calculation = False
+run_traces_calculation = True
 
 relative_values = True
 mean_col_order = 2
@@ -43,7 +43,7 @@ SD_filter_of_trig = 0
 
 # Use all available CPU cores.
 # Faster, but need much more RAM so can be unstable.
-multiprocessing = False
+multiprocessing = True
 
 # Maximum size of multiprocessing pull
 # Set the maximum of processes if there isn't enough RAM
