@@ -18,7 +18,7 @@ import settings as s
 CALCULATIONS_SUBFOLDER_NAME = '_CALCULATIONS_auto_'
 DERIVATIVES_SUBFOLDER_NAME = '_DERIVATIVES_auto_'
 SUMMARY_SUBFOLDER_NAME = '_SUMMARY_auto__'
-# min percent of responses for ROI to consider it responsive
+# min percent of successfully generated AP for ROI to consider it responsive
 BINARIZATION_RESP_THRESHOLD = 0.29
 
 # Adjust the sampling interval to account for the
@@ -26,18 +26,19 @@ BINARIZATION_RESP_THRESHOLD = 0.29
 # Coefficient estimated experimentally
 # -0.0031556459008686036  more precise
 # -0.0029183722446345     old one estimation
-SYNC_COEF = -0.00313
+# -0.00313                compromise
+SYNC_COEF = -0.0028
 
 # if true - provide detailed errors tracebac6
 
 DEBUG = True
-
 
 postprocessingsummary = True
 
 # bugs:
 # 1. on st1 in V_stack traces plots delay +10s when plotting red X (binarization calculated right)
 # 2. when multiprocessing does not load bins and vshifts again
+#        To solve use regex where string is 'MASK FOR ANY ENDING HERE'
 
 
 class Helpers():
@@ -82,7 +83,7 @@ class Helpers():
             len(balanced_data))) for i in range(max_len))
         return data_t
 
-    def csv_write(self, csv_output, csv_path, csv_file, filename_suffix, subdir=False):
+    def csv_write(self, data, csv_path, csv_file, filename_suffix, subdir=False):
 
         if subdir:
             os.makedirs(csv_path + csv_file +
@@ -104,7 +105,7 @@ class Helpers():
 
             writer = csv.writer(f, delimiter=',',
                                 lineterminator='\r',)
-            for row in csv_output:
+            for row in data:
                 writer.writerow(row)
 
     def filter_list(self,
@@ -119,6 +120,42 @@ class Helpers():
             output = [value for value, keep in zip(list, bin) if keep]
 
         return output
+
+    def plot_trace(self, x, cols, events, savename, offset=0, figsize=(15, 5), alpha=0.7, dpi=200, linewidth=0.5):
+
+        plt.figure(figsize=figsize, dpi=dpi)
+        # plt.style.use("ggplot")
+
+        # Plot each trace
+        for i, col in enumerate(cols):
+            plt.plot(x, col, color='k', linewidth=linewidth, alpha=alpha)
+
+        plt.plot(x, np.mean(cols, axis=0), color='r',
+                 linewidth=linewidth*3, alpha=1)
+
+        for event in events:
+            if isinstance(event, int):
+                plt.axvline(event, color='r',
+                            linestyle=":", linewidth=linewidth*3)
+            elif isinstance(event, list):
+                plt.fill_between(
+                    x,
+                    -1,
+                    offset * len(cols) + 1,
+                    where=(x >= event[0]/x) & (
+                        x <= event[-1]/x),
+                    color='g',
+                    alpha=0.1
+                )
+
+        # plt.suptitle(TITLE)
+        # plt.xlabel('Time, s')
+        # plt.ylabel("Amplitude + Offset")
+
+        plt.tight_layout()
+        # Save the combined figure
+        plt.savefig(savename, transparent=False)
+        plt.close()
 
 
 class Logging():
@@ -271,8 +308,9 @@ class TracesCalc(Logging):
 
             raw_line_list.append(corrected_trace[whole_step_indices])
 
-            # # Debug plot
-            # self.logging(ampl > self.sigmas_treshold * np.std(trace[bl_indices]))
+            # Debug plot
+            # self.logging(ampl > self.sigmas_treshold *
+            #                 np.std(trace[bl_indices]))
             # plt.plot(corrected_trace[whole_step_indices])
             # plt.show()
             # plt.close()
@@ -459,7 +497,8 @@ class TracesCalc(Logging):
             sum(i)/len(i) > BINARIZATION_RESP_THRESHOLD for i in s2_bin_list_each_by_epoch]
 
         # save binarization for the next calculations
-        load_unitid = csv_path + csv_file + '%' + str(self.SD_filter_of_trig-1)
+        load_unitid = csv_path + csv_file + '$' + \
+            str(self.SD_filter_of_trig-1) + '$' + 'MASK FOR ANY ENDING HERE'
         current_filter = [st1_bin_summary_by_rois,
                           st1_bin_summary_by_rois,
                           st2_bin_summary_by_rois]
@@ -590,8 +629,9 @@ class TracesCalc(Logging):
                         self.stim_1_name, self.stim_2_name), self.stim_2_name],)
 
         # save vertical shift for the next calculations
-        load_vshift = csv_path + csv_file + '%' + \
-            str(self.vertical_shift_of_trig-1)
+        load_vshift = csv_path + csv_file + '$' + \
+            str(self.vertical_shift_of_trig-1) + \
+            '$' + 'MASK FOR ANY ENDING HERE'
         if self.vertical_shift_of_trig and load_vshift in self.v_shifts:
             self.vertical_shift = self.v_shifts[load_vshift]
         if not self.vertical_shift or self.vertical_shift == 0:
@@ -606,16 +646,30 @@ class TracesCalc(Logging):
             ((self.start_from_epoch-1) * self.step_duration * self.n_steps) / self.sampling_interval):int(
             ((self.start_from_epoch-1 + self.n_epochs+1) * self.step_duration * self.n_steps) / self.sampling_interval)]
         matrix_T = self.transpose(matrix)
+
+        # save them to CSV
         self.csv_write(matrix,
                        csv_path+output_dir, output_dir, '_full_traces_raw_{0}_and_{1}_ampl_{2}_auto_'.format(
                            self.group_names[0], self.group_names[1], self.output_suffix)
                        )
 
+        # plot them all (slows script down)
+        self.plot_trace(matrix_T[0], matrix_T[1:], [], csv_path+output_dir+'/' + '_full_traces_raw_{0}_and_{1}_ampl_{2}_auto_.png'.format(
+            self.group_names[0], self.group_names[1], self.output_suffix), linewidth=0.5, alpha=0.1, dpi=400)
+
+        # plot debug graph to check time sync
+        chunk = self.csv_matrix[int(
+            ((self.start_from_epoch-1) * self.step_duration * self.n_steps) / self.sampling_interval):int(
+            ((self.start_from_epoch+0.5) * self.step_duration * self.n_steps) / self.sampling_interval)]
+        chunk_T = self.transpose(chunk)
+        self.plot_trace(chunk_T[0], chunk_T[1:], [
+                        0, 10], csv_path+output_dir+'/' + 'Check_Synchronization_{}.png'.format(self.output_suffix), linewidth=0.5, alpha=0.8, dpi=400)
+
+        # plot_stacked_traces all togather
         for i in self.group_names:
             os.makedirs(csv_path + output_dir +
                         '/_by_rois_traces_bin_{0}_{1}_auto_'.format(i, self.output_suffix), exist_ok=True)
 
-        # plot_stacked_traces all togather
         self.plot_stacked_traces(np.array(matrix_T[0]) - ((self.start_from_epoch-1) * self.step_duration * self.n_steps),
                                  matrix_T[:],
                                  s1s2_bin_list_each_by_epoch,

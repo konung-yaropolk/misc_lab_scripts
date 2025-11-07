@@ -55,7 +55,7 @@ class AnchoredHScaleBar(matplotlib.offsetbox.AnchoredOffsetbox):
                                                         **kwargs)
 
 
-def plot(x, cols, savename, csv_file_path, offset=True, label=False, figsize=(15, 5), timeline='min'):
+def plot(x, cols, savename, csv_file_path, offset=True, label=False, figsize=(15, 5), timeline='min', alpha=0.7):
 
     if timeline == 'min':
         coef = 60
@@ -113,9 +113,9 @@ def plot(x, cols, savename, csv_file_path, offset=True, label=False, figsize=(15
     for i, column in enumerate(cols):
         shift = i * offset
         plt.plot(time, df[column] +
-                 shift, color='k', label=column, linewidth=0.5)
+                 shift, color='k', label=column, linewidth=0.5, alpha=alpha)
 
-    if len(cols) > 1:
+    if offset:
         # Set y-tick labels divided by vertical_shift, starting from 1, and rounded to integers
         ax = plt.gca()
         # y_ticks = ax.get_yticks()
@@ -182,7 +182,10 @@ for file in csv_files:
     df.rename(columns={first_column: 'Time'}, inplace=True)
 
     # plotting
-    plot(df['Time'], df.columns[1:], 'roi_combined',
+    plot(df['Time'], df.columns[1:], 'roi_combined_stacked',
          location, offset=True, figsize=(10, 10))
+    plot(df['Time'], df.columns[1:], 'roi_combined_overlap',
+         location, offset=False, alpha=0.1)
+
     for i, column in enumerate(df.columns[1:], start=1):
         plot(df['Time'], [column], f'roi_{i}', location, offset=False)
