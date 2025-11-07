@@ -1576,22 +1576,22 @@ def main(
 
         for key, value in bins_st1.items():
             amps_filtered1_st1[key] = [h.filter_list(i, bins_st1[key][0], replace=True,
-                                                     replace_with='--') for i in amps_st1[key]]
+                                                     replace_with=' ') for i in amps_st1[key]]
         for key, value in bins_st2.items():
             amps_filtered1_st2[key] = [h.filter_list(i, bins_st2[key][0], replace=True,
-                                                     replace_with='--') for i in amps_st2[key]]
+                                                     replace_with=' ') for i in amps_st2[key]]
 
         for key, value in bins_st1.items():
             amps_filtered2_st1[key] = [h.filter_list(i, np.logical_and(
                 np.array(bins_st1[key][0], dtype=np.bool_),
                 np.array(bins_st1[key][1], dtype=np.bool_),
-            ), replace=True, replace_with='--') for i in amps_st1[key]]
+            ), replace=True, replace_with=' ') for i in amps_st1[key]]
 
         for key, value in bins_st2.items():
             amps_filtered2_st2[key] = [h.filter_list(i, np.logical_and(
                 np.array(bins_st2[key][0], dtype=np.bool_),
                 np.array(bins_st2[key][1], dtype=np.bool_),
-            ), replace=True, replace_with='--') for i in amps_st2[key]]
+            ), replace=True, replace_with=' ') for i in amps_st2[key]]
 
         # create summary xlsx
         table_st1 = {}
