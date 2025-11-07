@@ -30,14 +30,14 @@ SYNC_COEF = -0.00313
 
 # if true - provide detailed errors tracebac6
 
-DEBUG = False
+DEBUG = True
 
 
 postprocessingsummary = True
 
 # bugs:
-# 1. on st1 still deley +10s
-# 2. when multiprocessing does not load bins and vshifts again (could not reproduce again)
+# 1. on st1 in V_stack traces plots delay +10s when plotting red X (binarization calculated right)
+# 2. when multiprocessing does not load bins and vshifts again
 
 
 class Helpers():
@@ -449,7 +449,7 @@ class TracesCalc(Logging):
         if len(self.group_names) == 1:
             self.group_names.insert(0, '_')
 
-        if not s1s2 and s1:
+        if not s1 and s1s2:
             st1_bin_summary_by_rois = [
                 sum(i)/len(i) > BINARIZATION_RESP_THRESHOLD for i in s1s2_bin_list_each_by_epoch]
         if not s1s2 and s1:
@@ -1305,7 +1305,6 @@ class PostprocessingSummary(Helpers):
         """
         for filepath, columns in data.items():
 
-
             wb = Workbook()
             ws = wb.active
             ws.title = "Data"
@@ -1325,12 +1324,12 @@ class PostprocessingSummary(Helpers):
                         #     continue
                         ws.cell(row=row_idx + 1, column=col_idx, value=val)
 
-            savepath= '{0}.csv{2}/{1}{3}.xlsx'.format(
-                              filepath,
-                              os.path.dirname(filepath).split("/")[-1],
-                              SUMMARY_SUBFOLDER_NAME,
-                              suffix)
-             # Ensure directory exists
+            savepath = '{0}.csv{2}/{1}{3}.xlsx'.format(
+                filepath,
+                os.path.dirname(filepath).split("/")[-1],
+                SUMMARY_SUBFOLDER_NAME,
+                suffix)
+            # Ensure directory exists
             os.makedirs(os.path.dirname(savepath), exist_ok=True)
 
             wb.save(savepath)
@@ -1558,18 +1557,20 @@ def main(
         def statplot(data, key, suffix, groups_name, plot_title='', test='wilcoxon'):
             analysis = AutoStatLib.StatisticalAnalysis(
                 data, paired=True, tails=2, popmean=0, posthoc=True, verbose=False, groups_name=groups_name)
-            if test=='friedman': analysis.RunFriedman()
-            else: analysis.RunWilcoxon()
+            if test == 'friedman':
+                analysis.RunFriedman()
+            else:
+                analysis.RunWilcoxon()
             results = analysis.GetResult()
 
             if 'Samples' in results:
-                if test=='friedman':
+                if test == 'friedman':
                     plot = AutoStatLib.StatPlots.SwarmStatPlot(results['Samples'],
-                                                                **results, 
-                                                                y_label='Amplitude, ΔF/F₀',
-                                                                plot_title=plot_title,
-                                                                print_p_label=False,
-                                                                print_stars=False)
+                                                               **results,
+                                                               y_label='Amplitude, ΔF/F₀',
+                                                               plot_title=plot_title,
+                                                               print_p_label=False,
+                                                               print_stars=False)
                 else:
                     plot = AutoStatLib.StatPlots.BarStatPlot(results['Samples'],
                                                              **results,
@@ -1578,11 +1579,11 @@ def main(
                                                              print_p_label=True)
                 plot.plot()
 
-                savepath= '{0}.csv{2}/{1}{3}.png'.format(
-                        key,
-                        os.path.dirname(key).split("/")[-1],
-                        SUMMARY_SUBFOLDER_NAME,
-                        suffix)
+                savepath = '{0}.csv{2}/{1}{3}.png'.format(
+                    key,
+                    os.path.dirname(key).split("/")[-1],
+                    SUMMARY_SUBFOLDER_NAME,
+                    suffix)
 
                 plot.save(savepath)
                 print(f"📈 Graph Saved ", savepath)
@@ -1594,25 +1595,23 @@ def main(
 
             data_f1_st1 = amps_filtered1_st1[key]
             statplot(data_f1_st1, key, '_stim1_summary_rois_1_all', plot_title='ROIs responded in Ctrl', test='friedman',
-                     groups_name=[i[0] for i in data_f1_st1])            
+                     groups_name=[i[0] for i in data_f1_st1])
             statplot(data_f1_st1[:2], key, '_stim1_summary_rois_1', plot_title='ROIs in Ctrl',
-                     groups_name=[i[0] for i in data_f1_st1[:2]])     
-               
+                     groups_name=[i[0] for i in data_f1_st1[:2]])
+
             data_f2_st1 = amps_filtered2_st1[key]
             statplot(data_f2_st1, key, '_stim1_summary_rois_1&2_all', plot_title='ROIs responded in Ctrl and CNO', test='friedman',
                      groups_name=[i[0] for i in data_f2_st1])
             statplot(data_f2_st1[:2], key, '_stim1_summary_rois_1&2', plot_title='ROIs in Ctrl & CNO',
                      groups_name=[i[0] for i in data_f2_st1[:2]])
 
-
-            
         for key in table_st2.keys():
 
             data_f1_st2 = amps_filtered1_st2[key]
             statplot(data_f1_st2, key, '_stim2_summary_rois_1_all', plot_title='ROIs responded in Ctrl', test='friedman',
-                     groups_name=[i[0] for i in data_f1_st2])     
+                     groups_name=[i[0] for i in data_f1_st2])
             statplot(data_f1_st2[:2], key, '_stim2_summary_rois_1', plot_title='ROIs in Ctrl',
-                     groups_name=[i[0] for i in data_f1_st2[:2]])     
+                     groups_name=[i[0] for i in data_f1_st2[:2]])
 
             data_f2_st2 = amps_filtered2_st2[key]
             statplot(data_f2_st2, key, '_stim2_summary_rois_1&2_all', plot_title='ROIs responded in Ctrl and CNO', test='friedman',
