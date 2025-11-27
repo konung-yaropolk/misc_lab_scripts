@@ -980,8 +980,8 @@ class DerivativesCalc(Helpers, Logging):
             'max': np.max(self.result),
         }
 
-        self.save_tiff(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME + self.output_suffix,  self.output_suffix +
-                       filename_ending), self.result, metadata=metadata)
+        self.save_tiff(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME +
+                       self.output_suffix, filename_ending), self.result, metadata=metadata)
 
     def derivatives_calculate(self,):
 
@@ -994,10 +994,12 @@ class DerivativesCalc(Helpers, Logging):
         self.img = tifffile.imread(self.file_path)
         self.n_frames = len(self.img)
 
-        s1s2_name_ending = '_auto_DERIVATIVES_{}+{}.tif'.format(
-            self.stim_1_name, self.stim_2_name)
-        s1_name_ending = '_auto_DERIVATIVES_{}.tif'.format(self.stim_1_name)
-        s2_name_ending = '_auto_DERIVATIVES_{}.tif'.format(self.stim_2_name)
+        s1s2_name_ending = 'DERIVATIVES_auto_{}&{}_{}.tif'.format(
+            self.stim_1_name, self.stim_2_name, self.output_suffix)
+        s1_name_ending = 'DERIVATIVES_auto_{}_{}.tif'.format(
+            self.stim_1_name, self.output_suffix)
+        s2_name_ending = 'DERIVATIVES_auto_{}_{}.tif'.format(
+            self.stim_2_name, self.output_suffix)
 
         for i, (A, C) in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
             match (A, C):
@@ -1012,18 +1014,18 @@ class DerivativesCalc(Helpers, Logging):
                     self.calc_sequence(i, s2_name_ending)
                 case (0, 0): pass
                 case (None, None): self.calc_sequence(
-                    i, '_auto_DERIVATIVES.tif')
+                    i, 'DERIVATIVES_auto_.tif')
 
         # Different stims - differrent colors
         merger_s1s2_s2 = TifColorMerger(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME + self.output_suffix),
                                         s1s2_name_ending,
                                         s2_name_ending,
                                         s1s2_name_ending,
-                                        '_auto_DERIVATIVES_{1}-green_{0}+{1}-magenta.tif'.format(
-            self.stim_1_name, self.stim_2_name),
+                                        'DERIVATIVES_auto_stims_overlap_{2}_{1}-green_{0}+{1}-magenta.tif'.format(
+            self.stim_1_name, self.stim_2_name, self.output_suffix),
             self.output_suffix)
 
-        merger_s1s2_s2.process_directory(heatmap=True, png=True, tif=True)
+        merger_s1s2_s2.process_directory(heatmap=True, png=True, tif=False)
         del merger_s1s2_s2
 
         # Different stims - differrent colors
@@ -1031,8 +1033,8 @@ class DerivativesCalc(Helpers, Logging):
                                       s2_name_ending,
                                       s1_name_ending,
                                       s1_name_ending,
-                                      '_auto_DERIVATIVES_stims_overlap_{1}-red_{0}-cyan.tif'.format(
-            self.stim_1_name, self.stim_2_name),
+                                      'DERIVATIVES_auto_stims_overlap_{2}_{1}-red_{0}-cyan.tif'.format(
+            self.stim_1_name, self.stim_2_name, self.output_suffix),
             self.output_suffix)
 
         merger_s1_s2.process_directory(heatmap=False, png=True, tif=False)
@@ -1571,6 +1573,8 @@ def main(
         amps_filtered1_st2 = {}
         amps_filtered2_st1 = {}
         amps_filtered2_st2 = {}
+        amps_filtered3_st1 = {}
+        amps_filtered3_st2 = {}
 
         h = Helpers()
 
@@ -1593,16 +1597,30 @@ def main(
                 np.array(bins_st2[key][1], dtype=np.bool_),
             ), replace=True, replace_with='') for i in amps_st2[key]]
 
+        for key, value in bins_st1.items():
+            amps_filtered3_st1[key] = [h.filter_list(i, np.logical_and(
+                np.array(bins_st1[key][1], dtype=np.bool_),
+                np.array(bins_st1[key][2], dtype=np.bool_),
+            ), replace=True, replace_with='') for i in amps_st1[key]]
+
+        for key, value in bins_st2.items():
+            amps_filtered3_st2[key] = [h.filter_list(i, np.logical_and(
+                np.array(bins_st2[key][1], dtype=np.bool_),
+                np.array(bins_st2[key][2], dtype=np.bool_),
+            ), replace=True, replace_with='') for i in amps_st2[key]]
+
         # create summary xlsx
         table_st1 = {}
         table_st2 = {}
         for key, value in bins_st1.items():
             table_st1[key] = bins_st1[key] + [''] + \
-                amps_st1[key] + [''] + amps_filtered1_st1[key] + \
-                [''] + amps_filtered2_st1[key]
+                amps_st1[key] + ['1 only (roi responded to):'] + amps_filtered1_st1[key] + \
+                ['1 AND 2 (roi responded to):'] + amps_filtered2_st1[key] + \
+                ['2 AND 3 (roi responded to):'] + amps_filtered3_st1[key]
             table_st2[key] = bins_st2[key] + [''] + \
-                amps_st2[key] + [''] + amps_filtered1_st2[key] + \
-                [''] + amps_filtered2_st2[key]
+                amps_st2[key] + ['1 only (roi responded to):'] + amps_filtered1_st2[key] + \
+                ['1 AND 2 (roi responded to):'] + amps_filtered2_st2[key] + \
+                ['2 AND 3 (roi responded to):'] + amps_filtered3_st2[key]
 
         summary.save_dict_to_xlsx_files(table_st1, suffix='_stim1_summary')
         summary.save_dict_to_xlsx_files(table_st2, suffix='_stim2_summary')
@@ -1659,6 +1677,12 @@ def main(
             statplot(data_f2_st1[:2], key, '_stim1_summary_rois_1&2', plot_title='ROIs in Ctrl & CNO',
                      groups_name=[i[0] for i in data_f2_st1[:2]])
 
+            data_f3_st1 = amps_filtered3_st1[key]
+            statplot(data_f3_st1, key, '_stim1_summary_rois_2&3_all', plot_title='ROIs responded in CNO and Dyn', test='friedman',
+                     groups_name=[i[0] for i in data_f3_st1])
+            statplot(data_f3_st1[:2], key, '_stim1_summary_rois_2&3', plot_title='ROIs in CNO & Dyn',
+                     groups_name=[i[0] for i in data_f3_st1[:2]])
+
         for key in table_st2.keys():
 
             data_f1_st2 = amps_filtered1_st2[key]
@@ -1672,6 +1696,12 @@ def main(
                      groups_name=[i[0] for i in data_f2_st2])
             statplot(data_f2_st2[:2], key, '_stim2_summary_rois_1&2', plot_title='ROIs in Ctrl & CNO',
                      groups_name=[i[0] for i in data_f2_st2[:2]])
+
+            data_f3_st2 = amps_filtered3_st2[key]
+            statplot(data_f3_st2, key, '_stim1_summary_rois_2&3_all', plot_title='ROIs responded in CNO and Dyn', test='friedman',
+                     groups_name=[i[0] for i in data_f3_st2])
+            statplot(data_f3_st2[:2], key, '_stim1_summary_rois_2&3', plot_title='ROIs in CNO & Dyn',
+                     groups_name=[i[0] for i in data_f3_st2[:2]])
 
 
 if __name__ == '__main__':
