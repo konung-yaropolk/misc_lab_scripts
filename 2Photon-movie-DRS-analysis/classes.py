@@ -998,11 +998,11 @@ class DerivativesCalc(Helpers, Logging):
         self.img = tifffile.imread(self.file_path)
         self.n_frames = len(self.img)
 
-        s1s2_name_ending = 'DERIVATIVES_auto_{}&{}_{}.tif'.format(
+        s1s2_name_ending = '_DERIVATIVES_auto_{}&{}_{}.tif'.format(
             self.stim_1_name, self.stim_2_name, self.output_suffix)
-        s1_name_ending = 'DERIVATIVES_auto_{}_{}.tif'.format(
+        s1_name_ending = '_DERIVATIVES_auto_{}_{}.tif'.format(
             self.stim_1_name, self.output_suffix)
-        s2_name_ending = 'DERIVATIVES_auto_{}_{}.tif'.format(
+        s2_name_ending = '_DERIVATIVES_auto_{}_{}.tif'.format(
             self.stim_2_name, self.output_suffix)
 
         for i, (A, C) in enumerate(zip(self.drs_pattern[0], self.drs_pattern[1])):
@@ -1020,16 +1020,31 @@ class DerivativesCalc(Helpers, Logging):
                 case (None, None): self.calc_sequence(
                     i, 'DERIVATIVES_auto_.tif')
 
+        stims_overlap_png = True
+        stims_overlap_tif = True
+        ratio_heatmap = True
+        stims_substracted = True
+        stims_substracted_diff = True
+
         # Different stims - differrent colors
         merger_s1s2_s2 = TifDerivativeProcess(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME + self.output_suffix),
                                               s1s2_name_ending,
                                               s2_name_ending,
                                               s1s2_name_ending,
-                                              'DERIVATIVES_auto_stims_overlap_{2}_{1}-green_{0}&{1}-magenta.tif'.format(
-            self.stim_1_name, self.stim_2_name, self.output_suffix),
-            self.output_suffix)
+                                              '_{2}_{1}-green_{0}&{1}-magenta_auto.tif'.format(self.stim_1_name,
+                                                                                               self.stim_2_name,
+                                                                                               self.output_suffix),
+                                              self.stim_1_name,
+                                              self.stim_2_name,
+                                              self.output_suffix,
+                                              ratio_heatmap=ratio_heatmap,
+                                              stims_overlap_png=stims_overlap_png,
+                                              stims_overlap_tif=stims_overlap_tif,
+                                              stims_substracted=stims_substracted,
+                                              stims_substracted_diff=stims_substracted_diff,
+                                              )
 
-        merger_s1s2_s2.process_directory(heatmap=False, png=True, tif=False)
+        merger_s1s2_s2.process_directory()
         del merger_s1s2_s2
 
         # Different stims - differrent colors
@@ -1037,11 +1052,20 @@ class DerivativesCalc(Helpers, Logging):
                                             s2_name_ending,
                                             s1_name_ending,
                                             s1_name_ending,
-                                            'DERIVATIVES_auto_stims_overlap_{2}_{1}-red_{0}-cyan.tif'.format(
-            self.stim_1_name, self.stim_2_name, self.output_suffix),
-            self.output_suffix)
+                                            '_{2}_{1}-red_{0}-cyan_auto.tif'.format(self.stim_1_name,
+                                                                                    self.stim_2_name,
+                                                                                    self.output_suffix),
+                                            self.stim_1_name,
+                                            self.stim_2_name,
+                                            self.output_suffix,
+                                            ratio_heatmap=ratio_heatmap,
+                                            stims_overlap_png=stims_overlap_png,
+                                            stims_overlap_tif=stims_overlap_tif,
+                                            stims_substracted=stims_substracted,
+                                            stims_substracted_diff=stims_substracted_diff,
+                                            )
 
-        merger_s1_s2.process_directory(heatmap=False, png=True, tif=False)
+        merger_s1_s2.process_directory()
         del merger_s1_s2
 
 
@@ -1169,15 +1193,52 @@ class TifDerivativeProcess(Helpers):
                  green_name_ending,
                  blue_name_ending,
                  output_name_ending,
-                 output_suffix):
+                 stim_1_name,
+                 stim_2_name,
+                 output_suffix,
+                 ratio_heatmap=True,
+                 stims_overlap_png=True,
+                 stims_overlap_tif=True,
+                 stims_substracted=True,
+                 stims_substracted_diff=True,
+                 ):
         self.dir = dir
         self.red_name_ending = red_name_ending
         self.green_name_ending = green_name_ending
         self.blue_name_ending = blue_name_ending
         self.output_name_ending = output_name_ending
+        self.stim_1_name = stim_1_name
+        self.stim_2_name = stim_2_name
         self.output_suffix = output_suffix
 
-    def __process_derivative_images(self, red_channel_path, green_channel_path, blue_channel_path, output_path, heatmap=True, png=True, tif=True):
+        self.ratio_heatmap = ratio_heatmap
+        self.stims_overlap_png = stims_overlap_png
+        self.stims_overlap_tif = stims_overlap_tif
+        self.stims_substracted = stims_substracted
+        self.stims_substracted_diff = stims_substracted_diff
+
+    def __make_png(self, channels, output_filename):
+        for i in range(3 - len(channels)):
+            channels.append(np.zeros_like(channels[0]))
+
+        channels = np.array(channels)
+        rgb_array_normalized = np.stack(
+            [(channel - channels.min()) / (channels.max() - channels.min()) for channel in channels], axis=-1)
+        rgb_image = Image.fromarray(
+            (rgb_array_normalized * 255).astype('uint8'), 'RGB')
+        try:
+            rgb_image.save(output_filename)
+        except PermissionError as e:
+            pass
+            print('PermissionError:', e)
+
+    def __process_derivative_images(
+            self,
+            red_channel_path,
+            green_channel_path,
+            blue_channel_path,
+            output_path,
+    ):
         channels = []
 
         if red_channel_path:
@@ -1199,85 +1260,174 @@ class TifDerivativeProcess(Helpers):
         multi_channel_array = np.stack(channels, axis=0)
 
         # Save the multi-channel image in ImageJ format
-        if tif:
+        if self.stims_overlap_tif:
             try:
-                self.save_tiff(output_path, multi_channel_array, metadata={
+                self.save_tiff(output_path + 'stims_overlap' + self.output_name_ending, multi_channel_array, metadata={
                     'axes': 'CYX', 'mode': 'composite'})
             except PermissionError as e:
                 pass
                 print('PermissionError:', e)
 
         # Save the image as a PNG file
-        if png:
-            for i in range(3 - len(channels)):
-                channels.append(np.zeros_like(channels[0]))
-
-            channels = np.array(channels)
-            rgb_array_normalized = np.stack(
-                [(channel - channels.min()) / (channels.max() - channels.min()) for channel in channels], axis=-1)
-            rgb_image = Image.fromarray(
-                (rgb_array_normalized * 255).astype('uint8'), 'RGB')
-            try:
-                rgb_image.save(output_path[:-4] + '.png')
-            except PermissionError as e:
-                pass
-                print('PermissionError:', e)
+        if self.stims_overlap_png:
+            self.__make_png(multi_channel_array, output_path + 'stims_overlap' +
+                            self.output_name_ending[:-4] + '.png')
 
         # make heatmap and save as a PNG file
-        if heatmap:
-            self.__create_heatmap(channels, output_path, matplotlib_graph=True)
+        if self.ratio_heatmap:
+            self.__create_ratio_heatmap(
+                channels, output_path, matplotlib_graph=True)
 
-    def __create_heatmap(self, channels, output_path, matplotlib_graph=False):
+        # Crerating Stims Substracted images
+        if self.stims_substracted:
+            self.__create_substracted_image(
+                channels[:2:1], output_path, self.stim_1_name, color='darkcyan')
+            self.__create_substracted_image(
+                channels[1::-1], output_path, self.stim_2_name, color='darkred')
+
+        # Crerating stims Diff image
+        if self.stims_substracted_diff:
+            self.__create_diff_image(
+                channels[:2], output_path)
+
+    def __create_ratio_heatmap(self, channels, output_path, matplotlib_graph=False):
         # Crerating Heatmap
         # Calculate the ratio image if red and green channels are available
         if len(channels) >= 2:
-            ratio_image = np.divide(channels[1], channels[0], out=np.zeros_like(
+            image = np.divide(channels[1], channels[0], out=np.zeros_like(
                 channels[0]), where=channels[0] != 0)
-            ratio_image = np.clip(ratio_image, 0, np.max(ratio_image))
+            image = np.clip(image, 0, np.max(image))
 
             # Save the ratio image as a single-frame TIFF file with inferno LUT metadata
-            output_heatmap_path = output_path[:-4] + \
-                self.output_suffix + '_heatmap.tif'
+            output_filename = output_path + 'ratio_of_inhibition' + '_heatmap.tif'
 
             metadata = {
                 'axes': 'YX',
                 'min': 1,
-                'max': 4,  # np.max(ratio_image) * 0.73
+                'max': 4,  # np.max(image) * 0.73
             }
 
             try:
-                # tifffile.imwrite(output_heatmap_path, ratio_image.astype(np.float32), imagej=True, metadata=metadata)
-                self.save_tiff(output_heatmap_path,
-                               ratio_image, metadata=metadata)
-                # self.logging(f"Created heatmap image: {output_heatmap_path}")
+                # tifffile.imwrite(output_filename, image.astype(np.float32), imagej=True, metadata=metadata)
+                self.save_tiff(output_filename,
+                               image, metadata=metadata)
+                # self.logging(f"Created heatmap image: {output_filename}")
 
             except PermissionError as e:
                 print('PermissionError:', e)
 
             if matplotlib_graph:
                 # Save the ratio image as a heatmap in PNG format using matplotlib
-                ratio_image = np.clip(ratio_image, 1, 4)
-                output_heatmap_path = output_path[:-4] + \
-                    self.output_suffix + '_heatmap.png'
+                image = np.clip(image, 1, 4)
+                output_filename = output_path + 'ratio_of_inhibition' + '_heatmap.png'
                 enlarged_shape = (
-                    int(ratio_image.shape[1] * 1.0), int(ratio_image.shape[0] * 1.0))
+                    int(image.shape[1] * 1.0), int(image.shape[0] * 1.0))
                 fig, ax = plt.subplots(
                     figsize=(enlarged_shape[0] / 100, enlarged_shape[1] / 100), dpi=165)
 
-                ax.imshow(ratio_image, cmap='inferno',
+                ax.imshow(image, cmap='inferno',
                           interpolation='bicubic', extent=[0, 1, 0, 1])
                 ax.set_position([0.02, 0.02, 0.98, 0.98])
                 ax.axis('off')
                 fig.patch.set_facecolor('white')
                 cbar = plt.colorbar(ax.imshow(
-                    ratio_image, cmap='inferno', interpolation='bicubic', extent=[0, 1, 0, 1]), ax=ax)
+                    image, cmap='inferno', interpolation='bicubic', extent=[0, 1, 0, 1]), ax=ax)
                 cbar.set_label('C to A+C responses ratio',
                                rotation=90, labelpad=5)
-                plt.savefig(output_heatmap_path,
+                plt.savefig(output_filename,
                             bbox_inches='tight', pad_inches=0)
                 plt.close()
 
-    def process_directory(self, heatmap=True, png=True, tif=True):
+    def __create_substracted_image(self, channels, output_path, stim, color='k', bins=1024, histogram_xlim=7):
+        # Crerating Substracted images
+        # Calculate the substraction image if red and green channels are available
+        # then set up min pixel values to 0
+        if len(channels) >= 2:
+            image = np.subtract(channels[1], channels[0])
+            image = np.clip(image, 0, np.max(image))
+
+            # Save the ratio image as a single-frame TIFF file with inferno LUT metadata
+            output_filename = output_path + 'resp_to_stim_' + \
+                stim + self.output_suffix + '.tif'
+
+            metadata = {
+                'axes': 'YX',
+                'min': 0,
+                'max': 50,   # np.max(image)
+            }
+
+            try:
+                # tifffile.imwrite(output_filename, image.astype(np.float32), imagej=True, metadata=metadata)
+                self.save_tiff(output_filename,
+                               image, metadata=metadata)
+                # self.logging(f"Created heatmap image: {output_filename}")
+
+                # Flatten for histogram
+                values = image.flatten()
+                values = values[values > 0]
+
+                # Build histogram
+                # plt.style.use('ggplot')
+                fig, ax = plt.subplots(dpi=90, figsize=(3, 3))
+                ax.hist(values, bins=bins, color=color)
+                ax.set_xlim(0, histogram_xlim)
+                ax.set_xlabel("Resp. Intensity \nto Stim " +
+                              stim + self.output_suffix)
+
+                # Create histogram filename
+                dirname = os.path.dirname(output_filename)
+                basename = os.path.basename(output_filename)
+                stem, _ = os.path.splitext(basename)
+                hist_filename = os.path.join(dirname, stem + "_histogram.png")
+
+                # Save PNG
+                fig.savefig(hist_filename, bbox_inches="tight")
+                plt.close(fig)
+
+            except PermissionError as e:
+                print('PermissionError:', e)
+
+    def __create_diff_image(self, channels, output_path):
+        # Crerating Diff image
+        # Calculate the substraction image if red and green channels are available
+        # then set up min pixel values to 0
+        # and merge them into single diff img
+        if len(channels) >= 2:
+            image1 = np.subtract(channels[0], channels[1])
+            image1 = np.clip(image1, 0, np.max(image1))
+
+            image2 = np.subtract(channels[1], channels[0])
+            image2 = np.clip(image2, 0, np.max(image2))
+
+            channels = [image1, image2, image2]
+            multi_channel_array = np.stack(channels, axis=0)
+
+            # Save the ratio image as a single-frame TIFF file with inferno LUT metadata
+            output_filename = output_path + 'both_stims_' + \
+                self.stim_2_name + '-red_' + self.stim_1_name + \
+                '-cyan_' + self.output_suffix + '.tif'
+
+            metadata = {
+                'axes': 'CYX',
+                'mode': 'composite',
+                'min': 0,
+                'max': 50,   # np.max(image)
+            }
+
+            try:
+                # tifffile.imwrite(output_filename, image.astype(np.float32), imagej=True, metadata=metadata)
+                self.save_tiff(output_filename,
+                               multi_channel_array, metadata=metadata)
+                # self.logging(f"Created heatmap image: {output_filename}")
+
+            except PermissionError as e:
+                print('PermissionError:', e)
+
+            self.__make_png(multi_channel_array, output_path + 'both_stims_' +
+                            self.stim_2_name + '-red_' + self.stim_1_name +
+                            '-cyan_' + self.output_suffix + '.png')
+
+    def process_directory(self,):
         for root, _, files in os.walk(self.dir):
             red_files = [f for f in files if f.endswith(self.red_name_ending)]
             green_files = [f for f in files if f.endswith(
@@ -1296,10 +1446,10 @@ class TifDerivativeProcess(Helpers):
                     blue_path = os.path.join(
                         root, matching_blue_file) if self.blue_name_ending else None
                     output_path = os.path.join(
-                        root, base_name + self.output_name_ending)
+                        root, base_name)
 
                     self.__process_derivative_images(
-                        red_path, green_path, blue_path, output_path, heatmap=heatmap, png=png, tif=tif)
+                        red_path, green_path, blue_path, output_path)
                     # self.logging("\nCreated hyperstack image: {}".format(output_path))
 
 
