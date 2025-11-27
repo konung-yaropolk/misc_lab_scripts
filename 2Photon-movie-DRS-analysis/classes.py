@@ -33,7 +33,7 @@ SYNC_COEF = -0.0028
 
 DEBUG = True
 
-postprocessingsummary = True
+postprocessing_summary = True
 
 # bugs:
 # 1. on st1 in V_stack traces plots delay +10s when plotting red X (binarization calculated right)
@@ -1017,19 +1017,19 @@ class DerivativesCalc(Helpers, Logging):
                     i, 'DERIVATIVES_auto_.tif')
 
         # Different stims - differrent colors
-        merger_s1s2_s2 = TifColorMerger(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME + self.output_suffix),
+        merger_s1s2_s2 = TifDerivativeProcess(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME + self.output_suffix),
                                         s1s2_name_ending,
                                         s2_name_ending,
                                         s1s2_name_ending,
-                                        'DERIVATIVES_auto_stims_overlap_{2}_{1}-green_{0}+{1}-magenta.tif'.format(
+                                        'DERIVATIVES_auto_stims_overlap_{2}_{1}-green_{0}&{1}-magenta.tif'.format(
             self.stim_1_name, self.stim_2_name, self.output_suffix),
             self.output_suffix)
 
-        merger_s1s2_s2.process_directory(heatmap=True, png=True, tif=False)
+        merger_s1s2_s2.process_directory(heatmap=False, png=True, tif=False)
         del merger_s1s2_s2
 
         # Different stims - differrent colors
-        merger_s1_s2 = TifColorMerger(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME + self.output_suffix),
+        merger_s1_s2 = TifDerivativeProcess(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME + self.output_suffix),
                                       s2_name_ending,
                                       s1_name_ending,
                                       s1_name_ending,
@@ -1157,7 +1157,7 @@ class Movie(DerivativesCalc, TracesCalc, Logging):
         return filename_suffix, file_nosuffix
 
 
-class TifColorMerger(Helpers):
+class TifDerivativeProcess(Helpers):
 
     def __init__(self,
                  dir,
@@ -1173,7 +1173,7 @@ class TifColorMerger(Helpers):
         self.output_name_ending = output_name_ending
         self.output_suffix = output_suffix
 
-    def __create_two_channel_image(self, red_channel_path, green_channel_path, blue_channel_path, output_path, heatmap=True, png=True, tif=True):
+    def __process_derivative_images(self, red_channel_path, green_channel_path, blue_channel_path, output_path, heatmap=True, png=True, tif=True):
         channels = []
 
         if red_channel_path:
@@ -1221,9 +1221,9 @@ class TifColorMerger(Helpers):
 
         # make heatmap and save as a PNG file
         if heatmap:
-            self.__create_heatmap(channels, output_path)
+            self.__create_heatmap(channels, output_path, matplotlib_graph=True)
 
-    def __create_heatmap(self, channels, output_path):
+    def __create_heatmap(self, channels, output_path, matplotlib_graph=False):
         # Crerating Heatmap
         # Calculate the ratio image if red and green channels are available
         if len(channels) >= 2:
@@ -1250,26 +1250,27 @@ class TifColorMerger(Helpers):
             except PermissionError as e:
                 print('PermissionError:', e)
 
-            # Save the ratio image as a heatmap in PNG format using matplotlib
-            ratio_image = np.clip(ratio_image, 1, 4)
-            output_heatmap_path = output_path[:-4] + \
-                self.output_suffix + '_heatmap.png'
-            enlarged_shape = (
-                int(ratio_image.shape[1] * 1.0), int(ratio_image.shape[0] * 1.0))
-            fig, ax = plt.subplots(
-                figsize=(enlarged_shape[0] / 100, enlarged_shape[1] / 100), dpi=165)
+            if matplotlib_graph:
+                # Save the ratio image as a heatmap in PNG format using matplotlib
+                ratio_image = np.clip(ratio_image, 1, 4)
+                output_heatmap_path = output_path[:-4] + \
+                    self.output_suffix + '_heatmap.png'
+                enlarged_shape = (
+                    int(ratio_image.shape[1] * 1.0), int(ratio_image.shape[0] * 1.0))
+                fig, ax = plt.subplots(
+                    figsize=(enlarged_shape[0] / 100, enlarged_shape[1] / 100), dpi=165)
 
-            ax.imshow(ratio_image, cmap='inferno',
-                      interpolation='bicubic', extent=[0, 1, 0, 1])
-            ax.set_position([0.02, 0.02, 0.98, 0.98])
-            ax.axis('off')
-            fig.patch.set_facecolor('white')
-            cbar = plt.colorbar(ax.imshow(
-                ratio_image, cmap='inferno', interpolation='bicubic', extent=[0, 1, 0, 1]), ax=ax)
-            cbar.set_label('C to A+C responses ratio',
-                           rotation=90, labelpad=5)
-            plt.savefig(output_heatmap_path, bbox_inches='tight', pad_inches=0)
-            plt.close()
+                ax.imshow(ratio_image, cmap='inferno',
+                        interpolation='bicubic', extent=[0, 1, 0, 1])
+                ax.set_position([0.02, 0.02, 0.98, 0.98])
+                ax.axis('off')
+                fig.patch.set_facecolor('white')
+                cbar = plt.colorbar(ax.imshow(
+                    ratio_image, cmap='inferno', interpolation='bicubic', extent=[0, 1, 0, 1]), ax=ax)
+                cbar.set_label('C to A+C responses ratio',
+                            rotation=90, labelpad=5)
+                plt.savefig(output_heatmap_path, bbox_inches='tight', pad_inches=0)
+                plt.close()
 
     def process_directory(self, heatmap=True, png=True, tif=True):
         for root, _, files in os.walk(self.dir):
@@ -1292,7 +1293,7 @@ class TifColorMerger(Helpers):
                     output_path = os.path.join(
                         root, base_name + self.output_name_ending)
 
-                    self.__create_two_channel_image(
+                    self.__process_derivative_images(
                         red_path, green_path, blue_path, output_path, heatmap=heatmap, png=png, tif=tif)
                     # self.logging("\nCreated hyperstack image: {}".format(output_path))
 
@@ -1428,135 +1429,8 @@ def worker(item, run_derivatives_calculation, run_traces_calculation, v_shifts={
     del movie
     return vertical_shifts, [filters, ampls], item[0]+'_'+suffix, e1, e2
 
+def generate_postprocessing_summary(output):
 
-def main(
-
-    working_dir=s.working_dir,
-    to_do_list=s.to_do_list,
-    run_derivatives_calculation=s.run_derivatives_calculation,
-    run_traces_calculation=s.run_traces_calculation,
-    resp_duration=s.resp_duration,
-    step_duration=s.step_duration,
-    n_epochs=s.n_epochs,
-    drs_pattern=s.drs_pattern,
-    stim_1_name=s.stim_1_name,
-    stim_2_name=s.stim_2_name,
-    relative_values=s.relative_values,
-    mean_col_order=s.mean_col_order,
-    cols_per_roi=s.cols_per_roi,
-    time_before_trig=s.time_before_trig,
-    baseline_duraton=s.baseline_duraton,
-    sigmas_treshold=s.sigmas_treshold,
-    vertical_shift=s.vertical_shift,
-    vertical_shift_of_trig=s.vertical_shift_of_trig,
-    SD_filter_of_trig=s.SD_filter_of_trig,
-    time_after_trig=s.time_after_trig,
-    multiprocessing=s.multiprocessing,
-    processes_limit=s.processes_limit,
-
-):
-
-    for item in to_do_list:
-
-        # setting default parameters if they are missing in the to_do_list
-        item[1].setdefault('output_suffix', '')
-        item[1].setdefault('working_dir', working_dir)
-        item[1].setdefault('resp_duration', resp_duration)
-        item[1].setdefault('drs_pattern', drs_pattern)
-        item[1].setdefault('step_duration', step_duration)
-        item[1].setdefault('n_epochs', n_epochs)
-        item[1].setdefault('start_from_epoch', 1)
-        item[1].setdefault('trig_number', 1)
-        item[1].setdefault('time_before_trig', time_before_trig)
-        item[1].setdefault('time_after_trig', time_after_trig)
-        item[1].setdefault('baseline_duraton', baseline_duraton)
-        item[1].setdefault('relative_values', relative_values)
-        item[1].setdefault('mean_col_order', mean_col_order)
-        item[1].setdefault('cols_per_roi', cols_per_roi)
-        item[1].setdefault('stim_1_name', stim_1_name)
-        item[1].setdefault('stim_2_name', stim_2_name)
-        item[1].setdefault('sigmas_treshold', sigmas_treshold)
-        item[1].setdefault('vertical_shift', vertical_shift)
-        item[1].setdefault('vertical_shift_of_trig', vertical_shift_of_trig)
-        item[1].setdefault('SD_filter_of_trig', SD_filter_of_trig)
-
-    if multiprocessing:
-        import multiprocessing as mp
-
-        cores = mp.cpu_count()          # CPU cores count
-        jobs = len(to_do_list)          # jobs to do count
-
-        if processes_limit == 0:
-            processes_limit = 1000
-
-        threads = min(cores-2, jobs,
-                      processes_limit)
-        try:
-            pool = mp.Pool(threads)
-        except ValueError:
-            print('No one file listed, there is nothing to do.')
-            return 0
-
-        v_shifts = {}
-        filters = {}
-
-        def spread_jobs(jobs):
-            processes = [pool.apply_async(worker, args=(item, run_derivatives_calculation, run_traces_calculation, v_shifts, filters))
-                         for item in jobs]
-            output = [p.get() for p in processes]
-            return output
-
-        print('\nParallel processing mode activated:')
-        print('Please, ensure if you have enough RAM for multiprocessing.')
-        print('If processing went wrong, please, use "processes_limit" option in the settings.py')
-        print('{0} cpu cores per queue of {1} files found, pool of {2} processes created.'.format(
-            cores, jobs, threads))
-        print('\nJob started...\n')
-
-        # separating the jobs that have to be done first,
-        # because they do not use the results of the previous calculations
-        do_first = [i for i in to_do_list if not (i[1]
-                    ['vertical_shift_of_trig'] or
-                    i[1]['SD_filter_of_trig'])]
-        do_second = [i for i in to_do_list if (i[1]
-                     ['vertical_shift_of_trig'] or
-                     i[1]['SD_filter_of_trig'])]
-
-        output = spread_jobs(do_first)
-
-        for i in output:
-            v_shifts.update(i[0])
-            filters.update(i[1][0])
-
-        output.extend(spread_jobs(do_second))
-
-        errors = [[i[2]+':\n', 'derivatives : ' + i[3]+'\n',
-                   'calculations:   ' + i[4]+'\n', '\n'] for i in output if (i[3] or i[4])]
-        msg = [item for sublist in errors for item in sublist] if errors else [
-            '✅ --no errors--\n']
-
-        print('\n\nAll done.\n')
-        print('Errors: \n')
-        print(*msg)
-
-    else:
-        output = []
-        for item in to_do_list:
-            v_shifts = {}
-            filters = {}
-            output.append(worker(item, run_derivatives_calculation,
-                                 run_traces_calculation, v_shifts, filters))
-            v_shifts = output[-1][0]
-            filters = output[-1][1][0]
-            # ampls = output[-1][1][1]
-            # aucs = output[-1][1][2]
-
-            if output[-1][3]:
-                print(output[-1][3])
-            if output[-1][4]:
-                print(output[-1][4])
-
-    if postprocessingsummary and run_traces_calculation:
         bins = {}
         amps = {}
         for i in output:
@@ -1702,6 +1576,139 @@ def main(
                      groups_name=[i[0] for i in data_f3_st2])
             statplot(data_f3_st2[:2], key, '_stim1_summary_rois_2&3', plot_title='ROIs in CNO & Dyn',
                      groups_name=[i[0] for i in data_f3_st2[:2]])
+
+def main(
+
+    working_dir=s.working_dir,
+    to_do_list=s.to_do_list,
+    run_derivatives_calculation=s.run_derivatives_calculation,
+    run_traces_calculation=s.run_traces_calculation,
+    resp_duration=s.resp_duration,
+    step_duration=s.step_duration,
+    n_epochs=s.n_epochs,
+    drs_pattern=s.drs_pattern,
+    stim_1_name=s.stim_1_name,
+    stim_2_name=s.stim_2_name,
+    relative_values=s.relative_values,
+    mean_col_order=s.mean_col_order,
+    cols_per_roi=s.cols_per_roi,
+    time_before_trig=s.time_before_trig,
+    baseline_duraton=s.baseline_duraton,
+    sigmas_treshold=s.sigmas_treshold,
+    vertical_shift=s.vertical_shift,
+    vertical_shift_of_trig=s.vertical_shift_of_trig,
+    SD_filter_of_trig=s.SD_filter_of_trig,
+    time_after_trig=s.time_after_trig,
+    multiprocessing=s.multiprocessing,
+    processes_limit=s.processes_limit,
+
+):
+
+    for item in to_do_list:
+
+        # setting default parameters if they are missing in the to_do_list
+        item[1].setdefault('output_suffix', '')
+        item[1].setdefault('working_dir', working_dir)
+        item[1].setdefault('resp_duration', resp_duration)
+        item[1].setdefault('drs_pattern', drs_pattern)
+        item[1].setdefault('step_duration', step_duration)
+        item[1].setdefault('n_epochs', n_epochs)
+        item[1].setdefault('start_from_epoch', 1)
+        item[1].setdefault('trig_number', 1)
+        item[1].setdefault('time_before_trig', time_before_trig)
+        item[1].setdefault('time_after_trig', time_after_trig)
+        item[1].setdefault('baseline_duraton', baseline_duraton)
+        item[1].setdefault('relative_values', relative_values)
+        item[1].setdefault('mean_col_order', mean_col_order)
+        item[1].setdefault('cols_per_roi', cols_per_roi)
+        item[1].setdefault('stim_1_name', stim_1_name)
+        item[1].setdefault('stim_2_name', stim_2_name)
+        item[1].setdefault('sigmas_treshold', sigmas_treshold)
+        item[1].setdefault('vertical_shift', vertical_shift)
+        item[1].setdefault('vertical_shift_of_trig', vertical_shift_of_trig)
+        item[1].setdefault('SD_filter_of_trig', SD_filter_of_trig)
+
+    if multiprocessing:
+        import multiprocessing as mp
+
+        cores = mp.cpu_count()          # CPU cores count
+        jobs = len(to_do_list)          # jobs to do count
+
+        if processes_limit == 0:
+            processes_limit = 1000
+
+        threads = min(cores-2, jobs,
+                      processes_limit)
+        try:
+            pool = mp.Pool(threads)
+        except ValueError:
+            print('No one file listed, there is nothing to do.')
+            return 0
+
+        v_shifts = {}
+        filters = {}
+
+        def spread_jobs(jobs):
+            processes = [pool.apply_async(worker, args=(item, run_derivatives_calculation, run_traces_calculation, v_shifts, filters))
+                         for item in jobs]
+            output = [p.get() for p in processes]
+            return output
+
+        print('\nParallel processing mode activated:')
+        print('Please, ensure if you have enough RAM for multiprocessing.')
+        print('If processing went wrong, please, use "processes_limit" option in the settings.py')
+        print('{0} cpu cores per queue of {1} files found, pool of {2} processes created.'.format(
+            cores, jobs, threads))
+        print('\nJob started...\n')
+
+        # separating the jobs that have to be done first,
+        # because they do not use the results of the previous calculations
+        do_first = [i for i in to_do_list if not (i[1]
+                    ['vertical_shift_of_trig'] or
+                    i[1]['SD_filter_of_trig'])]
+        do_second = [i for i in to_do_list if (i[1]
+                     ['vertical_shift_of_trig'] or
+                     i[1]['SD_filter_of_trig'])]
+
+        output = spread_jobs(do_first)
+
+        for i in output:
+            v_shifts.update(i[0])
+            filters.update(i[1][0])
+
+        output.extend(spread_jobs(do_second))
+
+        errors = [[i[2]+':\n', 'derivatives : ' + i[3]+'\n',
+                   'calculations:   ' + i[4]+'\n', '\n'] for i in output if (i[3] or i[4])]
+        msg = [item for sublist in errors for item in sublist] if errors else [
+            '✅ --no errors--\n']
+
+        print('\n\nAll done.\n')
+        print('Errors: \n')
+        print(*msg)
+
+    else:
+        output = []
+        for item in to_do_list:
+            v_shifts = {}
+            filters = {}
+            output.append(worker(item, run_derivatives_calculation,
+                                 run_traces_calculation, v_shifts, filters))
+            v_shifts = output[-1][0]
+            filters = output[-1][1][0]
+            # ampls = output[-1][1][1]
+            # aucs = output[-1][1][2]
+
+            if output[-1][3]:
+                print(output[-1][3])
+            if output[-1][4]:
+                print(output[-1][4])
+
+    if postprocessing_summary and run_traces_calculation:
+        try:
+            generate_postprocessing_summary(output)
+        except IndexError as e:
+            print('Postprocesssing: Index error - only one timeframe in a boundle so there is nothing to compare')
 
 
 if __name__ == '__main__':
