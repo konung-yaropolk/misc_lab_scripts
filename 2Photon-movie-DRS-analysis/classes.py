@@ -121,10 +121,14 @@ class Helpers():
 
         return output
 
-    def plot_trace(self, x, cols, events, savename, offset=0, figsize=(15, 5), alpha=0.7, dpi=200, linewidth=0.5):
+    def plot_trace(self, x, cols, events, savename, offset=0, figsize=(15, 5), alpha=None, dpi=200, linewidth=0.5):
 
         plt.figure(figsize=figsize, dpi=dpi)
         # plt.style.use("ggplot")
+
+        if not alpha:
+            n_cols = len(cols)
+            alpha = 3/n_cols
 
         # Plot each trace
         for i, col in enumerate(cols):
@@ -655,7 +659,7 @@ class TracesCalc(Logging):
 
         # plot them all (slows script down)
         self.plot_trace(matrix_T[0], matrix_T[1:], [], csv_path+output_dir+'/' + '_full_traces_raw_{0}_and_{1}_ampl_{2}_auto_.png'.format(
-            self.group_names[0], self.group_names[1], self.output_suffix), linewidth=0.5, alpha=0.1, dpi=400)
+            self.group_names[0], self.group_names[1], self.output_suffix), linewidth=0.5, dpi=400)
 
         # plot debug graph to check time sync
         chunk = self.csv_matrix[int(
@@ -1018,10 +1022,10 @@ class DerivativesCalc(Helpers, Logging):
 
         # Different stims - differrent colors
         merger_s1s2_s2 = TifDerivativeProcess(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME + self.output_suffix),
-                                        s1s2_name_ending,
-                                        s2_name_ending,
-                                        s1s2_name_ending,
-                                        'DERIVATIVES_auto_stims_overlap_{2}_{1}-green_{0}&{1}-magenta.tif'.format(
+                                              s1s2_name_ending,
+                                              s2_name_ending,
+                                              s1s2_name_ending,
+                                              'DERIVATIVES_auto_stims_overlap_{2}_{1}-green_{0}&{1}-magenta.tif'.format(
             self.stim_1_name, self.stim_2_name, self.output_suffix),
             self.output_suffix)
 
@@ -1030,10 +1034,10 @@ class DerivativesCalc(Helpers, Logging):
 
         # Different stims - differrent colors
         merger_s1_s2 = TifDerivativeProcess(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME + self.output_suffix),
-                                      s2_name_ending,
-                                      s1_name_ending,
-                                      s1_name_ending,
-                                      'DERIVATIVES_auto_stims_overlap_{2}_{1}-red_{0}-cyan.tif'.format(
+                                            s2_name_ending,
+                                            s1_name_ending,
+                                            s1_name_ending,
+                                            'DERIVATIVES_auto_stims_overlap_{2}_{1}-red_{0}-cyan.tif'.format(
             self.stim_1_name, self.stim_2_name, self.output_suffix),
             self.output_suffix)
 
@@ -1261,15 +1265,16 @@ class TifDerivativeProcess(Helpers):
                     figsize=(enlarged_shape[0] / 100, enlarged_shape[1] / 100), dpi=165)
 
                 ax.imshow(ratio_image, cmap='inferno',
-                        interpolation='bicubic', extent=[0, 1, 0, 1])
+                          interpolation='bicubic', extent=[0, 1, 0, 1])
                 ax.set_position([0.02, 0.02, 0.98, 0.98])
                 ax.axis('off')
                 fig.patch.set_facecolor('white')
                 cbar = plt.colorbar(ax.imshow(
                     ratio_image, cmap='inferno', interpolation='bicubic', extent=[0, 1, 0, 1]), ax=ax)
                 cbar.set_label('C to A+C responses ratio',
-                            rotation=90, labelpad=5)
-                plt.savefig(output_heatmap_path, bbox_inches='tight', pad_inches=0)
+                               rotation=90, labelpad=5)
+                plt.savefig(output_heatmap_path,
+                            bbox_inches='tight', pad_inches=0)
                 plt.close()
 
     def process_directory(self, heatmap=True, png=True, tif=True):
@@ -1429,153 +1434,155 @@ def worker(item, run_derivatives_calculation, run_traces_calculation, v_shifts={
     del movie
     return vertical_shifts, [filters, ampls], item[0]+'_'+suffix, e1, e2
 
+
 def generate_postprocessing_summary(output):
 
-        bins = {}
-        amps = {}
-        for i in output:
-            bins.update(i[1][0])
-            amps.update(i[1][1])
+    bins = {}
+    amps = {}
+    for i in output:
+        bins.update(i[1][0])
+        amps.update(i[1][1])
 
-        summary = PostprocessingSummary()
-        bins_st1 = summary.reformat_dict(bins, col=1)
-        bins_st2 = summary.reformat_dict(bins, col=2)
-        amps_st1 = summary.reformat_dict(amps, col=1)
-        amps_st2 = summary.reformat_dict(amps, col=2)
+    summary = PostprocessingSummary()
+    bins_st1 = summary.reformat_dict(bins, col=1)
+    bins_st2 = summary.reformat_dict(bins, col=2)
+    amps_st1 = summary.reformat_dict(amps, col=1)
+    amps_st2 = summary.reformat_dict(amps, col=2)
 
-        amps_filtered1_st1 = {}
-        amps_filtered1_st2 = {}
-        amps_filtered2_st1 = {}
-        amps_filtered2_st2 = {}
-        amps_filtered3_st1 = {}
-        amps_filtered3_st2 = {}
+    amps_filtered1_st1 = {}
+    amps_filtered1_st2 = {}
+    amps_filtered2_st1 = {}
+    amps_filtered2_st2 = {}
+    amps_filtered3_st1 = {}
+    amps_filtered3_st2 = {}
 
-        h = Helpers()
+    h = Helpers()
 
-        for key, value in bins_st1.items():
-            amps_filtered1_st1[key] = [h.filter_list(i, bins_st1[key][0], replace=True,
-                                                     replace_with='') for i in amps_st1[key]]
-        for key, value in bins_st2.items():
-            amps_filtered1_st2[key] = [h.filter_list(i, bins_st2[key][0], replace=True,
-                                                     replace_with='') for i in amps_st2[key]]
+    for key, value in bins_st1.items():
+        amps_filtered1_st1[key] = [h.filter_list(i, bins_st1[key][0], replace=True,
+                                                 replace_with='') for i in amps_st1[key]]
+    for key, value in bins_st2.items():
+        amps_filtered1_st2[key] = [h.filter_list(i, bins_st2[key][0], replace=True,
+                                                 replace_with='') for i in amps_st2[key]]
 
-        for key, value in bins_st1.items():
-            amps_filtered2_st1[key] = [h.filter_list(i, np.logical_and(
-                np.array(bins_st1[key][0], dtype=np.bool_),
-                np.array(bins_st1[key][1], dtype=np.bool_),
-            ), replace=True, replace_with='') for i in amps_st1[key]]
+    for key, value in bins_st1.items():
+        amps_filtered2_st1[key] = [h.filter_list(i, np.logical_and(
+            np.array(bins_st1[key][0], dtype=np.bool_),
+            np.array(bins_st1[key][1], dtype=np.bool_),
+        ), replace=True, replace_with='') for i in amps_st1[key]]
 
-        for key, value in bins_st2.items():
-            amps_filtered2_st2[key] = [h.filter_list(i, np.logical_and(
-                np.array(bins_st2[key][0], dtype=np.bool_),
-                np.array(bins_st2[key][1], dtype=np.bool_),
-            ), replace=True, replace_with='') for i in amps_st2[key]]
+    for key, value in bins_st2.items():
+        amps_filtered2_st2[key] = [h.filter_list(i, np.logical_and(
+            np.array(bins_st2[key][0], dtype=np.bool_),
+            np.array(bins_st2[key][1], dtype=np.bool_),
+        ), replace=True, replace_with='') for i in amps_st2[key]]
 
-        for key, value in bins_st1.items():
-            amps_filtered3_st1[key] = [h.filter_list(i, np.logical_and(
-                np.array(bins_st1[key][1], dtype=np.bool_),
-                np.array(bins_st1[key][2], dtype=np.bool_),
-            ), replace=True, replace_with='') for i in amps_st1[key]]
+    for key, value in bins_st1.items():
+        amps_filtered3_st1[key] = [h.filter_list(i, np.logical_and(
+            np.array(bins_st1[key][1], dtype=np.bool_),
+            np.array(bins_st1[key][2], dtype=np.bool_),
+        ), replace=True, replace_with='') for i in amps_st1[key]]
 
-        for key, value in bins_st2.items():
-            amps_filtered3_st2[key] = [h.filter_list(i, np.logical_and(
-                np.array(bins_st2[key][1], dtype=np.bool_),
-                np.array(bins_st2[key][2], dtype=np.bool_),
-            ), replace=True, replace_with='') for i in amps_st2[key]]
+    for key, value in bins_st2.items():
+        amps_filtered3_st2[key] = [h.filter_list(i, np.logical_and(
+            np.array(bins_st2[key][1], dtype=np.bool_),
+            np.array(bins_st2[key][2], dtype=np.bool_),
+        ), replace=True, replace_with='') for i in amps_st2[key]]
 
-        # create summary xlsx
-        table_st1 = {}
-        table_st2 = {}
-        for key, value in bins_st1.items():
-            table_st1[key] = bins_st1[key] + [''] + \
-                amps_st1[key] + ['1 only (roi responded to):'] + amps_filtered1_st1[key] + \
-                ['1 AND 2 (roi responded to):'] + amps_filtered2_st1[key] + \
-                ['2 AND 3 (roi responded to):'] + amps_filtered3_st1[key]
-            table_st2[key] = bins_st2[key] + [''] + \
-                amps_st2[key] + ['1 only (roi responded to):'] + amps_filtered1_st2[key] + \
-                ['1 AND 2 (roi responded to):'] + amps_filtered2_st2[key] + \
-                ['2 AND 3 (roi responded to):'] + amps_filtered3_st2[key]
+    # create summary xlsx
+    table_st1 = {}
+    table_st2 = {}
+    for key, value in bins_st1.items():
+        table_st1[key] = bins_st1[key] + [''] + \
+            amps_st1[key] + ['1 only (roi responded to):'] + amps_filtered1_st1[key] + \
+            ['1 AND 2 (roi responded to):'] + amps_filtered2_st1[key] + \
+            ['2 AND 3 (roi responded to):'] + amps_filtered3_st1[key]
+        table_st2[key] = bins_st2[key] + [''] + \
+            amps_st2[key] + ['1 only (roi responded to):'] + amps_filtered1_st2[key] + \
+            ['1 AND 2 (roi responded to):'] + amps_filtered2_st2[key] + \
+            ['2 AND 3 (roi responded to):'] + amps_filtered3_st2[key]
 
-        summary.save_dict_to_xlsx_files(table_st1, suffix='_stim1_summary')
-        summary.save_dict_to_xlsx_files(table_st2, suffix='_stim2_summary')
+    summary.save_dict_to_xlsx_files(table_st1, suffix='_stim1_summary')
+    summary.save_dict_to_xlsx_files(table_st2, suffix='_stim2_summary')
 
-        # statistical analysis and plotting
-        def statplot(data, key, suffix, groups_name, plot_title='', test='wilcoxon'):
-            analysis = AutoStatLib.StatisticalAnalysis(
-                data, paired=True, tails=2, popmean=0, posthoc=True, verbose=False, groups_name=groups_name)
+    # statistical analysis and plotting
+    def statplot(data, key, suffix, groups_name, plot_title='', test='wilcoxon'):
+        analysis = AutoStatLib.StatisticalAnalysis(
+            data, paired=True, tails=2, popmean=0, posthoc=True, verbose=False, groups_name=groups_name)
+        if test == 'friedman':
+            analysis.RunFriedman()
+        else:
+            analysis.RunWilcoxon()
+        results = analysis.GetResult()
+
+        if 'Samples' in results:
             if test == 'friedman':
-                analysis.RunFriedman()
+                plot = AutoStatLib.StatPlots.SwarmStatPlot(results['Samples'],
+                                                           **results,
+                                                           y_label='Amplitude, ΔF/F₀',
+                                                           plot_title=plot_title,
+                                                           print_p_label=False,
+                                                           print_stars=False)
             else:
-                analysis.RunWilcoxon()
-            results = analysis.GetResult()
+                plot = AutoStatLib.StatPlots.BarStatPlot(results['Samples'],
+                                                         **results,
+                                                         y_label='Amplitude, ΔF/F₀',
+                                                         plot_title=plot_title,
+                                                         print_p_label=True)
+            plot.plot()
 
-            if 'Samples' in results:
-                if test == 'friedman':
-                    plot = AutoStatLib.StatPlots.SwarmStatPlot(results['Samples'],
-                                                               **results,
-                                                               y_label='Amplitude, ΔF/F₀',
-                                                               plot_title=plot_title,
-                                                               print_p_label=False,
-                                                               print_stars=False)
-                else:
-                    plot = AutoStatLib.StatPlots.BarStatPlot(results['Samples'],
-                                                             **results,
-                                                             y_label='Amplitude, ΔF/F₀',
-                                                             plot_title=plot_title,
-                                                             print_p_label=True)
-                plot.plot()
+            savepath = '{0}.csv{2}/{1}{3}.png'.format(
+                key,
+                os.path.dirname(key).split("/")[-1],
+                SUMMARY_SUBFOLDER_NAME,
+                suffix)
 
-                savepath = '{0}.csv{2}/{1}{3}.png'.format(
-                    key,
-                    os.path.dirname(key).split("/")[-1],
-                    SUMMARY_SUBFOLDER_NAME,
-                    suffix)
+            plot.save(savepath)
+            print(f"📈 Graph Saved ", savepath)
+            plot.close()
 
-                plot.save(savepath)
-                print(f"📈 Graph Saved ", savepath)
-                plot.close()
+        del analysis
 
-            del analysis
+    for key in table_st1.keys():
 
-        for key in table_st1.keys():
+        data_f1_st1 = amps_filtered1_st1[key]
+        statplot(data_f1_st1, key, '_stim1_summary_rois_1_all', plot_title='ROIs responded in Ctrl', test='friedman',
+                 groups_name=[i[0] for i in data_f1_st1])
+        statplot(data_f1_st1[:2], key, '_stim1_summary_rois_1', plot_title='ROIs in Ctrl',
+                 groups_name=[i[0] for i in data_f1_st1[:2]])
 
-            data_f1_st1 = amps_filtered1_st1[key]
-            statplot(data_f1_st1, key, '_stim1_summary_rois_1_all', plot_title='ROIs responded in Ctrl', test='friedman',
-                     groups_name=[i[0] for i in data_f1_st1])
-            statplot(data_f1_st1[:2], key, '_stim1_summary_rois_1', plot_title='ROIs in Ctrl',
-                     groups_name=[i[0] for i in data_f1_st1[:2]])
+        data_f2_st1 = amps_filtered2_st1[key]
+        statplot(data_f2_st1, key, '_stim1_summary_rois_1&2_all', plot_title='ROIs responded in Ctrl and CNO', test='friedman',
+                 groups_name=[i[0] for i in data_f2_st1])
+        statplot(data_f2_st1[:2], key, '_stim1_summary_rois_1&2', plot_title='ROIs in Ctrl & CNO',
+                 groups_name=[i[0] for i in data_f2_st1[:2]])
 
-            data_f2_st1 = amps_filtered2_st1[key]
-            statplot(data_f2_st1, key, '_stim1_summary_rois_1&2_all', plot_title='ROIs responded in Ctrl and CNO', test='friedman',
-                     groups_name=[i[0] for i in data_f2_st1])
-            statplot(data_f2_st1[:2], key, '_stim1_summary_rois_1&2', plot_title='ROIs in Ctrl & CNO',
-                     groups_name=[i[0] for i in data_f2_st1[:2]])
+        data_f3_st1 = amps_filtered3_st1[key]
+        statplot(data_f3_st1, key, '_stim1_summary_rois_2&3_all', plot_title='ROIs responded in CNO and Dyn', test='friedman',
+                 groups_name=[i[0] for i in data_f3_st1])
+        statplot(data_f3_st1[:2], key, '_stim1_summary_rois_2&3', plot_title='ROIs in CNO & Dyn',
+                 groups_name=[i[0] for i in data_f3_st1[:2]])
 
-            data_f3_st1 = amps_filtered3_st1[key]
-            statplot(data_f3_st1, key, '_stim1_summary_rois_2&3_all', plot_title='ROIs responded in CNO and Dyn', test='friedman',
-                     groups_name=[i[0] for i in data_f3_st1])
-            statplot(data_f3_st1[:2], key, '_stim1_summary_rois_2&3', plot_title='ROIs in CNO & Dyn',
-                     groups_name=[i[0] for i in data_f3_st1[:2]])
+    for key in table_st2.keys():
 
-        for key in table_st2.keys():
+        data_f1_st2 = amps_filtered1_st2[key]
+        statplot(data_f1_st2, key, '_stim2_summary_rois_1_all', plot_title='ROIs responded in Ctrl', test='friedman',
+                 groups_name=[i[0] for i in data_f1_st2])
+        statplot(data_f1_st2[:2], key, '_stim2_summary_rois_1', plot_title='ROIs in Ctrl',
+                 groups_name=[i[0] for i in data_f1_st2[:2]])
 
-            data_f1_st2 = amps_filtered1_st2[key]
-            statplot(data_f1_st2, key, '_stim2_summary_rois_1_all', plot_title='ROIs responded in Ctrl', test='friedman',
-                     groups_name=[i[0] for i in data_f1_st2])
-            statplot(data_f1_st2[:2], key, '_stim2_summary_rois_1', plot_title='ROIs in Ctrl',
-                     groups_name=[i[0] for i in data_f1_st2[:2]])
+        data_f2_st2 = amps_filtered2_st2[key]
+        statplot(data_f2_st2, key, '_stim2_summary_rois_1&2_all', plot_title='ROIs responded in Ctrl and CNO', test='friedman',
+                 groups_name=[i[0] for i in data_f2_st2])
+        statplot(data_f2_st2[:2], key, '_stim2_summary_rois_1&2', plot_title='ROIs in Ctrl & CNO',
+                 groups_name=[i[0] for i in data_f2_st2[:2]])
 
-            data_f2_st2 = amps_filtered2_st2[key]
-            statplot(data_f2_st2, key, '_stim2_summary_rois_1&2_all', plot_title='ROIs responded in Ctrl and CNO', test='friedman',
-                     groups_name=[i[0] for i in data_f2_st2])
-            statplot(data_f2_st2[:2], key, '_stim2_summary_rois_1&2', plot_title='ROIs in Ctrl & CNO',
-                     groups_name=[i[0] for i in data_f2_st2[:2]])
+        data_f3_st2 = amps_filtered3_st2[key]
+        statplot(data_f3_st2, key, '_stim1_summary_rois_2&3_all', plot_title='ROIs responded in CNO and Dyn', test='friedman',
+                 groups_name=[i[0] for i in data_f3_st2])
+        statplot(data_f3_st2[:2], key, '_stim1_summary_rois_2&3', plot_title='ROIs in CNO & Dyn',
+                 groups_name=[i[0] for i in data_f3_st2[:2]])
 
-            data_f3_st2 = amps_filtered3_st2[key]
-            statplot(data_f3_st2, key, '_stim1_summary_rois_2&3_all', plot_title='ROIs responded in CNO and Dyn', test='friedman',
-                     groups_name=[i[0] for i in data_f3_st2])
-            statplot(data_f3_st2[:2], key, '_stim1_summary_rois_2&3', plot_title='ROIs in CNO & Dyn',
-                     groups_name=[i[0] for i in data_f3_st2[:2]])
 
 def main(
 
@@ -1708,7 +1715,8 @@ def main(
         try:
             generate_postprocessing_summary(output)
         except IndexError as e:
-            print('Postprocesssing: Index error - only one timeframe in a boundle so there is nothing to compare')
+            print(
+                'Postprocesssing: Index error - only one timeframe in a boundle so there is nothing to compare')
 
 
 if __name__ == '__main__':
