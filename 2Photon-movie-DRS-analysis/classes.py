@@ -941,7 +941,7 @@ class DerivativesCalc(Helpers, Logging):
             self.img, start, end, 1.0)
 
         # Average the derivatives to create a single image
-        output_derivative = np.average(np.maximum(derivatives, 0), axis=0)
+        output_derivative = np.mean(np.maximum(derivatives, 0), axis=0)
 
         return output_derivative
 
@@ -1346,9 +1346,14 @@ class TifDerivativeProcess(Helpers):
             image = np.subtract(channels[1], channels[0])
             image = np.clip(image, 0, np.max(image))
 
+
+            # Get the name of that directory of experiment day
+            two_up_path = os.path.dirname(os.path.dirname(output_path))            
+            directory_name = os.path.basename(two_up_path)
+
             # Save the ratio image as a single-frame TIFF file with inferno LUT metadata
             output_filename = output_path + 'resp_to_stim_' + \
-                stim + self.output_suffix + '.tif'
+                stim + '_' + self.output_suffix + '_' + directory_name + '_' + '.tif'
 
             metadata = {
                 'axes': 'YX',
