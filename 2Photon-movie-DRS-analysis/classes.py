@@ -1712,11 +1712,11 @@ def generate_postprocessing_summary(output):
         statplot(data_f2_st1[:2], key, '_stim1_summary_rois_1&2', plot_title='ROIs in Ctrl & CNO',
                  groups_name=[i[0] for i in data_f2_st1[:2]])
 
-        data_f3_st1 = amps_filtered3_st1[key]
-        statplot(data_f3_st1, key, '_stim1_summary_rois_2&3_all', plot_title='ROIs responded in CNO and Dyn', test='friedman',
-                 groups_name=[i[0] for i in data_f3_st1])
-        statplot(data_f3_st1[:2], key, '_stim1_summary_rois_2&3', plot_title='ROIs in CNO & Dyn',
-                 groups_name=[i[0] for i in data_f3_st1[:2]])
+        # data_f3_st1 = amps_filtered3_st1[key]
+        # statplot(data_f3_st1, key, '_stim1_summary_rois_2&3_all', plot_title='ROIs responded in CNO and Dyn', test='friedman',
+        #          groups_name=[i[0] for i in data_f3_st1])
+        # statplot(data_f3_st1[:2], key, '_stim1_summary_rois_2&3', plot_title='ROIs in CNO & Dyn',
+        #          groups_name=[i[0] for i in data_f3_st1[:2]])
 
     for key in table_st2.keys():
 
@@ -1732,11 +1732,11 @@ def generate_postprocessing_summary(output):
         statplot(data_f2_st2[:2], key, '_stim2_summary_rois_1&2', plot_title='ROIs in Ctrl & CNO',
                  groups_name=[i[0] for i in data_f2_st2[:2]])
 
-        data_f3_st2 = amps_filtered3_st2[key]
-        statplot(data_f3_st2, key, '_stim1_summary_rois_2&3_all', plot_title='ROIs responded in CNO and Dyn', test='friedman',
-                 groups_name=[i[0] for i in data_f3_st2])
-        statplot(data_f3_st2[:2], key, '_stim1_summary_rois_2&3', plot_title='ROIs in CNO & Dyn',
-                 groups_name=[i[0] for i in data_f3_st2[:2]])
+        # data_f3_st2 = amps_filtered3_st2[key]
+        # statplot(data_f3_st2, key, '_stim2_summary_rois_2&3_all', plot_title='ROIs responded in CNO and Dyn', test='friedman',
+        #          groups_name=[i[0] for i in data_f3_st2])
+        # statplot(data_f3_st2[:2], key, '_stim1_summary_rois_2&3', plot_title='ROIs in CNO & Dyn',
+        #          groups_name=[i[0] for i in data_f3_st2[:2]])
 
 
 def main(
