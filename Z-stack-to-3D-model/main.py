@@ -46,7 +46,7 @@ def load_zstack(path_or_list, normalize=True):
     return stack
 
 
-def preprocess_volume(volume, sigma=1.0, threshold_method='otsu'):
+def preprocess_volume(volume, sigma=2.0, threshold_method='otsu'):
     """Gaussian smoothing + automatic thresholding"""
     if sigma > 0:
         volume = ndimage.gaussian_filter(volume, sigma=sigma)
@@ -65,7 +65,7 @@ def preprocess_volume(volume, sigma=1.0, threshold_method='otsu'):
     return binary.astype(np.float32), thresh
 
 
-def extract_surface(volume, level=0.5, step_size=1):
+def extract_surface(volume, level=0.0, step_size=1):
     """Marching Cubes from scikit-image"""
     verts, faces, _, _ = measure.marching_cubes(
         volume,
@@ -120,11 +120,11 @@ def visualize_and_export(mesh, output_stl="model_physical.stl", show=True):
 if __name__ == "__main__":
     # ============= CHANGE THIS =============
     # or list of files: glob.glob("folder/*.tif")
-    filepath = "Field_2_overview_3D.tif"
+    filepath = "..\\2-photon\\Kavita Injection tdTomato\\9062-3\\Field_1_overview_crop_registered"
     # ========================================
 
     # 1. Load data
-    volume = load_zstack(filepath, normalize=True)
+    volume = load_zstack(filepath + ".tif", normalize=True)
 
     # 2. Preprocess
     binary_vol, thresh = preprocess_volume(
@@ -145,4 +145,4 @@ if __name__ == "__main__":
 
     # 5. Visualize & export
     visualize_and_export(
-        mesh, output_stl="my_structure_physical.stl", show=False)
+        mesh, output_stl="..\\2-photon\\Kavita Injection tdTomato\\9062-3\\Field_1_overview_crop_registered" + '.stl', show=False)
