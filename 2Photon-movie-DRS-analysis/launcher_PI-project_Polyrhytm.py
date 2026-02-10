@@ -558,25 +558,9 @@ to_do_list = [
 
 
 
-    ########## 2024_11_18_M1_ch1 ###################################################
+    # ######### 2024_11_18_M1_ch1 ###################################################
 
-    ########## 2024_11_18_M1_ch2 ###################################################
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_1_PI_0001_ch1_registered.tif',
+    # ['PI_PP/Homo_Ad100C_Post/2024_11_18_M1_Field_1_PI_0001_ch1_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -585,7 +569,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_2_PI_0001_ch1_registered.tif',
+    # ['PI_PP/Homo_Ad100C_Post/2024_11_18_M1_Field_2_PI_0001_ch1_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -594,7 +578,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_3_PI_0001_ch1_registered.tif',
+    # ['PI_PP/Homo_Ad50C_Post/2024_11_18_M1_Field_3_PI_0001_ch1_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -603,7 +587,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_4_PI_0001_ch1_registered.tif',
+    # ['PI_PP/Homo_Ad50C_Post/2024_11_18_M1_Field_4_PI_0001_ch1_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -612,7 +596,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_5_PI_0001_ch1_registered.tif',
+    # ['PI_PP/Homo_Ad50C_Post/2024_11_18_M1_Field_5_PI_0001_ch1_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -621,7 +605,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_6_PI_0001_ch1_registered.tif',
+    # ['PI_PP/Homo_Ad50C_Post/2024_11_18_M1_Field_6_PI_0001_ch1_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -630,7 +614,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_7_PI_0001_ch1_registered.tif',
+    # ['PI_PP/Homo_Ad50C_Post/2024_11_18_M1_Field_7_PI_0001_ch1_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -639,7 +623,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_8_PI_0001_ch1_registered.tif',
+    # ['PI_PP/Homo_Ad50C_Post/2024_11_18_M1_Field_8_PI_0001_ch1_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -648,7 +632,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_9_PI_0001_ch1_registered.tif',
+    # ['PI_PP/Homo_Ad50C_Post/2024_11_18_M1_Field_9_PI_0001_ch1_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -657,34 +641,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_10_PI_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_12_PI_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_13_PI_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_14_PI_0001_ch1_registered.tif',
+    # ['PI_PP/Homo_Ad50C_Post/2024_11_18_M1_Field_10_PI_0001_ch1_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -694,9 +651,9 @@ to_do_list = [
     #  }
     #  ],
 
+    # ######### 2024_11_18_M1_ch2 ###################################################
 
-
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_4_PI_0002_ch1_registered.tif',
+    # ['PI_PP/Homo_Ad100C_Pre/2024_11_18_M1_Field_1_PI_0001_ch2_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -705,25 +662,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_5_PI_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_6_PI_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_7_PI_0001_ch1_registered.tif',
+    # ['PI_PP/Homo_Ad100C_Pre/2024_11_18_M1_Field_2_PI_0001_ch2_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -733,9 +672,7 @@ to_do_list = [
     #  }
     #  ],
 
-
-
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_1_PI_0001_ch2_registered.tif',
+    # ['PI_PP/Homo_Ad50C_Pre/2024_11_18_M1_Field_3_PI_0001_ch2_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -744,7 +681,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_2_PI_0001_ch2_registered.tif',
+    # ['PI_PP/Homo_Ad50C_Pre/2024_11_18_M1_Field_4_PI_0001_ch2_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -753,7 +690,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_3_PI_0001_ch2_registered.tif',
+    # ['PI_PP/Homo_Ad50C_Pre/2024_11_18_M1_Field_5_PI_0001_ch2_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -762,7 +699,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_4_PI_0001_ch2_registered.tif',
+    # ['PI_PP/Homo_Ad50C_Pre/2024_11_18_M1_Field_6_PI_0001_ch2_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -771,7 +708,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_5_PI_0001_ch2_registered.tif',
+    # ['PI_PP/Homo_Ad50C_Pre/2024_11_18_M1_Field_7_PI_0001_ch2_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -780,7 +717,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_6_PI_0001_ch2_registered.tif',
+    # ['PI_PP/Homo_Ad50C_Pre/2024_11_18_M1_Field_8_PI_0001_ch2_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -789,7 +726,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_7_PI_0001_ch2_registered.tif',
+    # ['PI_PP/Homo_Ad50C_Pre/2024_11_18_M1_Field_9_PI_0001_ch2_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -798,63 +735,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_8_PI_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_9_PI_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_10_PI_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_10_PI_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_12_PI_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_13_PI_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M1/Field_14_PI_0001_ch2_registered.tif',
+    # ['PI_PP/Homo_Ad50C_Pre/2024_11_18_M1_Field_10_PI_0001_ch2_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -866,7 +747,9 @@ to_do_list = [
 
 
 
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_4_PI_0002_ch2_registered.tif',
+    # ######### 2024_11_18_M2_ch1 ###################################################
+
+    # ['PI_PP/Homo_A50C_Post/2024_11_18_M2_Field_4_PI_0002_ch1_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -875,7 +758,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_5_PI_0001_ch2_registered.tif',
+    # ['PI_PP/Homo_A50C_Post/2024_11_18_M2_Field_5_PI_0001_ch1_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -884,7 +767,56 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['TRP project Ca-imaging with DRS + TRPC3, TRPA1, TRPM3 activators + Caps/2024_11_18_M2/Field_6_PI_0001_ch2_registered.tif',
+    # ['PI_PP/Homo_A50C_Post/2024_11_18_M2_Field_6_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A50C_Post/2024_11_18_M2_Field_7_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ######### 2024_11_18_M2_ch2 ###################################################
+
+    # ['PI_PP/Homo_A50C_Pre/2024_11_18_M2_Field_4_PI_0002_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A50C_Pre/2024_11_18_M2_Field_5_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A50C_Pre/2024_11_18_M2_Field_6_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A50C_Pre/2024_11_18_M2_Field_7_PI_0001_ch2_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -900,7 +832,368 @@ to_do_list = [
 
 
 
+    # ######### 2024_10_07 ###################################################
 
+    # ['PI_PP/Homo_A100C_Pre/2024_10_07_Field_2_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_07_Field_3_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ######### 2024_10_08_M1 ###################################################
+
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M1_Field_3_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M1_Field_4_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ######### 2024_10_08_M2 ###################################################
+
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M2_Field_2_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M2_Field_3_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M2_Field_4_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M2_Field_5_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M2_Field_6_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M2_Field_7_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M2_Field_8_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M2_Field_9_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M2_Field_10_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M2_Field_11_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M2_Field_12_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M2_Field_13_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+    # ######### 2024_10_08_M3 ###################################################
+
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M3_Field_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M3_Field_3_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M3_Field_4_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M3_Field_5_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M3_Field_6_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M3_Field_7_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M3_Field_8_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M3_Field_9_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M3_Field_11_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M3_Field_12_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M3_Field_13_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M3_Field_14_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_Pre/2024_10_08_M3_Field_15_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # ######### 2025_08_22 ###################################################
+
+    # ['PI_PP/Homo_A50C_Pre/2025_08_22_Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 3,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ######### 2025_08_25 ###################################################
+
+    # ['PI_PP/Homo_A50C_Pre/2025_08_25_Field_1_Dynorphin_application_registered.tif',
+    #  {
+    #      'trig_number': 3,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A50C_Pre/2025_08_25_Field_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A50C_Pre/2025_08_25_Field_3_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A50C_Pre/2025_08_25_Field_4_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ######### 2025_08_26 ###################################################
+
+    # ['PI_PP/Homo_A50C_Pre/2025_08_26_Field_1_registered.tif',
+    #  {
+    #      'trig_number': 3,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'n_epochs': 10,
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
 
 
 
