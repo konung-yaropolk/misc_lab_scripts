@@ -121,7 +121,20 @@ class Helpers():
 
         return output
 
-    def plot_trace(self, x, cols, events, savename, offset=0, figsize=(15, 5), alpha=None, dpi=200, linewidth=0.5):
+    def plot_trace(self,
+                   x,
+                   cols,
+                   events,
+                   savename,
+                   offset=0,
+                   figsize=(15, 5),
+                   alpha=None,
+                   dpi=200,
+                   linewidth=0.5,
+                   linecolor='k',
+                   avg_linecolor='r',
+                   event_linecolor='g',
+                   ):
 
         plt.figure(figsize=figsize, dpi=dpi)
         # plt.style.use("ggplot")
@@ -132,14 +145,15 @@ class Helpers():
 
         # Plot each trace
         for i, col in enumerate(cols):
-            plt.plot(x, col, color='k', linewidth=linewidth, alpha=alpha)
+            plt.plot(x, col, color=linecolor,
+                     linewidth=linewidth, alpha=alpha)
 
-        plt.plot(x, np.mean(cols, axis=0), color='r',
+        plt.plot(x, np.mean(cols, axis=0), color=avg_linecolor,
                  linewidth=linewidth*3, alpha=1)
 
         for event in events:
             if isinstance(event, int):
-                plt.axvline(event, color='r',
+                plt.axvline(event, color=event_linecolor,
                             linestyle=":", linewidth=linewidth*3)
             elif isinstance(event, list):
                 plt.fill_between(
@@ -327,20 +341,16 @@ class TracesCalc(Logging):
 
     def calc_traces_sequence(self, i):
 
-        count = self.n_epochs + self.start_from_epoch-1
-        interval = self.step_duration * self.n_steps
         delay = self.step_duration * i
-        start = self.start_from_epoch-1
-
         ampl_mean_of_rois_by_epoch, ampl_list_each_by_roi, auc_mean_of_rois_by_epoch, auc_list_each_by_roi, bin_list_each_by_roi, raw_line_list = [
 
             [
                 self.calculate_ampl_auc_bin(
-                    (i*interval) + delay - self.step_duration/2,
-                    (i*interval) + delay,
-                    (i*interval) + delay,
-                    (i*interval) + delay + self.step_duration/2
-                )[j] for i in range(start, count)
+                    (i*self.interval) + delay - self.step_duration/2,
+                    (i*self.interval) + delay,
+                    (i*self.interval) + delay,
+                    (i*self.interval) + delay + self.step_duration/2
+                )[j] for i in range(self.start_from_epoch, self.count)
             ] for j in range(6)
 
         ]
@@ -647,8 +657,8 @@ class TracesCalc(Logging):
 
         # CSV all traces in timeframe
         matrix = self.csv_matrix[int(
-            ((self.start_from_epoch-1) * self.step_duration * self.n_steps) / self.sampling_interval):int(
-            ((self.start_from_epoch-1 + self.n_epochs+1) * self.step_duration * self.n_steps) / self.sampling_interval)]
+            ((self.start_from_epoch) * self.step_duration * self.n_steps) / self.sampling_interval):int(
+            ((self.start_from_epoch + self.n_epochs+1) * self.step_duration * self.n_steps) / self.sampling_interval)]
         matrix_T = self.transpose(matrix)
 
         # save them to CSV
@@ -663,8 +673,8 @@ class TracesCalc(Logging):
 
         # plot debug graph to check time sync
         chunk = self.csv_matrix[int(
-            ((self.start_from_epoch-1) * self.step_duration * self.n_steps) / self.sampling_interval):int(
-            ((self.start_from_epoch+0.5) * self.step_duration * self.n_steps) / self.sampling_interval)]
+            ((self.start_from_epoch) * self.step_duration * self.n_steps) / self.sampling_interval):int(
+            ((self.start_from_epoch+1.5) * self.step_duration * self.n_steps) / self.sampling_interval)]
         chunk_T = self.transpose(chunk)
         self.plot_trace(chunk_T[0], chunk_T[1:], [
                         0, 10], csv_path+output_dir+'/' + 'Check_Synchronization_{}.png'.format(self.output_suffix), linewidth=0.5, alpha=0.8, dpi=400)
@@ -674,13 +684,13 @@ class TracesCalc(Logging):
             os.makedirs(csv_path + output_dir +
                         '/_by_rois_traces_bin_{0}_{1}_auto_'.format(i, self.output_suffix), exist_ok=True)
 
-        self.plot_stacked_traces(np.array(matrix_T[0]) - ((self.start_from_epoch-1) * self.step_duration * self.n_steps),
+        self.plot_stacked_traces(np.array(matrix_T[0]) - ((self.start_from_epoch) * self.step_duration * self.n_steps),
                                  matrix_T[:],
                                  s1s2_bin_list_each_by_epoch,
                                  st1_bin_summary_by_rois,
                                  '{0}{1}/_by_rois_traces_bin_{2}_{3}_auto_/_full_traces_stacked_by_rois_auto_.png'.format(
             csv_path, output_dir, self.group_names[0], self.output_suffix), vertical_shift=vertical_shift, delay=0)
-        self.plot_stacked_traces(np.array(matrix_T[0]) - ((self.start_from_epoch-1) * self.step_duration * self.n_steps),
+        self.plot_stacked_traces(np.array(matrix_T[0]) - ((self.start_from_epoch) * self.step_duration * self.n_steps),
                                  matrix_T[:],
                                  s2_bin_list_each_by_epoch,
                                  st2_bin_summary_by_rois,
@@ -690,7 +700,7 @@ class TracesCalc(Logging):
         # plot_stacked_traces by groups
         chunk_size = 20
         for pos in range(0, len(self.csv_matrix[0])-1, chunk_size):
-            self.plot_stacked_traces(np.array(matrix_T[0]) - ((self.start_from_epoch-1) * self.step_duration * self.n_steps),
+            self.plot_stacked_traces(np.array(matrix_T[0]) - ((self.start_from_epoch) * self.step_duration * self.n_steps),
                                      matrix_T[pos:pos+chunk_size+1],
                                      s1s2_bin_list_each_by_epoch[pos:pos +
                                                                  chunk_size+1],
@@ -699,7 +709,7 @@ class TracesCalc(Logging):
                                      '{0}{1}/_by_rois_traces_bin_{2}_{5}_auto_/_full_traces_stacked_by_rois_{3}-{4}_{5}_auto_.png'.format(
                 csv_path, output_dir, self.group_names[0], pos+1, pos+chunk_size, self.output_suffix), vertical_shift=vertical_shift, delay=self.s2_delay)
         for pos in range(0, len(self.csv_matrix[0])-1, chunk_size):
-            self.plot_stacked_traces(np.array(matrix_T[0]) - ((self.start_from_epoch-1) * self.step_duration * self.n_steps),
+            self.plot_stacked_traces(np.array(matrix_T[0]) - ((self.start_from_epoch) * self.step_duration * self.n_steps),
                                      matrix_T[pos:pos+chunk_size+1],
                                      s2_bin_list_each_by_epoch[pos:pos +
                                                                chunk_size+1],
@@ -972,11 +982,12 @@ class DerivativesCalc(Helpers, Logging):
 
     def calc_sequence(self, i, filename_ending):
 
+        delay = self.step_duration * i
         self.average_sequence_responses(
-            self.n_epochs + self.start_from_epoch-1,
-            self.step_duration * self.n_steps,
-            self.step_duration * i,
-            start=self.start_from_epoch-1)
+            self.count,
+            self.interval,
+            delay,
+            self.start_from_epoch)
 
         metadata = {
             'axes': 'YX',
@@ -988,6 +999,13 @@ class DerivativesCalc(Helpers, Logging):
                        self.output_suffix, filename_ending), self.result, metadata=metadata)
 
     def derivatives_calculate(self,):
+
+        stims_overlap_png = True
+        stims_overlap_tif = True
+        ratio_heatmap = True
+        stims_substracted = True
+        stims_substracted_diff = True
+        mean_brightness_plot_by_frames = True
 
         os.makedirs(self.file_path +
                     DERIVATIVES_SUBFOLDER_NAME +
@@ -1020,11 +1038,16 @@ class DerivativesCalc(Helpers, Logging):
                 case (None, None): self.calc_sequence(
                     i, 'DERIVATIVES_auto_.tif')
 
-        stims_overlap_png = True
-        stims_overlap_tif = True
-        ratio_heatmap = True
-        stims_substracted = True
-        stims_substracted_diff = True
+        if mean_brightness_plot_by_frames:
+
+            ticks = [
+                int((self.start + (i*self.interval)) //
+                    self.sampling_interval)
+                for i in range(self.count+1)
+            ]
+
+            self.plot_trace(list(range(len(self.img))), [np.mean(np.mean(self.img, axis=1), axis=1)], ticks, self.path + '/' + self.file +
+                            DERIVATIVES_SUBFOLDER_NAME + '/moving_average_brightness.png', linewidth=0.5, dpi=400, alpha=1)
 
         # Different stims - differrent colors
         merger_s1s2_s2 = TifDerivativeProcess(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME + self.output_suffix),
@@ -1040,33 +1063,33 @@ class DerivativesCalc(Helpers, Logging):
                                               ratio_heatmap=ratio_heatmap,
                                               stims_overlap_png=stims_overlap_png,
                                               stims_overlap_tif=stims_overlap_tif,
-                                              stims_substracted=stims_substracted,
-                                              stims_substracted_diff=stims_substracted_diff,
+                                              stims_substracted=False,
+                                              stims_substracted_diff=False,
                                               )
 
         merger_s1s2_s2.process_directory()
         del merger_s1s2_s2
 
         # Different stims - differrent colors
-        merger_s1_s2 = TifDerivativeProcess(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME + self.output_suffix),
-                                            s2_name_ending,
-                                            s1_name_ending,
-                                            s1_name_ending,
-                                            '_{2}_{1}-red_{0}-cyan_auto.tif'.format(self.stim_1_name,
-                                                                                    self.stim_2_name,
-                                                                                    self.output_suffix),
-                                            self.stim_1_name,
-                                            self.stim_2_name,
-                                            self.output_suffix,
-                                            ratio_heatmap=ratio_heatmap,
-                                            stims_overlap_png=stims_overlap_png,
-                                            stims_overlap_tif=stims_overlap_tif,
-                                            stims_substracted=stims_substracted,
-                                            stims_substracted_diff=stims_substracted_diff,
-                                            )
+        # merger_s1_s2 = TifDerivativeProcess(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME + self.output_suffix),
+        #                                     s2_name_ending,
+        #                                     s1_name_ending,
+        #                                     s1_name_ending,
+        #                                     '_{2}_{1}-red_{0}-cyan_auto.tif'.format(self.stim_1_name,
+        #                                                                             self.stim_2_name,
+        #                                                                             self.output_suffix),
+        #                                     self.stim_1_name,
+        #                                     self.stim_2_name,
+        #                                     self.output_suffix,
+        #                                     ratio_heatmap=ratio_heatmap,
+        #                                     stims_overlap_png=stims_overlap_png,
+        #                                     stims_overlap_tif=stims_overlap_tif,
+        #                                     stims_substracted=stims_substracted,
+        #                                     stims_substracted_diff=stims_substracted_diff,
+        #                                     )
 
-        merger_s1_s2.process_directory()
-        del merger_s1_s2
+        # merger_s1_s2.process_directory()
+        # del merger_s1_s2
 
 
 class Movie(DerivativesCalc, TracesCalc, Logging):
@@ -1110,7 +1133,11 @@ class Movie(DerivativesCalc, TracesCalc, Logging):
         self.n_steps = len(self.drs_pattern[0])
         self.n_epochs = n_epochs
         self.start_from_epoch = start_from_epoch if start_from_epoch != 0 else 1
+        self.start_from_epoch -= 1
         self.trig_number = trig_number-1
+
+        self.count = self.n_epochs + self.start_from_epoch
+        self.interval = self.step_duration * self.n_steps
 
         self.sigmas_treshold = sigmas_treshold
         self.vertical_shift = vertical_shift
@@ -1196,6 +1223,7 @@ class TifDerivativeProcess(Helpers):
                  stim_1_name,
                  stim_2_name,
                  output_suffix,
+
                  ratio_heatmap=True,
                  stims_overlap_png=True,
                  stims_overlap_tif=True,
@@ -1346,9 +1374,8 @@ class TifDerivativeProcess(Helpers):
             image = np.subtract(channels[1], channels[0])
             image = np.clip(image, 0, np.max(image))
 
-
             # Get the name of that directory of experiment day
-            two_up_path = os.path.dirname(os.path.dirname(output_path))            
+            two_up_path = os.path.dirname(os.path.dirname(output_path))
             directory_name = os.path.basename(two_up_path)
 
             # Save the ratio image as a single-frame TIFF file with inferno LUT metadata
@@ -1408,7 +1435,7 @@ class TifDerivativeProcess(Helpers):
             multi_channel_array = np.stack(channels, axis=0)
 
             # Save the ratio image as a single-frame TIFF file with inferno LUT metadata
-            output_filename = output_path + 'both_stims_' + \
+            output_filename = output_path + 'diff_between_' + \
                 self.stim_2_name + '-red_' + self.stim_1_name + \
                 '-cyan_' + self.output_suffix + '.tif'
 
@@ -1428,7 +1455,7 @@ class TifDerivativeProcess(Helpers):
             except PermissionError as e:
                 print('PermissionError:', e)
 
-            self.__make_png(multi_channel_array, output_path + 'both_stims_' +
+            self.__make_png(multi_channel_array, output_path + 'diff_between_' +
                             self.stim_2_name + '-red_' + self.stim_1_name +
                             '-cyan_' + self.output_suffix + '.png')
 
