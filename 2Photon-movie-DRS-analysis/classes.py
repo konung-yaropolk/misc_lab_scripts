@@ -143,6 +143,9 @@ class Helpers():
             n_cols = len(cols)
             alpha = 3/n_cols
 
+        if alpha > 1:
+            alpha = 1
+
         # Plot each trace
         for i, col in enumerate(cols):
             plt.plot(x, col, color=linecolor,
@@ -152,7 +155,7 @@ class Helpers():
                  linewidth=linewidth*3, alpha=1)
 
         for event in events:
-            if isinstance(event, int):
+            if isinstance(event, int) or isinstance(event, float):
                 plt.axvline(event, color=event_linecolor,
                             linestyle=":", linewidth=linewidth*3)
             elif isinstance(event, list):
@@ -672,12 +675,17 @@ class TracesCalc(Logging):
             self.group_names[0], self.group_names[1], self.output_suffix), linewidth=0.5, dpi=400)
 
         # plot debug graph to check time sync
-        chunk = self.csv_matrix[int(
-            ((self.start_from_epoch) * self.step_duration * self.n_steps) / self.sampling_interval):int(
-            ((self.start_from_epoch+1.5) * self.step_duration * self.n_steps) / self.sampling_interval)]
+        start = self.start_from_epoch * self.step_duration * self.n_steps
+        end = start + self.step_duration
+        start_frame = int(
+            ((self.start_from_epoch) * self.step_duration * self.n_steps) / self.sampling_interval)
+        end_frame = int(
+            ((self.start_from_epoch+1.5) * self.step_duration * self.n_steps) / self.sampling_interval)
+
+        chunk = self.csv_matrix[start_frame:end_frame]
         chunk_T = self.transpose(chunk)
         self.plot_trace(chunk_T[0], chunk_T[1:], [
-                        0, 10], csv_path+output_dir+'/' + 'Check_Synchronization_{}.png'.format(self.output_suffix), linewidth=0.5, alpha=0.8, dpi=400)
+                        start, end], csv_path+output_dir+'/' + 'debug_Synchronization_{}.png'.format(self.output_suffix), linewidth=0.5, alpha=0.8, event_linecolor='magenta', avg_linecolor='darkcyan', dpi=400)
 
         # plot_stacked_traces all togather
         for i in self.group_names:
@@ -864,11 +872,14 @@ class TracesCalc(Logging):
         if bin and bin_summary_by_rois:
             for i in range(len(array)):
                 if bin_summary_by_rois[i]:
-                    plt.plot(-5, len(array)-i-0.5, 'wo')
+                    plt.plot(min(x)-5, len(array)-i-0.5,
+                             'wo', markeredgecolor='g')
                 for j, dot in enumerate(bin[i]):
                     if dot:
-                        event_x = j * self.step_duration * self.n_steps + delay
-                        plt.plot(event_x, len(array)-i-0.5, 'wx')
+                        event_x = j * self.step_duration * \
+                            self.n_steps + delay + min(x)
+                        plt.plot(event_x, len(array)-i-0.5,
+                                 'wx', markeredgecolor='g')
 
         # plt.xlabel('Time')
         # plt.ylabel('ROIs')
@@ -970,7 +981,7 @@ class DerivativesCalc(Helpers, Logging):
         sequence_stack = [
             self.process_tiff_stack(
                 int((self.start + (i*interval) + delay) //
-                    self.sampling_interval),
+                    self.sampling_interval) - 1,
                 int((self.start + (i*interval) + delay + self.resp_duration) //
                     self.sampling_interval)
             ) for i in range(count)
@@ -1005,7 +1016,7 @@ class DerivativesCalc(Helpers, Logging):
         ratio_heatmap = True
         stims_substracted = True
         stims_substracted_diff = True
-        mean_brightness_plot_by_frames = True
+        debug_selected_epochs = True
 
         os.makedirs(self.file_path +
                     DERIVATIVES_SUBFOLDER_NAME +
@@ -1038,16 +1049,20 @@ class DerivativesCalc(Helpers, Logging):
                 case (None, None): self.calc_sequence(
                     i, 'DERIVATIVES_auto_.tif')
 
-        if mean_brightness_plot_by_frames:
+        if debug_selected_epochs:
 
-            ticks = [
-                int((self.start + (i*self.interval)) //
-                    self.sampling_interval)
-                for i in range(self.count+1)
-            ]
+            x = [self.sampling_interval * i for i in range(len(self.img))]
+            y = [np.mean(np.mean(self.img, axis=1), axis=1)]
+            # xf = [i for i in range(len(self.img))]
+            ticks = [self.start + self.start_from_epoch * self.interval + (i*self.interval) - self.sampling_interval
+                     for i in range(self.count+1 - self.start_from_epoch)]
+            # ticksf = [i * self.sampling_interval for i in range(len(self.img))]
 
-            self.plot_trace(list(range(len(self.img))), [np.mean(np.mean(self.img, axis=1), axis=1)], ticks, self.path + '/' + self.file +
-                            DERIVATIVES_SUBFOLDER_NAME + '/moving_average_brightness.png', linewidth=0.5, dpi=400, alpha=1)
+            self.plot_trace(x, y, ticks, self.path + '/' + self.file +
+                            DERIVATIVES_SUBFOLDER_NAME + self.output_suffix + '/debug_selected_epoch.png', linewidth=0.5, event_linecolor='magenta', avg_linecolor='darkcyan', alpha=1, dpi=400)
+
+            # self.plot_trace(xf, y, ticksf, self.path + '/' + self.file +
+            #                 DERIVATIVES_SUBFOLDER_NAME + self.output_suffix + '/debug_synchronization.png', linewidth=0.5, event_linecolor='magenta', avg_linecolor='darkcyan', alpha=1, dpi=400)
 
         # Different stims - differrent colors
         merger_s1s2_s2 = TifDerivativeProcess(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME + self.output_suffix),

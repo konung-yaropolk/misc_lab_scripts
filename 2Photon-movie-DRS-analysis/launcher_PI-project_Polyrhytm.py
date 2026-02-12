@@ -68,1598 +68,28 @@ processes_limit = 10
 to_do_list = [
 
 
-    ######### 2024_04_19 ###################################################
+    # ######### 2024_04_19 ###################################################
 
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_19_Field_1_0001_registered.tif',
-     {
-         'trig_number': 2,
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
-                         [0, 1, 0, 0, 1, 0]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_19_Field_2_0001_registered.tif',
-     {
-         'n_epochs': 7,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
-                         [0, 1, 0, 0, 1, 0]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_19_Field_3_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_19_Field_4_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_19_Field_5_registered.tif',
-     {
-         'n_epochs': 5,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_19_Field_6_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-
-
-
-    ######### 2024_04_23_ch1 ###################################################
-
-    ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_1_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
-                         [0, 1, 0, 0, 1, 0]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_2_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
-                         [0, 1, 0, 0, 1, 0]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_3_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
-                         [0, 1, 0, 0, 1, 0]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_4_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_5_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_6_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-
-
-
-    ######### 2024_04_23_ch2 ###################################################
-
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_23_Field_1_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
-                         [0, 1, 0, 0, 1, 0]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_23_Field_2_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
-                         [0, 1, 0, 0, 1, 0]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_23_Field_3_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
-                         [0, 1, 0, 0, 1, 0]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_23_Field_4_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_23_Field_5_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_23_Field_6_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-
-
-
-
-    ######### 2024_04_24_M1 ###################################################
-
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_24_M1_Field_1_0001_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_24_M1_Field_2_0001_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_24_M1_Field_3_0001_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-
-
-
-    ######### 2024_04_24_M2_ch1 ###################################################
-
-    ['PI_PP/Homo_A100C_C_Post/2024_04_24_M2_Field_1_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Post/2024_04_24_M2_Field_2_0001_ch1_registered.tif',
-     {
-         'n_epochs': 6,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-
-
-    ######### 2024_04_24_M2_ch2 ###################################################
-
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_24_M2_Field_1_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_24_M2_Field_2_0001_ch2_registered.tif',
-     {
-         'n_epochs': 6,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-
-
-
-
-    ######### 2024_04_25 ###################################################
-
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_25_Field_1_0001_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-
-
-
-
-    ######### 2024_04_29_ch1 ###################################################
-
-    ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_1_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_2_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_3_enlarged_0001_ch1_registered.tif',
-     {
-         'n_epochs': 5,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_4_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_5_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_6_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_7_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_8_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-
-
-
-    ######### 2024_04_29_ch2 ###################################################
-
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_1_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_2_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_3_enlarged_0001_ch2_registered.tif',
-     {
-         'n_epochs': 5,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_4_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_5_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_6_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_7_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_8_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-
-
-
-
-    ######### 2024_05_01_ch1 ###################################################
-
-    ['PI_PP/Homo_A100C_C_Post/2024_05_01_Field_1_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Post/2024_05_01_Field_2_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Post/2024_05_01_Field_3_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-
-
-    ######### 2024_05_01_ch2 ###################################################
-
-    ['PI_PP/Homo_A100C_C_Pre/2024_05_01_Field_1_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_05_01_Field_2_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_05_01_Field_3_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-
-
-
-
-    ######### 2024_11_18_M1_ch1 ###################################################
-
-    ['PI_PP/Homo_Ad100C_C_Post/2024_11_18_M1_Field_1_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_Ad100C_C_Post/2024_11_18_M1_Field_2_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_3_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_4_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_5_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_6_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_7_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_8_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_9_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_10_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-
-    ######### 2024_11_18_M1_ch2 ###################################################
-
-    ['PI_PP/Homo_Ad100C_C_Pre/2024_11_18_M1_Field_1_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_Ad100C_C_Pre/2024_11_18_M1_Field_2_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-
-    ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_3_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_4_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_5_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_6_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_7_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_8_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_9_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_10_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-
-
-
-    ######### 2024_11_18_M2_ch1 ###################################################
-
-    ['PI_PP/Homo_A50C_C_Post/2024_11_18_M2_Field_4_PI_0002_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Post/2024_11_18_M2_Field_5_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Post/2024_11_18_M2_Field_6_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Post/2024_11_18_M2_Field_7_PI_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-
-
-    ######### 2024_11_18_M2_ch2 ###################################################
-
-    ['PI_PP/Homo_A50C_C_Pre/2024_11_18_M2_Field_4_PI_0002_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_11_18_M2_Field_5_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_11_18_M2_Field_6_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_11_18_M2_Field_7_PI_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-
-
-
-
-
-
-
-    ######### 2024_10_07 ###################################################
-
-    ['PI_PP/Homo_A100C_C_Pre/2024_10_07_Field_2_0001_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_10_07_Field_3_0001_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-
-
-    ######### 2024_10_08_M1 ###################################################
-
-    ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M1_Field_3_0001_ch2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M1_Field_4_0001_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-
-
-    ######### 2024_10_08_M2 ###################################################
-
-    ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_2_0001_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M2_Field_3_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M2_Field_4_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M2_Field_5_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M2_Field_6_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M2_Field_7_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M2_Field_8_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M2_Field_9_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M2_Field_10_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M2_Field_11_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M2_Field_12_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M2_Field_13_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-
-
-
-    ######### 2024_10_08_M3 ###################################################
-
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M3_Field_2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M3_Field_3_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M3_Field_4_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M3_Field_5_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M3_Field_6_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M3_Field_7_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M3_Field_8_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M3_Field_9_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M3_Field_11_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M3_Field_12_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M3_Field_13_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M3_Field_14_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2024_10_08_M3_Field_15_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    ######### 2025_08_22 ###################################################
-
-    ['PI_PP/Homo_A50C_C_Pre/2025_08_22_Field_1_Dynorphin_application_registered.tif',
-     {
-         'trig_number': 3,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-
-
-    ######### 2025_08_25 ###################################################
-
-    ['PI_PP/Homo_A50C_C_Pre/2025_08_25_Field_1_Dynorphin_application_registered.tif',
-     {
-         'trig_number': 3,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2025_08_25_Field_2_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2025_08_25_Field_3_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A50C_C_Pre/2025_08_25_Field_4_registered.tif',
-     {
-         'n_epochs': 10,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-
-
-    ######### 2025_08_26 ###################################################
-
-    ['PI_PP/Homo_A50C_C_Pre/2025_08_26_Field_1_registered.tif',
-     {
-         'trig_number': 3,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'n_epochs': 10,
-         'drs_pattern': [[1, 0],  # stim#1
-                         [1, 1]]  # stim#2
-     }
-     ],
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_07/Field_2_0001_registered.tif',
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_19_Field_1_0001_registered.tif',
     #  {
+    #      'trig_number': 2,
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #      'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
+    #                      [0, 1, 0, 0, 1, 0]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_07/Field_3_0001_registered.tif',
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_19_Field_2_0001_registered.tif',
     #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M2/Field_2_0001.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M2/Field_3.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M2/Field_4_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M2/Field_5_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M2/Field_6_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M2/Field_7_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M2/Field_8_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M2/Field_9_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M2/Field_10_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M2/Field_11_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M2/Field_12_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M2/Field_13_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M3/Field_2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M3/Field_3_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M3/Field_4_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M3/Field_5_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M3/Field_6_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M3/Field_7_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M3/Field_8_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M3/Field_9_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M3/Field_10_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M3/Field_11_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M3/Field_12_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M3/Field_13_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M3/Field_14_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_08_M3/Field_15_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_3_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_4_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_5_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_6_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_7_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_8_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_9_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_10_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_11_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_12_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_13_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_14_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_14_2_registered.tif',
-    #  {
-    #      'output_suffix': '_WholeMovie_',
-    #      'n_epochs': 28,
-    #      'start_from_epoch': 1,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_14_2_registered.tif',
-    #  {
-    #      'output_suffix': '_Ctrl_',
     #      'n_epochs': 7,
-    #      'start_from_epoch': 1,
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
+    #      'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
+    #                      [0, 1, 0, 0, 1, 0]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_14_2_registered.tif',
-    #  {
-    #      'output_suffix': '_Bicuculine_20uM_',
-    #      'n_epochs': 8,
-    #      'start_from_epoch': 20,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'vertical_shift_of_trig': True,
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_14_3_registered.tif',
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_19_Field_3_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -1668,7 +98,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_15_registered.tif',
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_19_Field_4_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -1677,53 +107,16 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_16_registered.tif',
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_19_Field_5_registered.tif',
     #  {
-    #      'n_epochs': 10,
+    #      'n_epochs': 5,
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_17_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_10/Field_18_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_4_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_7_registered.tif',
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_19_Field_6_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -1735,251 +128,440 @@ to_do_list = [
 
 
 
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_9_2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_9_4_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_9_5_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_9_6_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_9_7_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_9_8_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_9_9_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_9_10_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_10_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_10_2_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_10_3_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_10_4_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_10_5_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_10_6_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_10_7_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_10_8_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_10_9_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_11_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_12_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_13_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_14_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_15_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_15_registered.tif',
-    #  {
-    #      'output_suffix': '_a-stim-single',
-    #      'start': 220.504,
-    #      'n_epochs': 2,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1],  # stim#1
-    #                      [0]]  # stim#2
-    #  }
-    #  ],
+    # ######### 2024_04_23_ch1 ###################################################
 
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_15_2_registered.tif',
-    # {
-    # 'output_suffix': '_WholeMovie_',
-    # 'n_epochs': 30,
-    # 'start_from_epoch': 1,
-    # 'drs_pattern': [[1, 0],  # stim#1
-    # [1, 1]]  # stim#2
-    # }
-    # ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_15_2_registered.tif',
+    # ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_1_0001_ch1_registered.tif',
     #  {
-    #      'output_suffix': '_Ctrl_',
     #      'n_epochs': 10,
-    #      'start_from_epoch': 1,
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
+    #      'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
+    #                      [0, 1, 0, 0, 1, 0]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_15_2_registered.tif',
+    # ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_2_0001_ch1_registered.tif',
     #  {
-    #      'output_suffix': '_Bicuculine_20uM_',
     #      'n_epochs': 10,
-    #      'start_from_epoch': 20,
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
+    #      'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
+    #                      [0, 1, 0, 0, 1, 0]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_3_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
+    #                      [0, 1, 0, 0, 1, 0]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_4_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_5_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_6_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
     #  }
     #  ],
 
 
 
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_15_3_registered.tif',
+    # ######### 2024_04_23_ch2 ###################################################
+
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_23_Field_1_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
+    #                      [0, 1, 0, 0, 1, 0]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_23_Field_2_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
+    #                      [0, 1, 0, 0, 1, 0]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_23_Field_3_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
+    #                      [0, 1, 0, 0, 1, 0]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_23_Field_4_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_23_Field_5_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_23_Field_6_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+    # ######### 2024_04_24_M1 ###################################################
+
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_24_M1_Field_1_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_24_M1_Field_2_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_24_M1_Field_3_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+    # ######### 2024_04_24_M2_ch1 ###################################################
+
+    # ['PI_PP/Homo_A100C_C_Post/2024_04_24_M2_Field_1_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Post/2024_04_24_M2_Field_2_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 6,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ######### 2024_04_24_M2_ch2 ###################################################
+
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_24_M2_Field_1_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_24_M2_Field_2_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 6,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+    # ######### 2024_04_25 ###################################################
+
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_25_Field_1_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+    # ######### 2024_04_29_ch1 ###################################################
+
+    # ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_1_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_2_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_3_enlarged_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_4_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_5_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_6_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_7_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_8_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+    # ######### 2024_04_29_ch2 ###################################################
+
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_1_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_2_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_3_enlarged_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_4_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_5_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_6_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_7_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_8_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+    # ######### 2024_05_01_ch1 ###################################################
+
+    # ['PI_PP/Homo_A100C_C_Post/2024_05_01_Field_1_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Post/2024_05_01_Field_2_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Post/2024_05_01_Field_3_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ######### 2024_05_01_ch2 ###################################################
+
+    # ['PI_PP/Homo_A100C_C_Pre/2024_05_01_Field_1_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_05_01_Field_2_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_05_01_Field_3_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+    # ######### 2024_11_18_M1_ch1 ###################################################
+
+    # ['PI_PP/Homo_Ad100C_C_Post/2024_11_18_M1_Field_1_PI_0001_ch1_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -1988,7 +570,173 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_11/Field_16_registered.tif',
+    # ['PI_PP/Homo_Ad100C_C_Post/2024_11_18_M1_Field_2_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_3_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_4_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_5_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_6_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_7_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_8_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_9_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_10_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+    # ######### 2024_11_18_M1_ch2 ###################################################
+
+    # ['PI_PP/Homo_Ad100C_C_Pre/2024_11_18_M1_Field_1_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad100C_C_Pre/2024_11_18_M1_Field_2_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+    # ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_3_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_4_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_5_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_6_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_7_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_8_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_9_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_10_PI_0001_ch2_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -1999,7 +747,569 @@ to_do_list = [
     #  ],
 
 
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_15/Field_1_registered.tif',
+
+    # ######### 2024_11_18_M2_ch1 ###################################################
+
+    # ['PI_PP/Homo_A50C_C_Post/2024_11_18_M2_Field_4_PI_0002_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A50C_C_Post/2024_11_18_M2_Field_5_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A50C_C_Post/2024_11_18_M2_Field_6_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A50C_C_Post/2024_11_18_M2_Field_7_PI_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ######### 2024_11_18_M2_ch2 ###################################################
+
+    # ['PI_PP/Homo_A50C_C_Pre/2024_11_18_M2_Field_4_PI_0002_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A50C_C_Pre/2024_11_18_M2_Field_5_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A50C_C_Pre/2024_11_18_M2_Field_6_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A50C_C_Pre/2024_11_18_M2_Field_7_PI_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+
+
+
+
+    # ######### 2024_10_07 ###################################################
+
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_07_Field_2_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_07_Field_3_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ######### 2024_10_08_M1 ###################################################
+
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M1_Field_3_0001_ch2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M1_Field_4_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    # ######### 2024_10_08_M2 ###################################################
+
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_2_0001_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_3_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_4_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_5_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_6_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_7_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_8_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_9_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_10_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_11_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_12_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_13_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+    # ######### 2024_10_08_M3 ###################################################
+
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_3_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_4_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_5_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_6_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_7_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_8_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_9_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_11_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_12_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_13_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_14_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_15_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+    # ######## 2024_10_10 ###################################################
+
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_3_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_4_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_5_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_6_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_7_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_8_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_9_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_10_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_11_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_12_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_13_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_14_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+    # ['PI_PP/Homo_A100C_C_Pre+Bicuculine/2024_10_10_Field_14_2_registered.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'n_epochs': 6,
+    #      'output_suffix': '_Control',
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre+Bicuculine/2024_10_10_Field_14_2_registered.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'start_from_epoch': 15,
+    #      'n_epochs': 14,
+    #      'output_suffix': '_Bicuculine_20uM',
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+
+    # ######## 2024_10_11 ###################################################
+
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_11_Field_1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_11_Field_4_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_11_Field_7_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_11_Field_9_2_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_11_Field_10_registered.tif',
     #  {
     #      'n_epochs': 5,
     #      'stim_1_name': 'A',
@@ -2008,7 +1318,52 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_15/Field_2_registered.tif',
+    # ['PI_PP/Homo_Ad100C_C_Pre/2024_10_11_Field_10_2_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad50C_C_Pre/2024_10_11_Field_10_3_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_11_Field_11_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_11_Field_12_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2024_10_11_Field_13_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad100C_C_Pre/2024_10_11_Field_14_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -2017,7 +1372,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_15/Field_3_registered.tif',
+    # ['PI_PP/Homo_Ad100C_C_Pre/2024_10_11_Field_15_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -2026,7 +1381,47 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_15/Field_4_registered.tif',
+    # ['PI_PP/Homo_A100C_C_Pre+Bicuculine/2024_10_11_Field_15_2_registered.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'n_epochs': 12,
+    #      'output_suffix': '_Control',
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre+Bicuculine/2024_10_11_Field_15_2_registered.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'start_from_epoch': 19,
+    #      'n_epochs': 9,
+    #      'output_suffix': '_Bicuculine_20uM',
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+
+
+    ######## 2024_10_15 ###################################################
+
+    # ['PI_PP/Homo_Ad50C_C_Pre/2024_10_15_Field_1_registered.tif',
+    #  {
+    #      'n_epochs': 5,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad50C_C_Pre/2024_10_15_Field_2_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -2035,7 +1430,17 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_15/Field_4_1_registered.tif',
+    # ['PI_PP/Homo_Ad50C_C_Pre/2024_10_15_Field_3_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'trig_number': 1,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad50C_C_Pre/2024_10_15_Field_4_1_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -2044,7 +1449,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_15/Field_4_2_registered.tif',
+    # ['PI_PP/Homo_Ad50C_C_Pre/2024_10_15_Field_4_2_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -2053,7 +1458,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_15/Field_4_3_registered.tif',
+    # ['PI_PP/Homo_Ad50C_C_Pre/2024_10_15_Field_4_3_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -2062,7 +1467,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_15/Field_4_4_registered.tif',
+    # ['PI_PP/Homo_Ad50C_C_Pre/2024_10_15_Field_4_4_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -2071,7 +1476,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_15/Field_5_0001_registered.tif',
+    # ['PI_PP/Homo_Ad50C_C_Pre/2024_10_15_Field_5_0001_registered.tif',
     #  {
     #      'n_epochs': 28,
     #      'stim_1_name': 'A',
@@ -2080,7 +1485,16 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_15/Field_6_registered.tif',
+    # ['PI_PP/Homo_Ad50C_C_Pre/2024_10_15_Field_6_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    # #  ],
+    # ['PI_PP/Homo_Ad100C_C_Pre/2024_10_15_Field_7_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -2089,7 +1503,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_15/Field_7_registered.tif',
+    # ['PI_PP/Homo_Ad100C_C_Pre/2024_10_15_Field_9_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -2098,40 +1512,51 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_15/Field_9_registered.tif',
+    # ['PI_PP/Homo_Ad50C_C_Pre/2024_10_15_Field_10_registered.tif',
     #  {
-    #      'n_epochs': 10,
+    #      'trig_number': 1,
+    #      'n_epochs': 12,
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_15/Field_10_registered.tif',
-    # {
-    # 'output_suffix': '_WholeMovie_',
-    # 'n_epochs': 45,
-    # 'start_from_epoch': 1,
-    # 'drs_pattern': [[1, 0],  # stim#1
-    # [1, 1]]  # stim#2
-    # }
-    # ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_15/Field_10_registered.tif',
+    # ['PI_PP/Homo_Ad50C_C_Pre+CNQX/2024_10_15_Field_10_registered.tif',
     #  {
-    #      'output_suffix': '_Ctrl_',
-    #      'n_epochs': 10,
+    #      'trig_number': 1,
+    #      'n_epochs': 12,
+    #      'output_suffix': '_Control',
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad50C_C_Pre+CNQX/2024_10_15_Field_10_registered.tif',
+    #  {
+    #      'trig_number': 1,
+    #      'start_from_epoch': 21,
+    #      'n_epochs': 16,
+    #      'output_suffix': '_CNQX_20uM',
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad50C_C_Pre+CNQX/2024_10_15_Field_10_registered.tif',
+    #  {
+    #      'trig_number': 5,
     #      'start_from_epoch': 1,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2024_10_15/Field_10_registered.tif',
-    #  {
-    #      'output_suffix': '_CNQX_20uM_',
-    #      'n_epochs': 10,
-    #      'start_from_epoch': 15,
+    #      'n_epochs': 19,
+    #      'output_suffix': '_WO',
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
     #      'drs_pattern': [[1, 0],  # stim#1
@@ -2140,18 +1565,9 @@ to_do_list = [
     #  ],
 
 
+    ######## 2025_02_06 ###################################################
 
-
-    # ['Presynaptic inhibition Pirt GCamp3/2025_02_06/Field_3.tif',
-    #  {
-    #      'n_epochs': 4,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2025_02_06/Field_4.tif',
+    # ['PI_PP/Homo_A100C_C_Pre/2025_02_06_Field_3_0001_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -2160,7 +1576,16 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2025_02_06/Field_5.tif',
+    # ['PI_PP/Homo_A100C_C_Pre/2025_02_06_Field_4_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Pre/2025_02_06_Field_5_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -2171,7 +1596,9 @@ to_do_list = [
     #  ],
 
 
-    # ['Presynaptic inhibition Pirt GCamp3/2025_02_07/Field_2_DRS_registered.tif',
+    ######## 2025_02_07 ###################################################
+
+    # ['PI_PP/Homo_A100C_C_Pre/2025_02_07_Field_2_DRS_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -2180,7 +1607,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2025_02_07/Field_4_DRS_registered.tif',
+    # ['PI_PP/Homo_A100C_C_Pre/2025_02_07_Field_4_DRS_registered.tif',
     #  {
     #      'n_epochs': 10,
     #      'stim_1_name': 'A',
@@ -2189,7 +1616,7 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2025_02_07/Field_5_DRS_registered.tif',
+    # ['PI_PP/Homo_A50C_C_Pre/2025_02_07_Field_5_DRS_registered.tif',
     #  {
     #      'n_epochs': 5,
     #      'stim_1_name': 'A',
@@ -2198,32 +1625,37 @@ to_do_list = [
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-
-    # ['Presynaptic inhibition Pirt GCamp3/2025_02_07/Field_6_DRS+CNQX+AP5_0001_registered.tif',
-    # {
-    # 'output_suffix': '_WholeMovie_',
-    # 'n_epochs': 30,
-    # 'start_from_epoch': 1,
-    # 'drs_pattern': [[1, 0],  # stim#1
-    # [1, 1]]  # stim#2
-    # }
-    # ],
-    # ['Presynaptic inhibition Pirt GCamp3/2025_02_07/Field_6_DRS+CNQX+AP5_0001_registered.tif',
+    # ['PI_PP/Homo_Ad50C_C_Pre/2025_02_07_Field_6_DRS+CNQX+AP5_0001_registered.tif',
     #  {
-    #      'output_suffix': '_Ctrl_',
+    #      'trig_number': 1,
     #      'n_epochs': 10,
-    #      'start_from_epoch': 1,
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['Presynaptic inhibition Pirt GCamp3/2025_02_07/Field_6_DRS+CNQX+AP5_0001_registered.tif',
+    # ['PI_PP/Homo_Ad50C_C_Pre+CNQX+AP5/2025_02_07_Field_6_DRS+CNQX+AP5_0001_registered.tif',
     #  {
-    #      'output_suffix': '_CNQX_20uM_AP5_100uM_',
-    #      'n_epochs': 10,
+    #      'trig_number': 1,
+    #      'n_epochs': 13,
+    #      'output_suffix': '_Control',
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0],  # stim#1
+    #                      [1, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_Ad50C_C_Pre+CNQX+AP5/2025_02_07_Field_6_DRS+CNQX+AP5_0001_registered.tif',
+    #  {
+    #      'trig_number': 1,
     #      'start_from_epoch': 20,
+    #      'n_epochs': 11,
+    #      'output_suffix': '_CNQX_20uM_AP5_100uM',
+    #      'vertical_shift_of_trig': 1,
+    #      'SD_filter_of_trig': 1,
     #      'stim_1_name': 'A',
     #      'stim_2_name': 'C',
     #      'drs_pattern': [[1, 0],  # stim#1
@@ -2236,1385 +1668,84 @@ to_do_list = [
 
 
 
+    # ######### 2025_08_22 ###################################################
 
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_1_1_registered.tif',
+    # ['PI_PP/Homo_A50C_C_Pre/2025_08_22_Field_1_Dynorphin_application_registered.tif',
     #  {
+    #      'trig_number': 3,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-C',
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_1_2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_1_3_0001_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_1_4_0001_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_2_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_2_2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_3_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_3_2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_3_3_0001_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_3_4_0001_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_3_5_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_1_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_1_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_2_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_2_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_3_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_3_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_4_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_4_4_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 5,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_5_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_5_2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_6_Bradikinin_application_0001_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_12/Field_7_Dynorphin_application_ch1.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_14/Field_1_1_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_14/Field_2_1_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_14/Field_2_2_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_14/Field_1_1_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_14/Field_2_1_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_14/Field_2_2_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_14/Field_3_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_1_1_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_1_1_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_1_2_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_1_2_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_1_3_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 3,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_1_3_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 3,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_1_3_1_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_1_3_1_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_1_4_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_1_4_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_2_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_2_2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_2_3_0001_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_15/Field_2_4_0001_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_1_1_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_1_2_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_1_3_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_1_4_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_1_1_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_1_2_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_1_3_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_1_4_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_2_1_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_2_2_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_2_3_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_2_1_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_2_2_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_2_3_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_3_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_3_2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_4_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_4_2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_5_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_5_2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_6_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_20/Field_6_2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_1_1_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_1_2_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_1_3_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_1_4_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_1_1_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_1_2_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_1_3_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_1_4_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_2_1_0001_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_2_1_0002_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_2_1_0001_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_2_1_0002_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_3_1_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_3_2_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_3_1_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_3_2_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_4_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_4_2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_4_3_0001_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_4_4_0001_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_5_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_5_2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_5_3_0001_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_5_4_0001_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_6_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_6_2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_7_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_8_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_8_2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_8_3_0001_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_8_4_0001_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_9_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_9_2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_9_3_0001_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_9_4_0001_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_9_5_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_10_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_10_2_0001_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_21/Field_10_3_Bradikinin_application_0001_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
+    # ######### 2025_08_25 ###################################################
 
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_1_1_0001_ch1_registered.tif',
+    # ['PI_PP/Homo_A50C_C_Pre/2025_08_25_Field_1_Dynorphin_application_registered.tif',
     #  {
+    #      'trig_number': 3,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-A+C',
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_1_2_0001_ch1_registered.tif',
+    # ['PI_PP/Homo_A50C_C_Pre/2025_08_25_Field_2_registered.tif',
     #  {
     #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_1_3_0001_ch1_registered.tif',
+    # ['PI_PP/Homo_A50C_C_Pre/2025_08_25_Field_3_registered.tif',
     #  {
     #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_1_4_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_1_1_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-A+C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
     #  }
     #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_1_2_0001_ch2_registered.tif',
+    # ['PI_PP/Homo_A50C_C_Pre/2025_08_25_Field_4_registered.tif',
     #  {
     #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_1_3_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_1_4_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
     #  }
     #  ],
 
 
+    # ######### 2025_08_26 ###################################################
 
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_2_1_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_2_2_0001_ch1_registered.tif',
+    # ['PI_PP/Homo_A50C_C_Pre/2025_08_26_Field_1_registered.tif',
     #  {
+    #      'trig_number': 3,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
     #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
     #      'drs_pattern': [[1, 0],  # stim#1
     #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_2_3_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_2_4_0001_ch1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
     #  }
     #  ],
 
 
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_2_1_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_2_2_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_2_3_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_2_4_0001_ch2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-A+C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
 
-
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_3_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_3_2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_3_3_0001_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_3_4_0001_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
 
 
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_4_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_4_2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_4_3_0001_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-C',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_4_4_0001_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-C',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
-    #  }
-    #  ],
 
 
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_5_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_5_2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
 
 
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_6_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_6_2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
 
 
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_7_1_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L4-A',
-    #      'stim_2_name': 'L5-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
-    # ['PI_Pirt_GCamp3_x_Thy1_RGeco_PP_and_fiber_typing/2025_05_25/Field_7_2_registered.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'L5-A',
-    #      'stim_2_name': 'L4-C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
 
 
 
