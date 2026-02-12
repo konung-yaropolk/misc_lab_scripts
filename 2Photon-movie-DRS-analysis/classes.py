@@ -1058,11 +1058,10 @@ class DerivativesCalc(Helpers, Logging):
                      for i in range(self.count+1 - self.start_from_epoch)]
             # ticksf = [i * self.sampling_interval for i in range(len(self.img))]
 
-            self.plot_trace(x, y, ticks, self.path + '/' + self.file +
-                            DERIVATIVES_SUBFOLDER_NAME + self.output_suffix + '/debug_selected_epoch.png', linewidth=0.5, event_linecolor='magenta', avg_linecolor='darkcyan', alpha=1, dpi=400)
-
-            # self.plot_trace(xf, y, ticksf, self.path + '/' + self.file +
-            #                 DERIVATIVES_SUBFOLDER_NAME + self.output_suffix + '/debug_synchronization.png', linewidth=0.5, event_linecolor='magenta', avg_linecolor='darkcyan', alpha=1, dpi=400)
+            self.plot_trace(x, y, ticks, f'{self.path}/{self.file}{DERIVATIVES_SUBFOLDER_NAME}{self.output_suffix}debug_selected_epoch.png',
+                            linewidth=0.5, event_linecolor='magenta', avg_linecolor='darkcyan', alpha=1, dpi=400)
+            # self.plot_trace(xf, y, ticksf, f'{self.path}/{self.file}{DERIVATIVES_SUBFOLDER_NAME}{self.output_suffix}debug_synchronization.png',
+            #                 linewidth=0.5, event_linecolor='magenta', avg_linecolor='darkcyan', alpha=1, dpi=400)
 
         # Different stims - differrent colors
         merger_s1s2_s2 = TifDerivativeProcess(os.path.join(self.path, self.file + DERIVATIVES_SUBFOLDER_NAME + self.output_suffix),
