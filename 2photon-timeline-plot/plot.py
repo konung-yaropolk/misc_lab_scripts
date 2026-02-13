@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.offsetbox
+import numpy as np
 from matplotlib.lines import Line2D
 import os
 
@@ -55,7 +56,22 @@ class AnchoredHScaleBar(matplotlib.offsetbox.AnchoredOffsetbox):
                                                         **kwargs)
 
 
-def plot(x, cols, savename, csv_file_path, offset=True, label=False, figsize=(15, 5), timeline='min', alpha=0.7):
+def plot(x,
+         cols,
+         savename,
+         csv_file_path,
+         offset=True,
+         label=False,
+         figsize=(15, 5),
+         timeline='min',
+         alpha=0.7,
+         linewidth=0.5,
+         linecolor="k",
+         fillcolor="g",
+         avg_linecolor="r",
+         event_linecolor="g",
+         dpi=200,
+         ):
 
     if timeline == 'min':
         coef = 60
@@ -65,8 +81,9 @@ def plot(x, cols, savename, csv_file_path, offset=True, label=False, figsize=(15
         coef = 1
         time = x
         xlabel = 'Time, s'
+
     # Create a combined figure with vertically shifted traces
-    plt.figure(figsize=figsize, dpi=200)
+    plt.figure(figsize=figsize, dpi=dpi)
     # plt.style.use("ggplot")
 
     if isinstance(offset, bool):
@@ -96,24 +113,45 @@ def plot(x, cols, savename, csv_file_path, offset=True, label=False, figsize=(15
     # )
 
     for event in EVENTS:
-        if isinstance(event, int):
-            plt.axvline(event/coef, color='gray', linestyle=":", linewidth=0.5)
-        elif isinstance(event, list):
+        if isinstance(event, int) or isinstance(event, float):
+            plt.axvline(event/coef, color=event_linecolor,
+                        linestyle=":", linewidth=0.5)
+        elif isinstance(event, list) or isinstance(event, tuple):
             plt.fill_between(
                 time,
                 -1,
                 offset * len(cols) + 1,
                 where=(time >= event[0]/coef) & (
                     time <= event[-1]/coef),
-                color='green',
+                color=fillcolor,
                 alpha=0.1
             )
+
+    if not offset:
+        # set alpha based on number of columns,
+        # so that the more columns,
+        # the more transparent each line
+        if not alpha:
+            n_cols = len(cols)
+            alpha = 3 / n_cols
+
+        if alpha > 1:
+            alpha = 1
+
+        # avg line plot
+        plt.plot(
+            x,
+            np.mean(cols, axis=0),
+            color=avg_linecolor,
+            linewidth=linewidth * 3,
+            alpha=1,
+        )
 
     # Plot each trace with vertical offset
     for i, column in enumerate(cols):
         shift = i * offset
         plt.plot(time, df[column] +
-                 shift, color='k', label=column, linewidth=0.5, alpha=alpha)
+                 shift, color=linecolor, label=column, linewidth=0.5, alpha=alpha)
 
     if offset:
         # Set y-tick labels divided by vertical_shift, starting from 1, and rounded to integers
