@@ -280,19 +280,19 @@ class Debug:
             for j in range(1, self.n_steps_per_epoch + 1)
         ]
 
+        self.derivatives_frames_log = [(i[0], i[1]-1)
+                                       for i in self.derivatives_frames_log]
+
         lines3 = [[item - sublist[0] for item in sublist]
                   for sublist in lines1]
         events3 = [[item - sublist[0] for item in sublist]
                    for sublist in self.derivatives_frames_log.copy()]
-        # y3 = [[item - sublist[0] for item in sublist]
-        #       for sublist in self.derivatives_frames_log.copy()]
 
         x3 = [i for i in range(self.sec_to_frame(-self.s_step_duration/4),
                                self.sec_to_frame(self.s_step_duration / 2)-1)]
         y3 = []
-        for frame in self.derivatives_frames_log.copy():
-            # x3.append(x[frame[0]:frame[-1]])
 
+        for frame in self.derivatives_frames_log:
             appendix = []
             begin = frame[0] - self.sec_to_frame(self.s_step_duration / 4)
             finish = frame[0] + self.sec_to_frame(self.s_step_duration / 2)
@@ -301,10 +301,6 @@ class Debug:
             finish -= 1
 
             appendix = y[0][begin:finish].tolist()
-            # if y3:
-            #     max_len = max(len(sublist) for sublist in y3)
-            #     appendix.extend([appendix[-1]
-            #                     for _ in range(max_len - len(appendix))])
             y3.append(appendix)
 
         # flatten inhomogeneous array
@@ -333,7 +329,7 @@ class Debug:
             f"{self.path}/{self.file}{DERIVATIVES_SUBFOLDER_NAME}{self.output_suffix}/debug/debug_selected_epoch_{self.file_nosuffix}{self.output_suffix}.png",
             linewidth=0.5,
             fillcolor="violet",
-            event_linecolor="w",
+            event_linecolor="orchid",
             event_linestyle="-",
             avg_linecolor="darkcyan",
             alpha=1,
@@ -347,7 +343,7 @@ class Debug:
             f"{self.path}/{self.file}{DERIVATIVES_SUBFOLDER_NAME}{self.output_suffix}/debug/debug_selected_epoch_{self.file_nosuffix}{self.output_suffix}.svg",
             linewidth=0.05,
             fillcolor="violet",
-            event_linecolor="w",
+            event_linecolor="orchid",
             event_linestyle="-",
             avg_linecolor="darkcyan",
             alpha=1,
@@ -363,7 +359,7 @@ class Debug:
             linewidth=1.5,
             linecolor='darkcyan',
             fillcolor="violet",
-            event_linecolor="w",
+            event_linecolor="orchid",
             event_linestyle="-",
             avg_linecolor="darkcyan",
             alpha=0.5,
@@ -379,7 +375,7 @@ class Debug:
             f"{self.path}/{self.file}{DERIVATIVES_SUBFOLDER_NAME}{self.output_suffix}/debug/debug_sync_{self.file_nosuffix}{self.output_suffix}.png",
             linewidth=0.5,
             fillcolor="violet",
-            event_linecolor="w",
+            event_linecolor="orchid",
             event_linestyle="-",
             avg_linecolor="darkcyan",
             alpha=1,
@@ -1506,7 +1502,7 @@ class DerivativesCalc(Helpers, Logging, Debug):
         )
 
         # Average the derivatives to create a single image
-        output_derivative = np.mean(np.mmean(derivatives), axis=0)
+        output_derivative = np.mean(np.maximum(derivatives, 0), axis=0)
         # np.maximum(derivatives, 0)
 
         return output_derivative
