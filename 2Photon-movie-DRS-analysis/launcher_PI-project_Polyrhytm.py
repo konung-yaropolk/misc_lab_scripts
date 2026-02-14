@@ -14,7 +14,7 @@ drs_pattern = [[0],  # stim #1
                [1]]  # stim #2
 
 n_epochs = 1
-resp_duration = 0.8   # in sec, expected response duration
+resp_duration = 0.64   # in sec, expected response duration
 step_duration = 10  # in sec
 
 

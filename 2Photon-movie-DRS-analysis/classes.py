@@ -39,10 +39,10 @@ DERIVATIVES_SIGMA = 2.3
 # -0.0031556459008686036  more precise
 # -0.0029183722446345     old one estimation
 # -0.00313                compromise
-SYNC_COEF = -0.0028
+SYNC_COEF = -0.003
 
 # lag in frames to calculate derivatives, to avoid artifacts at the edges of epochs
-DERIVATIVES_FRAME_LAG = -2
+DERIVATIVES_FRAME_LAG = -1
 
 CALCULATIONS_SUBFOLDER_NAME = "_CALCULATIONS_auto_"
 DERIVATIVES_SUBFOLDER_NAME = "_DERIVATIVES_auto_"
@@ -1506,7 +1506,8 @@ class DerivativesCalc(Helpers, Logging, Debug):
         )
 
         # Average the derivatives to create a single image
-        output_derivative = np.mean(np.maximum(derivatives, 0), axis=0)
+        output_derivative = np.mean(np.mmean(derivatives), axis=0)
+        # np.maximum(derivatives, 0)
 
         return output_derivative
 
