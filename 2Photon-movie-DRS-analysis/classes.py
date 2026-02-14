@@ -1,11 +1,14 @@
 import os
 import re
 import csv
-import math
 import traceback
+import time
+from datetime import timedelta
 from tracemalloc import start
 from turtle import fillcolor
+from natsort import ns
 from openpyxl import Workbook
+
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -62,16 +65,23 @@ class Helpers:
 
     def sec_to_frame(self, timestamp: float) -> int:
         """Convert timestamp to frame (floor rounding)."""
-        if timestamp < 0:
-            raise ValueError("Timestamp must be non-negative")
+        # if timestamp < 0:
+        #     raise ValueError("Timestamp must be non-negative")
 
         out = (
-            math.floor(timestamp * self.fps)
+            int((timestamp * self.fps) // 1)
             if timestamp <= self.s_movie_duration
             else self.n_frames
         )
 
         return out
+
+    def flatten_array(self, nested_list):
+        for item in nested_list:
+            if isinstance(item, list):
+                yield from self.flatten_array(item)
+            else:
+                yield item
 
     def save_tiff(self, output_path, data, metadata={}):
 
@@ -107,7 +117,8 @@ class Helpers:
         # Determine the maximum length of any row
         max_len = max(len(row) for row in data)
         # Fill shorter rows with None to make all rows equal in length
-        balanced_data = tuple(list(row) + [None] * (max_len - len(row)) for row in data)
+        balanced_data = tuple(
+            list(row) + [None] * (max_len - len(row)) for row in data)
         # Transpose the matrix
         data_t = tuple(
             tuple(balanced_data[j][i] for j in range(len(balanced_data)))
@@ -118,7 +129,8 @@ class Helpers:
     def csv_write(self, data, csv_path, csv_file, filename_suffix, subdir=False):
 
         if subdir:
-            os.makedirs(csv_path + csv_file + filename_suffix + "/", exist_ok=True)
+            os.makedirs(csv_path + csv_file +
+                        filename_suffix + "/", exist_ok=True)
             path = "{0}{1}{2}/{2}.csv".format(
                 csv_path,
                 csv_file,
@@ -144,7 +156,8 @@ class Helpers:
 
     def filter_list(self, list, bin, replace=True, replace_with=None):
         if replace == True:
-            output = [value if bin[i] else replace_with for i, value in enumerate(list)]
+            output = [value if bin[i] else replace_with for i,
+                      value in enumerate(list)]
         else:
             output = [value for value, keep in zip(list, bin) if keep]
 
@@ -156,6 +169,7 @@ class Helpers:
         cols,
         events,
         savename,
+        average=True,
         offset=0,
         figsize=(15, 5),
         alpha=None,
@@ -163,6 +177,7 @@ class Helpers:
         linewidth=0.5,
         linecolor="k",
         fillcolor="g",
+        fillalpha=1,
         avg_linecolor="r",
         event_linecolor="g",
         event_linestyle=":",
@@ -187,13 +202,15 @@ class Helpers:
         for i, col in enumerate(cols):
             plt.plot(x, col, color=linecolor, linewidth=linewidth, alpha=alpha)
 
-        plt.plot(
-            x,
-            np.mean(cols, axis=0),
-            color=avg_linecolor,
-            linewidth=linewidth * 3,
-            alpha=1,
-        )
+        # avg line plot
+        if average:
+            plt.plot(
+                x,
+                np.mean(cols, axis=0),
+                color=avg_linecolor,
+                linewidth=linewidth * 3,
+                alpha=1,
+            )
 
         for event in events:
             if isinstance(event, int) or isinstance(event, float):
@@ -212,7 +229,7 @@ class Helpers:
                     where=(x >= event[0]) & (x <= event[-1]),
                     color=fillcolor,
                     edgecolor="none",
-                    alpha=0.4,
+                    alpha=fillalpha,
                     zorder=0,
                 )
             else:
@@ -232,9 +249,184 @@ class Helpers:
             for name in savename:
                 plt.savefig(name, transparent=False)
         else:
-            self.logging("!!!    Fail: invalid savename type        ", type(savename))
+            self.logging(
+                "!!!    Fail: invalid savename type        ", type(savename))
 
         plt.close()
+
+
+class Debug:
+
+    def debug_sync_during_derivatives(self,):
+
+        x = np.array([i for i in range(self.n_frames)])
+        y = np.array([np.mean(np.mean(self.img, axis=1), axis=1)])
+
+        last_epoch_time = (
+            self.s_trig_time
+            + (self.start_from_epoch + self.n_epochs - 1) * self.s_epoch_duration
+        )
+        start = self.sec_to_frame(last_epoch_time - self.s_step_duration)
+        end = self.sec_to_frame(last_epoch_time + self.s_step_duration * 2)
+        y2 = np.array([np.mean(np.mean(self.img, axis=1)[start:end], axis=1)])
+
+        lines1 = [
+            [i for i in range(*sorted(self.derivatives_frames_log)[j])]
+            for j in range(len(self.derivatives_frames_log))
+        ]
+
+        lines2 = [
+            [i for i in range(*sorted(self.derivatives_frames_log)[-j])]
+            for j in range(1, self.n_steps_per_epoch + 1)
+        ]
+
+        lines3 = [[item - sublist[0] for item in sublist]
+                  for sublist in lines1]
+        events3 = [[item - sublist[0] for item in sublist]
+                   for sublist in self.derivatives_frames_log.copy()]
+        # y3 = [[item - sublist[0] for item in sublist]
+        #       for sublist in self.derivatives_frames_log.copy()]
+
+        x3 = [i for i in range(self.sec_to_frame(-self.s_step_duration/4),
+                               self.sec_to_frame(self.s_step_duration / 2)-1)]
+        y3 = []
+        for frame in self.derivatives_frames_log.copy():
+            # x3.append(x[frame[0]:frame[-1]])
+
+            appendix = []
+            begin = frame[0] - self.sec_to_frame(self.s_step_duration / 4)
+            finish = frame[0] + self.sec_to_frame(self.s_step_duration / 2)
+
+            begin -= 1
+            finish -= 1
+
+            appendix = y[0][begin:finish].tolist()
+            # if y3:
+            #     max_len = max(len(sublist) for sublist in y3)
+            #     appendix.extend([appendix[-1]
+            #                     for _ in range(max_len - len(appendix))])
+            y3.append(appendix)
+
+        # flatten inhomogeneous array
+        lines1 = np.array([*self.flatten_array(lines1)])
+        lines2 = np.array([*self.flatten_array(lines2)])
+        lines3 = np.array([*self.flatten_array(lines3)])
+
+        events1 = self.derivatives_frames_log.copy()
+        events1.extend(lines1.tolist())
+
+        events2 = sorted(self.derivatives_frames_log.copy())[
+            -self.n_steps_per_epoch:
+        ].copy()
+        events2.extend(lines2.tolist())
+        events3.extend(lines3.tolist())
+
+        os.makedirs(
+            f"{self.path}/{self.file}{DERIVATIVES_SUBFOLDER_NAME}{self.output_suffix}/debug/",
+            exist_ok=True,
+        )
+
+        self.plot_traces(
+            x,
+            y,
+            self.derivatives_frames_log,
+            f"{self.path}/{self.file}{DERIVATIVES_SUBFOLDER_NAME}{self.output_suffix}/debug/debug_selected_epoch_{self.file_nosuffix}{self.output_suffix}.png",
+            linewidth=0.5,
+            fillcolor="violet",
+            event_linecolor="w",
+            event_linestyle="-",
+            avg_linecolor="darkcyan",
+            alpha=1,
+            dpi=200,
+        )
+
+        self.plot_traces(
+            x,
+            y,
+            events1,
+            f"{self.path}/{self.file}{DERIVATIVES_SUBFOLDER_NAME}{self.output_suffix}/debug/debug_selected_epoch_{self.file_nosuffix}{self.output_suffix}.svg",
+            linewidth=0.05,
+            fillcolor="violet",
+            event_linecolor="w",
+            event_linestyle="-",
+            avg_linecolor="darkcyan",
+            alpha=1,
+            dpi=800,
+        )
+
+        self.plot_traces(
+            x3,
+            y3,
+            events3,
+            f"{self.path}/{self.file}{DERIVATIVES_SUBFOLDER_NAME}{self.output_suffix}/debug/debug_sync_4all_{self.file_nosuffix}{self.output_suffix}.png",
+            average=False,
+            linewidth=1.5,
+            linecolor='darkcyan',
+            fillcolor="violet",
+            event_linecolor="w",
+            event_linestyle="-",
+            avg_linecolor="darkcyan",
+            alpha=0.5,
+            fillalpha=1/(self.n_steps_per_epoch * self.n_epochs),
+            dpi=100,
+            figsize=(10, 5),
+        )
+
+        self.plot_traces(
+            x[start:end],
+            y2,
+            events2,
+            f"{self.path}/{self.file}{DERIVATIVES_SUBFOLDER_NAME}{self.output_suffix}/debug/debug_sync_{self.file_nosuffix}{self.output_suffix}.png",
+            linewidth=0.5,
+            fillcolor="violet",
+            event_linecolor="w",
+            event_linestyle="-",
+            avg_linecolor="darkcyan",
+            alpha=1,
+            dpi=150,
+        )
+
+    def debug_sync_during_trace_calculation(self, csv_path, output_dir):
+
+        start = (
+            self.start_from_epoch * self.s_step_duration * self.n_steps_per_epoch
+        )
+        end = start + self.s_step_duration
+        start_frame = int(
+            (
+                (self.start_from_epoch)
+                * self.s_step_duration
+                * self.n_steps_per_epoch
+            )
+            / self.spf
+        )
+        end_frame = int(
+            (
+                (self.start_from_epoch + 1.5)
+                * self.s_step_duration
+                * self.n_steps_per_epoch
+            )
+            / self.spf
+        )
+
+        chunk = self.csv_matrix[start_frame:end_frame]
+        chunk_T = self.transpose(chunk)
+        self.plot_traces(
+            chunk_T[0],
+            chunk_T[1:],
+            [start, end],
+            csv_path
+            + output_dir
+            + "/"
+            + "debug_sync_{}{}.png".format(
+                self.file_nosuffix, self.output_suffix
+            ),
+            linewidth=0.5,
+            alpha=0.8,
+            event_linecolor="magenta",
+            avg_linecolor="darkcyan",
+            dpi=400,
+        )
 
 
 class Logging:
@@ -249,7 +441,7 @@ class Logging:
         self.log += "\n" + message
 
 
-class TracesCalc(Logging):
+class TracesCalc(Logging, Debug):
 
     def file_finder(self, pattern, nonrecursive=False):
         files_list = []  # To store the paths of .txt files
@@ -303,16 +495,19 @@ class TracesCalc(Logging):
         return content_normalized
 
     def csv_cutter(self, content):
-        timeline_zero = (float(i) - self.s_trig_time for i in list(zip(*content))[0])
+        timeline_zero = (
+            float(i) - self.s_trig_time for i in list(zip(*content))[0])
 
         start = (
-            self.find_time_index(content, self.s_trig_time - self.time_before_trig)
+            self.find_time_index(
+                content, self.s_trig_time - self.time_before_trig)
             if self.time_before_trig
             else None
         )
 
         start_bl = (
-            self.find_time_index(content, self.s_trig_time - self.baseline_duraton)
+            self.find_time_index(
+                content, self.s_trig_time - self.baseline_duraton)
             if self.baseline_duraton
             else start
         )
@@ -320,7 +515,8 @@ class TracesCalc(Logging):
         zero = self.find_time_index(content, self.s_trig_time)
 
         end = (
-            self.find_time_index(content, self.s_trig_time + self.time_after_trig)
+            self.find_time_index(
+                content, self.s_trig_time + self.time_after_trig)
             if self.time_after_trig
             else None
         )
@@ -390,7 +586,8 @@ class TracesCalc(Logging):
             auc = np.trapezoid(corrected_trace[sig_indices], x[sig_indices])
             auc_list.append(auc)
             # biarization
-            bin_list.append(ampl > self.sigmas_treshold * np.std(trace[bl_indices]))
+            bin_list.append(ampl > self.sigmas_treshold *
+                            np.std(trace[bl_indices]))
 
             raw_line_list.append(corrected_trace[whole_step_indices])
 
@@ -427,10 +624,12 @@ class TracesCalc(Logging):
         ) = [
             [
                 self.calculate_ampl_auc_bin(
-                    (i * self.s_epoch_duration) + delay - self.s_step_duration / 2,
+                    (i * self.s_epoch_duration) +
+                    delay - self.s_step_duration / 2,
                     (i * self.s_epoch_duration) + delay,
                     (i * self.s_epoch_duration) + delay,
-                    (i * self.s_epoch_duration) + delay + self.s_step_duration / 2,
+                    (i * self.s_epoch_duration) +
+                    delay + self.s_step_duration / 2,
                 )[j]
                 for i in range(self.start_from_epoch, self.n_epochs)
             ]
@@ -465,7 +664,8 @@ class TracesCalc(Logging):
         # create unique id for each calculation unit (trigger)
         # unit_id = self.file_path + '%' + str(self.trig_number)
         unit_id = (
-            csv_path + csv_file + "$" + str(self.trig_number) + "$" + self.output_suffix
+            csv_path + csv_file + "$" +
+            str(self.trig_number) + "$" + self.output_suffix
         )
 
         s1s2 = False
@@ -490,7 +690,8 @@ class TracesCalc(Logging):
                     self.s1s2_delay = i * self.s_step_duration
                     s1s2 = True
                     s1s2_order = i
-                    self.group_names.append(self.stim_1_name + "&" + self.stim_2_name)
+                    self.group_names.append(
+                        self.stim_1_name + "&" + self.stim_2_name)
                 case (1, 0):
                     (
                         s1_ampl_mean_of_rois_by_epoch,
@@ -714,17 +915,23 @@ class TracesCalc(Logging):
                         1 / ampl_st2_to_st1_ratio_mean_of_epochs_by_rois,
                         "",
                         "",
-                        self.filter_list(st1_ampl_mean_of_epochs_by_rois, filter[2]),
-                        self.filter_list(st2_ampl_mean_of_epochs_by_rois, filter[2]),
                         self.filter_list(
-                            1 / ampl_st2_to_st1_ratio_mean_of_epochs_by_rois, filter[2]
+                            st1_ampl_mean_of_epochs_by_rois, filter[2]),
+                        self.filter_list(
+                            st2_ampl_mean_of_epochs_by_rois, filter[2]),
+                        self.filter_list(
+                            1 /
+                            ampl_st2_to_st1_ratio_mean_of_epochs_by_rois, filter[2]
                         ),
                         "",
                         "",
-                        self.filter_list(st1_ampl_mean_of_epochs_by_rois, filter[1]),
-                        self.filter_list(st2_ampl_mean_of_epochs_by_rois, filter[1]),
                         self.filter_list(
-                            1 / ampl_st2_to_st1_ratio_mean_of_epochs_by_rois, filter[1]
+                            st1_ampl_mean_of_epochs_by_rois, filter[1]),
+                        self.filter_list(
+                            st2_ampl_mean_of_epochs_by_rois, filter[1]),
+                        self.filter_list(
+                            1 /
+                            ampl_st2_to_st1_ratio_mean_of_epochs_by_rois, filter[1]
                         ),
                     ]
                 ),
@@ -764,17 +971,23 @@ class TracesCalc(Logging):
                         1 / auc_st2_to_st1_ratio_mean_of_epochs_by_rois,
                         "",
                         "",
-                        self.filter_list(st1_auc_mean_of_epochs_by_rois, filter[2]),
-                        self.filter_list(st2_auc_mean_of_epochs_by_rois, filter[2]),
                         self.filter_list(
-                            1 / auc_st2_to_st1_ratio_mean_of_epochs_by_rois, filter[2]
+                            st1_auc_mean_of_epochs_by_rois, filter[2]),
+                        self.filter_list(
+                            st2_auc_mean_of_epochs_by_rois, filter[2]),
+                        self.filter_list(
+                            1 /
+                            auc_st2_to_st1_ratio_mean_of_epochs_by_rois, filter[2]
                         ),
                         "",
                         "",
-                        self.filter_list(st1_auc_mean_of_epochs_by_rois, filter[1]),
-                        self.filter_list(st2_auc_mean_of_epochs_by_rois, filter[1]),
                         self.filter_list(
-                            1 / auc_st2_to_st1_ratio_mean_of_epochs_by_rois, filter[1]
+                            st1_auc_mean_of_epochs_by_rois, filter[1]),
+                        self.filter_list(
+                            st2_auc_mean_of_epochs_by_rois, filter[1]),
+                        self.filter_list(
+                            1 /
+                            auc_st2_to_st1_ratio_mean_of_epochs_by_rois, filter[1]
                         ),
                     ]
                 ),
@@ -788,8 +1001,10 @@ class TracesCalc(Logging):
 
         # plot_s1s2_s2_roi_stats AUC for all rois
         self.plot_s1s2_s2_roi_stats(
-            self.filter_list(st1_auc_mean_of_epochs_by_rois, filter[2], replace=False),
-            self.filter_list(st2_auc_mean_of_epochs_by_rois, filter[2], replace=False),
+            self.filter_list(st1_auc_mean_of_epochs_by_rois,
+                             filter[2], replace=False),
+            self.filter_list(st2_auc_mean_of_epochs_by_rois,
+                             filter[2], replace=False),
             "{0}{1}/_by_rois_{2}_{3}_{4}_auc_auto_.png".format(
                 csv_path,
                 output_dir,
@@ -804,8 +1019,10 @@ class TracesCalc(Logging):
 
         # plot_s1s2_s2_roi_stats Ampl for all rois
         self.plot_s1s2_s2_roi_stats(
-            self.filter_list(st1_ampl_mean_of_epochs_by_rois, filter[2], replace=False),
-            self.filter_list(st2_ampl_mean_of_epochs_by_rois, filter[2], replace=False),
+            self.filter_list(st1_ampl_mean_of_epochs_by_rois,
+                             filter[2], replace=False),
+            self.filter_list(st2_ampl_mean_of_epochs_by_rois,
+                             filter[2], replace=False),
             "{0}{1}/_by_rois_{2}_{3}_{4}_ampl_auto_.png".format(
                 csv_path,
                 output_dir,
@@ -867,7 +1084,7 @@ class TracesCalc(Logging):
                     * self.n_steps_per_epoch
                 )
                 / self.spf
-            ) : int(
+            ): int(
                 (
                     (self.start_from_epoch + self.n_epochs + 1)
                     * self.s_step_duration
@@ -905,45 +1122,10 @@ class TracesCalc(Logging):
 
         # plot debug graph to check time sync
         if DEBUG:
-            start = (
-                self.start_from_epoch * self.s_step_duration * self.n_steps_per_epoch
-            )
-            end = start + self.s_step_duration
-            start_frame = int(
-                (
-                    (self.start_from_epoch)
-                    * self.s_step_duration
-                    * self.n_steps_per_epoch
-                )
-                / self.spf
-            )
-            end_frame = int(
-                (
-                    (self.start_from_epoch + 1.5)
-                    * self.s_step_duration
-                    * self.n_steps_per_epoch
-                )
-                / self.spf
-            )
+            self.debug_sync_during_trace_calculation(
+                csv_path, output_dir)
 
-            chunk = self.csv_matrix[start_frame:end_frame]
-            chunk_T = self.transpose(chunk)
-            self.plot_traces(
-                chunk_T[0],
-                chunk_T[1:],
-                [start, end],
-                csv_path
-                + output_dir
-                + "/"
-                + "debug_Synchronization_{}.png".format(self.output_suffix),
-                linewidth=0.5,
-                alpha=0.8,
-                event_linecolor="magenta",
-                avg_linecolor="darkcyan",
-                dpi=400,
-            )
-
-        # plot_stacked_traces all togather
+            # plot_stacked_traces all togather
         for i in self.group_names:
             os.makedirs(
                 csv_path
@@ -954,7 +1136,8 @@ class TracesCalc(Logging):
 
         self.plot_stacked_traces(
             np.array(matrix_T[0])
-            - ((self.start_from_epoch) * self.s_step_duration * self.n_steps_per_epoch),
+            - ((self.start_from_epoch) *
+               self.s_step_duration * self.n_steps_per_epoch),
             matrix_T[:],
             s1s2_bin_list_each_by_epoch,
             st1_bin_summary_by_rois,
@@ -966,7 +1149,8 @@ class TracesCalc(Logging):
         )
         self.plot_stacked_traces(
             np.array(matrix_T[0])
-            - ((self.start_from_epoch) * self.s_step_duration * self.n_steps_per_epoch),
+            - ((self.start_from_epoch) *
+               self.s_step_duration * self.n_steps_per_epoch),
             matrix_T[:],
             s2_bin_list_each_by_epoch,
             st2_bin_summary_by_rois,
@@ -987,9 +1171,9 @@ class TracesCalc(Logging):
                     * self.s_step_duration
                     * self.n_steps_per_epoch
                 ),
-                matrix_T[pos : pos + chunk_size + 1],
-                s1s2_bin_list_each_by_epoch[pos : pos + chunk_size + 1],
-                st1_bin_summary_by_rois[pos : pos + chunk_size + 1],
+                matrix_T[pos: pos + chunk_size + 1],
+                s1s2_bin_list_each_by_epoch[pos: pos + chunk_size + 1],
+                st1_bin_summary_by_rois[pos: pos + chunk_size + 1],
                 "{0}{1}/_by_rois_traces_bin_{2}_{5}_auto_/_full_traces_stacked_by_rois_{3}-{4}_{5}_auto_.png".format(
                     csv_path,
                     output_dir,
@@ -1009,9 +1193,9 @@ class TracesCalc(Logging):
                     * self.s_step_duration
                     * self.n_steps_per_epoch
                 ),
-                matrix_T[pos : pos + chunk_size + 1],
-                s2_bin_list_each_by_epoch[pos : pos + chunk_size + 1],
-                st2_bin_summary_by_rois[pos : pos + chunk_size + 1],
+                matrix_T[pos: pos + chunk_size + 1],
+                s2_bin_list_each_by_epoch[pos: pos + chunk_size + 1],
+                st2_bin_summary_by_rois[pos: pos + chunk_size + 1],
                 "{0}{1}/_by_rois_traces_bin_{2}_{5}_auto_/_full_traces_stacked_by_rois_{3}-{4}_{5}_auto_.png".format(
                     csv_path,
                     output_dir,
@@ -1286,19 +1470,21 @@ class TracesCalc(Logging):
             )
 
         else:
-            result = "---    Skip: no csv files for      {}".format(self.file_path)
+            result = "---    Skip: no csv files for      {}".format(
+                self.file_path)
 
         csv_list = None
         self.logging(result)
         return result
 
 
-class DerivativesCalc(Helpers, Logging):
+class DerivativesCalc(Helpers, Logging, Debug):
 
     def compute_gaussian_derivatives(self, image_stack, start, end, sigma):
 
         # Compute derivatives along z-axis
-        dz = gaussian_filter(image_stack[start:end], sigma=sigma, order=[1, 0, 0])
+        dz = gaussian_filter(
+            image_stack[start:end], sigma=sigma, order=[1, 0, 0])
 
         return dz
 
@@ -1424,79 +1610,7 @@ class DerivativesCalc(Helpers, Logging):
         )
 
         if DEBUG:
-
-            x = [i for i in range(self.n_frames)]
-            y = [np.mean(np.mean(self.img, axis=1), axis=1)]
-
-            last_epoch_time = (
-                self.s_trig_time
-                + (self.start_from_epoch + self.n_epochs - 1) * self.s_epoch_duration
-            )
-            start = self.sec_to_frame(last_epoch_time - self.s_step_duration)
-            end = self.sec_to_frame(last_epoch_time + self.s_step_duration * 2)
-            yf = [np.mean(np.mean(self.img, axis=1)[start:end], axis=1)]
-
-            lines1 = [
-                [i for i in range(*sorted(self.derivatives_frames_log)[j])]
-                for j in range(len(self.derivatives_frames_log))
-            ]
-            lines1 = np.array(lines1).flatten()
-
-            events1 = self.derivatives_frames_log.copy()
-            events1.extend(lines1.tolist())
-
-            lines2 = [
-                [i for i in range(*sorted(self.derivatives_frames_log)[-j])]
-                for j in range(1, self.n_steps_per_epoch + 1)
-            ]
-            lines2 = np.array(lines2).flatten()
-
-            events2 = sorted(self.derivatives_frames_log)[
-                -self.n_steps_per_epoch :
-            ].copy()
-            events2.extend(lines2.tolist())
-
-            self.plot_traces(
-                x,
-                y,
-                events1,
-                f"{self.path}/{self.file}{DERIVATIVES_SUBFOLDER_NAME}{self.output_suffix}/debug_selected_epoch.svg",
-                linewidth=0.05,
-                fillcolor="magenta",
-                event_linecolor="w",
-                event_linestyle="-",
-                avg_linecolor="darkcyan",
-                alpha=1,
-                dpi=800,
-            )
-
-            self.plot_traces(
-                x,
-                y,
-                self.derivatives_frames_log,
-                f"{self.path}/{self.file}{DERIVATIVES_SUBFOLDER_NAME}{self.output_suffix}/debug_selected_epoch.png",
-                linewidth=0.5,
-                fillcolor="magenta",
-                event_linecolor="w",
-                event_linestyle="-",
-                avg_linecolor="darkcyan",
-                alpha=1,
-                dpi=100,
-            )
-
-            self.plot_traces(
-                x[start:end],
-                yf,
-                events2,
-                f"{self.path}/{self.file}{DERIVATIVES_SUBFOLDER_NAME}{self.output_suffix}/debug_synchronization.png",
-                linewidth=0.5,
-                fillcolor="magenta",
-                event_linecolor="w",
-                event_linestyle="-",
-                avg_linecolor="darkcyan",
-                alpha=1,
-                dpi=150,
-            )
+            self.debug_sync_during_derivatives()
 
         # Different stims - differrent colors
         merger_s1s2_s2 = TifDerivativeProcess(
@@ -1506,8 +1620,11 @@ class DerivativesCalc(Helpers, Logging):
             s1s2_name_ending,
             s2_name_ending,
             s1s2_name_ending,
-            "_{2}_{1}-green_{0}&{1}-magenta_auto.tif".format(
-                self.stim_1_name, self.stim_2_name, self.output_suffix
+            "_{2}_{1}-green_{0}&{1}-magenta_auto_{3}.tif".format(
+                self.stim_1_name,
+                self.stim_2_name,
+                self.output_suffix,
+                self.file_nosuffix,
             ),
             self.stim_1_name,
             self.stim_2_name,
@@ -1530,8 +1647,8 @@ class DerivativesCalc(Helpers, Logging):
         #     s2_name_ending,
         #     s1_name_ending,
         #     s1_name_ending,
-        #     "_{2}_{1}-red_{0}-cyan_auto.tif".format(
-        #         self.stim_1_name, self.stim_2_name, self.output_suffix
+        #     "_{2}_{1}-red_{0}-cyan_auto_{3}.tif".format(
+        #         self.stim_1_name, self.stim_2_name, self.output_suffix, self.file_nosuffix
         #     ),
         #     self.stim_1_name,
         #     self.stim_2_name,
@@ -1687,7 +1804,7 @@ class Movie(DerivativesCalc, TracesCalc, Logging):
 
         # Determine the suffix from the given file
         filename_suffix = os.path.basename(
-            file_full_path[len(file_nosuffix_with_path) :]
+            file_full_path[len(file_nosuffix_with_path):]
         )
 
         return filename_suffix, file_nosuffix
@@ -1738,7 +1855,8 @@ class TifDerivativeProcess(Helpers):
             ],
             axis=-1,
         )
-        rgb_image = Image.fromarray((rgb_array_normalized * 255).astype("uint8"), "RGB")
+        rgb_image = Image.fromarray(
+            (rgb_array_normalized * 255).astype("uint8"), "RGB")
         try:
             rgb_image.save(output_filename)
         except PermissionError as e:
@@ -1788,12 +1906,14 @@ class TifDerivativeProcess(Helpers):
         if self.stims_overlap_png:
             self.__make_png(
                 multi_channel_array,
-                output_path + "stims_overlap" + self.output_name_ending[:-4] + ".png",
+                output_path + "stims_overlap" +
+                self.output_name_ending[:-4] + ".png",
             )
 
         # make heatmap and save as a PNG file
         if self.ratio_heatmap:
-            self.__create_ratio_heatmap(channels, output_path, matplotlib_graph=True)
+            self.__create_ratio_heatmap(
+                channels, output_path, matplotlib_graph=True)
 
         # Crerating Stims Substracted images
         if self.stims_substracted:
@@ -1841,7 +1961,8 @@ class TifDerivativeProcess(Helpers):
                 # Save the ratio image as a heatmap in PNG format using matplotlib
                 image = np.clip(image, 1, 4)
                 output_filename = output_path + "ratio_of_inhibition" + "_heatmap.png"
-                enlarged_shape = (int(image.shape[1] * 1.0), int(image.shape[0] * 1.0))
+                enlarged_shape = (
+                    int(image.shape[1] * 1.0), int(image.shape[0] * 1.0))
                 fig, ax = plt.subplots(
                     figsize=(enlarged_shape[0] / 100, enlarged_shape[1] / 100), dpi=165
                 )
@@ -1861,7 +1982,8 @@ class TifDerivativeProcess(Helpers):
                     ),
                     ax=ax,
                 )
-                cbar.set_label("C to A+C responses ratio", rotation=90, labelpad=5)
+                cbar.set_label("C to A+C responses ratio",
+                               rotation=90, labelpad=5)
                 plt.savefig(output_filename, bbox_inches="tight", pad_inches=0)
                 plt.close()
 
@@ -1912,7 +2034,8 @@ class TifDerivativeProcess(Helpers):
                 fig, ax = plt.subplots(dpi=90, figsize=(3, 3))
                 ax.hist(values, bins=bins, color=color)
                 ax.set_xlim(0, histogram_xlim)
-                ax.set_xlabel("Resp. Intensity \nto Stim " + stim + self.output_suffix)
+                ax.set_xlabel("Resp. Intensity \nto Stim " +
+                              stim + self.output_suffix)
 
                 # Create histogram filename
                 dirname = os.path.dirname(output_filename)
@@ -1963,7 +2086,8 @@ class TifDerivativeProcess(Helpers):
 
             try:
                 # tifffile.imwrite(output_filename, image.astype(np.float32), imagej=True, metadata=metadata)
-                self.save_tiff(output_filename, multi_channel_array, metadata=metadata)
+                self.save_tiff(output_filename,
+                               multi_channel_array, metadata=metadata)
                 # self.logging(f"Created heatmap image: {output_filename}")
 
             except PermissionError as e:
@@ -1986,7 +2110,8 @@ class TifDerivativeProcess(Helpers):
     ):
         for root, _, files in os.walk(self.dir):
             red_files = [f for f in files if f.endswith(self.red_name_ending)]
-            green_files = [f for f in files if f.endswith(self.green_name_ending)]
+            green_files = [f for f in files if f.endswith(
+                self.green_name_ending)]
 
             for red_file in red_files:
                 base_name = red_file[: -len(self.red_name_ending)]
@@ -1995,7 +2120,8 @@ class TifDerivativeProcess(Helpers):
 
                 if matching_green_file in green_files:
                     red_path = (
-                        os.path.join(root, red_file) if self.red_name_ending else None
+                        os.path.join(
+                            root, red_file) if self.red_name_ending else None
                     )
                     green_path = (
                         os.path.join(root, matching_green_file)
@@ -2319,7 +2445,8 @@ def generate_postprocessing_summary(output):
             plot.plot()
 
             savepath = "{0}.csv{2}/{1}{3}.png".format(
-                key, os.path.dirname(key).split("/")[-1], SUMMARY_SUBFOLDER_NAME, suffix
+                key, os.path.dirname(key).split(
+                    "/")[-1], SUMMARY_SUBFOLDER_NAME, suffix
             )
 
             plot.save(savepath)
@@ -2413,6 +2540,22 @@ def generate_postprocessing_summary(output):
         #          groups_name=[i[0] for i in data_f3_st2[:2]])
 
 
+def time_spent_measure(func):
+    def wrapper(*args, **kwargs):
+        start_time = time.perf_counter()
+        result = func(*args, **kwargs)
+        end_time = time.perf_counter()
+
+        elapsed_seconds = end_time - start_time
+        readable_time = timedelta(seconds=elapsed_seconds)
+
+        print(f"🕓 Time spent (H:MM:SS): {str(readable_time).split('.')[0]}\n")
+        return result
+
+    return wrapper
+
+
+@time_spent_measure
 def main(
     working_dir=s.working_dir,
     to_do_list=s.to_do_list,

@@ -14,7 +14,7 @@ drs_pattern = [[0],  # stim #1
                [1]]  # stim #2
 
 n_epochs = 1
-resp_duration = 1   # in sec, expected response duration
+resp_duration = 0.8   # in sec, expected response duration
 step_duration = 10  # in sec
 
 
@@ -68,7 +68,7 @@ processes_limit = 12
 to_do_list = [
 
 
-    ######### 2024_04_19 ###################################################
+    ######## 2024_04_19 ###################################################
 
     ['PI_PP/Homo_A100C_C_Pre/2024_04_19_Field_1_0001_registered.tif',
      {
@@ -1565,7 +1565,7 @@ to_do_list = [
      ],
 
 
-    ####### 2025_02_06 ###################################################
+    # ####### 2025_02_06 ###################################################
 
     ['PI_PP/Homo_A100C_C_Pre/2025_02_06_Field_3_0001_registered.tif',
      {

@@ -60,6 +60,7 @@ def plot(x,
          cols,
          savename,
          csv_file_path,
+         average=True,
          offset=True,
          label=False,
          figsize=(15, 5),
@@ -139,13 +140,14 @@ def plot(x,
             alpha = 1
 
         # avg line plot
-        plt.plot(
-            x,
-            np.mean(cols, axis=0),
-            color=avg_linecolor,
-            linewidth=linewidth * 3,
-            alpha=1,
-        )
+        if average:
+            plt.plot(
+                x,
+                np.mean(cols, axis=0),
+                color=avg_linecolor,
+                linewidth=linewidth * 3,
+                alpha=1,
+            )
 
     # Plot each trace with vertical offset
     for i, column in enumerate(cols):
