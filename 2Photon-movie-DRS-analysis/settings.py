@@ -31,6 +31,18 @@ baseline_duraton = 10
 sigmas_treshold = 5
 time_after_trig = None
 
+
+# Adjust the sampling interval to account for the
+# clock synchronization of the microscope's hardware and PC
+# Coefficient estimated experimentally
+# -0.0031556459008686036  more precise
+# -0.0029183722446345     old one estimation
+# -0.00313                compromise
+sync_coef = -0.0029
+
+# lag in frames to calculate derivatives, to avoid artifacts at the edges of epochs
+frame_lag_derivatives = -1
+
 # vertical vertical_shift for all-traces graph in dF/F0 units,
 # set 0 to make vertical_shift the same as largest responce
 vertical_shift = 0
@@ -129,6 +141,9 @@ if __name__ == '__main__':
 
         time_before_trig,
         baseline_duraton,
+        sync_coef,
+        frame_lag_derivatives,
+
         sigmas_treshold,
         vertical_shift,
         vertical_shift_of_trig,
@@ -136,4 +151,6 @@ if __name__ == '__main__':
         time_after_trig,
         multiprocessing,
         processes_limit,
+        
     )
+

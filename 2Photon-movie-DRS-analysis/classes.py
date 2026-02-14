@@ -4,9 +4,6 @@ import csv
 import traceback
 import time
 from datetime import timedelta
-from tracemalloc import start
-from turtle import fillcolor
-from natsort import ns
 from openpyxl import Workbook
 
 
@@ -32,17 +29,6 @@ BINARIZATION_RESP_THRESHOLD = 0.29
 # gaussian_filter sigma for derivatives calculation, to reduce noise and artifacts
 # standard in ImageJ is 1.0
 DERIVATIVES_SIGMA = 2.3
-
-# Adjust the sampling interval to account for the
-# clock synchronization of the microscope's hardware and PC
-# Coefficient estimated experimentally
-# -0.0031556459008686036  more precise
-# -0.0029183722446345     old one estimation
-# -0.00313                compromise
-SYNC_COEF = -0.003
-
-# lag in frames to calculate derivatives, to avoid artifacts at the edges of epochs
-DERIVATIVES_FRAME_LAG = -1
 
 CALCULATIONS_SUBFOLDER_NAME = "_CALCULATIONS_auto_"
 DERIVATIVES_SUBFOLDER_NAME = "_DERIVATIVES_auto_"
@@ -1502,8 +1488,8 @@ class DerivativesCalc(Helpers, Logging, Debug):
         )
 
         # Average the derivatives to create a single image
-        output_derivative = np.mean(np.maximum(derivatives, 0), axis=0)
-        # np.maximum(derivatives, 0)
+        output_derivative = np.sum(np.maximum(derivatives, 0), axis=0)
+
 
         return output_derivative
 
@@ -1522,8 +1508,8 @@ class DerivativesCalc(Helpers, Logging, Debug):
             )
 
             # Adjust for derivatives frame lag
-            start += DERIVATIVES_FRAME_LAG
-            end += DERIVATIVES_FRAME_LAG
+            start += self.frame_lag_derivatives
+            end += self.frame_lag_derivatives
 
             sequence_stack.append(self.process_tiff_stack(start, end))
             self.derivatives_frames_log.append((start, end))
@@ -1677,6 +1663,8 @@ class Movie(DerivativesCalc, TracesCalc, Logging):
         time_before_trig,
         time_after_trig,
         baseline_duraton,
+        sync_coef,
+        frame_lag_derivatives,
         relative_values,
         mean_col_order,
         cols_per_roi,
@@ -1714,7 +1702,10 @@ class Movie(DerivativesCalc, TracesCalc, Logging):
         self.result = None
         self.n_frames = None
 
+
         # Movie timings
+        self.sync_coef = sync_coef
+        self.frame_lag_derivatives = frame_lag_derivatives
 
         Parser = MetadataParser()
         self.events, self.spf, self.s_movie_duration, self.n_frames = Parser.Parse(
@@ -1724,9 +1715,9 @@ class Movie(DerivativesCalc, TracesCalc, Logging):
         self.trig_number = trig_number - 1
         self.event = self.events[self.trig_number]
         self.event_name = self.events[self.trig_number][0]
-        self.s_trig_time = self.events[self.trig_number][1]
+        self.s_trig_time = self.events[self.trig_number][1]        
 
-        self.spf += self.spf * SYNC_COEF
+        self.spf += self.spf * self.sync_coef
         self.fps = 1 / self.spf
 
         self.s_resp_duration = resp_duration
@@ -2569,6 +2560,8 @@ def main(
     cols_per_roi=s.cols_per_roi,
     time_before_trig=s.time_before_trig,
     baseline_duraton=s.baseline_duraton,
+    sync_coef = s.sync_coef,
+    frame_lag_derivatives =s.frame_lag_derivatives,
     sigmas_treshold=s.sigmas_treshold,
     vertical_shift=s.vertical_shift,
     vertical_shift_of_trig=s.vertical_shift_of_trig,
@@ -2592,6 +2585,8 @@ def main(
         item[1].setdefault("time_before_trig", time_before_trig)
         item[1].setdefault("time_after_trig", time_after_trig)
         item[1].setdefault("baseline_duraton", baseline_duraton)
+        item[1].setdefault("sync_coef", sync_coef)
+        item[1].setdefault("frame_lag_derivatives", frame_lag_derivatives)
         item[1].setdefault("relative_values", relative_values)
         item[1].setdefault("mean_col_order", mean_col_order)
         item[1].setdefault("cols_per_roi", cols_per_roi)

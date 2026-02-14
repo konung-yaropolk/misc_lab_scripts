@@ -14,7 +14,7 @@ drs_pattern = [[0],  # stim #1
                [1]]  # stim #2
 
 n_epochs = 1
-resp_duration = 0.64   # in sec, expected response duration
+resp_duration = 0.8   # in sec, expected response duration
 step_duration = 10  # in sec
 
 
@@ -31,6 +31,18 @@ baseline_duraton = 10
 sigmas_treshold = 5
 time_after_trig = None
 
+
+# Adjust the sampling interval to account for the
+# clock synchronization of the microscope's hardware and PC
+# Coefficient estimated experimentally
+# -0.0031556459008686036  more precise
+# -0.0029183722446345     old one estimation
+# -0.00313                compromise
+sync_coef = -0.0029
+
+# lag in frames to calculate derivatives, to avoid artifacts at the edges of epochs
+frame_lag_derivatives = -1
+
 # vertical vertical_shift for all-traces graph in dF/F0 units,
 # set 0 to make vertical_shift the same as largest responce
 vertical_shift = 1.5
@@ -43,7 +55,7 @@ SD_filter_of_trig = 0
 
 # Use all available CPU cores.
 # Faster, but need much more RAM so can be unstable.
-multiprocessing = True
+multiprocessing = False
 
 # Maximum size of multiprocessing pull
 # Set the maximum of processes if there isn't enough RAM
@@ -74,6 +86,9 @@ to_do_list = [
      {
          'trig_number': 2,
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
@@ -83,6 +98,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_19_Field_2_0001_registered.tif',
      {
          'n_epochs': 7,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
@@ -92,6 +110,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_19_Field_3_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -101,6 +122,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_19_Field_4_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -110,6 +134,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_19_Field_5_registered.tif',
      {
          'n_epochs': 5,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -119,6 +146,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_19_Field_6_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -133,6 +163,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_1_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
@@ -142,6 +175,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_2_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
@@ -151,6 +187,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_3_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
@@ -160,6 +199,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_4_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -169,6 +211,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_5_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -178,6 +223,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_6_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -192,6 +240,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_23_Field_1_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
@@ -201,6 +252,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_23_Field_2_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
@@ -210,6 +264,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_23_Field_3_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
@@ -219,6 +276,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_23_Field_4_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -228,6 +288,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_23_Field_5_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -237,6 +300,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_23_Field_6_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -252,6 +318,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_24_M1_Field_1_0001_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -261,6 +330,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_24_M1_Field_2_0001_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -270,6 +342,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_24_M1_Field_3_0001_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -284,6 +359,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Post/2024_04_24_M2_Field_1_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -293,6 +371,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Post/2024_04_24_M2_Field_2_0001_ch1_registered.tif',
      {
          'n_epochs': 6,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -306,6 +387,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_24_M2_Field_1_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -315,6 +399,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_24_M2_Field_2_0001_ch2_registered.tif',
      {
          'n_epochs': 6,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -330,6 +417,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_25_Field_1_0001_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -345,6 +435,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_1_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -354,6 +447,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_2_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -363,6 +459,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_3_enlarged_0001_ch1_registered.tif',
      {
          'n_epochs': 5,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -372,6 +471,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_4_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -381,6 +483,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_5_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -390,6 +495,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_6_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -399,6 +507,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_7_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -408,6 +519,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Post/2024_04_29_Field_8_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -422,6 +536,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_1_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -431,6 +548,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_2_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -440,6 +560,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_3_enlarged_0001_ch2_registered.tif',
      {
          'n_epochs': 5,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -449,6 +572,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_4_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -458,6 +584,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_5_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -467,6 +596,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_6_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -476,6 +608,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_7_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -485,6 +620,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_04_29_Field_8_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -500,6 +638,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Post/2024_05_01_Field_1_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -509,6 +650,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Post/2024_05_01_Field_2_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -518,6 +662,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Post/2024_05_01_Field_3_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -531,6 +678,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_05_01_Field_1_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -540,6 +690,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_05_01_Field_2_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -549,6 +702,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_05_01_Field_3_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -564,6 +720,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad100C_C_Post/2024_11_18_M1_Field_1_PI_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -573,6 +732,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad100C_C_Post/2024_11_18_M1_Field_2_PI_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -582,6 +744,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_3_PI_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -591,6 +756,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_4_PI_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -600,6 +768,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_5_PI_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -609,6 +780,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_6_PI_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -618,6 +792,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_7_PI_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -627,6 +804,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_8_PI_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -636,6 +816,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_9_PI_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -645,6 +828,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Post/2024_11_18_M1_Field_10_PI_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -657,6 +843,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad100C_C_Pre/2024_11_18_M1_Field_1_PI_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -666,6 +855,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad100C_C_Pre/2024_11_18_M1_Field_2_PI_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -676,6 +868,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_3_PI_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -685,6 +880,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_4_PI_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -694,6 +892,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_5_PI_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -703,6 +904,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_6_PI_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -712,6 +916,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_7_PI_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -721,6 +928,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_8_PI_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -730,6 +940,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_9_PI_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -739,6 +952,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Pre/2024_11_18_M1_Field_10_PI_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -753,6 +969,9 @@ to_do_list = [
     ['PI_PP/Homo_A50C_C_Post/2024_11_18_M2_Field_4_PI_0002_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -762,6 +981,9 @@ to_do_list = [
     ['PI_PP/Homo_A50C_C_Post/2024_11_18_M2_Field_5_PI_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -771,6 +993,9 @@ to_do_list = [
     ['PI_PP/Homo_A50C_C_Post/2024_11_18_M2_Field_6_PI_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -780,6 +1005,9 @@ to_do_list = [
     ['PI_PP/Homo_A50C_C_Post/2024_11_18_M2_Field_7_PI_0001_ch1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -793,6 +1021,9 @@ to_do_list = [
     ['PI_PP/Homo_A50C_C_Pre/2024_11_18_M2_Field_4_PI_0002_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -802,6 +1033,9 @@ to_do_list = [
     ['PI_PP/Homo_A50C_C_Pre/2024_11_18_M2_Field_5_PI_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -811,6 +1045,9 @@ to_do_list = [
     ['PI_PP/Homo_A50C_C_Pre/2024_11_18_M2_Field_6_PI_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -820,6 +1057,9 @@ to_do_list = [
     ['PI_PP/Homo_A50C_C_Pre/2024_11_18_M2_Field_7_PI_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -838,6 +1078,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_07_Field_2_0001_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -847,6 +1090,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_07_Field_3_0001_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -860,6 +1106,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M1_Field_3_0001_ch2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -869,6 +1118,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M1_Field_4_0001_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -882,6 +1134,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_2_0001_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
@@ -891,6 +1146,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_3_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -900,6 +1158,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_4_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -909,6 +1170,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_5_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -918,6 +1182,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_6_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -927,6 +1194,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_7_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -936,6 +1206,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_8_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -945,6 +1218,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_9_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -954,6 +1230,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_10_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -963,6 +1242,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_11_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -972,6 +1254,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_12_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -981,6 +1266,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M2_Field_13_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -995,6 +1283,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1004,6 +1295,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_3_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1013,6 +1307,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_4_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1022,6 +1319,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_5_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1031,6 +1331,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_6_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1040,6 +1343,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_7_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1049,6 +1355,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_8_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1058,6 +1367,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_9_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1067,6 +1379,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_11_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1076,6 +1391,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_12_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1085,6 +1403,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_13_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1094,6 +1415,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_14_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1103,6 +1427,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_08_M3_Field_15_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1117,6 +1444,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1126,6 +1456,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1135,6 +1468,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_3_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1144,6 +1480,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_4_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1153,6 +1492,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_5_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1162,6 +1504,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_6_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1171,6 +1516,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_7_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1180,6 +1528,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_8_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1189,6 +1540,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_9_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1198,6 +1552,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_10_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1207,6 +1564,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_11_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1216,6 +1576,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_12_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1225,6 +1588,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_13_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1234,6 +1600,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_10_Field_14_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1248,6 +1617,9 @@ to_do_list = [
          'output_suffix': '_Control',
          'vertical_shift_of_trig': 1,
          'SD_filter_of_trig': 1,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1262,6 +1634,9 @@ to_do_list = [
          'output_suffix': '_Bicuculine_20uM',
          'vertical_shift_of_trig': 1,
          'SD_filter_of_trig': 1,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1276,6 +1651,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_11_Field_1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1285,6 +1663,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_11_Field_4_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1294,6 +1675,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_11_Field_7_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1303,6 +1687,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_11_Field_9_2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1312,6 +1699,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_11_Field_10_registered.tif',
      {
          'n_epochs': 5,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1321,6 +1711,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad100C_C_Pre/2024_10_11_Field_10_2_registered.tif',
      {
          'n_epochs': 5,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1330,6 +1723,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Pre/2024_10_11_Field_10_3_registered.tif',
      {
          'n_epochs': 5,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1339,6 +1735,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_11_Field_11_registered.tif',
      {
          'n_epochs': 5,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1348,6 +1747,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_11_Field_12_registered.tif',
      {
          'n_epochs': 5,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1357,6 +1759,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2024_10_11_Field_13_registered.tif',
      {
          'n_epochs': 5,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1366,6 +1771,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad100C_C_Pre/2024_10_11_Field_14_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1375,6 +1783,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad100C_C_Pre/2024_10_11_Field_15_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1388,6 +1799,9 @@ to_do_list = [
          'output_suffix': '_Control',
          'vertical_shift_of_trig': 1,
          'SD_filter_of_trig': 1,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1402,6 +1816,9 @@ to_do_list = [
          'output_suffix': '_Bicuculine_20uM',
          'vertical_shift_of_trig': 1,
          'SD_filter_of_trig': 1,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1415,6 +1832,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Pre/2024_10_15_Field_1_registered.tif',
      {
          'n_epochs': 5,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1424,6 +1844,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Pre/2024_10_15_Field_2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1434,6 +1857,9 @@ to_do_list = [
      {
          'n_epochs': 10,
          'trig_number': 1,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1443,6 +1869,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Pre/2024_10_15_Field_4_1_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1452,6 +1881,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Pre/2024_10_15_Field_4_2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1461,6 +1893,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Pre/2024_10_15_Field_4_3_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1470,6 +1905,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Pre/2024_10_15_Field_4_4_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1479,6 +1917,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Pre/2024_10_15_Field_5_0001_registered.tif',
      {
          'n_epochs': 28,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1488,6 +1929,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad50C_C_Pre/2024_10_15_Field_6_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1497,6 +1941,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad100C_C_Pre/2024_10_15_Field_7_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1506,6 +1953,9 @@ to_do_list = [
     ['PI_PP/Homo_Ad100C_C_Pre/2024_10_15_Field_9_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1516,6 +1966,9 @@ to_do_list = [
      {
          'trig_number': 1,
          'n_epochs': 12,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1529,6 +1982,9 @@ to_do_list = [
          'output_suffix': '_Control',
          'vertical_shift_of_trig': 1,
          'SD_filter_of_trig': 1,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1543,6 +1999,9 @@ to_do_list = [
          'output_suffix': '_CNQX_20uM',
          'vertical_shift_of_trig': 1,
          'SD_filter_of_trig': 1,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1557,6 +2016,9 @@ to_do_list = [
          'output_suffix': '_WO',
          'vertical_shift_of_trig': 1,
          'SD_filter_of_trig': 1,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1570,6 +2032,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2025_02_06_Field_3_0001_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1579,6 +2044,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2025_02_06_Field_4_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1588,6 +2056,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2025_02_06_Field_5_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1601,6 +2072,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2025_02_07_Field_2_DRS_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1610,6 +2084,9 @@ to_do_list = [
     ['PI_PP/Homo_A100C_C_Pre/2025_02_07_Field_4_DRS_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1619,6 +2096,9 @@ to_do_list = [
     ['PI_PP/Homo_A50C_C_Pre/2025_02_07_Field_5_DRS_registered.tif',
      {
          'n_epochs': 5,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1629,6 +2109,9 @@ to_do_list = [
      {
          'trig_number': 1,
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1642,6 +2125,9 @@ to_do_list = [
          'output_suffix': '_Control',
          'vertical_shift_of_trig': 1,
          'SD_filter_of_trig': 1,
+         'sync_coef': -0.0029,    # quirk specific to this movie 
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1656,6 +2142,9 @@ to_do_list = [
          'output_suffix': '_CNQX_20uM_AP5_100uM',
          'vertical_shift_of_trig': 1,
          'SD_filter_of_trig': 1,
+         'sync_coef': -0.0029,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1673,6 +2162,9 @@ to_do_list = [
     ['PI_PP/Homo_A50C_C_Pre/2025_08_22_Field_1_Dynorphin_application_registered.tif',
      {
          'trig_number': 3,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'n_epochs': 10,
@@ -1687,6 +2179,9 @@ to_do_list = [
     ['PI_PP/Homo_A50C_C_Pre/2025_08_25_Field_1_Dynorphin_application_registered.tif',
      {
          'trig_number': 3,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'n_epochs': 10,
@@ -1697,6 +2192,9 @@ to_do_list = [
     ['PI_PP/Homo_A50C_C_Pre/2025_08_25_Field_2_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1706,6 +2204,9 @@ to_do_list = [
     ['PI_PP/Homo_A50C_C_Pre/2025_08_25_Field_3_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1715,6 +2216,9 @@ to_do_list = [
     ['PI_PP/Homo_A50C_C_Pre/2025_08_25_Field_4_registered.tif',
      {
          'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'drs_pattern': [[1, 0],  # stim#1
@@ -1728,6 +2232,9 @@ to_do_list = [
     ['PI_PP/Homo_A50C_C_Pre/2025_08_26_Field_1_registered.tif',
      {
          'trig_number': 3,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
          'stim_1_name': 'A',
          'stim_2_name': 'C',
          'n_epochs': 10,
@@ -1788,6 +2295,9 @@ if __name__ == '__main__':
 
         time_before_trig,
         baseline_duraton,
+        sync_coef,
+        frame_lag_derivatives,
+
         sigmas_treshold,
         vertical_shift,
         vertical_shift_of_trig,
@@ -1795,4 +2305,6 @@ if __name__ == '__main__':
         time_after_trig,
         multiprocessing,
         processes_limit,
+
     )
+
