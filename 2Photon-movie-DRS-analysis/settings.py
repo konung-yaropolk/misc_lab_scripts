@@ -79,26 +79,26 @@ processes_limit = 10
 
 to_do_list = [
 
-    # ['Sample_1_.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
+    ['Sample_1_.tif',
+     {
+         'n_epochs': 10,
+         'stim_1_name': 'A',
+         'stim_2_name': 'C',
+         'drs_pattern': [[1, 0],  # stim#1
+                         [1, 1]]  # stim#2
+     }
+     ],
 
-    # ['Sample_2_.tif',
-    #  {
-    #      'n_epochs': 10,
-    #      'start_from_epoch': 1,
-    #      'stim_1_name': 'A',
-    #      'stim_2_name': 'C',
-    #      'drs_pattern': [[1, 0],  # stim#1
-    #                      [1, 1]]  # stim#2
-    #  }
-    #  ],
+    ['Sample_2_.tif',
+     {
+         'n_epochs': 10,
+         'start_from_epoch': 1,
+         'stim_1_name': 'A',
+         'stim_2_name': 'C',
+         'drs_pattern': [[1, 0],  # stim#1
+                         [1, 1]]  # stim#2
+     }
+     ],
 
     ['Sample_3_.tif',
      {

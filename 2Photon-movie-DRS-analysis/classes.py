@@ -205,6 +205,7 @@ class Helpers:
                     color=event_linecolor,
                     linestyle=event_linestyle,
                     linewidth=linewidth * 0.5,
+                    alpha=1,
                     zorder=1,
                 )
             elif isinstance(event, list) or isinstance(event, tuple):
@@ -405,7 +406,8 @@ class Debug:
             ),
             linewidth=0.5,
             alpha=0.8,
-            event_linecolor="magenta",
+            event_linecolor="red",
+            event_linestyle="-",
             avg_linecolor="darkcyan",
             dpi=400,
         )
