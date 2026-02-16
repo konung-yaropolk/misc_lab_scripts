@@ -1,2 +1,2 @@
-AutoStatLib>=0.2.21
+AutoStatLib>=0.2.27
 tiffile
