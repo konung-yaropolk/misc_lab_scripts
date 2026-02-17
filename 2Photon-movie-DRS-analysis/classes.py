@@ -355,19 +355,19 @@ class Debug:
             figsize=(10, 5),
         )
 
-        self.plot_traces(
-            x[start:end],
-            y2,
-            events2,
-            f"{self.path}/{self.file}{DERIVATIVES_SUBFOLDER_NAME}{self.output_suffix}/debug/debug_sync_{self.file_nosuffix}{self.output_suffix}.png",
-            linewidth=0.5,
-            fillcolor="violet",
-            event_linecolor="orchid",
-            event_linestyle="-",
-            avg_linecolor="darkcyan",
-            alpha=1,
-            dpi=150,
-        )
+        # self.plot_traces(
+        #     x[start:end],
+        #     y2,
+        #     events2,
+        #     f"{self.path}/{self.file}{DERIVATIVES_SUBFOLDER_NAME}{self.output_suffix}/debug/debug_sync_{self.file_nosuffix}{self.output_suffix}.png",
+        #     linewidth=0.5,
+        #     fillcolor="violet",
+        #     event_linecolor="orchid",
+        #     event_linestyle="-",
+        #     avg_linecolor="darkcyan",
+        #     alpha=1,
+        #     dpi=150,
+        # )
 
     def debug_sync_during_trace_calculation(self, csv_path, output_dir):
 
