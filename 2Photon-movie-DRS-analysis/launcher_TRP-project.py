@@ -41,6 +41,15 @@ vertical_shift_of_trig = 0
 # use binarization based on SD from this trig to compare the same ROIs
 SD_filter_of_trig = 0
 
+# Use all available CPU cores.
+# Faster, but need much more RAM so can be unstable.
+# Multiprocessing mode have a better error handling.
+multiprocessing = False
+
+# Maximum size of multiprocessing pull
+# Set the maximum of processes if there isn't enough RAM
+# Set 0 or None to use as many processes as possible
+processes_limit = 12
 
 # Params explanation:
 #

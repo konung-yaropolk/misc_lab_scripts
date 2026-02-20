@@ -55,7 +55,8 @@ SD_filter_of_trig = 0
 
 # Use all available CPU cores.
 # Faster, but need much more RAM so can be unstable.
-multiprocessing = False
+# Multiprocessing mode have a better error handling.
+multiprocessing = True
 
 # Maximum size of multiprocessing pull
 # Set the maximum of processes if there isn't enough RAM
