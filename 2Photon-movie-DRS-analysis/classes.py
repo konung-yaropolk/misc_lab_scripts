@@ -1440,7 +1440,7 @@ class DerivativesCalc(Helpers, Logging, Debug):
 
         # Compute derivatives along z-axis
         dz = gaussian_filter(
-            image_stack[start:end], sigma=[sigma, sigma / 2, sigma / 2], order=[1, 0, 0]
+            image_stack[start:end], sigma=[sigma,  sigma,  sigma], order=[1, 0, 0]
         )
 
         return dz

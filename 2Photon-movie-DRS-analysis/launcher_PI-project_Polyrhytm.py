@@ -56,7 +56,7 @@ SD_filter_of_trig = 0
 # Use all available CPU cores.
 # Faster, but need much more RAM so can be unstable.
 # Multiprocessing mode have a better error handling.
-multiprocessing = True
+multiprocessing = False
 
 # Maximum size of multiprocessing pull
 # Set the maximum of processes if there isn't enough RAM
@@ -81,7 +81,7 @@ processes_limit = 12
 to_do_list = [
 
 
-    ####### 2024_04_19 ###################################################
+    ###### 2024_04_19 ###################################################
 
     ['PI_PP/Homo_A100C_C_Pre/2024_04_19_Field_1_0001_registered.tif',
      {
