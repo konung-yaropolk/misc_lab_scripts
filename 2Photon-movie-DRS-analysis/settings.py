@@ -108,7 +108,7 @@ to_do_list = [
          'output_suffix': '_Control',
          'stim_1_name': 'L5-C',
          'stim_2_name': 'L4-C',
-         'n_epochs': 10,
+         'n_epochs': 11,
          'resp_duration': 0.8,
          'sync_coef': -0.003,
          'vertical_shift_of_trig': 0,
