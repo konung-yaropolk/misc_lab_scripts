@@ -4,7 +4,7 @@
 
 # Params for Derivatives Calculation:
 run_derivatives_calculation = True
-working_dir = 'sample/'
+working_dir = 'misc_lab_scripts/2Photon-movie-DRS-analysis/sample/'
 
 
 stim_1_name = '#1'
@@ -103,10 +103,31 @@ to_do_list = [
     ['Sample_3_.tif',
      {
          'trig_number': 1,
+         'start_from_epoch': 1,
          'output_suffix': '_Control',
          'stim_1_name': 'L5-C',
          'stim_2_name': 'L4-C',
          'n_epochs': 10,
+         'resp_duration': 0.8,
+         'sync_coef': -0.003,
+         'vertical_shift_of_trig': 0,
+         'SD_filter_of_trig': 0,
+         'drs_pattern': [[1, 0],  # stim#1
+                         [0, 1]]  # stim#2
+     }
+     ],
+    ['Sample_3_.tif',
+     {
+         'trig_number': 13,
+         'start_from_epoch': 1,
+         'output_suffix': '_Application',
+         'stim_1_name': 'L5-C',
+         'stim_2_name': 'L4-C',
+         'n_epochs': 10,
+         'resp_duration': 0.8,
+         'sync_coef': -0.003,
+         'vertical_shift_of_trig': 1,
+         'SD_filter_of_trig': 1,
          'drs_pattern': [[1, 0],  # stim#1
                          [0, 1]]  # stim#2
      }
