@@ -14,7 +14,7 @@ from PIL import Image
 import tifffile
 import AutoStatLib
 
-import settings as s
+import cc as s
 
 # Defaults:
 

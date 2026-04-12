@@ -1,0 +1,159 @@
+#!/usr/bin/env python3
+# Default Settings block
+# Theese parameters will be used if not specified in the launchers
+
+# Params for Derivatives Calculation:
+run_derivatives_calculation = True
+working_dir = 'F:/Lab Work Files/2-photon/'
+
+
+stim_1_name = 'step1'
+stim_2_name = 'step2'
+output_suffix = '_'
+drs_pattern = [[0],  # stim #1
+               [1]]  # stim #2
+
+n_epochs = 1
+resp_duration = 0.8   # in sec, expected response duration
+step_duration = 10  # in sec
+
+
+# Params for Traces Calculation:
+# process all csv files with traces in the WORKING_DIR directory:
+run_traces_calculation = False
+
+relative_values = True
+mean_col_order = 2
+cols_per_roi = 4
+
+time_before_trig = 10
+baseline_duraton = 10
+sigmas_treshold = 5
+time_after_trig = None
+
+
+# Adjust the sampling interval to account for the
+# clock synchronization of the microscope's hardware and PC
+# Coefficient estimated experimentally
+# -0.0031556459008686036  more precise
+# -0.0029183722446345     old one estimation
+# -0.00313                compromise
+sync_coef = -0.0029
+
+# lag in frames to calculate derivatives, to avoid artifacts at the edges of epochs
+frame_lag_derivatives = -1
+
+# vertical vertical_shift for all-traces graph in dF/F0 units,
+# set 0 to make vertical_shift the same as largest responce
+vertical_shift = 1.5
+
+# use vertical shift from this trig to plot in the same scales
+vertical_shift_of_trig = 0
+
+# use binarization based on SD from this trig to compare the same ROIs
+SD_filter_of_trig = 0
+
+# Use all available CPU cores.
+# Faster, but need much more RAM so can be unstable.
+# Multiprocessing mode have a better error handling.
+multiprocessing = False
+
+# Maximum size of multiprocessing pull
+# Set the maximum of processes if there isn't enough RAM
+# Set 0 or None to use as many processes as possible
+processes_limit = 12
+
+
+# Params explanation:
+#
+# 'drs_pattern'       : [[1, 0, 1, 0, 1, 0],  # stim#1
+#                        [0, 1, 0, 0, 1, 0]]  # stim#2
+# 'resp_duration'     : float in sec, expected response duration
+# 'output_suffix'     : str
+# 'step_duration'     : float in sec
+# 'n_epochs'          : int > 0
+# 'start_from_epoch'  : int > 0
+# 'trig_number'       : int > 0
+# 'stim_1_name'       : str
+# 'stim_2_name'       : str
+
+
+to_do_list = [
+
+
+Field_1_temperature+capsaicin_exp_registered_full
+
+
+    ['PI_PP/Homo_A100C_C_Pre/Field_1_temperature+capsaicin_exp_registered_full.tif',
+     {
+         'trig_number': 2,
+         'n_epochs': 10,
+         'sync_coef': -0.003,
+         'frame_lag_derivatives': -1,
+         'resp_duration': 0.8,
+         'stim_1_name': 'A',
+         'stim_2_name': 'C',
+         'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
+                         [0, 1, 0, 0, 1, 0]]  # stim#2
+     }
+     ],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]
+
+
+if __name__ == '__main__':
+    import classes
+    classes.main(
+        working_dir,
+        to_do_list,
+
+        run_derivatives_calculation,
+        run_traces_calculation,
+
+        resp_duration,
+        step_duration,
+        n_epochs,
+        drs_pattern,
+
+        stim_1_name,
+        stim_2_name,
+
+        relative_values,
+        mean_col_order,
+        cols_per_roi,
+
+        time_before_trig,
+        baseline_duraton,
+        sync_coef,
+        frame_lag_derivatives,
+
+        sigmas_treshold,
+        vertical_shift,
+        vertical_shift_of_trig,
+        SD_filter_of_trig,
+        time_after_trig,
+        multiprocessing,
+        processes_limit,
+
+    )
+
