@@ -1,9 +1,0 @@
-{
-  "repetitions": 5,
-  "actions": [
-
-    {"type": "click",  "x": 1234, "y": 567,  "delay": 1.5},
-    {"type": "type",   "text": "FFField_1_Z-overview_1040nm_slice_{rep}", "delay": 2.0}
-
-  ]
-}
