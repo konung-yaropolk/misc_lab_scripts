@@ -4,7 +4,7 @@
 
 # Params for Derivatives Calculation:
 run_derivatives_calculation = True
-working_dir = 'F:/Lab Work Files/2-photon/'
+working_dir = 'F:/LabWork/2-photon/'
 
 
 stim_1_name = 'step1'
