@@ -3,7 +3,7 @@
 # Theese parameters will be used if not specified in the launchers
 
 # Params for Derivatives Calculation:
-run_derivatives_calculation = True
+run_derivatives_calculation = False
 working_dir = 'F:/LabWork/2-photon/'
 
 
@@ -20,7 +20,7 @@ step_duration = 10  # in sec
 
 # Params for Traces Calculation:
 # process all csv files with traces in the WORKING_DIR directory:
-run_traces_calculation = False
+run_traces_calculation = True
 
 relative_values = True
 mean_col_order = 2
@@ -173,66 +173,66 @@ to_do_list = [
                          [0, 1, 0, 0, 1, 0]]  # stim#2
      }
      ],
-    ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_2_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'sync_coef': -0.003,
-         'frame_lag_derivatives': -1,
-         'resp_duration': 0.8,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
-                         [0, 1, 0, 0, 1, 0]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_3_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'sync_coef': -0.003,
-         'frame_lag_derivatives': -1,
-         'resp_duration': 0.8,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
-                         [0, 1, 0, 0, 1, 0]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_4_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'sync_coef': -0.003,
-         'frame_lag_derivatives': -1,
-         'resp_duration': 0.8,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_5_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'sync_coef': -0.003,
-         'frame_lag_derivatives': -1,
-         'resp_duration': 0.8,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
-    ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_6_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'sync_coef': -0.003,
-         'frame_lag_derivatives': -1,
-         'resp_duration': 0.8,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
-                         [0, 1, 0, 1, 0, 1]]  # stim#2
-     }
-     ],
+    # ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_2_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'sync_coef': -0.003,
+    #      'frame_lag_derivatives': -1,
+    #      'resp_duration': 0.8,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
+    #                      [0, 1, 0, 0, 1, 0]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_3_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'sync_coef': -0.003,
+    #      'frame_lag_derivatives': -1,
+    #      'resp_duration': 0.8,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
+    #                      [0, 1, 0, 0, 1, 0]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_4_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'sync_coef': -0.003,
+    #      'frame_lag_derivatives': -1,
+    #      'resp_duration': 0.8,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_5_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'sync_coef': -0.003,
+    #      'frame_lag_derivatives': -1,
+    #      'resp_duration': 0.8,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
+    # ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_6_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'sync_coef': -0.003,
+    #      'frame_lag_derivatives': -1,
+    #      'resp_duration': 0.8,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 0, 1, 0, 0],  # stim#1
+    #                      [0, 1, 0, 1, 0, 1]]  # stim#2
+    #  }
+    #  ],
 
 
 

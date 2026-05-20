@@ -81,7 +81,7 @@ processes_limit = 12
 to_do_list = [
 
 
-Field_1_temperature+capsaicin_exp_registered_full
+# Field_1_temperature+capsaicin_exp_registered_full
 
 
     ['PI_PP/Homo_A100C_C_Pre/Field_1_temperature+capsaicin_exp_registered_full.tif',
