@@ -161,18 +161,18 @@ to_do_list = [
 
     ######### 2024_04_23_ch1 ###################################################
 
-    ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_1_0001_ch1_registered.tif',
-     {
-         'n_epochs': 10,
-         'sync_coef': -0.003,
-         'frame_lag_derivatives': -1,
-         'resp_duration': 0.8,
-         'stim_1_name': 'A',
-         'stim_2_name': 'C',
-         'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
-                         [0, 1, 0, 0, 1, 0]]  # stim#2
-     }
-     ],
+    # ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_1_0001_ch1_registered.tif',
+    #  {
+    #      'n_epochs': 10,
+    #      'sync_coef': -0.003,
+    #      'frame_lag_derivatives': -1,
+    #      'resp_duration': 0.8,
+    #      'stim_1_name': 'A',
+    #      'stim_2_name': 'C',
+    #      'drs_pattern': [[1, 0, 1, 0, 1, 0],  # stim#1
+    #                      [0, 1, 0, 0, 1, 0]]  # stim#2
+    #  }
+    #  ],
     # ['PI_PP/Homo_A100C_C_Post/2024_04_23_Field_2_0001_ch1_registered.tif',
     #  {
     #      'n_epochs': 10,
